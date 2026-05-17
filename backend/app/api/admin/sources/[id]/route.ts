@@ -38,12 +38,12 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
   const body = await request.json();
 
   const updateData: Record<string, unknown> = {};
-  if (body.url !== undefined) updateData.url = body.url;
-  if (body.label !== undefined) updateData.label = body.label;
-  if (body.isPrimary !== undefined) updateData.isPrimary = body.isPrimary;
-  if (body.status !== undefined) updateData.status = body.status;
-  if (body.notes !== undefined) updateData.notes = body.notes;
-  updateData.updatedAt = new Date();
+  if (body['url'] !== undefined) updateData['url'] = body['url'];
+  if (body['label'] !== undefined) updateData['label'] = body['label'];
+  if (body['isPrimary'] !== undefined) updateData['isPrimary'] = body['isPrimary'];
+  if (body['status'] !== undefined) updateData['status'] = body['status'];
+  if (body['notes'] !== undefined) updateData['notes'] = body['notes'];
+  updateData['updatedAt'] = new Date();
 
   const [updated] = await db
     .update(pkgSources)

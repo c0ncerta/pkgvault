@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
   }
 
   // If body has "reportId", it's a review action (mod only)
-  if ((body as Record<string, unknown>).reportId) {
+  if ((body as Record<string, unknown>)['reportId']) {
     await requireRole("mod");
 
     const parsed = reviewReportSchema.safeParse(body);

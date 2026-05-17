@@ -154,7 +154,6 @@ export function NewThreadForm() {
               <button
                 type="button"
                 key={cat.value}
-                type="button"
                 onClick={() => setCategory(cat.value)}
                 className="tag"
                 style={{
@@ -182,7 +181,6 @@ export function NewThreadForm() {
             <button
               type="button"
               key={t.label}
-              type="button"
               className="btn-ghost"
               title={t.label}
               style={{ padding: "6px 10px", fontSize: "0.85rem", minWidth: 32 }}
