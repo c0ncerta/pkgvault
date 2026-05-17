@@ -114,7 +114,7 @@ export function NewThreadForm() {
         {/* Toolbar */}
         <GlassCard padding="6px" style={{ display: "flex", gap: 2 }}>
           {tools.map((t) => (
-            <button key={t.icon} type="button" className="btn-ghost" title={t.label} style={{ padding: "6px 10px", fontSize: "0.85rem", minWidth: 32 }}>
+            <button key={t.label} type="button" className="btn-ghost" title={t.label} style={{ padding: "6px 10px", fontSize: "0.85rem", minWidth: 32 }}>
               {t.icon}
             </button>
           ))}

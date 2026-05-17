@@ -79,8 +79,8 @@ export function ReplyForm({ threadId, parentId, onCancel }: ReplyFormProps) {
 
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div style={{ display: "flex", gap: 4 }}>
-          {tools.map((tool) => (
-            <button key={tool} type="button" className="btn-ghost" style={{ padding: "6px 10px", fontSize: "0.8rem", minWidth: 32 }}>
+          {tools.map((tool, i) => (
+            <button key={i} type="button" className="btn-ghost" style={{ padding: "6px 10px", fontSize: "0.8rem", minWidth: 32 }}>
               {tool}
             </button>
           ))}
