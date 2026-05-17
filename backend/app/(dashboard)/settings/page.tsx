@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
 import { getServerSession } from "@/lib/session";
+import type { Metadata } from "next";
 import { SettingsForm } from "./settings-form";
 
 export const metadata: Metadata = {

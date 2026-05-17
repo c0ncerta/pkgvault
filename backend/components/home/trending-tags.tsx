@@ -1,29 +1,35 @@
-import Link from "next/link";
-import { unstable_cache } from "next/cache";
-import { db } from "@/lib/db";
 import { games, pkgFiles } from "@/db/schema";
-import { eq, sql, desc } from "drizzle-orm";
+import { db } from "@/lib/db";
+import { desc, eq, sql } from "drizzle-orm";
+import { unstable_cache } from "next/cache";
+import Link from "next/link";
 
 const getTrendingTags = unstable_cache(
   async () => {
     return await Promise.all([
-      db.select({
-        platform: games.platform,
-        count: sql<number>`count(${pkgFiles.id})::int`,
-      })
+      db
+        .select({
+          platform: games.platform,
+          count: sql<number>`count(${pkgFiles.id})::int`,
+        })
         .from(pkgFiles)
         .innerJoin(games, eq(pkgFiles.gameId, games.id))
-        .where(sql`${pkgFiles.deletedAt} IS NULL AND ${pkgFiles.status} = 'approved' AND ${games.platform} IS NOT NULL`)
+        .where(
+          sql`${pkgFiles.deletedAt} IS NULL AND ${pkgFiles.status} = 'approved' AND ${games.platform} IS NOT NULL`,
+        )
         .groupBy(games.platform)
         .orderBy(desc(sql`count(${pkgFiles.id})`))
         .limit(8),
-      db.select({
-        region: games.region,
-        count: sql<number>`count(${pkgFiles.id})::int`,
-      })
+      db
+        .select({
+          region: games.region,
+          count: sql<number>`count(${pkgFiles.id})::int`,
+        })
         .from(pkgFiles)
         .innerJoin(games, eq(pkgFiles.gameId, games.id))
-        .where(sql`${pkgFiles.deletedAt} IS NULL AND ${pkgFiles.status} = 'approved' AND ${games.region} IS NOT NULL`)
+        .where(
+          sql`${pkgFiles.deletedAt} IS NULL AND ${pkgFiles.status} = 'approved' AND ${games.region} IS NOT NULL`,
+        )
         .groupBy(games.region)
         .orderBy(desc(sql`count(${pkgFiles.id})`))
         .limit(6),
@@ -44,8 +50,12 @@ export async function HomeTrendingTags() {
     // DB offline
   }
 
-  const platforms = rawPlatforms.filter((p): p is { platform: string; count: number } => p.platform !== null);
-  const regions = rawRegions.filter((r): r is { region: string; count: number } => r.region !== null);
+  const platforms = rawPlatforms.filter(
+    (p): p is { platform: string; count: number } => p.platform !== null,
+  );
+  const regions = rawRegions.filter(
+    (r): r is { region: string; count: number } => r.region !== null,
+  );
   const max = Math.max(1, ...platforms.map((p) => p.count));
 
   return (
@@ -56,7 +66,16 @@ export async function HomeTrendingTags() {
 
       {platforms.length > 0 && (
         <div>
-          <div style={{ fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-text-muted)", fontWeight: 600, marginBottom: 8 }}>
+          <div
+            style={{
+              fontSize: "0.7rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.1em",
+              color: "var(--color-text-muted)",
+              fontWeight: 600,
+              marginBottom: 8,
+            }}
+          >
             Platforms
           </div>
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
@@ -67,17 +86,26 @@ export async function HomeTrendingTags() {
                   key={p.platform}
                   href={`/catalog?platform=${encodeURIComponent(p.platform)}`}
                   style={{
-                    padding: "5px 11px", borderRadius: 999,
+                    padding: "5px 11px",
+                    borderRadius: 999,
                     background: "rgba(99, 102, 241, 0.08)",
                     border: "1px solid rgba(99, 102, 241, 0.15)",
                     color: "var(--color-text-primary)",
-                    fontSize: `${size}rem`, fontWeight: 500,
+                    fontSize: `${size}rem`,
+                    fontWeight: 500,
                     textDecoration: "none",
                     transition: "all 0.15s",
                   }}
                 >
                   {p.platform}
-                  <span style={{ marginLeft: 6, fontSize: "0.65rem", color: "var(--color-text-muted)", fontFamily: "var(--font-mono)" }}>
+                  <span
+                    style={{
+                      marginLeft: 6,
+                      fontSize: "0.65rem",
+                      color: "var(--color-text-muted)",
+                      fontFamily: "var(--font-mono)",
+                    }}
+                  >
                     {p.count}
                   </span>
                 </Link>
@@ -89,7 +117,16 @@ export async function HomeTrendingTags() {
 
       {regions.length > 0 && (
         <div>
-          <div style={{ fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-text-muted)", fontWeight: 600, marginBottom: 8 }}>
+          <div
+            style={{
+              fontSize: "0.7rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.1em",
+              color: "var(--color-text-muted)",
+              fontWeight: 600,
+              marginBottom: 8,
+            }}
+          >
             Regions
           </div>
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
@@ -98,7 +135,8 @@ export async function HomeTrendingTags() {
                 key={r.region}
                 href={`/catalog?q=${encodeURIComponent(r.region)}`}
                 style={{
-                  padding: "4px 10px", borderRadius: 999,
+                  padding: "4px 10px",
+                  borderRadius: 999,
                   background: "rgba(139, 92, 246, 0.06)",
                   border: "1px solid rgba(139, 92, 246, 0.12)",
                   color: "var(--color-text-secondary)",
@@ -106,7 +144,10 @@ export async function HomeTrendingTags() {
                   textDecoration: "none",
                 }}
               >
-                {r.region} <span style={{ color: "var(--color-text-muted)", fontFamily: "var(--font-mono)" }}>{r.count}</span>
+                {r.region}{" "}
+                <span style={{ color: "var(--color-text-muted)", fontFamily: "var(--font-mono)" }}>
+                  {r.count}
+                </span>
               </Link>
             ))}
           </div>

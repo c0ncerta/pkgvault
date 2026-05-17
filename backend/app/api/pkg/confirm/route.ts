@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
 import { pkgFiles } from "@/db/schema";
+import { db } from "@/lib/db";
 import { getServerSession } from "@/lib/session";
 import { uploadConfirmSchema } from "@/lib/validations/pkg";
-import { eq, and } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
+import { type NextRequest, NextResponse } from "next/server";
 
 /**
  * POST /api/pkg/confirm — Confirm upload completed, provide SHA256.
@@ -36,26 +36,15 @@ export async function POST(request: NextRequest) {
   const [file] = await db
     .select()
     .from(pkgFiles)
-    .where(
-      and(
-        eq(pkgFiles.id, fileId),
-        eq(pkgFiles.uploaderId, session.user.id),
-      ),
-    )
+    .where(and(eq(pkgFiles.id, fileId), eq(pkgFiles.uploaderId, session.user.id)))
     .limit(1);
 
   if (!file) {
-    return NextResponse.json(
-      { error: "File not found or access denied" },
-      { status: 404 },
-    );
+    return NextResponse.json({ error: "File not found or access denied" }, { status: 404 });
   }
 
   if (file.sha256 !== "pending") {
-    return NextResponse.json(
-      { error: "File already confirmed" },
-      { status: 409 },
-    );
+    return NextResponse.json({ error: "File already confirmed" }, { status: 409 });
   }
 
   // Check for SHA256 duplicate (dedup)

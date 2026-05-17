@@ -1,8 +1,8 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { type ReactNode } from "react";
+import { usePathname } from "next/navigation";
+import type { ReactNode } from "react";
 
 /**
  * Route-change transition wrapper.

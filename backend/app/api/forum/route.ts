@@ -1,11 +1,11 @@
-import { NextRequest, NextResponse } from "next/server";
+import { forumPosts, forumThreads, users } from "@/db/schema";
 import { db } from "@/lib/db";
-import { forumThreads, forumPosts, users } from "@/db/schema";
-import { getServerSession } from "@/lib/session";
-import { createThreadSchema, threadListSchema } from "@/lib/validations/forum";
 import { rateLimit } from "@/lib/rate-limit";
-import { eq, desc, asc, sql, and } from "drizzle-orm";
+import { getServerSession } from "@/lib/session";
 import { generateId } from "@/lib/utils";
+import { createThreadSchema, threadListSchema } from "@/lib/validations/forum";
+import { and, desc, eq, sql } from "drizzle-orm";
+import { type NextRequest, NextResponse } from "next/server";
 
 /**
  * GET /api/forum — List forum threads
@@ -13,9 +13,7 @@ import { generateId } from "@/lib/utils";
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
 
-  const parsed = threadListSchema.safeParse(
-    Object.fromEntries(searchParams.entries()),
-  );
+  const parsed = threadListSchema.safeParse(Object.fromEntries(searchParams.entries()));
   if (!parsed.success) {
     return NextResponse.json(
       { error: "Invalid parameters", details: parsed.error.flatten() },
@@ -60,10 +58,7 @@ export async function GET(request: NextRequest) {
       .orderBy(desc(forumThreads.isPinned), sortColumn)
       .limit(limit)
       .offset(offset),
-    db
-      .select({ count: sql<number>`count(*)` })
-      .from(forumThreads)
-      .where(where),
+    db.select({ count: sql<number>`count(*)` }).from(forumThreads).where(where),
   ]);
 
   const total = countResult[0]?.count ?? 0;

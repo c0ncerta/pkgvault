@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
 import { pkgFiles } from "@/db/schema";
+import { db } from "@/lib/db";
 import { requireRole } from "@/lib/session";
-import { eq, sql, and } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
+import { type NextRequest, NextResponse } from "next/server";
 
 /**
  * GET /api/admin/queue — Moderation queue (pending PKG files)
@@ -84,11 +84,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const [file] = await db
-    .select()
-    .from(pkgFiles)
-    .where(eq(pkgFiles.id, fileId))
-    .limit(1);
+  const [file] = await db.select().from(pkgFiles).where(eq(pkgFiles.id, fileId)).limit(1);
 
   if (!file) {
     return NextResponse.json({ error: "File not found" }, { status: 404 });

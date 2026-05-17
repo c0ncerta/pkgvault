@@ -1,15 +1,12 @@
-import { NextRequest, NextResponse } from "next/server";
+import { games, pkgFiles } from "@/db/schema";
 import { db } from "@/lib/db";
-import { pkgFiles, games } from "@/db/schema";
-import { eq, and, sql, desc } from "drizzle-orm";
+import { and, desc, eq, sql } from "drizzle-orm";
+import { type NextRequest, NextResponse } from "next/server";
 
 /**
  * GET /api/user/[id]/pkgs — PKGs uploaded by a user
  */
-export async function GET(
-  _request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function GET(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
   const data = await db

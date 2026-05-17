@@ -1,13 +1,15 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
-import { useRouter } from "next/navigation";
 import { GlassCard } from "@/components/liquid/glass";
-import { IconSearch, IconCatalog } from "@/components/ui/icons";
+import { IconCatalog, IconSearch } from "@/components/ui/icons";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export function SearchBar() {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<Array<{ id: string; title: string; platform?: string }>>([]);
+  const [results, setResults] = useState<Array<{ id: string; title: string; platform?: string }>>(
+    [],
+  );
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -24,7 +26,11 @@ export function SearchBar() {
   }, []);
 
   const doSearch = useCallback(async (q: string) => {
-    if (q.length < 2) { setResults([]); setOpen(false); return; }
+    if (q.length < 2) {
+      setResults([]);
+      setOpen(false);
+      return;
+    }
     setLoading(true);
     try {
       const res = await fetch(`/api/pkg?q=${encodeURIComponent(q)}&limit=5`);
@@ -33,7 +39,9 @@ export function SearchBar() {
         setResults(json.data ?? []);
         setOpen(true);
       }
-    } catch { /* ignore */ } finally {
+    } catch {
+      /* ignore */
+    } finally {
       setLoading(false);
     }
   }, []);
@@ -52,23 +60,36 @@ export function SearchBar() {
 
   return (
     <div ref={ref} style={{ position: "relative" }}>
-      <div style={{
-        display: "flex", alignItems: "center", gap: 8,
-        padding: "0 16px", height: 38, borderRadius: 999,
-        border: "1px solid rgba(255,255,255,0.10)",
-        background: "rgba(255,255,255,0.05)",
-        boxShadow: "inset 0 2px 4px rgba(0,0,0,0.15)",
-        width: 260, transition: "border-color 0.2s, width 0.2s, background 0.2s",
-      }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          padding: "0 16px",
+          height: 38,
+          borderRadius: 999,
+          border: "1px solid rgba(255,255,255,0.10)",
+          background: "rgba(255,255,255,0.05)",
+          boxShadow: "inset 0 2px 4px rgba(0,0,0,0.15)",
+          width: 260,
+          transition: "border-color 0.2s, width 0.2s, background 0.2s",
+        }}
+      >
         <IconSearch size={14} style={{ color: "var(--color-text-muted)", flexShrink: 0 }} />
         <input
           value={query}
           onChange={(e) => handleChange(e.target.value)}
-          onFocus={() => { if (results.length > 0) setOpen(true); }}
+          onFocus={() => {
+            if (results.length > 0) setOpen(true);
+          }}
           placeholder="Search title, hash, tag…"
           style={{
-            border: "none", background: "none", outline: "none",
-            color: "var(--color-text-primary)", fontSize: "0.8rem", fontFamily: "var(--font-mono)",
+            border: "none",
+            background: "none",
+            outline: "none",
+            color: "var(--color-text-primary)",
+            fontSize: "0.8rem",
+            fontFamily: "var(--font-mono)",
             width: "100%",
           }}
         />
@@ -81,7 +102,10 @@ export function SearchBar() {
           cornerRadius={16}
           padding="4px"
           style={{
-            position: "absolute", left: 0, right: 0, top: "calc(100% + 6px)",
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: "calc(100% + 6px)",
             overflow: "hidden",
             zIndex: 100,
             animation: "fade-in 0.12s ease-out",
@@ -92,27 +116,53 @@ export function SearchBar() {
               key={r.id}
               onClick={() => handleSelect(r.id)}
               style={{
-                display: "flex", alignItems: "center", gap: 10, width: "100%",
-                padding: "10px 12px", borderRadius: 12,
-                border: "none", background: "transparent", cursor: "pointer",
-                textAlign: "left", color: "var(--color-text-primary)", fontSize: "0.85rem",
-                fontFamily: "var(--font-sans)", transition: "background 0.15s",
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                width: "100%",
+                padding: "10px 12px",
+                borderRadius: 12,
+                border: "none",
+                background: "transparent",
+                cursor: "pointer",
+                textAlign: "left",
+                color: "var(--color-text-primary)",
+                fontSize: "0.85rem",
+                fontFamily: "var(--font-sans)",
+                transition: "background 0.15s",
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(255,255,255,0.06)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
+              }}
             >
               <IconCatalog size={14} style={{ color: "var(--color-text-muted)" }} />
               <span style={{ flex: 1 }}>{r.title}</span>
-              {r.platform && <span className="tag" style={{ fontSize: "0.65rem" }}>{r.platform}</span>}
+              {r.platform && (
+                <span className="tag" style={{ fontSize: "0.65rem" }}>
+                  {r.platform}
+                </span>
+              )}
             </button>
           ))}
           <button
-            onClick={() => { router.push(`/catalog?q=${encodeURIComponent(query)}`); setOpen(false); }}
+            onClick={() => {
+              router.push(`/catalog?q=${encodeURIComponent(query)}`);
+              setOpen(false);
+            }}
             style={{
-              display: "block", width: "100%", padding: "8px 12px",
-              border: "none", background: "transparent", cursor: "pointer",
-              color: "var(--color-accent-hover)", fontSize: "0.8rem",
-              fontFamily: "var(--font-sans)", textAlign: "center",
+              display: "block",
+              width: "100%",
+              padding: "8px 12px",
+              border: "none",
+              background: "transparent",
+              cursor: "pointer",
+              color: "var(--color-accent-hover)",
+              fontSize: "0.8rem",
+              fontFamily: "var(--font-sans)",
+              textAlign: "center",
               borderTop: "1px solid rgba(255,255,255,0.04)",
             }}
           >

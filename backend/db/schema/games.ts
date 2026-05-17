@@ -1,11 +1,4 @@
-import {
-  pgTable,
-  uuid,
-  varchar,
-  text,
-  timestamp,
-  index,
-} from "drizzle-orm/pg-core";
+import { index, pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 
 // ─── Games ──────────────────────────────────────────────────
 export const games = pgTable(
@@ -18,12 +11,8 @@ export const games = pgTable(
     platform: varchar("platform", { length: 20 }), // e.g. PS4, PS5
     coverUrl: text("cover_url"),
     description: text("description"),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [
     index("games_title_idx").on(table.title),

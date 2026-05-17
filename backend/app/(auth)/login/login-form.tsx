@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { signIn } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
@@ -76,8 +76,7 @@ export function LoginForm() {
           style={inputStyle}
           onFocus={(e) => {
             e.currentTarget.style.borderColor = "#6366f1";
-            e.currentTarget.style.boxShadow =
-              "0 0 0 3px rgba(99, 102, 241, 0.15)";
+            e.currentTarget.style.boxShadow = "0 0 0 3px rgba(99, 102, 241, 0.15)";
           }}
           onBlur={(e) => {
             e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
@@ -102,8 +101,7 @@ export function LoginForm() {
           style={inputStyle}
           onFocus={(e) => {
             e.currentTarget.style.borderColor = "#6366f1";
-            e.currentTarget.style.boxShadow =
-              "0 0 0 3px rgba(99, 102, 241, 0.15)";
+            e.currentTarget.style.boxShadow = "0 0 0 3px rgba(99, 102, 241, 0.15)";
           }}
           onBlur={(e) => {
             e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";

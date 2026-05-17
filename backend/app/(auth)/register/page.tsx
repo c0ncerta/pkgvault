@@ -1,6 +1,6 @@
+import { GlassCard } from "@/components/liquid/glass";
 import type { Metadata } from "next";
 import { RegisterForm } from "./register-form";
-import { GlassCard } from "@/components/liquid/glass";
 
 export const metadata: Metadata = {
   title: "Register",
@@ -47,10 +47,7 @@ export default function RegisterPage() {
         }}
       >
         Already have an account?{" "}
-        <a
-          href="/login"
-          style={{ color: "#818cf8", textDecoration: "none", fontWeight: 500 }}
-        >
+        <a href="/login" style={{ color: "#818cf8", textDecoration: "none", fontWeight: 500 }}>
           Sign in
         </a>
       </p>

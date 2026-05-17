@@ -1,10 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
 import { pkgFiles, pkgSources } from "@/db/schema";
-import { eq, and, sql, desc } from "drizzle-orm";
-import { r2, R2_BUCKET } from "@/lib/r2";
+import { db } from "@/lib/db";
+import { R2_BUCKET, r2 } from "@/lib/r2";
 import { GetObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { and, desc, eq, sql } from "drizzle-orm";
+import { type NextRequest, NextResponse } from "next/server";
 
 /**
  * POST /api/pkg/[id]/download — Get the best download URL for a PKG
@@ -15,10 +15,7 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
  * 3. R2 presigned URL (legacy path)
  * 4. 404 if nothing available
  */
-export async function POST(
-  _request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function POST(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
   const [pkg] = await db
@@ -44,10 +41,7 @@ export async function POST(
   const sources = await db
     .select()
     .from(pkgSources)
-    .where(and(
-      eq(pkgSources.pkgId, id),
-      sql`${pkgSources.status} != 'dead'`,
-    ))
+    .where(and(eq(pkgSources.pkgId, id), sql`${pkgSources.status} != 'dead'`))
     .orderBy(
       desc(pkgSources.isPrimary),
       desc(sql`CASE ${pkgSources.provider}
@@ -61,7 +55,7 @@ export async function POST(
 
   let downloadUrl: string | null = null;
   let sourceId: string | null = null;
-  let provider: string = "unknown";
+  let provider = "unknown";
 
   const best = sources[0];
   if (best) {
@@ -96,10 +90,13 @@ export async function POST(
   }
 
   if (!downloadUrl) {
-    return NextResponse.json({
-      error: "No download sources available",
-      hint: "All download links for this PKG are currently down. Try again later.",
-    }, { status: 503 });
+    return NextResponse.json(
+      {
+        error: "No download sources available",
+        hint: "All download links for this PKG are currently down. Try again later.",
+      },
+      { status: 503 },
+    );
   }
 
   // Increment PKG download counter

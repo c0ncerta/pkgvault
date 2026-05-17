@@ -1,11 +1,11 @@
-import { NextRequest, NextResponse } from "next/server";
+import { forumPosts, forumThreads, users } from "@/db/schema";
 import { db } from "@/lib/db";
-import { forumThreads, forumPosts, users } from "@/db/schema";
-import { getServerSession } from "@/lib/session";
-import { createPostSchema } from "@/lib/validations/forum";
 import { rateLimit } from "@/lib/rate-limit";
-import { eq, asc, sql, and } from "drizzle-orm";
+import { getServerSession } from "@/lib/session";
 import { generateId } from "@/lib/utils";
+import { createPostSchema } from "@/lib/validations/forum";
+import { and, asc, eq, sql } from "drizzle-orm";
+import { type NextRequest, NextResponse } from "next/server";
 
 interface RouteParams {
   params: Promise<{ threadId: string }>;
@@ -32,12 +32,7 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
     })
     .from(forumThreads)
     .leftJoin(users, eq(forumThreads.authorId, users.id))
-    .where(
-      and(
-        eq(forumThreads.id, threadId),
-        sql`${forumThreads.deletedAt} IS NULL`,
-      ),
-    )
+    .where(and(eq(forumThreads.id, threadId), sql`${forumThreads.deletedAt} IS NULL`))
     .limit(1);
 
   if (!thread) {
@@ -61,12 +56,7 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
     })
     .from(forumPosts)
     .leftJoin(users, eq(forumPosts.authorId, users.id))
-    .where(
-      and(
-        eq(forumPosts.threadId, threadId),
-        sql`${forumPosts.deletedAt} IS NULL`,
-      ),
-    )
+    .where(and(eq(forumPosts.threadId, threadId), sql`${forumPosts.deletedAt} IS NULL`))
     .orderBy(asc(forumPosts.createdAt));
 
   return NextResponse.json({ thread, posts });
@@ -91,12 +81,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       isLocked: forumThreads.isLocked,
     })
     .from(forumThreads)
-    .where(
-      and(
-        eq(forumThreads.id, threadId),
-        sql`${forumThreads.deletedAt} IS NULL`,
-      ),
-    )
+    .where(and(eq(forumThreads.id, threadId), sql`${forumThreads.deletedAt} IS NULL`))
     .limit(1);
 
   if (!thread) {
@@ -104,10 +89,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
   }
 
   if (thread.isLocked) {
-    return NextResponse.json(
-      { error: "Thread is locked" },
-      { status: 403 },
-    );
+    return NextResponse.json({ error: "Thread is locked" }, { status: 403 });
   }
 
   // Rate limit
@@ -156,10 +138,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       .limit(1);
 
     if (!parent) {
-      return NextResponse.json(
-        { error: "Parent post not found" },
-        { status: 404 },
-      );
+      return NextResponse.json({ error: "Parent post not found" }, { status: 404 });
     }
     depth = Math.min((parent.depth ?? 0) + 1, 3); // Max depth 3
   }

@@ -5,14 +5,7 @@ import { z } from "zod";
 export const createThreadSchema = z.object({
   title: z.string().min(3).max(300),
   category: z
-    .enum([
-      "general",
-      "jailbreak",
-      "troubleshoot",
-      "scene_news",
-      "releases",
-      "off_topic",
-    ])
+    .enum(["general", "jailbreak", "troubleshoot", "scene_news", "releases", "off_topic"])
     .default("general"),
   bodyMd: z.string().min(1).max(30_000),
 });
@@ -31,14 +24,7 @@ export const voteSchema = z.object({
 
 export const threadListSchema = z.object({
   category: z
-    .enum([
-      "general",
-      "jailbreak",
-      "troubleshoot",
-      "scene_news",
-      "releases",
-      "off_topic",
-    ])
+    .enum(["general", "jailbreak", "troubleshoot", "scene_news", "releases", "off_topic"])
     .optional(),
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(50).default(20),

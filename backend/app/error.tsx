@@ -11,19 +11,51 @@ export default function GlobalError({
   reset: () => void;
 }) {
   return (
-    <div style={{
-      minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center",
-      background: "var(--color-bg-primary)", padding: 24,
-    }}>
-      <GlassCard variant="elevated" padding="48px 40px" style={{ textAlign: "center", maxWidth: 440 }}>
-        <div style={{ fontSize: "2.5rem", marginBottom: 16, opacity: 0.4 }}><IconAlertTriangle size={40} /></div>
-        <h1 style={{ fontSize: "1.5rem", fontWeight: 800, color: "var(--color-text-primary)", marginBottom: 8 }}>Something went wrong</h1>
-        <p style={{ color: "var(--color-text-muted)", fontSize: "0.9rem", marginBottom: 24, lineHeight: 1.5 }}>
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "var(--color-bg-primary)",
+        padding: 24,
+      }}
+    >
+      <GlassCard
+        variant="elevated"
+        padding="48px 40px"
+        style={{ textAlign: "center", maxWidth: 440 }}
+      >
+        <div style={{ fontSize: "2.5rem", marginBottom: 16, opacity: 0.4 }}>
+          <IconAlertTriangle size={40} />
+        </div>
+        <h1
+          style={{
+            fontSize: "1.5rem",
+            fontWeight: 800,
+            color: "var(--color-text-primary)",
+            marginBottom: 8,
+          }}
+        >
+          Something went wrong
+        </h1>
+        <p
+          style={{
+            color: "var(--color-text-muted)",
+            fontSize: "0.9rem",
+            marginBottom: 24,
+            lineHeight: 1.5,
+          }}
+        >
           {error.message || "An unexpected error occurred."}
         </p>
         <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
-          <button className="btn-primary" onClick={reset}>Try again</button>
-          <a href="/" className="btn-secondary">Go home</a>
+          <button type="button" className="btn-primary" onClick={reset}>
+            Try again
+          </button>
+          <a href="/" className="btn-secondary">
+            Go home
+          </a>
         </div>
       </GlassCard>
     </div>

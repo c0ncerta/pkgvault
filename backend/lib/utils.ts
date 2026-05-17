@@ -1,5 +1,5 @@
+import { type ClassValue, clsx } from "clsx";
 import { uuidv7 } from "uuidv7";
-import { clsx, type ClassValue } from "clsx";
 
 /**
  * Generate a UUIDv7 — time-ordered, sortable, unique.
@@ -21,10 +21,7 @@ export function cn(...inputs: ClassValue[]): string {
  * Assert a value is defined (non-null, non-undefined).
  * Throws with a descriptive message in dev.
  */
-export function assertDefined<T>(
-  value: T | null | undefined,
-  name = "value",
-): asserts value is T {
+export function assertDefined<T>(value: T | null | undefined, name = "value"): asserts value is T {
   if (value === null || value === undefined) {
     throw new Error(`Expected ${name} to be defined, got ${String(value)}`);
   }

@@ -1,13 +1,13 @@
-import { NextRequest, NextResponse } from "next/server";
+import { games, pkgFiles } from "@/db/schema";
 import { db } from "@/lib/db";
-import { pkgFiles, games } from "@/db/schema";
-import { r2, R2_BUCKET } from "@/lib/r2";
+import { R2_BUCKET, r2 } from "@/lib/r2";
 import { getServerSession } from "@/lib/session";
-import { uploadRequestSchema, pkgSearchSchema } from "@/lib/validations/pkg";
+import { generateId } from "@/lib/utils";
+import { pkgSearchSchema, uploadRequestSchema } from "@/lib/validations/pkg";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { eq, desc, asc, sql, and, ilike } from "drizzle-orm";
-import { generateId } from "@/lib/utils";
+import { and, asc, desc, eq, sql } from "drizzle-orm";
+import { type NextRequest, NextResponse } from "next/server";
 
 /**
  * GET /api/pkg — List/search PKG files
@@ -15,9 +15,7 @@ import { generateId } from "@/lib/utils";
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
 
-  const parsed = pkgSearchSchema.safeParse(
-    Object.fromEntries(searchParams.entries()),
-  );
+  const parsed = pkgSearchSchema.safeParse(Object.fromEntries(searchParams.entries()));
   if (!parsed.success) {
     return NextResponse.json(
       { error: "Invalid parameters", details: parsed.error.flatten() },
@@ -25,7 +23,7 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const { q, gameId, platform, status, page, limit, sort } = parsed.data;
+  const { q, _gameId, platform, status, page, limit, sort } = parsed.data;
   const offset = (page - 1) * limit;
 
   // Build conditions
@@ -87,10 +85,7 @@ export async function GET(request: NextRequest) {
       .orderBy(orderBy)
       .limit(limit)
       .offset(offset),
-    db
-      .select({ count: sql<number>`count(*)` })
-      .from(pkgFiles)
-      .where(where),
+    db.select({ count: sql<number>`count(*)` }).from(pkgFiles).where(where),
   ]);
 
   const total = countResult[0]?.count ?? 0;

@@ -1,11 +1,16 @@
 "use client";
 
 import { GlassCard } from "@/components/liquid/glass";
-import { StaggerList, StaggerItem } from "@/components/motion/transitions";
-import { IconLock, IconUsers, IconShield } from "@/components/ui/icons";
+import { StaggerItem, StaggerList } from "@/components/motion/transitions";
+import { IconLock, IconShield, IconUsers } from "@/components/ui/icons";
 import type { ComponentType } from "react";
 
-const features: Array<{ icon: ComponentType<{ size?: number; style?: React.CSSProperties }>; title: string; desc: string; color: string }> = [
+const features: Array<{
+  icon: ComponentType<{ size?: number; style?: React.CSSProperties }>;
+  title: string;
+  desc: string;
+  color: string;
+}> = [
   {
     icon: IconLock,
     title: "SHA-256 Verified",
@@ -45,11 +50,19 @@ export function HomeFeatures() {
           <StaggerItem key={f.title}>
             <GlassCard variant="content" cornerRadius={18} padding="24px 20px">
               <div style={{ textAlign: "center" }}>
-                <div style={{
-                  width: 44, height: 44, borderRadius: 12, margin: "0 auto 12px",
-                  background: `${f.color}15`, border: `1px solid ${f.color}25`,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                }}>
+                <div
+                  style={{
+                    width: 44,
+                    height: 44,
+                    borderRadius: 12,
+                    margin: "0 auto 12px",
+                    background: `${f.color}15`,
+                    border: `1px solid ${f.color}25`,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
                   <Icon size={20} style={{ color: f.color }} />
                 </div>
                 <h3

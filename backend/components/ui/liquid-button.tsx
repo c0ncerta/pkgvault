@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type HTMLMotionProps } from "framer-motion";
+import { type HTMLMotionProps, motion } from "framer-motion";
 import type { ReactNode } from "react";
 
 type Variant = "primary" | "secondary" | "ghost" | "danger";
@@ -22,10 +22,10 @@ const SIZE_CLASS: Record<Size, string> = {
 };
 
 const VARIANT_CLASS: Record<Variant, string> = {
-  primary:   "btn-primary",
+  primary: "btn-primary",
   secondary: "btn-secondary",
-  ghost:     "btn-ghost",
-  danger:    "btn-danger",
+  ghost: "btn-ghost",
+  danger: "btn-danger",
 };
 
 /**
@@ -41,9 +41,16 @@ const VARIANT_CLASS: Record<Variant, string> = {
  * everyday buttons the plain `.btn-*` classes are fine.
  */
 export function LiquidButton({
-  children, variant = "primary", size = "md",
-  fullWidth, iconLeft, iconRight,
-  style, className = "", disabled, ...rest
+  children,
+  variant = "primary",
+  size = "md",
+  fullWidth,
+  iconLeft,
+  iconRight,
+  style,
+  className = "",
+  disabled,
+  ...rest
 }: LiquidButtonProps) {
   return (
     <motion.button

@@ -1,14 +1,10 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import Link from "next/link";
+import { IconBell, IconLogout, IconSettings, IconShield, IconUser } from "@/components/ui/icons";
 import { signOut } from "@/lib/auth-client";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { GlassCard } from "@/components/liquid/glass";
-import {
-  IconUser, IconSettings, IconShield, IconLogout,
-  IconBell,
-} from "@/components/ui/icons";
+import { useEffect, useRef, useState } from "react";
 
 interface UserData {
   name: string;
@@ -55,24 +51,45 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
         onClick={() => setOpen(!open)}
         aria-label="User menu"
         style={{
-          display: "flex", alignItems: "center", gap: 10,
-          background: "none", border: "none", cursor: "pointer", padding: 0,
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          padding: 0,
         }}
       >
-        <span style={{ color: "var(--color-text-secondary)", fontSize: "0.85rem", fontWeight: 500 }}>
+        <span
+          style={{ color: "var(--color-text-secondary)", fontSize: "0.85rem", fontWeight: 500 }}
+        >
           {user.name}
         </span>
-        <div style={{
-          width: 36, height: 36, borderRadius: "50%",
-          background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          fontWeight: 700, fontSize: 13, color: "#fff",
-          transition: "box-shadow 0.2s",
-          boxShadow: open ? "0 0 0 3px rgba(99, 102, 241, 0.3)" : "none",
-        }}>
+        <div
+          style={{
+            width: 36,
+            height: 36,
+            borderRadius: "50%",
+            background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontWeight: 700,
+            fontSize: 13,
+            color: "#fff",
+            transition: "box-shadow 0.2s",
+            boxShadow: open ? "0 0 0 3px rgba(99, 102, 241, 0.3)" : "none",
+          }}
+        >
           {user.image ? (
-            <img src={user.image} alt="" style={{ width: 36, height: 36, borderRadius: "50%", objectFit: "cover" }} />
-          ) : initials}
+            <img
+              src={user.image}
+              alt=""
+              style={{ width: 36, height: 36, borderRadius: "50%", objectFit: "cover" }}
+            />
+          ) : (
+            initials
+          )}
         </div>
       </button>
 
@@ -80,9 +97,13 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
       {open && (
         <div
           style={{
-            position: "absolute", right: 0, top: "calc(100% + 8px)",
-            width: 280, zIndex: 100,
-            borderRadius: 20, overflow: "hidden",
+            position: "absolute",
+            right: 0,
+            top: "calc(100% + 8px)",
+            width: 280,
+            zIndex: 100,
+            borderRadius: 20,
+            overflow: "hidden",
             background: "rgba(12, 12, 18, 0.94)",
             backdropFilter: "blur(40px) saturate(180%)",
             WebkitBackdropFilter: "blur(40px) saturate(180%)",
@@ -93,21 +114,58 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
           }}
         >
           {/* Header */}
-          <div style={{
-            display: "flex", gap: 12, padding: "14px 14px 12px",
-            borderBottom: "1px solid rgba(255,255,255,0.06)",
-            marginBottom: 4,
-          }}>
-            <div style={{
-              width: 40, height: 40, borderRadius: "50%", flexShrink: 0,
-              background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              fontWeight: 700, fontSize: 14, color: "#fff",
-            }}>{initials}</div>
+          <div
+            style={{
+              display: "flex",
+              gap: 12,
+              padding: "14px 14px 12px",
+              borderBottom: "1px solid rgba(255,255,255,0.06)",
+              marginBottom: 4,
+            }}
+          >
+            <div
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: "50%",
+                flexShrink: 0,
+                background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontWeight: 700,
+                fontSize: 14,
+                color: "#fff",
+              }}
+            >
+              {initials}
+            </div>
             <div style={{ minWidth: 0 }}>
-              <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--color-text-primary)" }}>{user.name}</div>
-              <div style={{ fontSize: "0.7rem", color: "var(--color-text-muted)", fontFamily: "var(--font-mono)" }}>{user.email}</div>
-              <span className="tag tag-accent" style={{ fontSize: "0.6rem", padding: "1px 8px", marginTop: 4, display: "inline-block" }}>{user.role}</span>
+              <div
+                style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--color-text-primary)" }}
+              >
+                {user.name}
+              </div>
+              <div
+                style={{
+                  fontSize: "0.7rem",
+                  color: "var(--color-text-muted)",
+                  fontFamily: "var(--font-mono)",
+                }}
+              >
+                {user.email}
+              </div>
+              <span
+                className="tag tag-accent"
+                style={{
+                  fontSize: "0.6rem",
+                  padding: "1px 8px",
+                  marginTop: 4,
+                  display: "inline-block",
+                }}
+              >
+                {user.role}
+              </span>
             </div>
           </div>
 
@@ -120,13 +178,22 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
                 href={item.href}
                 onClick={() => setOpen(false)}
                 style={{
-                  display: "flex", alignItems: "center", gap: 10,
-                  padding: "9px 14px", borderRadius: 12,
-                  textDecoration: "none", color: "var(--color-text-primary)",
-                  fontSize: "0.85rem", transition: "background 0.15s",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 10,
+                  padding: "9px 14px",
+                  borderRadius: 12,
+                  textDecoration: "none",
+                  color: "var(--color-text-primary)",
+                  fontSize: "0.85rem",
+                  transition: "background 0.15s",
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(255,255,255,0.06)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "transparent";
+                }}
               >
                 <Icon size={15} style={{ color: "var(--color-text-muted)" }} />
                 <span>{item.label}</span>
@@ -142,13 +209,21 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
                 href="/admin"
                 onClick={() => setOpen(false)}
                 style={{
-                  display: "flex", alignItems: "center", gap: 10,
-                  padding: "9px 14px", borderRadius: 12,
-                  textDecoration: "none", color: "#f59e0b",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 10,
+                  padding: "9px 14px",
+                  borderRadius: 12,
+                  textDecoration: "none",
+                  color: "#f59e0b",
                   fontSize: "0.85rem",
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(255,255,255,0.06)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "transparent";
+                }}
               >
                 <IconShield size={15} style={{ color: "#f59e0b" }} />
                 <span>Admin Panel</span>
@@ -162,14 +237,26 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
           <button
             onClick={handleLogout}
             style={{
-              display: "flex", alignItems: "center", gap: 10, width: "100%",
-              padding: "9px 14px", borderRadius: 12, border: "none",
-              background: "transparent", color: "var(--color-danger)",
-              fontSize: "0.85rem", cursor: "pointer", fontFamily: "var(--font-sans)",
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              width: "100%",
+              padding: "9px 14px",
+              borderRadius: 12,
+              border: "none",
+              background: "transparent",
+              color: "var(--color-danger)",
+              fontSize: "0.85rem",
+              cursor: "pointer",
+              fontFamily: "var(--font-sans)",
               textAlign: "left",
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(239, 68, 68, 0.08)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(239, 68, 68, 0.08)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "transparent";
+            }}
           >
             <IconLogout size={15} />
             <span>Sign out</span>

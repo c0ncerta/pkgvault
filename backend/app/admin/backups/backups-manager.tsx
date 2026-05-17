@@ -1,8 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import { GlassCard, GlassStat } from "@/components/liquid/glass";
 import { LiquidButton } from "@/components/ui/liquid-button";
+import { useMemo, useState } from "react";
 
 type Candidate = {
   id: string;
@@ -66,8 +66,7 @@ export function BackupsManager({
       if (filter === "missing" && hasGdrive) return false;
       if (filter === "torrent-dead" && !c.torrentDead) return false;
       if (filter === "with-gdrive" && !hasGdrive) return false;
-      if (q && !c.title.toLowerCase().includes(q) && !c.sha256.includes(q))
-        return false;
+      if (q && !c.title.toLowerCase().includes(q) && !c.sha256.includes(q)) return false;
       return true;
     });
   }, [candidates, filter, search, localState]);
@@ -193,6 +192,7 @@ export function BackupsManager({
             ] as Array<[Filter, string]>
           ).map(([key, label]) => (
             <button
+              type="button"
               key={key}
               onClick={() => setFilter(key)}
               style={{
@@ -202,15 +202,18 @@ export function BackupsManager({
                 fontWeight: 600,
                 cursor: "pointer",
                 color: filter === key ? "var(--color-text-primary)" : "var(--color-text-muted)",
-                background: filter === key
-                  ? "linear-gradient(180deg, rgba(99, 102, 241, 0.28), rgba(99, 102, 241, 0.10))"
-                  : "rgba(255,255,255,0.03)",
-                border: filter === key
-                  ? "1px solid rgba(99, 102, 241, 0.4)"
-                  : "1px solid rgba(255,255,255,0.06)",
-                boxShadow: filter === key
-                  ? "inset 0 1px 0 rgba(255,255,255,0.12), 0 2px 8px rgba(99, 102, 241, 0.22)"
-                  : undefined,
+                background:
+                  filter === key
+                    ? "linear-gradient(180deg, rgba(99, 102, 241, 0.28), rgba(99, 102, 241, 0.10))"
+                    : "rgba(255,255,255,0.03)",
+                border:
+                  filter === key
+                    ? "1px solid rgba(99, 102, 241, 0.4)"
+                    : "1px solid rgba(255,255,255,0.06)",
+                boxShadow:
+                  filter === key
+                    ? "inset 0 1px 0 rgba(255,255,255,0.12), 0 2px 8px rgba(99, 102, 241, 0.22)"
+                    : undefined,
                 fontFamily: "var(--font-sans)",
               }}
             >
@@ -255,12 +258,7 @@ export function BackupsManager({
             const saving = savingId === c.id;
 
             return (
-              <GlassCard
-                key={c.id}
-                variant="content"
-                cornerRadius={14}
-                padding="14px 18px"
-              >
+              <GlassCard key={c.id} variant="content" cornerRadius={14} padding="14px 18px">
                 <div
                   style={{
                     display: "flex",
@@ -299,11 +297,7 @@ export function BackupsManager({
                         {c.title}
                       </a>
                       {c.version && (
-                        <span
-                          style={{ color: "#475569", fontSize: "0.7rem" }}
-                        >
-                          v{c.version}
-                        </span>
+                        <span style={{ color: "#475569", fontSize: "0.7rem" }}>v{c.version}</span>
                       )}
                       {c.torrentDead && (
                         <span
@@ -338,12 +332,10 @@ export function BackupsManager({
                       style={{
                         color: "#475569",
                         fontSize: "0.72rem",
-                        fontFamily:
-                          "ui-monospace, SF Mono, monospace",
+                        fontFamily: "ui-monospace, SF Mono, monospace",
                       }}
                     >
-                      {formatBytes(c.sizeBytes)} · {c.downloadCount} dl ·{" "}
-                      {c.sha256.slice(0, 16)}…
+                      {formatBytes(c.sizeBytes)} · {c.downloadCount} dl · {c.sha256.slice(0, 16)}…
                     </div>
                     {hasGdrive && gdriveUrl && !editing && (
                       <a
@@ -371,13 +363,11 @@ export function BackupsManager({
                           value={draftUrl}
                           onChange={(e) => setDraftUrl(e.target.value)}
                           placeholder="https://drive.google.com/file/d/…/view"
-                          autoFocus
                           style={{
                             flex: 1,
                             padding: "6px 10px",
                             borderRadius: 8,
-                            border:
-                              "1px solid rgba(255,255,255,0.1)",
+                            border: "1px solid rgba(255,255,255,0.1)",
                             background: "rgba(0,0,0,0.3)",
                             color: "var(--color-text-primary)",
                             fontSize: "0.78rem",

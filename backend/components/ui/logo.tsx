@@ -41,13 +41,15 @@ export function Logo({ size = 32, className, style, monochrome }: LogoProps) {
       )}
       {/* Vault body */}
       <rect
-        x="2" y="2" width="28" height="28" rx="8"
+        x="2"
+        y="2"
+        width="28"
+        height="28"
+        rx="8"
         fill={monochrome ? "currentColor" : `url(#${id})`}
       />
       {/* Top shine band — two-layer iOS style */}
-      {!monochrome && (
-        <rect x="2" y="2" width="28" height="14" rx="8" fill={`url(#${id}-shine)`} />
-      )}
+      {!monochrome && <rect x="2" y="2" width="28" height="14" rx="8" fill={`url(#${id}-shine)`} />}
       {/* Vault inset — two stacked chevrons forming a "V" carved face */}
       <path
         d="M9 10 L16 17 L23 10"

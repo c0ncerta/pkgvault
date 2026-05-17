@@ -1,13 +1,23 @@
-import { NextRequest, NextResponse } from "next/server";
+import { pkgFiles, pkgSources } from "@/db/schema";
 import { db } from "@/lib/db";
-import { pkgSources, pkgFiles } from "@/db/schema";
 import { getServerSession } from "@/lib/session";
 import { eq } from "drizzle-orm";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 const addSourceSchema = z.object({
   pkgId: z.string().uuid(),
-  provider: z.enum(["r2", "direct", "gdrive", "mega", "mediafire", "archive_org", "torrent", "onedrive", "other"]),
+  provider: z.enum([
+    "r2",
+    "direct",
+    "gdrive",
+    "mega",
+    "mediafire",
+    "archive_org",
+    "torrent",
+    "onedrive",
+    "other",
+  ]),
   url: z.string().url().or(z.string().startsWith("magnet:")), // Allow magnet links
   label: z.string().max(200).optional(),
   isPrimary: z.boolean().optional(),
@@ -63,13 +73,20 @@ export async function POST(request: NextRequest) {
 
   const parsed = addSourceSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: "Validation failed", details: parsed.error.flatten() }, { status: 400 });
+    return NextResponse.json(
+      { error: "Validation failed", details: parsed.error.flatten() },
+      { status: 400 },
+    );
   }
 
   const { pkgId, provider, url, label, isPrimary, notes } = parsed.data;
 
   // Verify PKG exists
-  const [pkg] = await db.select({ id: pkgFiles.id }).from(pkgFiles).where(eq(pkgFiles.id, pkgId)).limit(1);
+  const [pkg] = await db
+    .select({ id: pkgFiles.id })
+    .from(pkgFiles)
+    .where(eq(pkgFiles.id, pkgId))
+    .limit(1);
   if (!pkg) {
     return NextResponse.json({ error: "PKG not found" }, { status: 404 });
   }
@@ -79,16 +96,19 @@ export async function POST(request: NextRequest) {
     await db.update(pkgSources).set({ isPrimary: false }).where(eq(pkgSources.pkgId, pkgId));
   }
 
-  const [source] = await db.insert(pkgSources).values({
-    pkgId,
-    provider,
-    url,
-    label: label ?? null,
-    isPrimary: isPrimary ?? false,
-    notes: notes ?? null,
-    addedById: session!.user.id,
-    status: "unknown",
-  }).returning();
+  const [source] = await db
+    .insert(pkgSources)
+    .values({
+      pkgId,
+      provider,
+      url,
+      label: label ?? null,
+      isPrimary: isPrimary ?? false,
+      notes: notes ?? null,
+      addedById: session?.user.id,
+      status: "unknown",
+    })
+    .returning();
 
   return NextResponse.json({ source }, { status: 201 });
 }

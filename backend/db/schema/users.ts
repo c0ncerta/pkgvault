@@ -1,13 +1,5 @@
-import {
-  pgTable,
-  uuid,
-  varchar,
-  text,
-  timestamp,
-  pgEnum,
-  index,
-} from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
+import { index, pgEnum, pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 
 // ─── Enums ──────────────────────────────────────────────────
 export const userRoleEnum = pgEnum("user_role", ["user", "mod", "admin"]);
@@ -22,17 +14,10 @@ export const users = pgTable(
     name: varchar("name", { length: 100 }).notNull(),
     image: text("image"),
     role: userRoleEnum("role").notNull().default("user"),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
-  (table) => [
-    index("users_email_idx").on(table.email),
-    index("users_role_idx").on(table.role),
-  ],
+  (table) => [index("users_email_idx").on(table.email), index("users_role_idx").on(table.role)],
 );
 
 // ─── Sessions (Better-Auth managed) ────────────────────────
@@ -45,12 +30,8 @@ export const sessions = pgTable("sessions", {
   expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
   ipAddress: varchar("ip_address", { length: 45 }),
   userAgent: text("user_agent"),
-  createdAt: timestamp("created_at", { withTimezone: true })
-    .notNull()
-    .defaultNow(),
-  updatedAt: timestamp("updated_at", { withTimezone: true })
-    .notNull()
-    .defaultNow(),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
 // ─── Accounts (Better-Auth OAuth providers) ────────────────
@@ -72,12 +53,8 @@ export const accounts = pgTable("accounts", {
   scope: text("scope"),
   idToken: text("id_token"),
   password: text("password"),
-  createdAt: timestamp("created_at", { withTimezone: true })
-    .notNull()
-    .defaultNow(),
-  updatedAt: timestamp("updated_at", { withTimezone: true })
-    .notNull()
-    .defaultNow(),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
 // ─── Verifications (Better-Auth email etc.) ────────────────
@@ -86,12 +63,8 @@ export const verifications = pgTable("verifications", {
   identifier: text("identifier").notNull(),
   value: text("value").notNull(),
   expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
-  createdAt: timestamp("created_at", { withTimezone: true })
-    .notNull()
-    .defaultNow(),
-  updatedAt: timestamp("updated_at", { withTimezone: true })
-    .notNull()
-    .defaultNow(),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
 // ─── Relations ──────────────────────────────────────────────

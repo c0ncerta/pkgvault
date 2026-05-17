@@ -34,11 +34,6 @@ export async function checkSourceHealth(source: {
         return await checkMega(source.url);
       case "archive_org":
         return await checkArchive(source.url);
-      case "r2":
-      case "direct":
-      case "mediafire":
-      case "onedrive":
-      case "other":
       default:
         return await checkHttpHead(source.url);
     }
@@ -60,7 +55,7 @@ async function checkTorrent(magnet: string): Promise<HealthResult> {
   }
 
   const magnetTrackers = extractTrackers(magnet);
-  const trackers = [...new Set([...magnetTrackers, ...PUBLIC_TRACKERS])].filter(t =>
+  const trackers = [...new Set([...magnetTrackers, ...PUBLIC_TRACKERS])].filter((t) =>
     t.startsWith("http"),
   );
 
@@ -69,7 +64,7 @@ async function checkTorrent(magnet: string): Promise<HealthResult> {
   let anySuccess = false;
 
   await Promise.all(
-    trackers.slice(0, 6).map(async tracker => {
+    trackers.slice(0, 6).map(async (tracker) => {
       const result = await scrapeHttpTracker(tracker, infoHash);
       if (result) {
         anySuccess = true;
@@ -117,7 +112,9 @@ function base32ToHex(b32: string): string {
   }
   let hex = "";
   for (let i = 0; i + 8 <= bits.length; i += 8) {
-    hex += parseInt(bits.slice(i, i + 8), 2).toString(16).padStart(2, "0");
+    hex += Number.parseInt(bits.slice(i, i + 8), 2)
+      .toString(16)
+      .padStart(2, "0");
   }
   return hex;
 }
@@ -155,9 +152,9 @@ async function scrapeHttpTracker(
 function hexToBinaryUrl(hex: string): string {
   let out = "";
   for (let i = 0; i < hex.length; i += 2) {
-    const byte = parseInt(hex.slice(i, i + 2), 16);
+    const byte = Number.parseInt(hex.slice(i, i + 2), 16);
     // URL-encode all bytes for safety
-    out += "%" + byte.toString(16).padStart(2, "0").toUpperCase();
+    out += `%${byte.toString(16).padStart(2, "0").toUpperCase()}`;
   }
   return out;
 }
@@ -172,9 +169,9 @@ function parseScrapeResponse(buf: Uint8Array): { seeders: number; leechers: numb
   const completeMatch = text.match(/8:completei(\d+)e/);
   const incompleteMatch = text.match(/10:incompletei(\d+)e/);
   if (!completeMatch || !incompleteMatch) return null;
-  const seeders = parseInt(completeMatch[1] ?? "0", 10);
-  const leechers = parseInt(incompleteMatch[1] ?? "0", 10);
-  if (isNaN(seeders) || isNaN(leechers)) return null;
+  const seeders = Number.parseInt(completeMatch[1] ?? "0", 10);
+  const leechers = Number.parseInt(incompleteMatch[1] ?? "0", 10);
+  if (Number.isNaN(seeders) || Number.isNaN(leechers)) return null;
   return { seeders, leechers };
 }
 
@@ -265,14 +262,14 @@ async function checkArchive(url: string): Promise<HealthResult> {
 
 function extractGDriveId(url: string): string | null {
   const m1 = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-  if (m1 && m1[1]) return m1[1];
+  if (m1?.[1]) return m1[1];
   const m2 = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-  return m2 && m2[1] ? m2[1] : null;
+  return m2?.[1] ? m2[1] : null;
 }
 
 function extractArchiveId(url: string): string | null {
   const m1 = url.match(/archive\.org\/details\/([^/?]+)/);
-  if (m1 && m1[1]) return m1[1];
+  if (m1?.[1]) return m1[1];
   const m2 = url.match(/archive\.org\/download\/([^/?]+)/);
-  return m2 && m2[1] ? m2[1] : null;
+  return m2?.[1] ? m2[1] : null;
 }

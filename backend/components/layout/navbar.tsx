@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { getServerSession } from "@/lib/session";
-import { NavbarClient } from "./navbar-client";
 import { Logo } from "@/components/ui/logo";
+import { getServerSession } from "@/lib/session";
+import Link from "next/link";
+import { NavbarClient } from "./navbar-client";
 
 const navItems = [
   { href: "/catalog", label: "Catalog" },
@@ -73,7 +73,10 @@ export async function Navbar() {
         </Link>
 
         {/* Nav links (hidden on mobile via CSS) */}
-        <div className="nav-links-desktop" style={{ display: "flex", alignItems: "center", gap: 4 }}>
+        <div
+          className="nav-links-desktop"
+          style={{ display: "flex", alignItems: "center", gap: 4 }}
+        >
           {navItems.map((item) => (
             <Link
               key={item.href}

@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { games, pkgFiles, users } from "@/db/schema";
 import { db } from "@/lib/db";
-import { pkgFiles, games, users } from "@/db/schema";
-import { eq } from "drizzle-orm";
 import { getServerSession } from "@/lib/session";
+import { eq } from "drizzle-orm";
+import { type NextRequest, NextResponse } from "next/server";
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -73,12 +73,12 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
   const body = await request.json();
 
   const updateData: Record<string, unknown> = {};
-  if (body.status !== undefined) updateData['status'] = body.status;
-  if (body.title !== undefined) updateData['title'] = body.title;
-  if (body.description !== undefined) updateData['description'] = body.description;
-  if (body.version !== undefined) updateData['version'] = body.version;
-  if (body.fwRequired !== undefined) updateData['fwRequired'] = body.fwRequired;
-  updateData['updatedAt'] = new Date();
+  if (body.status !== undefined) updateData.status = body.status;
+  if (body.title !== undefined) updateData.title = body.title;
+  if (body.description !== undefined) updateData.description = body.description;
+  if (body.version !== undefined) updateData.version = body.version;
+  if (body.fwRequired !== undefined) updateData.fwRequired = body.fwRequired;
+  updateData.updatedAt = new Date();
 
   const [updated] = await db
     .update(pkgFiles)
@@ -92,4 +92,3 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
 
   return NextResponse.json({ data: updated });
 }
-

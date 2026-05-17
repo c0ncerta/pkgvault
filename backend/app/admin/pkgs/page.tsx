@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { db } from "@/lib/db";
-import { pkgFiles, games, pkgSources, users } from "@/db/schema";
-import { eq, desc, sql, and } from "drizzle-orm";
 import { GlassCard } from "@/components/liquid/glass";
 import { IconAlertTriangle } from "@/components/ui/icons";
+import { games, pkgFiles, pkgSources, users } from "@/db/schema";
+import { db } from "@/lib/db";
+import { desc, eq, sql } from "drizzle-orm";
+import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = { title: "PKG Manager" };
 
@@ -24,10 +24,18 @@ const statusColors: Record<string, string> = {
 
 export default async function PkgManagerPage() {
   let pkgs: {
-    id: string; title: string; status: string; sizeBytes: bigint;
-    downloadCount: number; sha256: string; createdAt: Date;
-    uploaderName: string | null; gamePlatform: string | null;
-    sourceCount: number; aliveCount: number; deadCount: number;
+    id: string;
+    title: string;
+    status: string;
+    sizeBytes: bigint;
+    downloadCount: number;
+    sha256: string;
+    createdAt: Date;
+    uploaderName: string | null;
+    gamePlatform: string | null;
+    sourceCount: number;
+    aliveCount: number;
+    deadCount: number;
   }[] = [];
 
   try {
@@ -61,9 +69,9 @@ export default async function PkgManagerPage() {
       .from(pkgSources)
       .groupBy(pkgSources.pkgId);
 
-    const sourceCounts = new Map(sourceCountsRaw.map(r => [r.pkgId, r]));
+    const sourceCounts = new Map(sourceCountsRaw.map((r) => [r.pkgId, r]));
 
-    pkgs = rows.map(r => ({
+    pkgs = rows.map((r) => ({
       ...r,
       sourceCount: sourceCounts.get(r.id)?.total ?? 0,
       aliveCount: sourceCounts.get(r.id)?.alive ?? 0,
@@ -75,9 +83,23 @@ export default async function PkgManagerPage() {
 
   return (
     <div className="animate-fade-in">
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: 24,
+        }}
+      >
         <div>
-          <h1 style={{ fontSize: "1.5rem", fontWeight: 800, color: "var(--color-text-primary)", letterSpacing: "-0.03em" }}>
+          <h1
+            style={{
+              fontSize: "1.5rem",
+              fontWeight: 800,
+              color: "var(--color-text-primary)",
+              letterSpacing: "-0.03em",
+            }}
+          >
             PKG Manager
           </h1>
           <p style={{ color: "var(--color-text-muted)", fontSize: "0.85rem" }}>
@@ -94,12 +116,21 @@ export default async function PkgManagerPage() {
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.82rem" }}>
           <thead>
             <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-              {["Title", "Platform", "Size", "Status", "Sources", "Downloads", "Date"].map(h => (
-                <th key={h} style={{
-                  padding: "12px 16px", textAlign: "left", fontWeight: 600,
-                  color: "var(--color-text-muted)", fontSize: "0.7rem", textTransform: "uppercase",
-                  letterSpacing: "0.06em",
-                }}>{h}</th>
+              {["Title", "Platform", "Size", "Status", "Sources", "Downloads", "Date"].map((h) => (
+                <th
+                  key={h}
+                  style={{
+                    padding: "12px 16px",
+                    textAlign: "left",
+                    fontWeight: 600,
+                    color: "var(--color-text-muted)",
+                    fontSize: "0.7rem",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.06em",
+                  }}
+                >
+                  {h}
+                </th>
               ))}
             </tr>
           </thead>
@@ -107,7 +138,14 @@ export default async function PkgManagerPage() {
             {pkgs.map((pkg) => (
               <tr key={pkg.id} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
                 <td style={{ padding: "12px 16px" }}>
-                  <Link href={`/admin/pkgs/${pkg.id}`} style={{ color: "var(--color-text-primary)", textDecoration: "none", fontWeight: 500 }}>
+                  <Link
+                    href={`/admin/pkgs/${pkg.id}`}
+                    style={{
+                      color: "var(--color-text-primary)",
+                      textDecoration: "none",
+                      fontWeight: 500,
+                    }}
+                  >
                     {pkg.title}
                   </Link>
                   {pkg.uploaderName && (
@@ -119,28 +157,65 @@ export default async function PkgManagerPage() {
                 <td style={{ padding: "12px 16px", color: "var(--color-text-secondary)" }}>
                   {pkg.gamePlatform ?? "—"}
                 </td>
-                <td style={{ padding: "12px 16px", color: "var(--color-text-secondary)", fontFamily: "var(--font-mono)" }}>
+                <td
+                  style={{
+                    padding: "12px 16px",
+                    color: "var(--color-text-secondary)",
+                    fontFamily: "var(--font-mono)",
+                  }}
+                >
                   {formatBytes(pkg.sizeBytes)}
                 </td>
                 <td style={{ padding: "12px 16px" }}>
-                  <span style={{
-                    padding: "3px 10px", borderRadius: 999, fontSize: "0.7rem", fontWeight: 600,
-                    color: statusColors[pkg.status] ?? "#64748b",
-                    background: `${statusColors[pkg.status] ?? "#64748b"}15`,
-                    border: `1px solid ${statusColors[pkg.status] ?? "#64748b"}30`,
-                  }}>
+                  <span
+                    style={{
+                      padding: "3px 10px",
+                      borderRadius: 999,
+                      fontSize: "0.7rem",
+                      fontWeight: 600,
+                      color: statusColors[pkg.status] ?? "#64748b",
+                      background: `${statusColors[pkg.status] ?? "#64748b"}15`,
+                      border: `1px solid ${statusColors[pkg.status] ?? "#64748b"}30`,
+                    }}
+                  >
                     {pkg.status}
                   </span>
                 </td>
                 <td style={{ padding: "12px 16px" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                    <span style={{ color: "var(--color-text-primary)", fontWeight: 600 }}>{pkg.sourceCount}</span>
-                    {pkg.aliveCount > 0 && <span style={{ color: "#34d399", fontSize: "0.7rem" }}>✓{pkg.aliveCount}</span>}
-                    {pkg.deadCount > 0 && <span style={{ color: "#f87171", fontSize: "0.7rem" }}>✗{pkg.deadCount}</span>}
-                    {pkg.sourceCount === 0 && <span style={{ color: "#f87171", fontSize: "0.7rem", display: "inline-flex", alignItems: "center", gap: 2 }}><IconAlertTriangle size={10} /> none</span>}
+                    <span style={{ color: "var(--color-text-primary)", fontWeight: 600 }}>
+                      {pkg.sourceCount}
+                    </span>
+                    {pkg.aliveCount > 0 && (
+                      <span style={{ color: "#34d399", fontSize: "0.7rem" }}>
+                        ✓{pkg.aliveCount}
+                      </span>
+                    )}
+                    {pkg.deadCount > 0 && (
+                      <span style={{ color: "#f87171", fontSize: "0.7rem" }}>✗{pkg.deadCount}</span>
+                    )}
+                    {pkg.sourceCount === 0 && (
+                      <span
+                        style={{
+                          color: "#f87171",
+                          fontSize: "0.7rem",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 2,
+                        }}
+                      >
+                        <IconAlertTriangle size={10} /> none
+                      </span>
+                    )}
                   </div>
                 </td>
-                <td style={{ padding: "12px 16px", color: "var(--color-text-secondary)", fontFamily: "var(--font-mono)" }}>
+                <td
+                  style={{
+                    padding: "12px 16px",
+                    color: "var(--color-text-secondary)",
+                    fontFamily: "var(--font-mono)",
+                  }}
+                >
                   {pkg.downloadCount}
                 </td>
                 <td style={{ padding: "12px 16px", color: "#475569", fontSize: "0.75rem" }}>
@@ -150,7 +225,10 @@ export default async function PkgManagerPage() {
             ))}
             {pkgs.length === 0 && (
               <tr>
-                <td colSpan={7} style={{ padding: "60px 16px", textAlign: "center", color: "#475569" }}>
+                <td
+                  colSpan={7}
+                  style={{ padding: "60px 16px", textAlign: "center", color: "#475569" }}
+                >
                   No packages yet. Click "+ Add PKG" to register one.
                 </td>
               </tr>

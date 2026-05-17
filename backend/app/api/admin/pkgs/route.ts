@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { games, pkgFiles, pkgSources } from "@/db/schema";
 import { db } from "@/lib/db";
-import { pkgFiles, pkgSources, games } from "@/db/schema";
 import { getServerSession } from "@/lib/session";
 import { eq } from "drizzle-orm";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 const createPkgSchema = z.object({
@@ -18,12 +18,26 @@ const createPkgSchema = z.object({
     platform: z.string().max(20),
     region: z.string().max(10).optional(),
   }),
-  sources: z.array(z.object({
-    url: z.string().min(1),
-    provider: z.enum(["r2", "direct", "gdrive", "mega", "mediafire", "archive_org", "torrent", "onedrive", "other"]),
-    label: z.string().max(200).nullable().optional(),
-    isPrimary: z.boolean().optional(),
-  })).optional(),
+  sources: z
+    .array(
+      z.object({
+        url: z.string().min(1),
+        provider: z.enum([
+          "r2",
+          "direct",
+          "gdrive",
+          "mega",
+          "mediafire",
+          "archive_org",
+          "torrent",
+          "onedrive",
+          "other",
+        ]),
+        label: z.string().max(200).nullable().optional(),
+        isPrimary: z.boolean().optional(),
+      }),
+    )
+    .optional(),
 });
 
 /**
@@ -46,7 +60,10 @@ export async function POST(request: NextRequest) {
 
   const parsed = createPkgSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: "Validation failed", details: parsed.error.flatten() }, { status: 400 });
+    return NextResponse.json(
+      { error: "Validation failed", details: parsed.error.flatten() },
+      { status: 400 },
+    );
   }
 
   const { title, description, sha256, sizeBytes, version, fwRequired, game, sources } = parsed.data;
@@ -59,56 +76,65 @@ export async function POST(request: NextRequest) {
       .from(games)
       .where(eq(games.titleId, game.titleId))
       .limit(1);
-    
+
     if (existing) {
       gameId = existing.id;
     } else {
-      const [newGame] = await db.insert(games).values({
-        title: game.title,
-        titleId: game.titleId ?? null,
-        platform: game.platform,
-        region: game.region ?? null,
-      }).returning({ id: games.id });
+      const [newGame] = await db
+        .insert(games)
+        .values({
+          title: game.title,
+          titleId: game.titleId ?? null,
+          platform: game.platform,
+          region: game.region ?? null,
+        })
+        .returning({ id: games.id });
       if (!newGame) return NextResponse.json({ error: "Failed to create game" }, { status: 500 });
       gameId = newGame.id;
     }
   } else {
-    const [newGame] = await db.insert(games).values({
-      title: game.title,
-      platform: game.platform,
-      region: game.region ?? null,
-    }).returning({ id: games.id });
+    const [newGame] = await db
+      .insert(games)
+      .values({
+        title: game.title,
+        platform: game.platform,
+        region: game.region ?? null,
+      })
+      .returning({ id: games.id });
     if (!newGame) return NextResponse.json({ error: "Failed to create game" }, { status: 500 });
     gameId = newGame.id;
   }
 
   // Create PKG entry
-  const [pkg] = await db.insert(pkgFiles).values({
-    uploaderId: session!.user.id,
-    gameId,
-    title,
-    description: description ?? null,
-    sha256: sha256 || "pending",
-    sizeBytes: BigInt(sizeBytes),
-    r2Key: null, // No R2 for admin-created entries
-    version: version ?? null,
-    fwRequired: fwRequired ?? null,
-    status: "approved", // Admin-created = auto-approved
-  }).returning({ id: pkgFiles.id });
+  const [pkg] = await db
+    .insert(pkgFiles)
+    .values({
+      uploaderId: session?.user.id,
+      gameId,
+      title,
+      description: description ?? null,
+      sha256: sha256 || "pending",
+      sizeBytes: BigInt(sizeBytes),
+      r2Key: null, // No R2 for admin-created entries
+      version: version ?? null,
+      fwRequired: fwRequired ?? null,
+      status: "approved", // Admin-created = auto-approved
+    })
+    .returning({ id: pkgFiles.id });
 
   if (!pkg) return NextResponse.json({ error: "Failed to create pkg" }, { status: 500 });
 
   // Add sources
   if (sources && sources.length > 0) {
     await db.insert(pkgSources).values(
-      sources.map(s => ({
+      sources.map((s) => ({
         pkgId: pkg.id,
         provider: s.provider,
         url: s.url,
         label: s.label ?? null,
         isPrimary: s.isPrimary ?? false,
         status: "unknown" as const,
-        addedById: session!.user.id,
+        addedById: session?.user.id,
       })),
     );
   }

@@ -170,14 +170,43 @@ const WORD_DICT: Record<string, string> = {
 };
 
 const ROMAN_TO_ARABIC: Record<string, string> = {
-  i: "1", ii: "2", iii: "3", iv: "4", v: "5",
-  vi: "6", vii: "7", viii: "8", ix: "9", x: "10",
-  xi: "11", xii: "12", xiii: "13", xiv: "14", xv: "15",
+  i: "1",
+  ii: "2",
+  iii: "3",
+  iv: "4",
+  v: "5",
+  vi: "6",
+  vii: "7",
+  viii: "8",
+  ix: "9",
+  x: "10",
+  xi: "11",
+  xii: "12",
+  xiii: "13",
+  xiv: "14",
+  xv: "15",
 };
 
 const KNOWN_EXTENSIONS = new Set([
-  "pkg", "iso", "zip", "7z", "rar", "tar", "gz", "xz", "img", "cso", "chd",
-  "nsp", "xci", "nca", "wbfs", "rvz", "wad", "cia", "3ds",
+  "pkg",
+  "iso",
+  "zip",
+  "7z",
+  "rar",
+  "tar",
+  "gz",
+  "xz",
+  "img",
+  "cso",
+  "chd",
+  "nsp",
+  "xci",
+  "nca",
+  "wbfs",
+  "rvz",
+  "wad",
+  "cia",
+  "3ds",
 ]);
 
 function stripDiacritics(s: string): string {
@@ -207,16 +236,16 @@ function transformToken(tok: string): string {
   // Pure number → leave
   if (/^\d+$/.test(tok)) return tok;
   // Roman numeral → arabic
-  if (ROMAN_TO_ARABIC[lower]) return ROMAN_TO_ARABIC[lower]!;
+  if (ROMAN_TO_ARABIC[lower]) return ROMAN_TO_ARABIC[lower] ?? tok;
   // Dictionary hit
-  if (WORD_DICT[lower]) return WORD_DICT[lower]!;
+  if (WORD_DICT[lower]) return WORD_DICT[lower] ?? tok;
   // Generic mangling: append double last consonant if word length ≥ 4
   if (tok.length >= 4) {
-    const last = tok[tok.length - 1]!;
+    const last = tok[tok.length - 1] ?? "";
     if (/[bcdfgklmnprstvz]/i.test(last)) {
-      return tok + last.toLowerCase() + "o";
+      return `${tok + last.toLowerCase()}o`;
     }
-    return tok + "e";
+    return `${tok}e`;
   }
   return tok;
 }
@@ -224,8 +253,8 @@ function transformToken(tok: string): string {
 function swapAdjacentPairs(tokens: string[]): string[] {
   const out = [...tokens];
   for (let i = 0; i + 1 < out.length; i += 2) {
-    const a = out[i]!;
-    const b = out[i + 1]!;
+    const a = out[i] ?? "";
+    const b = out[i + 1] ?? "";
     out[i] = b;
     out[i + 1] = a;
   }
@@ -257,7 +286,17 @@ export type ObfuscateOptions = {
 
 /** Console-specific extensions we never want to leak in the public filename. */
 const CONSOLE_EXTENSIONS = new Set([
-  "pkg", "nsp", "xci", "nca", "wbfs", "rvz", "wad", "cia", "3ds", "iso", "chd",
+  "pkg",
+  "nsp",
+  "xci",
+  "nca",
+  "wbfs",
+  "rvz",
+  "wad",
+  "cia",
+  "3ds",
+  "iso",
+  "chd",
 ]);
 
 function shortHash(s: string, len = 6): string {
@@ -295,8 +334,7 @@ export function obfuscateFilename(input: string, opts: ObfuscateOptions = {}): s
     joined = joined.slice(0, MAX_STEM).replace(/_+$/, "");
   }
 
-  const finalExt =
-    forceExt ?? (ext && !CONSOLE_EXTENSIONS.has(ext) ? ext : defaultExt);
+  const finalExt = forceExt ?? (ext && !CONSOLE_EXTENSIONS.has(ext) ? ext : defaultExt);
   return `${joined}.${finalExt}`;
 }
 

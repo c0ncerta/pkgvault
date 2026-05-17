@@ -1,14 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { auditLog, forumPosts, forumThreads, pkgFiles, takedowns } from "@/db/schema";
 import { db } from "@/lib/db";
-import {
-  takedowns,
-  pkgFiles,
-  forumThreads,
-  forumPosts,
-  auditLog,
-} from "@/db/schema";
 import { requireRole } from "@/lib/session";
-import { eq, desc } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 const createTakedownSchema = z.object({
@@ -107,8 +101,5 @@ export async function POST(request: NextRequest) {
     metadata: { reason },
   });
 
-  return NextResponse.json(
-    { message: "Takedown applied", targetType, targetId },
-    { status: 201 },
-  );
+  return NextResponse.json({ message: "Takedown applied", targetType, targetId }, { status: 201 });
 }

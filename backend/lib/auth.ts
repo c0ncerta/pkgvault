@@ -1,8 +1,8 @@
+import * as schema from "@/db/schema";
+import { db } from "@/lib/db";
+import bcrypt from "bcryptjs";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { db } from "@/lib/db";
-import * as schema from "@/db/schema";
-import bcrypt from "bcryptjs";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -46,9 +46,7 @@ export const auth = betterAuth({
       },
     },
   },
-  trustedOrigins: [
-    process.env["BETTER_AUTH_URL"] ?? "http://localhost:3000",
-  ],
+  trustedOrigins: [process.env.BETTER_AUTH_URL ?? "http://localhost:3000"],
 });
 
 // Export types for use in components/API routes

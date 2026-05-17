@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
-import { getServerSession } from "@/lib/session";
+import { forumPosts, pkgFiles } from "@/db/schema";
 import { db } from "@/lib/db";
-import { pkgFiles, forumPosts } from "@/db/schema";
-import { eq, sql, and } from "drizzle-orm";
+import { getServerSession } from "@/lib/session";
+import { and, eq, sql } from "drizzle-orm";
+import { NextResponse } from "next/server";
 
 /**
  * GET /api/user/me — Current user data with stats

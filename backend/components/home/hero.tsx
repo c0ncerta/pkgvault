@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { motion } from "framer-motion";
 import { GlassCard } from "@/components/liquid/glass";
 import { Logo } from "@/components/ui/logo";
+import { motion } from "framer-motion";
+import Link from "next/link";
 
 export function HomeHero() {
   return (
@@ -61,8 +61,8 @@ export function HomeHero() {
           maxWidth: 520,
         }}
       >
-        Community-driven PKG file archive. Browse, upload, and discuss game
-        packages with integrity verification.
+        Community-driven PKG file archive. Browse, upload, and discuss game packages with integrity
+        verification.
       </motion.p>
 
       {/* CTA buttons */}

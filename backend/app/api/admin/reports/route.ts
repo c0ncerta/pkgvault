@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { auditLog, reports } from "@/db/schema";
 import { db } from "@/lib/db";
-import { reports, auditLog } from "@/db/schema";
 import { getServerSession, requireRole } from "@/lib/session";
-import { eq, desc, and, sql } from "drizzle-orm";
+import { and, desc, eq, sql } from "drizzle-orm";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 const createReportSchema = z.object({
@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
   }
 
   // If body has "reportId", it's a review action (mod only)
-  if ((body as Record<string, unknown>)["reportId"]) {
+  if ((body as Record<string, unknown>).reportId) {
     await requireRole("mod");
 
     const parsed = reviewReportSchema.safeParse(body);
@@ -136,8 +136,5 @@ export async function POST(request: NextRequest) {
     reason,
   });
 
-  return NextResponse.json(
-    { message: "Report submitted. Thank you." },
-    { status: 201 },
-  );
+  return NextResponse.json({ message: "Report submitted. Thank you." }, { status: 201 });
 }

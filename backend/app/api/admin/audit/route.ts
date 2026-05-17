@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
 import { auditLog } from "@/db/schema";
+import { db } from "@/lib/db";
 import { requireRole } from "@/lib/session";
 import { desc } from "drizzle-orm";
+import { type NextRequest, NextResponse } from "next/server";
 
 /**
  * GET /api/admin/audit — View audit log (admin only)

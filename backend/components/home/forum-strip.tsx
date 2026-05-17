@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { unstable_cache } from "next/cache";
-import { db } from "@/lib/db";
 import { forumThreads, users } from "@/db/schema";
-import { eq, desc, sql } from "drizzle-orm";
+import { db } from "@/lib/db";
+import { desc, eq, sql } from "drizzle-orm";
+import { unstable_cache } from "next/cache";
+import Link from "next/link";
 
 const getLatestThreads = unstable_cache(
   async () => {
@@ -27,8 +27,8 @@ const getLatestThreads = unstable_cache(
   { revalidate: 30, tags: ["forum"] },
 );
 import { GlassCard } from "@/components/liquid/glass";
+import { IconFire, IconForum, IconPin } from "@/components/ui/icons";
 import { Tag } from "@/components/ui/tag";
-import { IconPin, IconFire, IconForum } from "@/components/ui/icons";
 
 function timeAgo(d: Date): string {
   const diff = Date.now() - d.getTime();
@@ -41,8 +41,13 @@ function timeAgo(d: Date): string {
 
 export async function HomeForumStrip() {
   let threads: Array<{
-    id: string; title: string; category: string; postCount: number;
-    isPinned: boolean; createdAt: Date; lastPostAt: Date | null;
+    id: string;
+    title: string;
+    category: string;
+    postCount: number;
+    isPinned: boolean;
+    createdAt: Date;
+    lastPostAt: Date | null;
     author: string | null;
   }> = [];
 
@@ -56,12 +61,35 @@ export async function HomeForumStrip() {
 
   return (
     <section style={{ maxWidth: 1100, margin: "96px auto 0", padding: "0 24px" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 16 }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "baseline",
+          marginBottom: 16,
+        }}
+      >
         <div>
-          <div style={{ fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.12em", color: "#34d399", fontWeight: 600, marginBottom: 4 }}>
+          <div
+            style={{
+              fontSize: "0.7rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.12em",
+              color: "#34d399",
+              fontWeight: 600,
+              marginBottom: 4,
+            }}
+          >
             Discussion
           </div>
-          <h2 style={{ fontSize: "1.4rem", fontWeight: 800, letterSpacing: "-0.02em", color: "var(--color-text-primary)" }}>
+          <h2
+            style={{
+              fontSize: "1.4rem",
+              fontWeight: 800,
+              letterSpacing: "-0.02em",
+              color: "var(--color-text-primary)",
+            }}
+          >
             Latest forum threads
           </h2>
         </div>
@@ -72,29 +100,79 @@ export async function HomeForumStrip() {
 
       <GlassCard padding="0" style={{ overflow: "hidden" }}>
         {threads.map((t, i) => (
-          <Link key={t.id} href={`/forum/${t.id}`} className={`animate-fade-in delay-${Math.min(i + 1, 6)}`} style={{
-            display: "flex", alignItems: "center", justifyContent: "space-between",
-            padding: "14px 20px", textDecoration: "none",
-            borderBottom: i < threads.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
-            background: t.isPinned ? "rgba(245, 158, 11, 0.03)" : "transparent",
-            transition: "background 0.15s",
-          }}>
+          <Link
+            key={t.id}
+            href={`/forum/${t.id}`}
+            className={`animate-fade-in delay-${Math.min(i + 1, 6)}`}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "14px 20px",
+              textDecoration: "none",
+              borderBottom: i < threads.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
+              background: t.isPinned ? "rgba(245, 158, 11, 0.03)" : "transparent",
+              transition: "background 0.15s",
+            }}
+          >
             <div style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 0 }}>
-              <span style={{ width: 22, display: "inline-flex", alignItems: "center", justifyContent: "center", color: t.isPinned ? "#fbbf24" : t.postCount > 5 ? "#fb923c" : "var(--color-text-muted)" }}>
-                {t.isPinned ? <IconPin size={14} /> : t.postCount > 5 ? <IconFire size={14} /> : <IconForum size={14} />}
+              <span
+                style={{
+                  width: 22,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: t.isPinned
+                    ? "#fbbf24"
+                    : t.postCount > 5
+                      ? "#fb923c"
+                      : "var(--color-text-muted)",
+                }}
+              >
+                {t.isPinned ? (
+                  <IconPin size={14} />
+                ) : t.postCount > 5 ? (
+                  <IconFire size={14} />
+                ) : (
+                  <IconForum size={14} />
+                )}
               </span>
               <div style={{ minWidth: 0 }}>
-                <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--color-text-primary)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                <div
+                  style={{
+                    fontSize: "0.9rem",
+                    fontWeight: 600,
+                    color: "var(--color-text-primary)",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
                   {t.title}
                 </div>
-                <div style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", marginTop: 2, fontFamily: "var(--font-mono)" }}>
+                <div
+                  style={{
+                    fontSize: "0.72rem",
+                    color: "var(--color-text-muted)",
+                    marginTop: 2,
+                    fontFamily: "var(--font-mono)",
+                  }}
+                >
                   @{t.author ?? "anon"} · {timeAgo(t.lastPostAt ?? t.createdAt)} ago
                 </div>
               </div>
             </div>
             <div style={{ display: "flex", gap: 10, alignItems: "center", flexShrink: 0 }}>
               <Tag>{t.category}</Tag>
-              <span style={{ fontSize: "0.75rem", color: "var(--color-text-muted)", fontFamily: "var(--font-mono)", minWidth: 32, textAlign: "right" }}>
+              <span
+                style={{
+                  fontSize: "0.75rem",
+                  color: "var(--color-text-muted)",
+                  fontFamily: "var(--font-mono)",
+                  minWidth: 32,
+                  textAlign: "right",
+                }}
+              >
                 {t.postCount}
               </span>
             </div>

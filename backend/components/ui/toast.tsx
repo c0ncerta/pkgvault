@@ -1,7 +1,7 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react";
-import { IconCheck, IconX, IconAlertTriangle } from "@/components/ui/icons";
+import { IconAlertTriangle, IconCheck, IconX } from "@/components/ui/icons";
+import { type ReactNode, createContext, useCallback, useContext, useState } from "react";
 
 type ToastType = "success" | "error" | "info" | "warning";
 
@@ -39,12 +39,15 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     }, 250);
   }, []);
 
-  const toast = useCallback((message: string, type: ToastType = "info") => {
-    const id = `${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
-    setToasts((prev) => [...prev, { id, message, type }]);
-    // Auto-dismiss after 4s
-    setTimeout(() => removeToast(id), 4000);
-  }, [removeToast]);
+  const toast = useCallback(
+    (message: string, type: ToastType = "info") => {
+      const id = `${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+      setToasts((prev) => [...prev, { id, message, type }]);
+      // Auto-dismiss after 4s
+      setTimeout(() => removeToast(id), 4000);
+    },
+    [removeToast],
+  );
 
   return (
     <ToastContext.Provider value={{ toast }}>
@@ -57,29 +60,55 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             onClick={() => removeToast(t.id)}
             role="alert"
           >
-            <span style={{
-              width: 24, height: 24, borderRadius: 6, display: "flex",
-              alignItems: "center", justifyContent: "center", flexShrink: 0,
-              fontSize: "0.8rem", fontWeight: 700,
-              background: t.type === "success" ? "rgba(34,197,94,0.15)"
-                : t.type === "error" ? "rgba(239,68,68,0.15)"
-                : t.type === "warning" ? "rgba(245,158,11,0.15)"
-                : "rgba(99,102,241,0.15)",
-              color: t.type === "success" ? "var(--color-success)"
-                : t.type === "error" ? "var(--color-danger)"
-                : t.type === "warning" ? "var(--color-warning)"
-                : "var(--color-accent)",
-            }}>
+            <span
+              style={{
+                width: 24,
+                height: 24,
+                borderRadius: 6,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+                fontSize: "0.8rem",
+                fontWeight: 700,
+                background:
+                  t.type === "success"
+                    ? "rgba(34,197,94,0.15)"
+                    : t.type === "error"
+                      ? "rgba(239,68,68,0.15)"
+                      : t.type === "warning"
+                        ? "rgba(245,158,11,0.15)"
+                        : "rgba(99,102,241,0.15)",
+                color:
+                  t.type === "success"
+                    ? "var(--color-success)"
+                    : t.type === "error"
+                      ? "var(--color-danger)"
+                      : t.type === "warning"
+                        ? "var(--color-warning)"
+                        : "var(--color-accent)",
+              }}
+            >
               {icons[t.type]}
             </span>
             <span style={{ flex: 1 }}>{t.message}</span>
             <button
-              onClick={(e) => { e.stopPropagation(); removeToast(t.id); }}
-              style={{
-                background: "none", border: "none", color: "var(--color-text-muted)",
-                cursor: "pointer", fontSize: "0.75rem", padding: 4, flexShrink: 0,
+              onClick={(e) => {
+                e.stopPropagation();
+                removeToast(t.id);
               }}
-            >✕</button>
+              style={{
+                background: "none",
+                border: "none",
+                color: "var(--color-text-muted)",
+                cursor: "pointer",
+                fontSize: "0.75rem",
+                padding: 4,
+                flexShrink: 0,
+              }}
+            >
+              ✕
+            </button>
           </div>
         ))}
       </div>

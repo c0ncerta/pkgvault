@@ -10,11 +10,11 @@
  *  3. Set the user role to admin
  */
 import "dotenv/config";
+import { randomUUID } from "node:crypto";
+import { accounts, users } from "@/db/schema";
 import { db } from "@/lib/db";
-import { users, accounts } from "@/db/schema";
-import { eq } from "drizzle-orm";
-import { randomUUID } from "crypto";
 import bcrypt from "bcryptjs";
+import { eq } from "drizzle-orm";
 
 const ADMIN_EMAIL = "admin@pkgvault.local";
 const ADMIN_PASSWORD = "admin1234";
@@ -26,11 +26,6 @@ async function hashPassword(password: string): Promise<string> {
 }
 
 async function createAdmin() {
-  console.log("Creating admin user...");
-  console.log(`  Email:    ${ADMIN_EMAIL}`);
-  console.log(`  Password: ${ADMIN_PASSWORD}`);
-  console.log();
-
   // Check if user already exists
   const [existing] = await db
     .select({ id: users.id, role: users.role })
@@ -41,21 +36,11 @@ async function createAdmin() {
   if (existing) {
     // Just promote to admin and update password to bcrypt
     const hashedPassword = await hashPassword(ADMIN_PASSWORD);
-    await db
-      .update(users)
-      .set({ role: "admin" })
-      .where(eq(users.email, ADMIN_EMAIL));
+    await db.update(users).set({ role: "admin" }).where(eq(users.email, ADMIN_EMAIL));
     await db
       .update(accounts)
       .set({ password: hashedPassword })
       .where(eq(accounts.userId, existing.id));
-      
-    console.log(`  User already exists (id: ${existing.id}) — promoted to admin & updated password.`);
-    console.log();
-    console.log("Admin user ready!");
-    console.log("  Login at: http://localhost:3000/login");
-    console.log(`  Email:    ${ADMIN_EMAIL}`);
-    console.log(`  Password: ${ADMIN_PASSWORD}`);
     process.exit(0);
   }
 
@@ -79,14 +64,6 @@ async function createAdmin() {
     providerId: "credential",
     password: hashedPassword,
   });
-
-  console.log(`  User created (id: ${userId})`);
-  console.log(`  Role: admin`);
-  console.log();
-  console.log("Admin user ready!");
-  console.log("  Login at: http://localhost:3000/login");
-  console.log(`  Email:    ${ADMIN_EMAIL}`);
-  console.log(`  Password: ${ADMIN_PASSWORD}`);
   process.exit(0);
 }
 

@@ -1,14 +1,5 @@
-import {
-  pgTable,
-  uuid,
-  varchar,
-  text,
-  timestamp,
-  pgEnum,
-  jsonb,
-  index,
-} from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
+import { index, jsonb, pgEnum, pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import { users } from "./users";
 
 // ─── Enums ──────────────────────────────────────────────────
@@ -37,9 +28,7 @@ export const takedowns = pgTable(
     modId: uuid("mod_id")
       .notNull()
       .references(() => users.id, { onDelete: "set null" }),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [
     index("takedowns_target_idx").on(table.targetType, table.targetId),
@@ -61,12 +50,8 @@ export const reports = pgTable(
     status: reportStatusEnum("status").notNull().default("pending"),
     reviewedBy: uuid("reviewed_by").references(() => users.id),
     reviewNote: text("review_note"),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [
     index("reports_status_idx").on(table.status),
@@ -88,9 +73,7 @@ export const auditLog = pgTable(
     targetId: uuid("target_id"),
     metadata: jsonb("metadata"), // Arbitrary JSON context
     ipAddress: varchar("ip_address", { length: 45 }),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [
     index("audit_actor_idx").on(table.actorId),

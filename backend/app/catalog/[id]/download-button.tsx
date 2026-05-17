@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { LiquidButton } from "@/components/ui/liquid-button";
+import { useState } from "react";
 
 interface DownloadButtonProps {
   pkgId: string;
@@ -41,12 +41,23 @@ export function DownloadButton({ pkgId, size }: DownloadButtonProps) {
         fullWidth
         onClick={handleDownload}
         disabled={loading}
-        iconLeft={loading ? <span style={{ animation: "pulse-dot 1s ease-in-out infinite" }}>◓</span> : "↓"}
+        iconLeft={
+          loading ? <span style={{ animation: "pulse-dot 1s ease-in-out infinite" }}>◓</span> : "↓"
+        }
       >
         {loading ? "Generating link…" : `Download · ${size}`}
       </LiquidButton>
       {error && (
-        <div style={{ marginTop: 8, fontSize: "0.8rem", color: "var(--color-danger)", textAlign: "center" }}>{error}</div>
+        <div
+          style={{
+            marginTop: 8,
+            fontSize: "0.8rem",
+            color: "var(--color-danger)",
+            textAlign: "center",
+          }}
+        >
+          {error}
+        </div>
       )}
     </div>
   );

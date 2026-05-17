@@ -44,10 +44,7 @@ export async function rateLimit(
     // Find oldest entry to calculate retry time
     const oldest = await redis.zrange(key, 0, 0, "WITHSCORES");
     const oldestTime = oldest.length >= 2 ? Number(oldest[1]) : now;
-    const retryAfterSec = Math.max(
-      1,
-      Math.ceil((oldestTime + windowMs - now) / 1000),
-    );
+    const retryAfterSec = Math.max(1, Math.ceil((oldestTime + windowMs - now) / 1000));
 
     return { allowed: false, remaining: 0, retryAfterSec };
   }

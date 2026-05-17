@@ -33,10 +33,7 @@ export function LiquidGlassEnhancer({
   if (!mounted) return null;
 
   return (
-    <LiquidGlass
-      {...props}
-      className={className}
-    >
+    <LiquidGlass {...props} className={className}>
       <span
         aria-hidden="true"
         data-surface-enhancement-for={surfaceId}

@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
-import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { Navbar } from "@/components/layout/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
+import type { Metadata } from "next";
 import { UploadWizard } from "./upload-wizard";
 
 export const metadata: Metadata = {
@@ -13,7 +13,15 @@ export default function UploadPage() {
   return (
     <>
       <Navbar />
-      <main style={{ maxWidth: 900, margin: "0 auto", padding: "24px 24px 64px", position: "relative", zIndex: 1 }}>
+      <main
+        style={{
+          maxWidth: 900,
+          margin: "0 auto",
+          padding: "24px 24px 64px",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
         <Breadcrumb items={[{ label: "Catalog", href: "/catalog" }, { label: "Upload" }]} />
         <UploadWizard />
         <Footer />

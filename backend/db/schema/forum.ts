@@ -1,15 +1,15 @@
+import { relations } from "drizzle-orm";
 import {
-  pgTable,
-  uuid,
-  varchar,
-  text,
-  timestamp,
   boolean,
+  index,
   integer,
   pgEnum,
-  index,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
-import { relations } from "drizzle-orm";
 import { users } from "./users";
 
 // ─── Enums ──────────────────────────────────────────────────
@@ -37,12 +37,8 @@ export const forumThreads = pgTable(
     postCount: integer("post_count").notNull().default(0),
     lastPostAt: timestamp("last_post_at", { withTimezone: true }),
     deletedAt: timestamp("deleted_at", { withTimezone: true }),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [
     index("threads_author_idx").on(table.authorId),
@@ -70,12 +66,8 @@ export const forumPosts = pgTable(
     depth: integer("depth").notNull().default(0), // Nesting level (max 3 in UI)
     isEdited: boolean("is_edited").notNull().default(false),
     deletedAt: timestamp("deleted_at", { withTimezone: true }),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [
     index("posts_thread_created_idx").on(table.threadId, table.createdAt),

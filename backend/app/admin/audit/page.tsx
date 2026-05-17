@@ -1,7 +1,7 @@
-import { db } from "@/lib/db";
-import { auditLog, users } from "@/db/schema";
-import { desc, eq } from "drizzle-orm";
 import { GlassCard } from "@/components/liquid/glass";
+import { auditLog, users } from "@/db/schema";
+import { db } from "@/lib/db";
+import { desc, eq } from "drizzle-orm";
 
 const actionColors: Record<string, string> = {
   approve: "#34d399",
@@ -17,9 +17,13 @@ const actionColors: Record<string, string> = {
 
 export default async function AdminAuditPage() {
   let entries: Array<{
-    id: string; action: string; targetType: string | null;
-    targetId: string | null; metadata: unknown;
-    createdAt: Date; actorName: string | null;
+    id: string;
+    action: string;
+    targetType: string | null;
+    targetId: string | null;
+    metadata: unknown;
+    createdAt: Date;
+    actorName: string | null;
   }> = [];
 
   try {
@@ -44,7 +48,16 @@ export default async function AdminAuditPage() {
   return (
     <div className="animate-fade-in" style={{ display: "flex", flexDirection: "column", gap: 20 }}>
       <div>
-        <h1 style={{ fontSize: "1.5rem", fontWeight: 800, color: "var(--color-text-primary)", marginBottom: 4 }}>Audit Log</h1>
+        <h1
+          style={{
+            fontSize: "1.5rem",
+            fontWeight: 800,
+            color: "var(--color-text-primary)",
+            marginBottom: 4,
+          }}
+        >
+          Audit Log
+        </h1>
         <p style={{ fontSize: "0.8rem", color: "var(--color-text-muted)" }}>
           Track all admin actions · {entries.length} entries
         </p>
@@ -52,34 +65,58 @@ export default async function AdminAuditPage() {
 
       {entries.length === 0 ? (
         <GlassCard padding="40px 24px" style={{ textAlign: "center" }}>
-          <p style={{ color: "var(--color-text-muted)", fontSize: "0.85rem" }}>No audit entries yet</p>
+          <p style={{ color: "var(--color-text-muted)", fontSize: "0.85rem" }}>
+            No audit entries yet
+          </p>
         </GlassCard>
       ) : (
         <GlassCard padding="0" style={{ overflow: "hidden" }}>
           {entries.map((e, i) => {
             const color = actionColors[e.action.toLowerCase()] ?? "var(--color-text-muted)";
             return (
-              <div key={e.id} style={{
-                display: "flex", alignItems: "center", gap: 14,
-                padding: "12px 18px",
-                borderBottom: i < entries.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
-              }}>
+              <div
+                key={e.id}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 14,
+                  padding: "12px 18px",
+                  borderBottom:
+                    i < entries.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
+                }}
+              >
                 {/* Action dot */}
-                <div style={{
-                  width: 8, height: 8, borderRadius: "50%",
-                  background: color, flexShrink: 0,
-                }} />
+                <div
+                  style={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: "50%",
+                    background: color,
+                    flexShrink: 0,
+                  }}
+                />
 
                 {/* Content */}
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ display: "flex", gap: 6, alignItems: "center", flexWrap: "wrap" }}>
-                    <span style={{ fontSize: "0.82rem", fontWeight: 600, color: "var(--color-text-primary)" }}>
+                    <span
+                      style={{
+                        fontSize: "0.82rem",
+                        fontWeight: 600,
+                        color: "var(--color-text-primary)",
+                      }}
+                    >
                       {e.actorName ?? "System"}
                     </span>
-                    <span className="tag" style={{
-                      fontSize: "0.6rem", padding: "1px 6px",
-                      borderColor: color, color: color,
-                    }}>
+                    <span
+                      className="tag"
+                      style={{
+                        fontSize: "0.6rem",
+                        padding: "1px 6px",
+                        borderColor: color,
+                        color: color,
+                      }}
+                    >
                       {e.action}
                     </span>
                     {e.targetType && (
@@ -89,19 +126,29 @@ export default async function AdminAuditPage() {
                     )}
                   </div>
                   {e.metadata != null && (
-                    <p style={{ fontSize: "0.75rem", color: "var(--color-text-muted)", margin: "2px 0 0", fontFamily: "var(--font-mono)" }}>
+                    <p
+                      style={{
+                        fontSize: "0.75rem",
+                        color: "var(--color-text-muted)",
+                        margin: "2px 0 0",
+                        fontFamily: "var(--font-mono)",
+                      }}
+                    >
                       {typeof e.metadata === "string" ? e.metadata : JSON.stringify(e.metadata)}
                     </p>
                   )}
                 </div>
 
                 {/* Timestamp */}
-                <span style={{
-                  fontSize: "0.7rem", color: "var(--color-text-muted)",
-                  fontFamily: "var(--font-mono)", flexShrink: 0,
-                }}>
-                  {e.createdAt.toLocaleDateString("en-US", { month: "short", day: "numeric" })}
-                  {" "}
+                <span
+                  style={{
+                    fontSize: "0.7rem",
+                    color: "var(--color-text-muted)",
+                    fontFamily: "var(--font-mono)",
+                    flexShrink: 0,
+                  }}
+                >
+                  {e.createdAt.toLocaleDateString("en-US", { month: "short", day: "numeric" })}{" "}
                   {e.createdAt.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}
                 </span>
               </div>

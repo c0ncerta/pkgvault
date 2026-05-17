@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
 import { Navbar } from "@/components/layout/navbar";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
+import type { Metadata } from "next";
 import { NewThreadForm } from "./new-thread-form";
 
 export const metadata: Metadata = {

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { LiquidButton } from "@/components/ui/liquid-button";
+import { useState } from "react";
 
 export function QueueActions({ pkgId }: { pkgId: string }) {
   const [loading, setLoading] = useState<string | null>(null);
@@ -28,12 +28,17 @@ export function QueueActions({ pkgId }: { pkgId: string }) {
 
   if (done) {
     return (
-      <div style={{
-        padding: "8px 16px", borderRadius: 10, fontSize: "0.8rem", fontWeight: 600,
-        color: done === "approve" ? "var(--color-success)" : "var(--color-danger)",
-        background: done === "approve" ? "rgba(52,211,153,0.1)" : "rgba(248,113,113,0.1)",
-        border: `1px solid ${done === "approve" ? "rgba(52,211,153,0.25)" : "rgba(248,113,113,0.25)"}`,
-      }}>
+      <div
+        style={{
+          padding: "8px 16px",
+          borderRadius: 10,
+          fontSize: "0.8rem",
+          fontWeight: 600,
+          color: done === "approve" ? "var(--color-success)" : "var(--color-danger)",
+          background: done === "approve" ? "rgba(52,211,153,0.1)" : "rgba(248,113,113,0.1)",
+          border: `1px solid ${done === "approve" ? "rgba(52,211,153,0.25)" : "rgba(248,113,113,0.25)"}`,
+        }}
+      >
         {done === "approve" ? "✓ Approved" : "✗ Rejected"}
       </div>
     );

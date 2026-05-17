@@ -1,11 +1,11 @@
-import { notFound } from "next/navigation";
-import { db } from "@/lib/db";
-import { pkgFiles, pkgSources, games, users } from "@/db/schema";
-import { eq } from "drizzle-orm";
 import { GlassCard } from "@/components/liquid/glass";
+import { IconExternalLink } from "@/components/ui/icons";
+import { games, pkgFiles, pkgSources, users } from "@/db/schema";
+import { db } from "@/lib/db";
+import { eq } from "drizzle-orm";
+import { notFound } from "next/navigation";
 import { PkgSourceManager } from "./source-manager";
 import { PkgStatusControl } from "./status-control";
-import { IconExternalLink } from "@/components/ui/icons";
 
 function formatBytes(bytes: bigint | number): string {
   const num = Number(bytes);
@@ -29,18 +29,33 @@ export default async function AdminPkgDetail({
   const { id } = await params;
 
   let pkg: {
-    id: string; title: string; description: string | null;
-    sha256: string; sizeBytes: bigint; r2Key: string | null;
-    version: string | null; fwRequired: string | null;
-    status: string; downloadCount: number; createdAt: Date;
-    uploaderName: string | null; gameTitle: string | null;
+    id: string;
+    title: string;
+    description: string | null;
+    sha256: string;
+    sizeBytes: bigint;
+    r2Key: string | null;
+    version: string | null;
+    fwRequired: string | null;
+    status: string;
+    downloadCount: number;
+    createdAt: Date;
+    uploaderName: string | null;
+    gameTitle: string | null;
     gamePlatform: string | null;
   } | null = null;
 
   let sources: {
-    id: string; provider: string; url: string; label: string | null;
-    isPrimary: boolean; status: string; failCount: number;
-    downloadCount: number; lastCheckedAt: Date | null; notes: string | null;
+    id: string;
+    provider: string;
+    url: string;
+    label: string | null;
+    isPrimary: boolean;
+    status: string;
+    failCount: number;
+    downloadCount: number;
+    lastCheckedAt: Date | null;
+    notes: string | null;
     createdAt: Date;
   }[] = [];
 
@@ -97,18 +112,43 @@ export default async function AdminPkgDetail({
     <div className="animate-fade-in">
       {/* Breadcrumb */}
       <div style={{ fontSize: "0.8rem", color: "#475569", marginBottom: 20 }}>
-        <a href="/admin/pkgs" style={{ color: "#818cf8", textDecoration: "none" }}>PKG Manager</a>
+        <a href="/admin/pkgs" style={{ color: "#818cf8", textDecoration: "none" }}>
+          PKG Manager
+        </a>
         <span style={{ margin: "0 8px" }}>›</span>
         <span>{pkg.title}</span>
       </div>
 
       {/* Header */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 28 }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+          marginBottom: 28,
+        }}
+      >
         <div>
-          <h1 style={{ fontSize: "1.5rem", fontWeight: 800, color: "var(--color-text-primary)", letterSpacing: "-0.03em", marginBottom: 6 }}>
+          <h1
+            style={{
+              fontSize: "1.5rem",
+              fontWeight: 800,
+              color: "var(--color-text-primary)",
+              letterSpacing: "-0.03em",
+              marginBottom: 6,
+            }}
+          >
             {pkg.title}
           </h1>
-          <div style={{ display: "flex", gap: 12, alignItems: "center", fontSize: "0.8rem", color: "var(--color-text-muted)" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: 12,
+              alignItems: "center",
+              fontSize: "0.8rem",
+              color: "var(--color-text-muted)",
+            }}
+          >
             {pkg.gamePlatform && <span>{pkg.gamePlatform}</span>}
             {pkg.version && <span>v{pkg.version}</span>}
             <span>{formatBytes(pkg.sizeBytes)}</span>
@@ -125,27 +165,69 @@ export default async function AdminPkgDetail({
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           {/* Info card */}
           <GlassCard variant="content" cornerRadius={16} padding="20px 24px">
-            <h3 style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: 14 }}>
+            <h3
+              style={{
+                fontSize: "0.8rem",
+                fontWeight: 600,
+                color: "var(--color-text-muted)",
+                textTransform: "uppercase",
+                letterSpacing: "0.04em",
+                marginBottom: 14,
+              }}
+            >
               Package Details
             </h3>
-            <div style={{ display: "grid", gridTemplateColumns: "120px 1fr", gap: "8px 16px", fontSize: "0.85rem" }}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "120px 1fr",
+                gap: "8px 16px",
+                fontSize: "0.85rem",
+              }}
+            >
               <span style={{ color: "#475569" }}>SHA-256</span>
-              <span style={{ color: "var(--color-text-primary)", fontFamily: "var(--font-mono)", fontSize: "0.7rem", wordBreak: "break-all" }}>{pkg.sha256}</span>
+              <span
+                style={{
+                  color: "var(--color-text-primary)",
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.7rem",
+                  wordBreak: "break-all",
+                }}
+              >
+                {pkg.sha256}
+              </span>
               <span style={{ color: "#475569" }}>R2 Key</span>
-              <span style={{ color: pkg.r2Key ? "#e8e8ed" : "#475569", fontFamily: "var(--font-mono)", fontSize: "0.7rem" }}>
+              <span
+                style={{
+                  color: pkg.r2Key ? "#e8e8ed" : "#475569",
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.7rem",
+                }}
+              >
                 {pkg.r2Key ?? "— not on R2"}
               </span>
               <span style={{ color: "#475569" }}>Uploader</span>
-              <span style={{ color: "var(--color-text-primary)" }}>{pkg.uploaderName ?? "unknown"}</span>
+              <span style={{ color: "var(--color-text-primary)" }}>
+                {pkg.uploaderName ?? "unknown"}
+              </span>
               <span style={{ color: "#475569" }}>Game</span>
               <span style={{ color: "var(--color-text-primary)" }}>{pkg.gameTitle ?? "—"}</span>
-              {pkg.fwRequired && (<>
-                <span style={{ color: "#475569" }}>FW Required</span>
-                <span style={{ color: "var(--color-text-primary)" }}>{pkg.fwRequired}</span>
-              </>)}
+              {pkg.fwRequired && (
+                <>
+                  <span style={{ color: "#475569" }}>FW Required</span>
+                  <span style={{ color: "var(--color-text-primary)" }}>{pkg.fwRequired}</span>
+                </>
+              )}
             </div>
             {pkg.description && (
-              <p style={{ color: "var(--color-text-secondary)", fontSize: "0.85rem", marginTop: 16, lineHeight: 1.6 }}>
+              <p
+                style={{
+                  color: "var(--color-text-secondary)",
+                  fontSize: "0.85rem",
+                  marginTop: 16,
+                  lineHeight: 1.6,
+                }}
+              >
                 {pkg.description}
               </p>
             )}
@@ -154,7 +236,7 @@ export default async function AdminPkgDetail({
           {/* Sources */}
           <PkgSourceManager
             pkgId={pkg.id}
-            sources={sources.map(s => ({
+            sources={sources.map((s) => ({
               ...s,
               lastCheckedAt: s.lastCheckedAt?.toISOString() ?? null,
               createdAt: s.createdAt.toISOString(),
@@ -166,20 +248,36 @@ export default async function AdminPkgDetail({
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           {/* Status */}
           <GlassCard variant="content" cornerRadius={16} padding="20px">
-            <h3 style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: 12 }}>
+            <h3
+              style={{
+                fontSize: "0.8rem",
+                fontWeight: 600,
+                color: "var(--color-text-muted)",
+                textTransform: "uppercase",
+                letterSpacing: "0.04em",
+                marginBottom: 12,
+              }}
+            >
               Status
             </h3>
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <div style={{
-                width: 10, height: 10, borderRadius: "50%",
-                background: statusColors[pkg.status] ?? "#64748b",
-                boxShadow: `0 0 8px ${statusColors[pkg.status] ?? "#64748b"}40`,
-              }} />
-              <span style={{
-                fontSize: "0.9rem", fontWeight: 600,
-                color: statusColors[pkg.status] ?? "#64748b",
-                textTransform: "capitalize",
-              }}>
+              <div
+                style={{
+                  width: 10,
+                  height: 10,
+                  borderRadius: "50%",
+                  background: statusColors[pkg.status] ?? "#64748b",
+                  boxShadow: `0 0 8px ${statusColors[pkg.status] ?? "#64748b"}40`,
+                }}
+              />
+              <span
+                style={{
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                  color: statusColors[pkg.status] ?? "#64748b",
+                  textTransform: "capitalize",
+                }}
+              >
                 {pkg.status.replace("_", " ")}
               </span>
             </div>
@@ -187,28 +285,67 @@ export default async function AdminPkgDetail({
 
           {/* Sources summary */}
           <GlassCard variant="content" cornerRadius={16} padding="20px">
-            <h3 style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: 12 }}>
+            <h3
+              style={{
+                fontSize: "0.8rem",
+                fontWeight: 600,
+                color: "var(--color-text-muted)",
+                textTransform: "uppercase",
+                letterSpacing: "0.04em",
+                marginBottom: 12,
+              }}
+            >
               Download Sources
             </h3>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-              <div style={{ padding: "10px 12px", borderRadius: 8, background: "rgba(52,211,153,0.06)", textAlign: "center" }}>
+              <div
+                style={{
+                  padding: "10px 12px",
+                  borderRadius: 8,
+                  background: "rgba(52,211,153,0.06)",
+                  textAlign: "center",
+                }}
+              >
                 <div style={{ fontSize: "1.25rem", fontWeight: 800, color: "#34d399" }}>
-                  {sources.filter(s => s.status === "alive").length}
+                  {sources.filter((s) => s.status === "alive").length}
                 </div>
-                <div style={{ fontSize: "0.65rem", color: "#475569", textTransform: "uppercase" }}>Alive</div>
+                <div style={{ fontSize: "0.65rem", color: "#475569", textTransform: "uppercase" }}>
+                  Alive
+                </div>
               </div>
-              <div style={{ padding: "10px 12px", borderRadius: 8, background: "rgba(248,113,113,0.06)", textAlign: "center" }}>
+              <div
+                style={{
+                  padding: "10px 12px",
+                  borderRadius: 8,
+                  background: "rgba(248,113,113,0.06)",
+                  textAlign: "center",
+                }}
+              >
                 <div style={{ fontSize: "1.25rem", fontWeight: 800, color: "#f87171" }}>
-                  {sources.filter(s => s.status === "dead").length}
+                  {sources.filter((s) => s.status === "dead").length}
                 </div>
-                <div style={{ fontSize: "0.65rem", color: "#475569", textTransform: "uppercase" }}>Dead</div>
+                <div style={{ fontSize: "0.65rem", color: "#475569", textTransform: "uppercase" }}>
+                  Dead
+                </div>
               </div>
             </div>
-            <div style={{ marginTop: 8, padding: "10px 12px", borderRadius: 8, background: "rgba(255,255,255,0.03)", textAlign: "center" }}>
-              <div style={{ fontSize: "1.25rem", fontWeight: 800, color: "var(--color-text-primary)" }}>
+            <div
+              style={{
+                marginTop: 8,
+                padding: "10px 12px",
+                borderRadius: 8,
+                background: "rgba(255,255,255,0.03)",
+                textAlign: "center",
+              }}
+            >
+              <div
+                style={{ fontSize: "1.25rem", fontWeight: 800, color: "var(--color-text-primary)" }}
+              >
                 {sources.length}
               </div>
-              <div style={{ fontSize: "0.65rem", color: "#475569", textTransform: "uppercase" }}>Total sources</div>
+              <div style={{ fontSize: "0.65rem", color: "#475569", textTransform: "uppercase" }}>
+                Total sources
+              </div>
             </div>
           </GlassCard>
 
@@ -217,10 +354,24 @@ export default async function AdminPkgDetail({
             href={`/catalog/${pkg.id}`}
             target="_blank"
             style={{ textDecoration: "none" }}
+            rel="noreferrer"
           >
             <GlassCard variant="content" cornerRadius={16} padding="14px 20px">
-              <div style={{ display: "flex", alignItems: "center", gap: 10, fontSize: "0.85rem", color: "#818cf8", fontWeight: 500 }}>
-                <IconExternalLink size={16} style={{ display: "inline", verticalAlign: "middle" }} /> View public page →
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 10,
+                  fontSize: "0.85rem",
+                  color: "#818cf8",
+                  fontWeight: 500,
+                }}
+              >
+                <IconExternalLink
+                  size={16}
+                  style={{ display: "inline", verticalAlign: "middle" }}
+                />{" "}
+                View public page →
               </div>
             </GlassCard>
           </a>

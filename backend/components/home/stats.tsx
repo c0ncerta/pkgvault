@@ -1,23 +1,28 @@
-import { unstable_cache } from "next/cache";
+import { forumThreads, games, pkgFiles, users } from "@/db/schema";
 import { db } from "@/lib/db";
-import { pkgFiles, games, forumThreads, users } from "@/db/schema";
-import { sql, eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
+import { unstable_cache } from "next/cache";
 
 const getStats = unstable_cache(
   async () => {
     return await Promise.all([
-      db.select({
-        count: sql<number>`count(*)::int`,
-        size: sql<string>`coalesce(sum(${pkgFiles.sizeBytes}), 0)`,
-        downloads: sql<number>`coalesce(sum(${pkgFiles.downloadCount}), 0)::int`,
-      })
+      db
+        .select({
+          count: sql<number>`count(*)::int`,
+          size: sql<string>`coalesce(sum(${pkgFiles.sizeBytes}), 0)`,
+          downloads: sql<number>`coalesce(sum(${pkgFiles.downloadCount}), 0)::int`,
+        })
         .from(pkgFiles)
         .where(sql`${pkgFiles.deletedAt} IS NULL AND ${pkgFiles.status} = 'approved'`),
-      db.select({ platforms: sql<number>`count(distinct ${games.platform})::int` })
+      db
+        .select({ platforms: sql<number>`count(distinct ${games.platform})::int` })
         .from(pkgFiles)
         .innerJoin(games, eq(pkgFiles.gameId, games.id))
         .where(sql`${pkgFiles.deletedAt} IS NULL AND ${pkgFiles.status} = 'approved'`),
-      db.select({ count: sql<number>`count(*)::int` }).from(forumThreads).where(sql`${forumThreads.deletedAt} IS NULL`),
+      db
+        .select({ count: sql<number>`count(*)::int` })
+        .from(forumThreads)
+        .where(sql`${forumThreads.deletedAt} IS NULL`),
       db.select({ count: sql<number>`count(*)::int` }).from(users),
     ]);
   },
@@ -69,7 +74,13 @@ export async function HomeStats() {
 
   return (
     <section style={{ maxWidth: 900, margin: "72px auto 0", padding: "0 24px" }}>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 10 }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
+          gap: 10,
+        }}
+      >
         {stats.map((s) => (
           <GlassStat key={s.label} value={s.value} label={s.label} />
         ))}

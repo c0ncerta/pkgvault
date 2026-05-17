@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { signUp } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const inputStyle: React.CSSProperties = {
   width: "100%",

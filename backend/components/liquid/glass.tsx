@@ -1,19 +1,22 @@
 "use client";
 
-import type { ReactNode, CSSProperties, RefObject } from "react";
-import { LiquidGlassSurface, type BaseVariant } from "./liquid-glass-surface";
+import type { CSSProperties, ReactNode, RefObject } from "react";
+import { LiquidGlassSurface } from "./liquid-glass-surface";
 
 // ─── GlassCard — content panels, cards, stat blocks ─────────────
 type GlassCardVariant = "content" | "elevated";
 
-const CARD_PRESETS: Record<GlassCardVariant, {
-  displacementScale: number;
-  blurAmount: number;
-  saturation: number;
-  aberrationIntensity: number;
-  elasticity: number;
-  cornerRadius: number;
-}> = {
+const CARD_PRESETS: Record<
+  GlassCardVariant,
+  {
+    displacementScale: number;
+    blurAmount: number;
+    saturation: number;
+    aberrationIntensity: number;
+    elasticity: number;
+    cornerRadius: number;
+  }
+> = {
   content: {
     displacementScale: 35,
     blurAmount: 0.04,
@@ -73,14 +76,17 @@ export function GlassCard({
 // ─── GlassPanel — controls, pills, nav, dock, modals ────────────
 type GlassPanelVariant = "regular" | "strong";
 
-const PANEL_PRESETS: Record<GlassPanelVariant, {
-  displacementScale: number;
-  blurAmount: number;
-  saturation: number;
-  aberrationIntensity: number;
-  elasticity: number;
-  cornerRadius: number;
-}> = {
+const PANEL_PRESETS: Record<
+  GlassPanelVariant,
+  {
+    displacementScale: number;
+    blurAmount: number;
+    saturation: number;
+    aberrationIntensity: number;
+    elasticity: number;
+    cornerRadius: number;
+  }
+> = {
   regular: {
     displacementScale: 50,
     blurAmount: 0.05,

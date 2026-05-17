@@ -1,6 +1,6 @@
-import { redirect } from "next/navigation";
-import { getServerSession } from "@/lib/session";
 import { Navbar } from "@/components/layout/navbar";
+import { getServerSession } from "@/lib/session";
+import { redirect } from "next/navigation";
 
 export default async function DashboardLayout({
   children,
@@ -25,10 +25,18 @@ export default async function DashboardLayout({
       <Navbar />
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "24px 24px 64px" }}>
         {/* Dashboard sidebar nav */}
-        <div className="toolbar-shell" style={{
-          display: "flex", gap: 8, marginBottom: 24,
-          paddingBottom: 12, paddingTop: 12, paddingLeft: 18, paddingRight: 18,
-        }}>
+        <div
+          className="toolbar-shell"
+          style={{
+            display: "flex",
+            gap: 8,
+            marginBottom: 24,
+            paddingBottom: 12,
+            paddingTop: 12,
+            paddingLeft: 18,
+            paddingRight: 18,
+          }}
+        >
           <DashLink href="/profile" label="Profile" />
           <DashLink href="/settings" label="Settings" />
           {(userRole === "admin" || userRole === "mod") && (

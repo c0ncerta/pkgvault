@@ -21,9 +21,7 @@ import { obfuscateFilename } from "../lib/filename-obfuscator";
 const [, , raw, extOrFlag, pkgId] = process.argv;
 
 if (!raw) {
-  process.stderr.write(
-    "usage: obfuscate-name <title-or-filename> [extension] [pkg-id]\n",
-  );
+  process.stderr.write("usage: obfuscate-name <title-or-filename> [extension] [pkg-id]\n");
   process.exit(1);
 }
 
@@ -32,4 +30,4 @@ const out = obfuscateFilename(raw, {
   salt: pkgId && !pkgId.startsWith("-") ? pkgId : undefined,
 });
 
-process.stdout.write(out + "\n");
+process.stdout.write(`${out}\n`);

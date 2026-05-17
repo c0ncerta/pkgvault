@@ -1,20 +1,9 @@
-import {
-  pgTable,
-  uuid,
-  varchar,
-  integer,
-  pgEnum,
-  uniqueIndex,
-} from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
+import { integer, pgEnum, pgTable, uniqueIndex, uuid } from "drizzle-orm/pg-core";
 import { users } from "./users";
 
 // ─── Enums ──────────────────────────────────────────────────
-export const voteTargetEnum = pgEnum("vote_target_type", [
-  "post",
-  "thread",
-  "pkg_file",
-]);
+export const voteTargetEnum = pgEnum("vote_target_type", ["post", "thread", "pkg_file"]);
 
 // ─── Votes ──────────────────────────────────────────────────
 export const votes = pgTable(
@@ -30,11 +19,7 @@ export const votes = pgTable(
   },
   (table) => [
     // One vote per user per target
-    uniqueIndex("votes_unique_idx").on(
-      table.userId,
-      table.targetType,
-      table.targetId,
-    ),
+    uniqueIndex("votes_unique_idx").on(table.userId, table.targetType, table.targetId),
   ],
 );
 

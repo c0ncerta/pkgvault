@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { LiquidButton } from "@/components/ui/liquid-button";
 import { IconSearch } from "@/components/ui/icons";
+import { LiquidButton } from "@/components/ui/liquid-button";
+import { useState } from "react";
 
 export function SourceActions({ sourceId }: { sourceId: string; currentStatus: string }) {
   const [loading, setLoading] = useState(false);
@@ -40,12 +40,7 @@ export function SourceActions({ sourceId }: { sourceId: string; currentStatus: s
       >
         {loading ? "Checking…" : "Check"}
       </LiquidButton>
-      <LiquidButton
-        variant="danger"
-        size="sm"
-        onClick={handleDelete}
-        iconLeft="✗"
-      >
+      <LiquidButton variant="danger" size="sm" onClick={handleDelete} iconLeft="✗">
         Remove
       </LiquidButton>
     </div>

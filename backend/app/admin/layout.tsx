@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
 import { getServerSession } from "@/lib/session";
+import { redirect } from "next/navigation";
 import { AdminSidebar } from "./sidebar";
 
 export default async function AdminLayout({
@@ -21,17 +21,17 @@ export default async function AdminLayout({
 
   return (
     <>
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "260px 1fr",
-        minHeight: "100vh",
-        position: "relative",
-        zIndex: 1,
-      }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "260px 1fr",
+          minHeight: "100vh",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
         <AdminSidebar role={role} userName={session?.user?.name ?? "Admin"} />
-        <main style={{ padding: "32px 40px", overflow: "auto" }}>
-          {children}
-        </main>
+        <main style={{ padding: "32px 40px", overflow: "auto" }}>{children}</main>
       </div>
     </>
   );

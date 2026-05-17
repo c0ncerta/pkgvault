@@ -1,6 +1,6 @@
+import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { auth } from "@/lib/auth";
 
 // Routes that require authentication
 const protectedRoutes = ["/profile", "/settings", "/upload", "/api/pkg", "/api/forum"];
@@ -15,9 +15,7 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Skip auth check for public routes
-  const isProtected = protectedRoutes.some((route) =>
-    pathname.startsWith(route),
-  );
+  const isProtected = protectedRoutes.some((route) => pathname.startsWith(route));
   const isMod = modRoutes.some((route) => pathname.startsWith(route));
   const isAdmin = adminRoutes.some((route) => pathname.startsWith(route));
 
@@ -33,10 +31,7 @@ export async function middleware(request: NextRequest) {
   // Not authenticated → redirect to login (pages) or 401 (API)
   if (!session) {
     if (pathname.startsWith("/api/")) {
-      return NextResponse.json(
-        { error: "Unauthorized" },
-        { status: 401 },
-      );
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("callbackUrl", pathname);
@@ -48,20 +43,14 @@ export async function middleware(request: NextRequest) {
 
   if (isMod && userRole !== "mod" && userRole !== "admin") {
     if (pathname.startsWith("/api/")) {
-      return NextResponse.json(
-        { error: "Forbidden: moderator access required" },
-        { status: 403 },
-      );
+      return NextResponse.json({ error: "Forbidden: moderator access required" }, { status: 403 });
     }
     return NextResponse.redirect(new URL("/", request.url));
   }
 
   if (isAdmin && userRole !== "admin") {
     if (pathname.startsWith("/api/")) {
-      return NextResponse.json(
-        { error: "Forbidden: admin access required" },
-        { status: 403 },
-      );
+      return NextResponse.json({ error: "Forbidden: admin access required" }, { status: 403 });
     }
     return NextResponse.redirect(new URL("/", request.url));
   }

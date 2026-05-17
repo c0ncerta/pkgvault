@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
-import { db } from "@/lib/db";
 import { pkgFiles, pkgSources } from "@/db/schema";
+import { db } from "@/lib/db";
 import { and, eq, isNull, sql } from "drizzle-orm";
+import type { Metadata } from "next";
 import { BackupsManager } from "./backups-manager";
 
 export const metadata: Metadata = {
@@ -32,24 +32,22 @@ async function getBackupOverview(): Promise<{
     const aggSub = db
       .select({
         pkgId: pkgSources.pkgId,
-        totalTorrent:
-          sql<number>`count(*) filter (where ${pkgSources.provider} = 'torrent')`.as(
-            "total_torrent",
-          ),
+        totalTorrent: sql<number>`count(*) filter (where ${pkgSources.provider} = 'torrent')`.as(
+          "total_torrent",
+        ),
         aliveTorrent:
           sql<number>`count(*) filter (where ${pkgSources.provider} = 'torrent' and ${pkgSources.status} = 'alive' and ${pkgSources.seederCount} > 0)`.as(
             "alive_torrent",
           ),
-        hasGdrive:
-          sql<boolean>`bool_or(${pkgSources.provider} = 'gdrive')`.as("has_gdrive"),
-        gdriveUrl:
-          sql<string | null>`max(${pkgSources.url}) filter (where ${pkgSources.provider} = 'gdrive')`.as(
-            "gdrive_url",
-          ),
-        magnetUrl:
-          sql<string | null>`max(${pkgSources.url}) filter (where ${pkgSources.provider} = 'torrent')`.as(
-            "magnet_url",
-          ),
+        hasGdrive: sql<boolean>`bool_or(${pkgSources.provider} = 'gdrive')`.as("has_gdrive"),
+        gdriveUrl: sql<
+          string | null
+        >`max(${pkgSources.url}) filter (where ${pkgSources.provider} = 'gdrive')`.as("gdrive_url"),
+        magnetUrl: sql<
+          string | null
+        >`max(${pkgSources.url}) filter (where ${pkgSources.provider} = 'torrent')`.as(
+          "magnet_url",
+        ),
       })
       .from(pkgSources)
       .groupBy(pkgSources.pkgId)
@@ -79,8 +77,7 @@ async function getBackupOverview(): Promise<{
 
     const candidates: Candidate[] = rows.map((r) => {
       const hasGdrive = r.hasGdrive ?? false;
-      const tDead =
-        (r.totalTorrent ?? 0) > 0 && (r.aliveTorrent ?? 0) === 0;
+      const tDead = (r.totalTorrent ?? 0) > 0 && (r.aliveTorrent ?? 0) === 0;
       if (hasGdrive) withGdrive++;
       if (tDead) torrentDead++;
       return {
@@ -138,8 +135,8 @@ export default async function AdminBackupsPage() {
           marginBottom: 32,
         }}
       >
-        Manage Google Drive mirrors. Backup candidates appear when no GDrive
-        mirror exists or torrent sources are dead.
+        Manage Google Drive mirrors. Backup candidates appear when no GDrive mirror exists or
+        torrent sources are dead.
       </p>
 
       <BackupsManager {...data} />

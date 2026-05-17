@@ -15,7 +15,10 @@ export const uploadRequestSchema = z.object({
 
 export const uploadConfirmSchema = z.object({
   fileId: z.string().uuid(),
-  sha256: z.string().length(64).regex(/^[a-f0-9]+$/),
+  sha256: z
+    .string()
+    .length(64)
+    .regex(/^[a-f0-9]+$/),
 });
 
 export const pkgSearchSchema = z.object({

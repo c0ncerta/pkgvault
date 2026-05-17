@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { forumPosts, votes } from "@/db/schema";
 import { db } from "@/lib/db";
-import { votes, forumPosts, forumThreads } from "@/db/schema";
 import { getServerSession } from "@/lib/session";
 import { voteSchema } from "@/lib/validations/forum";
-import { eq, and, sql } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
+import { type NextRequest, NextResponse } from "next/server";
 
 /**
  * POST /api/forum/vote — Cast/update/remove a vote
@@ -51,17 +51,12 @@ export async function POST(request: NextRequest) {
     // Remove vote
     if (existing) {
       scoreDelta = -existing.value;
-      await db
-        .delete(votes)
-        .where(eq(votes.id, existing.id));
+      await db.delete(votes).where(eq(votes.id, existing.id));
     }
   } else if (existing) {
     // Update existing vote
     scoreDelta = value - existing.value;
-    await db
-      .update(votes)
-      .set({ value })
-      .where(eq(votes.id, existing.id));
+    await db.update(votes).set({ value }).where(eq(votes.id, existing.id));
   } else {
     // New vote
     scoreDelta = value;

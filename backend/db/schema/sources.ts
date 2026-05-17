@@ -1,36 +1,36 @@
+import { relations } from "drizzle-orm";
 import {
-  pgTable,
-  uuid,
-  text,
-  varchar,
-  timestamp,
   boolean,
+  index,
   integer,
   pgEnum,
-  index,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
-import { relations } from "drizzle-orm";
 import { pkgFiles } from "./pkg-files";
 import { users } from "./users";
 
 // ─── Source provider enum ───────────────────────────────────
 export const sourceProviderEnum = pgEnum("source_provider", [
-  "r2",             // Cloudflare R2 (presigned URLs)
-  "direct",         // Direct HTTP link (NAS, CDN, etc.)
-  "gdrive",         // Google Drive
-  "mega",           // Mega.nz
-  "mediafire",      // MediaFire
-  "archive_org",    // Internet Archive (free, unlimited)
-  "torrent",        // Magnet link / torrent
-  "onedrive",       // OneDrive
-  "other",          // Any other provider
+  "r2", // Cloudflare R2 (presigned URLs)
+  "direct", // Direct HTTP link (NAS, CDN, etc.)
+  "gdrive", // Google Drive
+  "mega", // Mega.nz
+  "mediafire", // MediaFire
+  "archive_org", // Internet Archive (free, unlimited)
+  "torrent", // Magnet link / torrent
+  "onedrive", // OneDrive
+  "other", // Any other provider
 ]);
 
 export const sourceStatusEnum = pgEnum("source_status", [
-  "alive",      // Confirmed working
-  "dead",       // Confirmed broken
-  "unknown",    // Not yet checked
-  "checking",   // Currently being verified
+  "alive", // Confirmed working
+  "dead", // Confirmed broken
+  "unknown", // Not yet checked
+  "checking", // Currently being verified
 ]);
 
 // ─── PKG Sources — download links managed by admin ──────────
@@ -56,12 +56,8 @@ export const pkgSources = pgTable(
       onDelete: "set null",
     }),
     notes: text("notes"), // Admin notes (internal)
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [
     index("pkg_sources_pkg_idx").on(table.pkgId),
@@ -83,9 +79,7 @@ export const linkReports = pgTable(
     }),
     reason: varchar("reason", { length: 500 }).notNull(),
     resolved: boolean("resolved").notNull().default(false),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [
     index("link_reports_source_idx").on(table.sourceId),

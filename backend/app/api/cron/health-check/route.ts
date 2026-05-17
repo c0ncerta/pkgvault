@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
 import { pkgSources } from "@/db/schema";
+import { db } from "@/lib/db";
 import { checkSourceHealth } from "@/lib/health-check";
 import { and, eq, isNull, lt, or, sql } from "drizzle-orm";
+import { type NextRequest, NextResponse } from "next/server";
 
 /**
  * GET /api/cron/health-check
@@ -25,22 +25,20 @@ export const maxDuration = 300;
 const DEAD_THRESHOLD_FAILS = 5;
 
 export async function GET(request: NextRequest) {
-  const secret = process.env["CRON_SECRET"];
+  const secret = process.env.CRON_SECRET;
   if (!secret) {
     return NextResponse.json({ error: "CRON_SECRET not configured" }, { status: 500 });
   }
 
   const authHeader = request.headers.get("authorization") ?? "";
   const url = new URL(request.url);
-  const provided =
-    authHeader.replace(/^Bearer\s+/i, "") || url.searchParams.get("secret") || "";
+  const provided = authHeader.replace(/^Bearer\s+/i, "") || url.searchParams.get("secret") || "";
   if (provided !== secret) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  const limit = Math.min(parseInt(url.searchParams.get("limit") ?? "25", 10) || 25, 200);
-  const maxAgeMin =
-    parseInt(url.searchParams.get("maxAgeMin") ?? "60", 10) || 60;
+  const limit = Math.min(Number.parseInt(url.searchParams.get("limit") ?? "25", 10) || 25, 200);
+  const maxAgeMin = Number.parseInt(url.searchParams.get("maxAgeMin") ?? "60", 10) || 60;
   const includeDead = url.searchParams.get("dead") === "1";
   const singleId = url.searchParams.get("sourceId");
 
@@ -54,10 +52,7 @@ export async function GET(request: NextRequest) {
         .where(
           and(
             includeDead ? sql`true` : sql`${pkgSources.status} != 'dead'`,
-            or(
-              isNull(pkgSources.lastCheckedAt),
-              lt(pkgSources.lastCheckedAt, staleBefore),
-            ),
+            or(isNull(pkgSources.lastCheckedAt), lt(pkgSources.lastCheckedAt, staleBefore)),
           ),
         )
         .limit(limit);
@@ -84,11 +79,7 @@ export async function GET(request: NextRequest) {
     await db
       .update(pkgSources)
       .set({
-        status: result.alive
-          ? "alive"
-          : newFailCount >= DEAD_THRESHOLD_FAILS
-            ? "dead"
-            : "unknown",
+        status: result.alive ? "alive" : newFailCount >= DEAD_THRESHOLD_FAILS ? "dead" : "unknown",
         lastCheckedAt: now,
         lastAliveAt: result.alive ? now : source.lastAliveAt,
         failCount: newFailCount,

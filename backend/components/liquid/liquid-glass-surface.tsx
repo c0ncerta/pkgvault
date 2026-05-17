@@ -4,7 +4,11 @@ import dynamic from "next/dynamic";
 import { useId } from "react";
 import type { CSSProperties, ReactNode, RefObject } from "react";
 
-type BaseVariant = "surface-content" | "surface-elevated" | "glass-regular" | "glass-regular-strong";
+type BaseVariant =
+  | "surface-content"
+  | "surface-elevated"
+  | "glass-regular"
+  | "glass-regular-strong";
 
 type LiquidGlassSurfaceProps = {
   displacementScale: number;
@@ -53,6 +57,11 @@ export function LiquidGlassSurface({
       data-surface-id={surfaceId}
       className={`liquid-glass-surface relative ${baseVariant} ${className}`.trim()}
       style={baseStyle}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") onClick?.(e as any);
+      }}
       onClick={onClick}
     >
       {children}

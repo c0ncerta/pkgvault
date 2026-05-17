@@ -1,7 +1,7 @@
 "use client";
 
-import { type ReactNode } from "react";
-import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { AnimatePresence, type Variants, motion } from "framer-motion";
+import type { ReactNode } from "react";
 
 // ─── Page transition wrapper ─────────────────────────────────────
 interface PageTransitionProps {
@@ -157,7 +157,14 @@ interface InViewFadeProps {
   once?: boolean;
 }
 
-export function InViewFade({ children, delay = 0, y = 24, className, style, once = true }: InViewFadeProps) {
+export function InViewFade({
+  children,
+  delay = 0,
+  y = 24,
+  className,
+  style,
+  once = true,
+}: InViewFadeProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y, filter: "blur(6px)" }}

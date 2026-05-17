@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
 import { pkgFiles, pkgSources } from "@/db/schema";
+import { db } from "@/lib/db";
 import { getServerSession } from "@/lib/session";
 import { and, eq, isNull, sql } from "drizzle-orm";
+import { type NextRequest, NextResponse } from "next/server";
 
 /**
  * GET /api/admin/backup-candidates
@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
   }
 
   const url = new URL(request.url);
-  const limit = Math.min(parseInt(url.searchParams.get("limit") ?? "50", 10) || 50, 200);
+  const limit = Math.min(Number.parseInt(url.searchParams.get("limit") ?? "50", 10) || 50, 200);
   const missingOnly = url.searchParams.get("missingOnly") === "1";
 
   // Subquery aggregations per pkg:
@@ -35,8 +35,13 @@ export async function GET(request: NextRequest) {
   const torrentAggSubquery = db
     .select({
       pkgId: pkgSources.pkgId,
-      totalTorrent: sql<number>`count(*) filter (where ${pkgSources.provider} = 'torrent')`.as("total_torrent"),
-      aliveTorrent: sql<number>`count(*) filter (where ${pkgSources.provider} = 'torrent' and ${pkgSources.status} = 'alive' and ${pkgSources.seederCount} > 0)`.as("alive_torrent"),
+      totalTorrent: sql<number>`count(*) filter (where ${pkgSources.provider} = 'torrent')`.as(
+        "total_torrent",
+      ),
+      aliveTorrent:
+        sql<number>`count(*) filter (where ${pkgSources.provider} = 'torrent' and ${pkgSources.status} = 'alive' and ${pkgSources.seederCount} > 0)`.as(
+          "alive_torrent",
+        ),
       hasGdrive: sql<boolean>`bool_or(${pkgSources.provider} = 'gdrive')`.as("has_gdrive"),
     })
     .from(pkgSources)
@@ -81,11 +86,8 @@ export async function GET(request: NextRequest) {
       downloadCount: r.downloadCount,
       sha256: r.sha256,
       hasGdrive: r.hasGdrive ?? false,
-      torrentDead:
-        (r.totalTorrent ?? 0) > 0 && (r.aliveTorrent ?? 0) === 0,
-      reason: !r.hasGdrive
-        ? "no-gdrive-backup"
-        : "torrent-dead",
+      torrentDead: (r.totalTorrent ?? 0) > 0 && (r.aliveTorrent ?? 0) === 0,
+      reason: !r.hasGdrive ? "no-gdrive-backup" : "torrent-dead",
     })),
   });
 }

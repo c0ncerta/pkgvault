@@ -9,7 +9,10 @@ const statuses = [
   { value: "taken_down", label: "Taken Down", color: "var(--color-text-muted)" },
 ];
 
-export function PkgStatusControl({ pkgId, currentStatus }: { pkgId: string; currentStatus: string }) {
+export function PkgStatusControl({
+  pkgId,
+  currentStatus,
+}: { pkgId: string; currentStatus: string }) {
   const [status, setStatus] = useState(currentStatus);
   const [loading, setLoading] = useState(false);
 
@@ -33,22 +36,31 @@ export function PkgStatusControl({ pkgId, currentStatus }: { pkgId: string; curr
   };
 
   return (
-    <div style={{
-      display: "inline-flex", gap: 2, padding: 4, borderRadius: 999,
-      background: "rgba(255,255,255,0.04)",
-      border: "1px solid rgba(255,255,255,0.06)",
-      boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), 0 2px 6px rgba(0,0,0,0.18)",
-    }}>
-      {statuses.map(s => {
+    <div
+      style={{
+        display: "inline-flex",
+        gap: 2,
+        padding: 4,
+        borderRadius: 999,
+        background: "rgba(255,255,255,0.04)",
+        border: "1px solid rgba(255,255,255,0.06)",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), 0 2px 6px rgba(0,0,0,0.18)",
+      }}
+    >
+      {statuses.map((s) => {
         const active = status === s.value;
         return (
           <button
+            type="button"
             key={s.value}
             onClick={() => handleChange(s.value)}
             disabled={loading}
             style={{
-              padding: "7px 16px", borderRadius: 999, fontSize: "0.75rem", fontWeight: 600,
-              border: `1px solid ${active ? s.color + "50" : "transparent"}`,
+              padding: "7px 16px",
+              borderRadius: 999,
+              fontSize: "0.75rem",
+              fontWeight: 600,
+              border: `1px solid ${active ? `${s.color}50` : "transparent"}`,
               background: active
                 ? `linear-gradient(180deg, ${s.color}28, ${s.color}10)`
                 : "transparent",

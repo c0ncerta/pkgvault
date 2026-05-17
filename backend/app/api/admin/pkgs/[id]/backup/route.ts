@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
 import { pkgFiles, pkgSources } from "@/db/schema";
-import { getServerSession } from "@/lib/session";
+import { db } from "@/lib/db";
 import { normalizeGDrive, pingGDrive } from "@/lib/gdrive";
+import { getServerSession } from "@/lib/session";
 import { and, eq } from "drizzle-orm";
+import { type NextRequest, NextResponse } from "next/server";
 
 /**
  * POST /api/admin/pkgs/[id]/backup
@@ -20,10 +20,7 @@ import { and, eq } from "drizzle-orm";
  *   - Inserts pkg_sources row (provider=gdrive, isPrimary=false)
  *   - If a gdrive source already exists for this pkg, updates its URL instead
  */
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await getServerSession();
   const role = (session?.user as { role?: string } | undefined)?.role;
   if (role !== "admin" && role !== "mod") {
@@ -43,13 +40,14 @@ export async function POST(
 
   const info = normalizeGDrive(body.gdriveUrl);
   if (!info) {
-    return NextResponse.json(
-      { error: "Not a recognizable Google Drive URL" },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: "Not a recognizable Google Drive URL" }, { status: 400 });
   }
 
-  const [pkg] = await db.select({ id: pkgFiles.id }).from(pkgFiles).where(eq(pkgFiles.id, pkgId)).limit(1);
+  const [pkg] = await db
+    .select({ id: pkgFiles.id })
+    .from(pkgFiles)
+    .where(eq(pkgFiles.id, pkgId))
+    .limit(1);
   if (!pkg) {
     return NextResponse.json({ error: "PKG not found" }, { status: 404 });
   }
@@ -60,7 +58,7 @@ export async function POST(
   }
 
   const now = new Date();
-  const userId = (session!.user as { id: string }).id;
+  const userId = (session?.user as { id: string }).id;
 
   // Upsert: if a gdrive source exists for this pkg, update it; else insert
   const [existing] = await db

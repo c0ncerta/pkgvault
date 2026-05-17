@@ -1,18 +1,15 @@
-import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
 import { pkgSources } from "@/db/schema";
-import { getServerSession } from "@/lib/session";
+import { db } from "@/lib/db";
 import { checkSourceHealth } from "@/lib/health-check";
+import { getServerSession } from "@/lib/session";
 import { eq } from "drizzle-orm";
+import { type NextRequest, NextResponse } from "next/server";
 
 /**
  * POST /api/admin/sources/[id]/check
  * Runs a single-source health check and persists the result.
  */
-export async function POST(
-  _request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function POST(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await getServerSession();
   const role = (session?.user as { role?: string } | undefined)?.role;
   if (role !== "admin" && role !== "mod") {
@@ -21,11 +18,7 @@ export async function POST(
 
   const { id } = await params;
 
-  const [source] = await db
-    .select()
-    .from(pkgSources)
-    .where(eq(pkgSources.id, id))
-    .limit(1);
+  const [source] = await db.select().from(pkgSources).where(eq(pkgSources.id, id)).limit(1);
 
   if (!source) {
     return NextResponse.json({ error: "Source not found" }, { status: 404 });

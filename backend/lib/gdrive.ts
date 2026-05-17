@@ -8,8 +8,8 @@
 
 export type GDriveUrlInfo = {
   fileId: string;
-  shareUrl: string;       // canonical /file/d/<id>/view share URL
-  directUrl: string;      // single-hop direct download URL
+  shareUrl: string; // canonical /file/d/<id>/view share URL
+  directUrl: string; // single-hop direct download URL
 };
 
 const GDRIVE_HOSTS = new Set([
@@ -39,7 +39,7 @@ export function extractGDriveId(input: string): string | null {
 
   // /file/d/<id>/...
   const m1 = url.pathname.match(/\/(?:file|folders|d)\/([a-zA-Z0-9_-]{20,})/);
-  if (m1 && m1[1]) return m1[1];
+  if (m1?.[1]) return m1[1];
 
   // ?id=<id>
   const idParam = url.searchParams.get("id");

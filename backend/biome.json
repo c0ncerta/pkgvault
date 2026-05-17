@@ -38,7 +38,18 @@
       },
       "suspicious": {
         "noExplicitAny": "warn",
-        "noConsoleLog": "warn"
+        "noConsoleLog": "warn",
+        "noArrayIndexKey": "warn",
+        "noAssignInExpressions": "warn",
+        "noDuplicateJsxProps": "warn",
+        "noMisleadingCharacterClass": "warn"
+      },
+      "a11y": {
+        "useButtonType": "warn",
+        "noLabelWithoutControl": "warn",
+        "useSemanticElements": "warn",
+        "useKeyWithClickEvents": "warn",
+        "noSvgWithoutTitle": "warn"
       }
     }
   },
