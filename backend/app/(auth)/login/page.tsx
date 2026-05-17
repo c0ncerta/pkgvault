@@ -1,0 +1,59 @@
+import type { Metadata } from "next";
+import { LoginForm } from "./login-form";
+import { GlassCard } from "@/components/liquid/glass";
+
+export const metadata: Metadata = {
+  title: "Login",
+  description: "Sign in to your PKGVault account",
+};
+
+export default function LoginPage() {
+  return (
+    <GlassCard
+      variant="elevated"
+      cornerRadius={16}
+      padding="32px"
+      style={{ width: "100%", maxWidth: 420 }}
+    >
+      <h1
+        style={{
+          fontSize: "1.75rem",
+          fontWeight: 800,
+          color: "var(--color-text-primary)",
+          marginBottom: 8,
+          textAlign: "center",
+          letterSpacing: "-0.02em",
+        }}
+      >
+        Welcome back
+      </h1>
+      <p
+        style={{
+          color: "var(--color-text-muted)",
+          textAlign: "center",
+          marginBottom: 32,
+          fontSize: "0.9rem",
+        }}
+      >
+        Sign in to your PKGVault account
+      </p>
+      <LoginForm />
+      <p
+        style={{
+          color: "#475569",
+          textAlign: "center",
+          marginTop: 24,
+          fontSize: "0.85rem",
+        }}
+      >
+        Don&apos;t have an account?{" "}
+        <a
+          href="/register"
+          style={{ color: "#818cf8", textDecoration: "none", fontWeight: 500 }}
+        >
+          Create one
+        </a>
+      </p>
+    </GlassCard>
+  );
+}

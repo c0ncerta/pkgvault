@@ -1,0 +1,101 @@
+# ═══════════════════════════════════════════════════════════
+# PKGVault — Root .gitignore
+# Enterprise-grade ignore rules for the entire monorepo
+# ═══════════════════════════════════════════════════════════
+
+# ─── Dependencies ─────────────────────────────────────────
+**/node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+.yarn/cache/
+package-lock.json
+
+# ─── Next.js ──────────────────────────────────────────────
+**/.next/
+**/out/
+
+# ─── Build artifacts ──────────────────────────────────────
+**/dist/
+**/build/
+**/*.tsbuildinfo
+**/next-env.d.ts
+
+# ─── Environment & Secrets ────────────────────────────────
+**/.env
+**/.env.local
+**/.env.*.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
+*.pem
+*.key
+*.cert
+**/secrets/
+**/.credentials
+
+# ─── OS & Filesystem ──────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# ─── IDE & Editor ─────────────────────────────────────────
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+.project
+.settings/
+
+# ─── Database ─────────────────────────────────────────────
+**/pgdata/
+**/redisdata/
+**/db/migrations/meta/
+*.sqlite
+*.sqlite3
+
+# ─── Logs ─────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ─── Debug & Profiling ────────────────────────────────────
+**/.turbo/
+*.trace
+*.trace.json
+coverage/
+.nyc_output/
+
+# ─── Docker ───────────────────────────────────────────────
+# (Keep docker-compose.yml, ignore runtime data)
+docker-compose.override.yml
+
+# ─── Design & Prototyping (keep source, ignore exports) ───
+**/*.sketch
+**/*.fig
+**/*.xd
+**/.cache/
+
+# ─── Temporary & Scratch ──────────────────────────────────
+tmp/
+temp/
+*.tmp
+*.bak
+*.orig
+
+# ─── AI & LLM artifacts ───────────────────────────────────
+**/.cursor/
+**/.claude/
+**/.opencode/
+**/CLAUDE.md
+**/.github/copilot-instructions.md
