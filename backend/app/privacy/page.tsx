@@ -50,8 +50,8 @@ export default function PrivacyPage() {
             title: "Contact",
             body: "For privacy concerns, reach out to the admin team through the forum or the contact information listed on the site.",
           },
-        ].map((section, i) => (
-          <GlassCard key={i} padding="20px 22px">
+        ].map((section) => (
+          <GlassCard key={section.title} padding="20px 22px">
             <h3
               style={{
                 fontSize: "0.9rem",

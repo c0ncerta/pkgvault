@@ -297,6 +297,7 @@ export function UploadWizard() {
                     </div>
                   </div>
                   <button
+                    type="button"
                     className="btn-ghost"
                     onClick={() => {
                       setFile(null);
@@ -317,6 +318,7 @@ export function UploadWizard() {
               >
                 <div>
                   <label
+                    htmlFor="upload-title"
                     style={{
                       display: "block",
                       fontSize: "0.7rem",
@@ -330,6 +332,7 @@ export function UploadWizard() {
                     Title *
                   </label>
                   <input
+                    id="upload-title"
                     className="input"
                     value={form.title}
                     onChange={(e) => setForm({ ...form, title: e.target.value })}
@@ -338,6 +341,7 @@ export function UploadWizard() {
                 </div>
                 <div>
                   <label
+                    htmlFor="upload-version"
                     style={{
                       display: "block",
                       fontSize: "0.7rem",
@@ -351,6 +355,7 @@ export function UploadWizard() {
                     Version *
                   </label>
                   <input
+                    id="upload-version"
                     className="input"
                     value={form.version}
                     onChange={(e) => setForm({ ...form, version: e.target.value })}
@@ -359,6 +364,7 @@ export function UploadWizard() {
                 </div>
                 <div>
                   <label
+                    htmlFor="upload-platform"
                     style={{
                       display: "block",
                       fontSize: "0.7rem",
@@ -372,6 +378,7 @@ export function UploadWizard() {
                     Platform *
                   </label>
                   <select
+                    id="upload-platform"
                     className="input"
                     value={form.platform}
                     onChange={(e) => setForm({ ...form, platform: e.target.value })}
@@ -385,6 +392,7 @@ export function UploadWizard() {
                 </div>
                 <div>
                   <label
+                    htmlFor="upload-region"
                     style={{
                       display: "block",
                       fontSize: "0.7rem",
@@ -398,6 +406,7 @@ export function UploadWizard() {
                     Region
                   </label>
                   <select
+                    id="upload-region"
                     className="input"
                     value={form.region}
                     onChange={(e) => setForm({ ...form, region: e.target.value })}
@@ -411,6 +420,7 @@ export function UploadWizard() {
                 </div>
                 <div>
                   <label
+                    htmlFor="upload-firmware"
                     style={{
                       display: "block",
                       fontSize: "0.7rem",
@@ -424,6 +434,7 @@ export function UploadWizard() {
                     Min Firmware
                   </label>
                   <input
+                    id="upload-firmware"
                     className="input"
                     value={form.fwRequired}
                     onChange={(e) => setForm({ ...form, fwRequired: e.target.value })}
@@ -433,6 +444,7 @@ export function UploadWizard() {
               </div>
               <div style={{ marginBottom: 14 }}>
                 <label
+                  htmlFor="upload-description"
                   style={{
                     display: "block",
                     fontSize: "0.7rem",
@@ -446,6 +458,7 @@ export function UploadWizard() {
                   Description
                 </label>
                 <textarea
+                  id="upload-description"
                   className="input"
                   rows={3}
                   value={form.description}
@@ -455,10 +468,11 @@ export function UploadWizard() {
                 />
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <button className="btn-ghost" onClick={() => setStep("file")}>
+                <button type="button" className="btn-ghost" onClick={() => setStep("file")}>
                   ← Back
                 </button>
                 <button
+                  type="button"
                   className="btn-primary"
                   onClick={() => setStep("review")}
                   disabled={!form.title || !form.platform}
@@ -499,29 +513,29 @@ export function UploadWizard() {
                   ["Region", form.region || "—"],
                   ["Min FW", form.fwRequired || "—"],
                 ].map(([k, v]) => (
-                  <>
+                  <div key={k} style={{ display: "contents" }}>
                     <dt
                       style={{
                         color: "var(--color-text-muted)",
+                        fontSize: "0.7rem",
                         fontWeight: 500,
                         textTransform: "uppercase",
-                        fontSize: "0.7rem",
-                        letterSpacing: "0.04em",
+                        letterSpacing: "0.05em",
                       }}
                     >
                       {k}
                     </dt>
                     <dd
                       style={{
-                        color: "var(--color-text-primary)",
-                        fontFamily: "var(--font-mono)",
-                        fontSize: "0.8rem",
                         margin: 0,
+                        color: "var(--color-text-primary)",
+                        fontSize: "0.9rem",
+                        fontWeight: 500,
                       }}
                     >
                       {v}
                     </dd>
-                  </>
+                  </div>
                 ))}
               </div>
               {form.description && (
@@ -599,6 +613,7 @@ export function UploadWizard() {
 
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <button
+                  type="button"
                   className="btn-ghost"
                   onClick={() => setStep("metadata")}
                   disabled={uploading}
@@ -606,6 +621,7 @@ export function UploadWizard() {
                   ← Back
                 </button>
                 <button
+                  type="button"
                   className="btn-primary"
                   onClick={handleSubmit}
                   disabled={uploading}

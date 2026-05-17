@@ -20,31 +20,37 @@ export default function RulesPage() {
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         {[
           {
+            num: 1,
             title: "Respect others",
             desc: "No harassment, hate speech, or personal attacks. Treat everyone with respect.",
           },
           {
+            num: 2,
             title: "No malware or tampered files",
             desc: "All uploads must be clean. Tampered or malicious files result in an immediate ban.",
           },
           {
+            num: 3,
             title: "Verify your uploads",
             desc: "Include SHA-256 hashes and accurate metadata. Mislabeled files will be removed.",
           },
           {
+            num: 4,
             title: "No commercial redistribution",
             desc: "PKGVault is a community archive. Do not sell or commercially redistribute files.",
           },
           {
+            num: 5,
             title: "Report, don't retaliate",
             desc: "If you see a rule violation, use the report button. Don't engage.",
           },
           {
+            num: 6,
             title: "One account per person",
             desc: "Alt accounts used to evade bans or manipulate votes will be removed.",
           },
-        ].map((rule, i) => (
-          <GlassCard key={i} padding="18px 20px">
+        ].map((rule) => (
+          <GlassCard key={rule.title} padding="18px 20px">
             <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
               <div
                 style={{
@@ -62,7 +68,7 @@ export default function RulesPage() {
                   fontWeight: 700,
                 }}
               >
-                {i + 1}
+                {rule.num}
               </div>
               <div>
                 <h3

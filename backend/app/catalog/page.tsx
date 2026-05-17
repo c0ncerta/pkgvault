@@ -213,8 +213,8 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
             { v: statsData.totalSize || "0 B", l: "Total size" },
             { v: String(statsData.verified), l: "Verified" },
             { v: String(statsData.pending), l: "Pending" },
-          ].map((s, i) => (
-            <GlassCard key={i} padding="14px 18px">
+          ].map((s) => (
+            <GlassCard key={s.l} padding="14px 18px">
               <div style={{ textAlign: "center" }}>
                 <div
                   style={{

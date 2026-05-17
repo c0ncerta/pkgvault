@@ -23,6 +23,7 @@ function I({ size = 18, className, style, children }: IconProps & { children: Re
       strokeLinejoin="round"
       className={className}
       style={style}
+      aria-hidden={true}
     >
       {children}
     </svg>

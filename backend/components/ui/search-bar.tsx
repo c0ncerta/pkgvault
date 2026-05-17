@@ -113,6 +113,7 @@ export function SearchBar() {
         >
           {results.map((r) => (
             <button
+              type="button"
               key={r.id}
               onClick={() => handleSelect(r.id)}
               style={{
@@ -148,6 +149,7 @@ export function SearchBar() {
             </button>
           ))}
           <button
+            type="button"
             onClick={() => {
               router.push(`/catalog?q=${encodeURIComponent(query)}`);
               setOpen(false);

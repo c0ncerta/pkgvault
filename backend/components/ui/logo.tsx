@@ -25,7 +25,9 @@ export function Logo({ size = 32, className, style, monochrome }: LogoProps) {
       className={className}
       style={style}
       aria-label="PKGVault"
+      role="img"
     >
+      <title>PKGVault</title>
       {!monochrome && (
         <defs>
           <linearGradient id={id} x1="0%" y1="0%" x2="100%" y2="100%">

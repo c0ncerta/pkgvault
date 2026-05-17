@@ -48,6 +48,7 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
     <div ref={ref} style={{ position: "relative" }}>
       {/* Trigger */}
       <button
+        type="button"
         onClick={() => setOpen(!open)}
         aria-label="User menu"
         style={{
@@ -235,6 +236,7 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
 
           {/* Logout */}
           <button
+            type="button"
             onClick={handleLogout}
             style={{
               display: "flex",

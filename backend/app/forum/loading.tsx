@@ -15,9 +15,9 @@ export default function ForumLoading() {
               marginBottom: 14,
             }}
           />
-          {Array.from({ length: 6 }).map((_, i) => (
+          {Array.from({ length: 6 }, (_, i) => ({ id: `skel-side-${i}` })).map((s) => (
             <div
-              key={i}
+              key={s.id}
               style={{
                 width: "100%",
                 height: 36,
@@ -41,45 +41,47 @@ export default function ForumLoading() {
             }}
           />
           <GlassCard padding="0" style={{ overflow: "hidden" }}>
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div
-                key={i}
-                style={{
-                  padding: "14px 18px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  borderBottom: i < 5 ? "1px solid rgba(255,255,255,0.04)" : "none",
-                }}
-              >
-                <div>
+            {Array.from({ length: 6 }, (_, i) => ({ id: `skel-thread-${i}`, isLast: i >= 5 })).map(
+              (s) => (
+                <div
+                  key={s.id}
+                  style={{
+                    padding: "14px 18px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    borderBottom: s.isLast ? "none" : "1px solid rgba(255,255,255,0.04)",
+                  }}
+                >
+                  <div>
+                    <div
+                      style={{
+                        width: 260,
+                        height: 14,
+                        borderRadius: 4,
+                        background: "rgba(255,255,255,0.04)",
+                        marginBottom: 6,
+                      }}
+                    />
+                    <div
+                      style={{
+                        width: 180,
+                        height: 10,
+                        borderRadius: 3,
+                        background: "rgba(255,255,255,0.03)",
+                      }}
+                    />
+                  </div>
                   <div
                     style={{
-                      width: 260,
-                      height: 14,
+                      width: 30,
+                      height: 30,
                       borderRadius: 4,
-                      background: "rgba(255,255,255,0.04)",
-                      marginBottom: 6,
-                    }}
-                  />
-                  <div
-                    style={{
-                      width: 180,
-                      height: 10,
-                      borderRadius: 3,
                       background: "rgba(255,255,255,0.03)",
                     }}
                   />
                 </div>
-                <div
-                  style={{
-                    width: 30,
-                    height: 30,
-                    borderRadius: 4,
-                    background: "rgba(255,255,255,0.03)",
-                  }}
-                />
-              </div>
-            ))}
+              ),
+            )}
           </GlassCard>
         </div>
       </div>

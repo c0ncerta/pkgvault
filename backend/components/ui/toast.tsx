@@ -57,7 +57,6 @@ export function ToastProvider({ children }: { children: ReactNode }) {
           <div
             key={t.id}
             className={`toast toast-${t.type} ${t.exiting ? "exiting" : ""}`}
-            onClick={() => removeToast(t.id)}
             role="alert"
           >
             <span
@@ -93,6 +92,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             </span>
             <span style={{ flex: 1 }}>{t.message}</span>
             <button
+              type="button"
               onClick={(e) => {
                 e.stopPropagation();
                 removeToast(t.id);

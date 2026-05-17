@@ -51,7 +51,13 @@ export function ReplyForm({ threadId, parentId, onCancel }: ReplyFormProps) {
     }
   };
 
-  const tools = ["B", "I", "</>", <IconFile key="attach" size={14} />, "@"];
+  const tools = [
+    { id: "bold", content: "B" },
+    { id: "italic", content: "I" },
+    { id: "code", content: "</>" },
+    { id: "attach", content: <IconFile size={14} /> },
+    { id: "mention", content: "@" },
+  ];
 
   return (
     <GlassCard padding="18px">
@@ -94,14 +100,14 @@ export function ReplyForm({ threadId, parentId, onCancel }: ReplyFormProps) {
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div style={{ display: "flex", gap: 4 }}>
-            {tools.map((tool, i) => (
+            {tools.map((tool) => (
               <button
-                key={i}
+                key={tool.id}
                 type="button"
                 className="btn-ghost"
                 style={{ padding: "6px 10px", fontSize: "0.8rem", minWidth: 32 }}
               >
-                {tool}
+                {tool.content}
               </button>
             ))}
           </div>

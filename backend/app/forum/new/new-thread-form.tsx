@@ -103,6 +103,7 @@ export function NewThreadForm() {
 
         <div>
           <label
+            htmlFor="thread-title"
             style={{
               display: "block",
               fontSize: "0.7rem",
@@ -116,6 +117,7 @@ export function NewThreadForm() {
             Title *
           </label>
           <input
+            id="thread-title"
             className="input"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -135,8 +137,8 @@ export function NewThreadForm() {
         </div>
 
         {/* Category pills */}
-        <div>
-          <label
+        <fieldset style={{ border: "none", margin: 0, padding: 0 }}>
+          <div
             style={{
               display: "block",
               fontSize: "0.7rem",
@@ -148,7 +150,7 @@ export function NewThreadForm() {
             }}
           >
             Category *
-          </label>
+          </div>
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
             {categories.map((cat) => (
               <button
@@ -173,7 +175,7 @@ export function NewThreadForm() {
               </button>
             ))}
           </div>
-        </div>
+        </fieldset>
 
         {/* Toolbar */}
         <GlassCard padding="6px" style={{ display: "flex", gap: 2 }}>

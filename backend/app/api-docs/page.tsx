@@ -66,8 +66,8 @@ export default function ApiDocsPage() {
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-        {endpoints.map((ep, i) => (
-          <GlassCard key={i} padding="14px 18px">
+        {endpoints.map((ep) => (
+          <GlassCard key={ep.path} padding="14px 18px">
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <span
                 style={{

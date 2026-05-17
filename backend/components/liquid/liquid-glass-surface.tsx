@@ -53,12 +53,18 @@ export function LiquidGlassSurface({
   } satisfies CSSProperties;
 
   return (
-    <div
+    <button
+      type="button"
       data-surface-id={surfaceId}
       className={`liquid-glass-surface relative ${baseVariant} ${className}`.trim()}
-      style={baseStyle}
-      role="button"
-      tabIndex={0}
+      style={
+        {
+          ...baseStyle,
+          border: "none",
+          textAlign: "left",
+          cursor: onClick ? "pointer" : undefined,
+        } as React.CSSProperties
+      }
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") onClick?.();
       }}
@@ -80,7 +86,7 @@ export function LiquidGlassSurface({
           cornerRadius={cornerRadius}
         />
       </div>
-    </div>
+    </button>
   );
 }
 
