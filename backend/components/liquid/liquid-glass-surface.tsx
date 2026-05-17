@@ -60,7 +60,7 @@ export function LiquidGlassSurface({
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") onClick?.(e as any);
+        if (e.key === "Enter" || e.key === " ") onClick?.();
       }}
       onClick={onClick}
     >
