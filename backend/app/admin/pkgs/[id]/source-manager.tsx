@@ -226,7 +226,7 @@ export function PkgSourceManager({
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {sources.map((source) => {
             const st = statusConfig[source.status] ??
-              statusConfig['unknown'] ?? { color: "#64748b", label: "Unknown" };
+              statusConfig["unknown"] ?? { color: "#64748b", label: "Unknown" };
             return (
               <div
                 key={source.id}

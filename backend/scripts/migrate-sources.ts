@@ -3,7 +3,7 @@ import { join } from "node:path";
 import postgres from "postgres";
 
 const dbUrl =
-  process.env['DATABASE_URL'] ?? "postgresql://pkgvault:pkgvault_dev@localhost:5432/pkgvault";
+  process.env["DATABASE_URL"] ?? "postgresql://pkgvault:pkgvault_dev@localhost:5432/pkgvault";
 const sql = postgres(dbUrl);
 
 async function migrate() {

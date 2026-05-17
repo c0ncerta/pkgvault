@@ -94,10 +94,9 @@ function extractInfoHash(magnet: string): string | null {
 
 function extractTrackers(magnet: string): string[] {
   const trackers: string[] = [];
-  const re = /tr=([^&]+)/g;
-  let match: RegExpExecArray | null;
-  while ((match = re.exec(magnet)) !== null) {
-    if (match[1]) trackers.push(decodeURIComponent(match[1]));
+  for (const match of magnet.matchAll(/tr=([^&]+)/g)) {
+    const val = match[1];
+    if (val) trackers.push(decodeURIComponent(val));
   }
   return trackers;
 }
@@ -177,7 +176,7 @@ function parseScrapeResponse(buf: Uint8Array): { seeders: number; leechers: numb
 
 function bufToLatin1(buf: Uint8Array): string {
   let s = "";
-  for (let i = 0; i < buf.length; i++) s += String.fromCharCode(buf[i]!);
+  for (const byte of buf) s += String.fromCharCode(byte);
   return s;
 }
 

@@ -139,7 +139,7 @@ export default async function SourcesPage({ searchParams }: PageProps) {
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         {sources.map((source) => {
           const st = statusConfig[source.status] ??
-            statusConfig['unknown'] ?? { color: "#64748b", icon: "?", label: "Unknown" };
+            statusConfig["unknown"] ?? { color: "#64748b", icon: "?", label: "Unknown" };
           return (
             <GlassCard key={source.id} variant="content" cornerRadius={14} padding="16px 20px">
               <div style={{ display: "flex", alignItems: "center", gap: 14 }}>

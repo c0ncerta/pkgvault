@@ -24,7 +24,8 @@
       "recommended": true,
       "complexity": {
         "noUselessSwitchCase": "error",
-        "noUselessTypeConstraint": "error"
+        "noUselessTypeConstraint": "error",
+        "useLiteralKeys": "off"
       },
       "correctness": {
         "noUnusedVariables": "warn",
