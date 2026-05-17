@@ -41,7 +41,11 @@ async function seed() {
 
   // If they already existed, fetch them so we have their IDs for relations
   const allUsers = await db.select().from(users);
-  const getUserId = (email: string) => allUsers.find((u) => u.email === email)!.id;
+  const getUserId = (email: string) => {
+    const user = allUsers.find((u) => u.email === email);
+    if (!user) throw new Error(`Seed user not found: ${email}`);
+    return user.id;
+  };
 
   const adminId = admin?.id ?? getUserId("admin@pkgvault.local");
   const modId = mod?.id ?? getUserId("mod@pkgvault.local");

@@ -23,7 +23,8 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const { q, gameId, platform, status, page, limit, sort } = parsed.data;
+  const { q, platform, status, page, limit, sort } = parsed.data;
+  const gameId = parsed.data.gameId;
   const offset = (page - 1) * limit;
 
   // Build conditions

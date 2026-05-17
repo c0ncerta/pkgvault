@@ -210,7 +210,8 @@ const KNOWN_EXTENSIONS = new Set([
 ]);
 
 function stripDiacritics(s: string): string {
-  return s.normalize("NFD").replace(/[̀-ͯ]/g, "");
+  // biome-ignore lint/suspicious/noMisleadingCharacterClass: target range is correct for stripping combining diacritical marks
+  return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
 function splitExtension(name: string): { stem: string; ext: string } {
