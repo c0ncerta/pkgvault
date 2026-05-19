@@ -11,6 +11,9 @@ const modRoutes = ["/admin", "/api/admin"];
 // Routes that require admin role
 const adminRoutes = ["/api/admin/users"];
 
+// Auth pages that logged-in users should not see
+const authPages = ["/login", "/register"];
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -18,8 +21,9 @@ export async function middleware(request: NextRequest) {
   const isProtected = protectedRoutes.some((route) => pathname.startsWith(route));
   const isMod = modRoutes.some((route) => pathname.startsWith(route));
   const isAdmin = adminRoutes.some((route) => pathname.startsWith(route));
+  const isAuthPage = authPages.some((route) => pathname === route);
 
-  if (!isProtected && !isMod && !isAdmin) {
+  if (!isProtected && !isMod && !isAdmin && !isAuthPage) {
     return NextResponse.next();
   }
 
@@ -27,6 +31,11 @@ export async function middleware(request: NextRequest) {
   const session = await auth.api.getSession({
     headers: request.headers,
   });
+
+  // Logged-in users should not see login/register pages
+  if (session && isAuthPage) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
 
   // Not authenticated → redirect to login (pages) or 401 (API)
   if (!session) {

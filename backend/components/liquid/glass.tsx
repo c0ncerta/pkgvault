@@ -149,7 +149,12 @@ export function GlassPanel({
 // ─── GlassStat — number + label block ────────────────────────────
 export function GlassStat({ value, label }: { value: string | number; label: string }) {
   return (
-    <GlassCard variant="content" cornerRadius={16} padding="12px 8px">
+    <GlassCard
+      variant="content"
+      cornerRadius={16}
+      padding="12px 8px"
+      style={{ minHeight: 80, display: "flex", alignItems: "center", justifyContent: "center" }}
+    >
       <div style={{ textAlign: "center" }}>
         <div style={{ fontSize: "1.25rem", fontWeight: 800, color: "var(--color-text-primary)" }}>
           {value}

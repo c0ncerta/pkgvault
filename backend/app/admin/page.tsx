@@ -280,7 +280,7 @@ function StatCard({
       variant="content"
       cornerRadius={16}
       padding="18px 20px"
-      style={{ cursor: href ? "pointer" : "default" }}
+      style={{ cursor: href ? "pointer" : "default", minHeight: 80 }}
     >
       <div style={{ fontSize: "1.75rem", fontWeight: 800, color, lineHeight: 1 }}>{value}</div>
       <div
@@ -315,7 +315,7 @@ function QuickAction({
 }: { href: string; icon: ReactNode; label: string; desc: string }) {
   return (
     <Link href={href} style={{ textDecoration: "none" }}>
-      <GlassCard variant="content" cornerRadius={16} padding="20px">
+      <GlassCard variant="content" cornerRadius={16} padding="20px" style={{ minHeight: 72 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
           <span
             style={{

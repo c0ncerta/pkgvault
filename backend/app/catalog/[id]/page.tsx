@@ -100,6 +100,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
   let sources: {
     id: string;
     provider: string;
+    url: string;
     label: string | null;
     status: string;
     isPrimary: boolean;
@@ -109,6 +110,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
       .select({
         id: pkgSources.id,
         provider: pkgSources.provider,
+        url: pkgSources.url,
         label: pkgSources.label,
         status: pkgSources.status,
         isPrimary: pkgSources.isPrimary,
@@ -305,7 +307,11 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
             }}
           >
             <GlassCard variant="elevated" padding="20px">
-              <DownloadButton pkgId={pkg.id} size={formatBytes(pkg.sizeBytes)} />
+              <DownloadButton
+                pkgId={pkg.id}
+                size={formatBytes(pkg.sizeBytes)}
+                rootzUrl={sources.find((s) => s.url.includes("rootz"))?.url ?? null}
+              />
               {sources.length > 1 && (
                 <div
                   style={{

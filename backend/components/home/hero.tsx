@@ -2,10 +2,14 @@
 
 import { GlassCard } from "@/components/liquid/glass";
 import { Logo } from "@/components/ui/logo";
+import { useSession } from "@/lib/auth-client";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
 export function HomeHero() {
+  const { data: session } = useSession();
+  const isLoggedIn = !!session?.user;
+
   return (
     <div
       style={{
@@ -91,11 +95,11 @@ export function HomeHero() {
           transition={{ type: "spring", stiffness: 480, damping: 22, mass: 0.6 }}
         >
           <Link
-            href="/register"
+            href={isLoggedIn ? "/catalog" : "/register"}
             className="btn-secondary"
             style={{ padding: "14px 32px", fontSize: "1rem" }}
           >
-            Join Community
+            {isLoggedIn ? "Go to Catalog" : "Join Community"}
           </Link>
         </motion.div>
       </motion.div>

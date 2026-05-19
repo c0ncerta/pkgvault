@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { DriveAccountRow } from "./page";
 
+const STAT_CARD_STYLE = { minHeight: 80, display: "flex" as const, alignItems: "center" as const, justifyContent: "center" as const };
+
 function formatBytes(bytes: string | bigint | number | null): string {
   if (!bytes) return "0 B";
   const num = Number(bytes);
@@ -162,7 +164,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
         }}
         className="responsive-stats"
       >
-        <GlassCard padding="18px">
+        <GlassCard padding="18px" style={STAT_CARD_STYLE}>
           <div style={{ textAlign: "center" }}>
             <div
               style={{
@@ -187,7 +189,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
             </div>
           </div>
         </GlassCard>
-        <GlassCard padding="18px">
+        <GlassCard padding="18px" style={STAT_CARD_STYLE}>
           <div style={{ textAlign: "center" }}>
             <div
               style={{
@@ -212,7 +214,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
             </div>
           </div>
         </GlassCard>
-        <GlassCard padding="18px">
+        <GlassCard padding="18px" style={STAT_CARD_STYLE}>
           <div style={{ textAlign: "center" }}>
             <div
               style={{
@@ -237,7 +239,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
             </div>
           </div>
         </GlassCard>
-        <GlassCard padding="18px">
+        <GlassCard padding="18px" style={STAT_CARD_STYLE}>
           <div style={{ textAlign: "center" }}>
             <div
               style={{

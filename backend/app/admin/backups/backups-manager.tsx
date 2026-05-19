@@ -258,7 +258,7 @@ export function BackupsManager({
             const saving = savingId === c.id;
 
             return (
-              <GlassCard key={c.id} variant="content" cornerRadius={14} padding="14px 18px">
+              <GlassCard key={c.id} variant="content" cornerRadius={14} padding="14px 18px" style={{ overflow: "hidden" }}>
                 <div
                   style={{
                     display: "flex",
@@ -283,6 +283,7 @@ export function BackupsManager({
                         alignItems: "center",
                         gap: 8,
                         marginBottom: 4,
+                        flexWrap: "wrap",
                       }}
                     >
                       <a
@@ -346,6 +347,11 @@ export function BackupsManager({
                           color: "#818cf8",
                           fontSize: "0.7rem",
                           textDecoration: "none",
+                          display: "block",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                          maxWidth: "100%",
                         }}
                       >
                         {gdriveUrl}
