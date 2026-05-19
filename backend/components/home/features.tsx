@@ -38,7 +38,7 @@ export function HomeFeatures() {
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
         gap: 16,
-        maxWidth: 800,
+        maxWidth: 1100,
         width: "100%",
         margin: "80px auto 0",
         padding: "0 24px",

@@ -713,6 +713,8 @@ footer a:hover {
   .responsive-community-grid {
     grid-template-columns: 1fr !important;
   }
+}
+@media (max-width: 768px) {
   .responsive-catalog-layout {
     grid-template-columns: 1fr !important;
   }
@@ -1428,9 +1430,9 @@ select.input {
     grid-template-columns: 1fr !important;
   }
 
-  /* Stats strip → 2 cols */
+  /* Stats strip → 3 cols (5 items = 3+2, no orphan) */
   .responsive-stats {
-    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-columns: repeat(3, 1fr) !important;
   }
 
   /* Forum/admin sidebar → full width on top */

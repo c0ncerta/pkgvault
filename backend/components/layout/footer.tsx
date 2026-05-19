@@ -15,8 +15,10 @@ export function Footer() {
           maxWidth: 1200,
           margin: "0 auto",
           display: "flex",
+          flexWrap: "wrap",
           justifyContent: "space-between",
           alignItems: "center",
+          gap: 16,
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>

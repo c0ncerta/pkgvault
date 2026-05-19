@@ -14,7 +14,11 @@ export default function AuthLayout({
         position: "relative",
       }}
     >
-      <div style={{ position: "relative", zIndex: 1 }}>{children}</div>
+      <div
+        style={{ position: "relative", zIndex: 1, width: "100%", maxWidth: 480, padding: "0 24px" }}
+      >
+        {children}
+      </div>
     </div>
   );
 }

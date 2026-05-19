@@ -13,7 +13,7 @@ export function HomeHero() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "80px 24px 0",
+        padding: "80px 24px 48px",
         textAlign: "center",
       }}
     >

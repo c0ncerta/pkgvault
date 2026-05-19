@@ -4,6 +4,7 @@ import {
   IconArrowLeft,
   IconCatalog,
   IconClipboard,
+  IconCloud,
   IconDashboard,
   IconHardDrive,
   IconLink,
@@ -20,6 +21,7 @@ const navItems = [
   { href: "/admin/pkgs", label: "PKG Manager", icon: IconCatalog },
   { href: "/admin/sources", label: "Link Health", icon: IconLink },
   { href: "/admin/backups", label: "GDrive Backups", icon: IconHardDrive },
+  { href: "/admin/drives", label: "Drive Accounts", icon: IconCloud },
   { href: "/admin/users", label: "Users", icon: IconUsers },
   { href: "/admin/audit", label: "Audit Log", icon: IconClipboard },
 ];

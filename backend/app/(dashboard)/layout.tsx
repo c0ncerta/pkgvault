@@ -29,6 +29,7 @@ export default async function DashboardLayout({
           className="toolbar-shell"
           style={{
             display: "flex",
+            flexWrap: "wrap",
             gap: 8,
             marginBottom: 24,
             paddingBottom: 12,

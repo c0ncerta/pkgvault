@@ -73,7 +73,7 @@ export async function HomeStats() {
   ];
 
   return (
-    <section style={{ maxWidth: 900, margin: "72px auto 0", padding: "0 24px" }}>
+    <section style={{ maxWidth: 1100, margin: "72px auto 0", padding: "0 24px" }}>
       <div
         style={{
           display: "grid",
