@@ -1,6 +1,8 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env["RESEND_API_KEY"]);
+function getResend() {
+  return new Resend(process.env["RESEND_API_KEY"]);
+}
 
 export async function sendVerificationEmail({
   to,
@@ -11,7 +13,7 @@ export async function sendVerificationEmail({
 }) {
   const appUrl = process.env["NEXT_PUBLIC_APP_URL"] ?? "http://localhost:3000";
 
-  await resend.emails.send({
+  await getResend().emails.send({
     from: "PKGVault <noreply@pkgvault.fun>",
     to,
     subject: "Verify your PKGVault email",

@@ -1,8 +1,8 @@
 import { auth } from "@/lib/auth";
-import { rateLimit } from "@/lib/rate-limit";
 import { getNextJsRequestIp } from "@/lib/ip";
-import { NextRequest, NextResponse } from "next/server";
+import { rateLimit } from "@/lib/rate-limit";
 import { toNextJsHandler } from "better-auth/next-js";
+import { type NextRequest, NextResponse } from "next/server";
 
 const authHandler = toNextJsHandler(auth);
 
@@ -17,11 +17,7 @@ export async function POST(req: NextRequest) {
 
   if (path === "/sign-up/email") {
     const ip = getNextJsRequestIp(req);
-    const { allowed, retryAfterSec } = await rateLimit(
-      `signup:${ip}`,
-      SIGNUP_LIMIT,
-      SIGNUP_WINDOW,
-    );
+    const { allowed, retryAfterSec } = await rateLimit(`signup:${ip}`, SIGNUP_LIMIT, SIGNUP_WINDOW);
     if (!allowed) {
       return NextResponse.json(
         {
@@ -35,11 +31,7 @@ export async function POST(req: NextRequest) {
 
   if (path === "/sign-in/email") {
     const ip = getNextJsRequestIp(req);
-    const { allowed, retryAfterSec } = await rateLimit(
-      `signin:${ip}`,
-      AUTH_LIMIT,
-      AUTH_WINDOW,
-    );
+    const { allowed, retryAfterSec } = await rateLimit(`signin:${ip}`, AUTH_LIMIT, AUTH_WINDOW);
     if (!allowed) {
       return NextResponse.json(
         {

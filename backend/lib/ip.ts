@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 
 export function getNextJsRequestIp(req: NextRequest): string {
   const xff = req.headers.get("x-forwarded-for");

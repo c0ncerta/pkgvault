@@ -1,7 +1,6 @@
 "use client";
 
 import { signUp } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const inputStyle: React.CSSProperties = {
@@ -28,7 +27,6 @@ const labelStyle: React.CSSProperties = {
 };
 
 export function RegisterForm() {
-  const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -111,8 +109,8 @@ export function RegisterForm() {
             lineHeight: 1.6,
           }}
         >
-          We sent a verification link to <strong>{email}</strong>. Click it to
-          activate your account and start using PKGVault.
+          We sent a verification link to <strong>{email}</strong>. Click it to activate your account
+          and start using PKGVault.
         </p>
       </div>
     );
