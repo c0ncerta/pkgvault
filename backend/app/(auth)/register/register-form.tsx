@@ -35,6 +35,7 @@ export function RegisterForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [verifySent, setVerifySent] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,11 +63,11 @@ export function RegisterForm() {
       if (result.error) {
         setError(result.error.message ?? "Registration failed");
       } else {
-        router.push("/");
-        router.refresh();
+        setVerifySent(true);
       }
-    } catch {
-      setError("Something went wrong. Please try again.");
+    } catch (err) {
+      console.error("Register error:", err);
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -81,6 +82,41 @@ export function RegisterForm() {
     e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
     e.currentTarget.style.boxShadow = "none";
   };
+
+  if (verifySent) {
+    return (
+      <div style={{ textAlign: "center" }}>
+        <div
+          style={{
+            fontSize: "2.5rem",
+            marginBottom: 16,
+          }}
+        >
+          ✉️
+        </div>
+        <h2
+          style={{
+            fontSize: "1.25rem",
+            fontWeight: 700,
+            color: "var(--color-text-primary)",
+            marginBottom: 8,
+          }}
+        >
+          Check your email
+        </h2>
+        <p
+          style={{
+            color: "var(--color-text-muted)",
+            fontSize: "0.9rem",
+            lineHeight: 1.6,
+          }}
+        >
+          We sent a verification link to <strong>{email}</strong>. Click it to
+          activate your account and start using PKGVault.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit}>

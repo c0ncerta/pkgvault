@@ -47,13 +47,25 @@ export function LoginForm() {
       });
 
       if (result.error) {
-        setError(result.error.message ?? "Invalid email or password");
+        const msg = result.error.message ?? "Invalid email or password";
+        if (
+          msg.toLowerCase().includes("verify") ||
+          msg.toLowerCase().includes("email is not verified") ||
+          msg.toLowerCase().includes("not verified")
+        ) {
+          setError(
+            "Please verify your email before signing in. Check your inbox for the verification link.",
+          );
+        } else {
+          setError(msg);
+        }
       } else {
         router.push("/");
         router.refresh();
       }
-    } catch {
-      setError("Something went wrong. Please try again.");
+    } catch (err) {
+      console.error("Login error:", err);
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }

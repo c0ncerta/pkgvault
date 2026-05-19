@@ -1,5 +1,5 @@
-import { relations } from "drizzle-orm";
-import { index, pgEnum, pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import { relations, sql } from "drizzle-orm";
+import { boolean, index, pgEnum, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 // ─── Enums ──────────────────────────────────────────────────
 export const userRoleEnum = pgEnum("user_role", ["user", "mod", "admin"]);
@@ -8,9 +8,9 @@ export const userRoleEnum = pgEnum("user_role", ["user", "mod", "admin"]);
 export const users = pgTable(
   "users",
   {
-    id: uuid("id").primaryKey().defaultRandom(),
+    id: text("id").primaryKey().default(sql`gen_random_uuid()::text`),
     email: varchar("email", { length: 320 }).notNull().unique(),
-    emailVerified: timestamp("email_verified", { withTimezone: true }),
+    emailVerified: boolean("email_verified").notNull().default(false),
     name: varchar("name", { length: 100 }).notNull(),
     image: text("image"),
     role: userRoleEnum("role").notNull().default("user"),
@@ -23,7 +23,7 @@ export const users = pgTable(
 // ─── Sessions (Better-Auth managed) ────────────────────────
 export const sessions = pgTable("sessions", {
   id: text("id").primaryKey(),
-  userId: uuid("user_id")
+  userId: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   token: text("token").notNull().unique(),
@@ -37,7 +37,7 @@ export const sessions = pgTable("sessions", {
 // ─── Accounts (Better-Auth OAuth providers) ────────────────
 export const accounts = pgTable("accounts", {
   id: text("id").primaryKey(),
-  userId: uuid("user_id")
+  userId: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   accountId: text("account_id").notNull(),
@@ -46,9 +46,11 @@ export const accounts = pgTable("accounts", {
   refreshToken: text("refresh_token"),
   accessTokenExpiresAt: timestamp("access_token_expires_at", {
     withTimezone: true,
+    mode: "string",
   }),
   refreshTokenExpiresAt: timestamp("refresh_token_expires_at", {
     withTimezone: true,
+    mode: "string",
   }),
   scope: text("scope"),
   idToken: text("id_token"),
