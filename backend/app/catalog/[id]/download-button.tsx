@@ -69,11 +69,7 @@ function ProviderButton({
           flexShrink: 0,
         }}
       >
-        {loading ? (
-          <span style={{ animation: "pulse-dot 1s ease-in-out infinite" }}>◓</span>
-        ) : (
-          icon
-        )}
+        {loading ? <span style={{ animation: "pulse-dot 1s ease-in-out infinite" }}>◓</span> : icon}
       </span>
       <div>
         <div
@@ -95,16 +91,6 @@ export function DownloadButton({ pkgId, size, rootzUrl }: DownloadButtonProps) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState<"gdrive" | null>(null);
   const [error, setError] = useState<string | null>(null);
-
-  // Close on Escape
-  useEffect(() => {
-    if (!open) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [open]);
 
   // Lock body scroll when modal open
   useEffect(() => {
@@ -156,11 +142,13 @@ export function DownloadButton({ pkgId, size, rootzUrl }: DownloadButtonProps) {
       </LiquidButton>
 
       {open && (
-        <div
-          role="dialog"
+        <dialog
           aria-modal="true"
           onClick={(e) => {
             if (e.target === e.currentTarget) setOpen(false);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Escape") setOpen(false);
           }}
           style={{
             position: "fixed",
@@ -173,6 +161,8 @@ export function DownloadButton({ pkgId, size, rootzUrl }: DownloadButtonProps) {
             WebkitBackdropFilter: "blur(16px)",
             background: "rgba(0, 0, 0, 0.55)",
             animation: "modal-fade-in 0.2s ease-out",
+            border: "none",
+            padding: 0,
           }}
         >
           <div
@@ -182,8 +172,7 @@ export function DownloadButton({ pkgId, size, rootzUrl }: DownloadButtonProps) {
               borderRadius: 24,
               padding: "32px 28px 28px",
               width: "min(420px, 90vw)",
-              boxShadow:
-                "0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04) inset",
+              boxShadow: "0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04) inset",
               animation: "modal-scale-in 0.2s ease-out",
             }}
           >
@@ -214,9 +203,7 @@ export function DownloadButton({ pkgId, size, rootzUrl }: DownloadButtonProps) {
                 icon="G"
                 gradient="linear-gradient(135deg, #4285F4, #34A853)"
                 label="Google Drive"
-                subtitle={
-                  loading === "gdrive" ? "Generating link…" : "Download via Google Drive"
-                }
+                subtitle={loading === "gdrive" ? "Generating link…" : "Download via Google Drive"}
                 onClick={handleGDrive}
                 loading={loading === "gdrive"}
               />
@@ -261,7 +248,7 @@ export function DownloadButton({ pkgId, size, rootzUrl }: DownloadButtonProps) {
               Cancel
             </button>
           </div>
-        </div>
+        </dialog>
       )}
     </>
   );

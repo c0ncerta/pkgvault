@@ -258,7 +258,13 @@ export function BackupsManager({
             const saving = savingId === c.id;
 
             return (
-              <GlassCard key={c.id} variant="content" cornerRadius={14} padding="14px 18px" style={{ overflow: "hidden" }}>
+              <GlassCard
+                key={c.id}
+                variant="content"
+                cornerRadius={14}
+                padding="14px 18px"
+                style={{ overflow: "hidden" }}
+              >
                 <div
                   style={{
                     display: "flex",

@@ -5,7 +5,12 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { DriveAccountRow } from "./page";
 
-const STAT_CARD_STYLE = { minHeight: 80, display: "flex" as const, alignItems: "center" as const, justifyContent: "center" as const };
+const STAT_CARD_STYLE = {
+  minHeight: 80,
+  display: "flex" as const,
+  alignItems: "center" as const,
+  justifyContent: "center" as const,
+};
 
 function formatBytes(bytes: string | bigint | number | null): string {
   if (!bytes) return "0 B";
