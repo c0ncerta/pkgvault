@@ -158,7 +158,7 @@ export function AddPkgForm() {
             marginBottom: 20,
             background: "rgba(248,113,113,0.08)",
             border: "1px solid rgba(248,113,113,0.2)",
-            color: "#fca5a5",
+            color: "var(--color-danger-soft)",
             fontSize: "var(--fs-md)",
           }}
         >

@@ -34,10 +34,10 @@ const endpoints = [
 ];
 
 const methodColors: Record<string, string> = {
-  GET: "#34d399",
+  GET: "var(--color-success-bright)",
   POST: "var(--color-accent-hover)",
-  PATCH: "#fbbf24",
-  DELETE: "#f87171",
+  PATCH: "var(--color-warning-bright)",
+  DELETE: "var(--color-danger-bright)",
 };
 
 export default function ApiDocsPage() {

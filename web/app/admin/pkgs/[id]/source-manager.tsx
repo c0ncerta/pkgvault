@@ -18,10 +18,10 @@ const providers = [
 ];
 
 const statusConfig: Record<string, { color: string; label: string }> = {
-  alive: { color: "#34d399", label: "Alive" },
-  dead: { color: "#f87171", label: "Dead" },
+  alive: { color: "var(--color-success-bright)", label: "Alive" },
+  dead: { color: "var(--color-danger-bright)", label: "Dead" },
   unknown: { color: "var(--color-text-muted)", label: "Unknown" },
-  checking: { color: "#fbbf24", label: "Checking" },
+  checking: { color: "var(--color-warning-bright)", label: "Checking" },
 };
 
 interface Source {

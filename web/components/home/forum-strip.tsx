@@ -81,7 +81,7 @@ export async function HomeForumStrip() {
               fontSize: "var(--fs-xs)",
               textTransform: "uppercase",
               letterSpacing: "0.12em",
-              color: "#34d399",
+              color: "var(--color-success-bright)",
               fontWeight: 600,
               marginBottom: 4,
             }}
@@ -129,7 +129,7 @@ export async function HomeForumStrip() {
                   alignItems: "center",
                   justifyContent: "center",
                   color: t.isPinned
-                    ? "#fbbf24"
+                    ? "var(--color-warning-bright)"
                     : t.postCount > 5
                       ? "#fb923c"
                       : "var(--color-text-muted)",

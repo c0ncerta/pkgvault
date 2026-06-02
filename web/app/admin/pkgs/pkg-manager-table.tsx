@@ -21,9 +21,9 @@ export type PkgManagerRow = {
 };
 
 const statusColors: Record<string, string> = {
-  approved: "#34d399",
-  pending: "#fbbf24",
-  rejected: "#f87171",
+  approved: "var(--color-success-bright)",
+  pending: "var(--color-warning-bright)",
+  rejected: "var(--color-danger-bright)",
   taken_down: "var(--color-text-muted)",
 };
 
@@ -172,19 +172,23 @@ export function PkgManagerTable({ pkgs }: { pkgs: PkgManagerRow[] }) {
                       {pkg.sourceCount}
                     </span>
                     {pkg.aliveCount > 0 && (
-                      <span style={{ color: "#34d399", fontSize: "var(--fs-xs)" }}>
+                      <span
+                        style={{ color: "var(--color-success-bright)", fontSize: "var(--fs-xs)" }}
+                      >
                         {pkg.aliveCount} alive
                       </span>
                     )}
                     {pkg.deadCount > 0 && (
-                      <span style={{ color: "#f87171", fontSize: "var(--fs-xs)" }}>
+                      <span
+                        style={{ color: "var(--color-danger-bright)", fontSize: "var(--fs-xs)" }}
+                      >
                         {pkg.deadCount} dead
                       </span>
                     )}
                     {pkg.sourceCount === 0 && (
                       <span
                         style={{
-                          color: "#f87171",
+                          color: "var(--color-danger-bright)",
                           fontSize: "var(--fs-xs)",
                           display: "inline-flex",
                           alignItems: "center",

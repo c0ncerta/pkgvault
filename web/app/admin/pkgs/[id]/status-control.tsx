@@ -3,9 +3,9 @@
 import { useState } from "react";
 
 const statuses = [
-  { value: "pending", label: "Pending", color: "#fbbf24" },
-  { value: "approved", label: "Approved", color: "#34d399" },
-  { value: "rejected", label: "Rejected", color: "#f87171" },
+  { value: "pending", label: "Pending", color: "var(--color-warning-bright)" },
+  { value: "approved", label: "Approved", color: "var(--color-success-bright)" },
+  { value: "rejected", label: "Rejected", color: "var(--color-danger-bright)" },
   { value: "taken_down", label: "Taken Down", color: "var(--color-text-muted)" },
 ];
 

@@ -83,18 +83,23 @@ export default async function AdminOverview() {
 
   const statCards = [
     { label: "Total PKGs", value: stats.pkg.total, color: "var(--color-accent-hover)" },
-    { label: "Approved", value: stats.pkg.approved, color: "#34d399" },
-    { label: "Pending Review", value: stats.pkg.pending, color: "#fbbf24", href: "/admin/queue" },
-    { label: "Downloads", value: stats.pkg.totalDownloads, color: "#60a5fa" },
+    { label: "Approved", value: stats.pkg.approved, color: "var(--color-success-bright)" },
+    {
+      label: "Pending Review",
+      value: stats.pkg.pending,
+      color: "var(--color-warning-bright)",
+      href: "/admin/queue",
+    },
+    { label: "Downloads", value: stats.pkg.totalDownloads, color: "var(--color-info)" },
   ];
 
   const sourceCards = [
     { label: "Total Sources", value: stats.sources.total, color: "var(--color-accent-hover)" },
-    { label: "Alive", value: stats.sources.alive, color: "#34d399" },
+    { label: "Alive", value: stats.sources.alive, color: "var(--color-success-bright)" },
     {
       label: "Dead",
       value: stats.sources.dead,
-      color: "#f87171",
+      color: "var(--color-danger-bright)",
       href: "/admin/sources?status=dead",
     },
     { label: "Unknown", value: stats.sources.unknown, color: "var(--color-text-muted)" },
@@ -154,7 +159,7 @@ export default async function AdminOverview() {
                 background:
                   a.type === "error" ? "rgba(248, 113, 113, 0.08)" : "rgba(251, 191, 36, 0.08)",
                 border: `1px solid ${a.type === "error" ? "rgba(248, 113, 113, 0.2)" : "rgba(251, 191, 36, 0.2)"}`,
-                color: a.type === "error" ? "#fca5a5" : "#fde68a",
+                color: a.type === "error" ? "var(--color-danger-soft)" : "#fde68a",
                 fontSize: "var(--fs-md)",
                 fontWeight: 500,
               }}
@@ -166,7 +171,7 @@ export default async function AdminOverview() {
                       width: 10,
                       height: 10,
                       borderRadius: "50%",
-                      background: "#f87171",
+                      background: "var(--color-danger-bright)",
                       display: "inline-block",
                     }}
                   />

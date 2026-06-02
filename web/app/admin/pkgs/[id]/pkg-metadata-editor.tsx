@@ -389,7 +389,7 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
               padding: "10px 12px",
               borderRadius: "var(--radius-sm)",
               fontSize: "var(--fs-sm)",
-              color: error ? "#fca5a5" : "#86efac",
+              color: error ? "var(--color-danger-soft)" : "var(--color-success-soft)",
               background: error ? "rgba(248,113,113,0.08)" : "rgba(52,211,153,0.08)",
               border: `1px solid ${error ? "rgba(248,113,113,0.2)" : "rgba(52,211,153,0.2)"}`,
             }}

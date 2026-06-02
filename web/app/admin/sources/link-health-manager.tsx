@@ -32,10 +32,10 @@ export type LinkHealthSource = {
 };
 
 const statusConfig: Record<SourceStatus, { color: string; label: string }> = {
-  alive: { color: "#34d399", label: "Alive" },
-  dead: { color: "#f87171", label: "Dead" },
+  alive: { color: "var(--color-success-bright)", label: "Alive" },
+  dead: { color: "var(--color-danger-bright)", label: "Dead" },
   unknown: { color: "var(--color-text-muted)", label: "Unknown" },
-  checking: { color: "#fbbf24", label: "Checking" },
+  checking: { color: "var(--color-warning-bright)", label: "Checking" },
 };
 
 const providerLabels: Record<string, string> = {
@@ -449,7 +449,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
             marginBottom: 12,
             background: "rgba(248,113,113,0.08)",
             border: "1px solid rgba(248,113,113,0.2)",
-            color: "#fca5a5",
+            color: "var(--color-danger-soft)",
             fontSize: "var(--fs-base)",
           }}
         >
@@ -576,7 +576,9 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                 >
                   <span>{source.downloadCount} dl</span>
                   {source.failCount > 0 && (
-                    <span style={{ color: "#f87171" }}>{source.failCount} fails</span>
+                    <span style={{ color: "var(--color-danger-bright)" }}>
+                      {source.failCount} fails
+                    </span>
                   )}
                   <span>{formatCheckedAt(source.lastCheckedAt)}</span>
                 </div>

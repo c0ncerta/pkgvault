@@ -15,7 +15,7 @@ const features: Array<{
     icon: IconLock,
     title: "SHA-256 Verified",
     desc: "Every file hash-checked for integrity",
-    color: "#34d399",
+    color: "var(--color-success-bright)",
   },
   {
     icon: IconUsers,

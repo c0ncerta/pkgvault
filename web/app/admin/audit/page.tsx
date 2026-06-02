@@ -4,14 +4,14 @@ import { db } from "@/lib/db";
 import { desc, eq } from "drizzle-orm";
 
 const actionColors: Record<string, string> = {
-  approve: "#34d399",
-  "pkg.approve": "#34d399",
-  reject: "#f87171",
-  "pkg.reject": "#f87171",
-  delete: "#f87171",
-  ban: "#f87171",
-  unban: "#34d399",
-  promote: "#fbbf24",
+  approve: "var(--color-success-bright)",
+  "pkg.approve": "var(--color-success-bright)",
+  reject: "var(--color-danger-bright)",
+  "pkg.reject": "var(--color-danger-bright)",
+  delete: "var(--color-danger-bright)",
+  ban: "var(--color-danger-bright)",
+  unban: "var(--color-success-bright)",
+  promote: "var(--color-warning-bright)",
   demote: "#f97316",
   create: "var(--color-accent-hover)",
   update: "#38bdf8",

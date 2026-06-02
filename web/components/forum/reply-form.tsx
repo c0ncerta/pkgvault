@@ -81,7 +81,7 @@ export function ReplyForm({ threadId, parentId, onCancel }: ReplyFormProps) {
               marginBottom: 8,
               background: "rgba(239, 68, 68, 0.1)",
               border: "1px solid rgba(239, 68, 68, 0.2)",
-              color: "#fca5a5",
+              color: "var(--color-danger-soft)",
               fontSize: "var(--fs-base)",
             }}
           >

@@ -33,15 +33,15 @@ function usagePercent(used: string | null, total: string | null): number {
 function statusColor(status: string): string {
   switch (status) {
     case "active":
-      return "#34d399";
+      return "var(--color-success-bright)";
     case "token_expired":
-      return "#fbbf24";
+      return "var(--color-warning-bright)";
     case "disconnected":
-      return "#6b7280";
+      return "var(--color-text-muted)";
     case "quota_exceeded":
       return "var(--color-danger)";
     default:
-      return "#6b7280";
+      return "var(--color-text-muted)";
   }
 }
 
@@ -200,7 +200,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
               style={{
                 fontSize: "var(--fs-5xl)",
                 fontWeight: 800,
-                color: "#34d399",
+                color: "var(--color-success-bright)",
                 lineHeight: 1,
               }}
             >
@@ -657,7 +657,7 @@ function StatPill({
         style={{
           fontSize: "var(--fs-lg)",
           fontWeight: 700,
-          color: warn ? "#fbbf24" : "var(--color-text-primary)",
+          color: warn ? "var(--color-warning-bright)" : "var(--color-text-primary)",
           fontFamily: "var(--font-mono)",
         }}
       >

@@ -16,9 +16,9 @@ function formatBytes(bytes: bigint | number): string {
 }
 
 const statusColors: Record<string, string> = {
-  approved: "#34d399",
-  pending: "#fbbf24",
-  rejected: "#f87171",
+  approved: "var(--color-success-bright)",
+  pending: "var(--color-warning-bright)",
+  rejected: "var(--color-danger-bright)",
   taken_down: "var(--color-text-muted)",
 };
 
@@ -345,7 +345,13 @@ export default async function AdminPkgDetail({
                   textAlign: "center",
                 }}
               >
-                <div style={{ fontSize: "var(--fs-2xl)", fontWeight: 800, color: "#34d399" }}>
+                <div
+                  style={{
+                    fontSize: "var(--fs-2xl)",
+                    fontWeight: 800,
+                    color: "var(--color-success-bright)",
+                  }}
+                >
                   {sources.filter((s) => s.status === "alive").length}
                 </div>
                 <div
@@ -366,7 +372,13 @@ export default async function AdminPkgDetail({
                   textAlign: "center",
                 }}
               >
-                <div style={{ fontSize: "var(--fs-2xl)", fontWeight: 800, color: "#f87171" }}>
+                <div
+                  style={{
+                    fontSize: "var(--fs-2xl)",
+                    fontWeight: 800,
+                    color: "var(--color-danger-bright)",
+                  }}
+                >
                   {sources.filter((s) => s.status === "dead").length}
                 </div>
                 <div

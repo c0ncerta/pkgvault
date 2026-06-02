@@ -118,7 +118,8 @@ export async function HomeActivityFeed() {
         {items.map((it) => {
           const href = it.kind === "pkg" ? `/catalog/${it.id}` : `/forum/${it.id}`;
           const Icon = it.kind === "pkg" ? IconUpload : IconForum;
-          const tint = it.kind === "pkg" ? "var(--color-accent-hover)" : "#34d399";
+          const tint =
+            it.kind === "pkg" ? "var(--color-accent-hover)" : "var(--color-success-bright)";
           const verb = it.kind === "pkg" ? "uploaded" : "started";
           return (
             <Link

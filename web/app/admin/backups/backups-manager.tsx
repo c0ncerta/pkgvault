@@ -160,7 +160,7 @@ export function BackupsManager({
           padding="10px 16px"
           style={{
             marginBottom: 16,
-            color: error ? "#fca5a5" : "#86efac",
+            color: error ? "var(--color-danger-soft)" : "var(--color-success-soft)",
             fontSize: "var(--fs-md)",
           }}
         >
@@ -278,8 +278,10 @@ export function BackupsManager({
                       height: 10,
                       borderRadius: "50%",
                       flexShrink: 0,
-                      background: hasGdrive ? "#34d399" : "#fbbf24",
-                      boxShadow: `0 0 8px ${hasGdrive ? "#34d399" : "#fbbf24"}40`,
+                      background: hasGdrive
+                        ? "var(--color-success-bright)"
+                        : "var(--color-warning-bright)",
+                      boxShadow: `0 0 8px ${hasGdrive ? "var(--color-success-bright)" : "var(--color-warning-bright)"}40`,
                     }}
                   />
                   <div style={{ flex: 1, minWidth: 0 }}>
@@ -316,7 +318,7 @@ export function BackupsManager({
                             fontSize: "var(--fs-2xs)",
                             padding: "2px 6px",
                             borderRadius: "var(--radius-2xs)",
-                            color: "#fca5a5",
+                            color: "var(--color-danger-soft)",
                             background: "rgba(248, 113, 113, 0.12)",
                             fontWeight: 600,
                           }}
@@ -330,7 +332,7 @@ export function BackupsManager({
                             fontSize: "var(--fs-2xs)",
                             padding: "2px 6px",
                             borderRadius: "var(--radius-2xs)",
-                            color: "#34d399",
+                            color: "var(--color-success-bright)",
                             background: "rgba(52, 211, 153, 0.12)",
                             fontWeight: 600,
                           }}

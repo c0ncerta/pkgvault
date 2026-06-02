@@ -80,7 +80,13 @@ export default async function QueuePage() {
           style={{ textAlign: "center" }}
         >
           <div style={{ fontSize: "var(--fs-6xl)", marginBottom: 12, opacity: 0.3 }}>✓</div>
-          <div style={{ color: "#34d399", fontWeight: 600, fontSize: "var(--fs-2xl)" }}>
+          <div
+            style={{
+              color: "var(--color-success-bright)",
+              fontWeight: 600,
+              fontSize: "var(--fs-2xl)",
+            }}
+          >
             Queue is clear
           </div>
           <div style={{ color: "var(--color-text-faint)", fontSize: "var(--fs-md)", marginTop: 4 }}>
