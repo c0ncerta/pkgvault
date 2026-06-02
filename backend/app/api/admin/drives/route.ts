@@ -4,6 +4,23 @@ import { getGDriveAuthUrl, syncDriveQuota } from "@/lib/gdrive-oauth";
 import { requireRole } from "@/lib/session";
 import { eq } from "drizzle-orm";
 import { type NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+
+const driveActionSchema = z.discriminatedUnion("action", [
+  z.object({ action: z.literal("connect") }).strict(),
+  z.object({ action: z.literal("sync"), id: z.string().uuid() }).strict(),
+  z.object({ action: z.literal("disconnect"), id: z.string().uuid() }).strict(),
+  z.object({ action: z.literal("delete"), id: z.string().uuid() }).strict(),
+  z
+    .object({
+      action: z.literal("update"),
+      id: z.string().uuid(),
+      label: z.string().max(200).optional(),
+      notes: z.string().max(5000).optional(),
+      isPrimary: z.boolean().optional(),
+    })
+    .strict(),
+]);
 
 export async function GET() {
   await requireRole("admin");
@@ -35,8 +52,23 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   await requireRole("admin");
 
-  const body = await request.json();
-  const action = body.action as string;
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+  }
+
+  const parsed = driveActionSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "Validation failed", details: parsed.error.flatten() },
+      { status: 400 },
+    );
+  }
+
+  const data = parsed.data;
+  const action = data.action;
 
   if (action === "connect") {
     const url = getGDriveAuthUrl();
@@ -44,8 +76,7 @@ export async function POST(request: NextRequest) {
   }
 
   if (action === "sync") {
-    const id = body.id as string;
-    if (!id) return NextResponse.json({ error: "Missing account id" }, { status: 400 });
+    const { id } = data;
 
     try {
       const quota = await syncDriveQuota(id);
@@ -68,8 +99,7 @@ export async function POST(request: NextRequest) {
   }
 
   if (action === "disconnect") {
-    const id = body.id as string;
-    if (!id) return NextResponse.json({ error: "Missing account id" }, { status: 400 });
+    const { id } = data;
 
     await db
       .update(driveAccounts)
@@ -86,16 +116,14 @@ export async function POST(request: NextRequest) {
   }
 
   if (action === "delete") {
-    const id = body.id as string;
-    if (!id) return NextResponse.json({ error: "Missing account id" }, { status: 400 });
+    const { id } = data;
 
     await db.delete(driveAccounts).where(eq(driveAccounts.id, id));
     return NextResponse.json({ ok: true });
   }
 
   if (action === "update") {
-    const id = body.id as string;
-    if (!id) return NextResponse.json({ error: "Missing account id" }, { status: 400 });
+    const { id } = data;
 
     const updates: {
       updatedAt: Date;
@@ -103,9 +131,9 @@ export async function POST(request: NextRequest) {
       notes?: string;
       isPrimary?: boolean;
     } = { updatedAt: new Date() };
-    if (body.label !== undefined) updates.label = body.label;
-    if (body.notes !== undefined) updates.notes = body.notes;
-    if (body.isPrimary !== undefined) updates.isPrimary = body.isPrimary;
+    if (data.label !== undefined) updates.label = data.label;
+    if (data.notes !== undefined) updates.notes = data.notes;
+    if (data.isPrimary !== undefined) updates.isPrimary = data.isPrimary;
 
     await db.update(driveAccounts).set(updates).where(eq(driveAccounts.id, id));
     return NextResponse.json({ ok: true });

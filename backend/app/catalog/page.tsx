@@ -272,10 +272,10 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                   <Link
                     key={item.id}
                     href={`/catalog/${item.id}`}
-                    className={`animate-slide-up delay-${Math.min(i + 1, 6)}`}
-                    style={{ textDecoration: "none", display: "block" }}
+                    className={`pkg-card-link animate-slide-up delay-${Math.min(i + 1, 6)}`}
                   >
                     <GlassCard
+                      className="pkg-card"
                       padding="0"
                       style={{
                         overflow: "hidden",
@@ -285,6 +285,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                       }}
                     >
                       <div
+                        className="pkg-cover"
                         style={{
                           height: 116,
                           position: "relative",
@@ -299,6 +300,8 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                       >
                         <span
                           style={{
+                            position: "relative",
+                            zIndex: 1,
                             fontSize: "2rem",
                             fontWeight: 900,
                             color: "rgba(255,255,255,0.85)",
@@ -312,6 +315,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                           <span
                             style={{
                               position: "absolute",
+                              zIndex: 1,
                               top: 8,
                               right: 8,
                               background: "rgba(0,0,0,0.35)",

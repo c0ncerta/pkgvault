@@ -10,9 +10,9 @@
 | Language | TypeScript (strict mode) |
 | ORM | Drizzle ORM |
 | Database | PostgreSQL 16 |
-| Cache/Sessions | Redis 7 |
+| Cache | Redis 7 rate limiting |
 | Auth | Better-Auth |
-| Storage | Cloudflare R2 (S3-compatible) |
+| Storage | Moderator-managed external sources; optional Cloudflare R2 support |
 | Linter/Formatter | Biome |
 | Styling | Tailwind CSS v4 + shadcn/ui |
 | Animations | Framer Motion + Liquid Glass React |
@@ -74,7 +74,7 @@ backend/
 │   │   └── backups/        # Backup management
 │   ├── api/                # API routes
 │   │   ├── auth/[...all]/  # Better-Auth handler
-│   │   ├── pkg/            # PKG file endpoints (CRUD, download, confirm)
+│   │   ├── pkg/            # PKG metadata endpoints (CRUD, download, confirm legacy uploads)
 │   │   ├── forum/          # Forum endpoints (threads, replies, voting)
 │   │   ├── admin/          # Admin endpoints (backup, queue, audit, sources)
 │   │   ├── user/           # User profile endpoints
@@ -113,7 +113,7 @@ backend/
 │   ├── auth-client.ts      # Better-Auth React client
 │   ├── db.ts               # Drizzle client instance
 │   ├── redis.ts            # Redis client
-│   ├── r2.ts               # Cloudflare R2 client
+│   ├── r2.ts               # Optional Cloudflare R2 client
 │   ├── gdrive.ts           # Google Drive integration
 │   ├── rate-limit.ts       # Redis-backed rate limiting
 │   ├── health-check.ts     # Source health monitoring
@@ -167,10 +167,18 @@ All home page queries use `unstable_cache` with tags and revalidation:
 
 ### Security
 - **Role-based Access Control**: user, moderator, admin
-- **Rate Limiting**: Redis-backed token bucket
-- **Filename Obfuscation**: Secure storage with hashed filenames
+- **Rate Limiting**: Redis-backed sliding window limiter
+- **Filename Obfuscation**: Secure naming helpers for optional backup pipelines
 - **Input Validation**: Zod schemas on all API endpoints
-- **Session Security**: Better-Auth with Redis session storage
+- **Session Security**: Better-Auth with database-backed sessions
+
+### Current Storage Mode
+
+The default production workflow is metadata-only: users submit package metadata,
+file size, and a lowercase SHA-256 checksum. The binary is not uploaded to this
+app while no NAS/R2 storage is available. Moderators approve entries and attach
+public download sources from the admin panel. Cloudflare R2 code remains for a
+future first-party storage mode, but credentials are optional in `.env`.
 
 ## Deployment
 

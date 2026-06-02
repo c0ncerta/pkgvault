@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const getLatestThreads = unstable_cache(
   async () => {
-    return await db
+    const rows = await db
       .select({
         id: forumThreads.id,
         title: forumThreads.title,
@@ -22,6 +22,12 @@ const getLatestThreads = unstable_cache(
       .where(sql`${forumThreads.deletedAt} IS NULL`)
       .orderBy(desc(sql`coalesce(${forumThreads.lastPostAt}, ${forumThreads.createdAt})`))
       .limit(5);
+
+    return rows.map((row) => ({
+      ...row,
+      createdAt: row.createdAt.toISOString(),
+      lastPostAt: row.lastPostAt?.toISOString() ?? null,
+    }));
   },
   ["home-latest-threads"],
   { revalidate: 30, tags: ["forum"] },
@@ -30,8 +36,8 @@ import { GlassCard } from "@/components/liquid/glass";
 import { IconFire, IconForum, IconPin } from "@/components/ui/icons";
 import { Tag } from "@/components/ui/tag";
 
-function timeAgo(d: Date): string {
-  const diff = Date.now() - d.getTime();
+function timeAgo(d: string): string {
+  const diff = Date.now() - new Date(d).getTime();
   const m = Math.floor(diff / 60000);
   if (m < 60) return `${m}m`;
   const h = Math.floor(m / 60);
@@ -46,8 +52,8 @@ export async function HomeForumStrip() {
     category: string;
     postCount: number;
     isPinned: boolean;
-    createdAt: Date;
-    lastPostAt: Date | null;
+    createdAt: string;
+    lastPostAt: string | null;
     author: string | null;
   }> = [];
 

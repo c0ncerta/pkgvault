@@ -18,7 +18,8 @@
     "db:seed": "tsx db/seed.ts",
     "db:create-admin": "tsx db/create-admin.ts",
     "db:migrate-sources": "node --import tsx scripts/migrate-sources.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test scripts/*.test.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.800.0",
@@ -50,9 +51,13 @@
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "drizzle-kit": "^0.31.0",
-    "postcss": "^8.5.0",
+    "postcss": "^8.5.14",
     "tailwindcss": "^4.1.0",
     "tsx": "^4.19.0",
     "typescript": "^5.8.0"
+  },
+  "overrides": {
+    "esbuild": "^0.25.12",
+    "postcss": "^8.5.14"
   }
 }

@@ -1,12 +1,8 @@
 import { games, pkgFiles } from "@/db/schema";
 import { db } from "@/lib/db";
-import { R2_BUCKET, r2 } from "@/lib/r2";
 import { getServerSession } from "@/lib/session";
-import { generateId } from "@/lib/utils";
 import { pkgSearchSchema, uploadRequestSchema } from "@/lib/validations/pkg";
-import { PutObjectCommand } from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { and, asc, desc, eq, sql } from "drizzle-orm";
+import { and, asc, desc, eq, isNull, sql } from "drizzle-orm";
 import { type NextRequest, NextResponse } from "next/server";
 
 /**
@@ -23,8 +19,10 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const { q, status, page, limit, sort } = parsed.data;
+  const { q, page, limit, sort } = parsed.data;
+  let { status } = parsed.data;
   const gameId = parsed.data.gameId;
+  const platform = parsed.data.platform;
   const offset = (page - 1) * limit;
 
   // Build conditions
@@ -33,10 +31,12 @@ export async function GET(request: NextRequest) {
   // Default to approved only for non-admin
   const session = await getServerSession();
   const userRole = (session?.user as { role?: string } | undefined)?.role ?? "user";
+  if (userRole !== "admin" && userRole !== "mod") {
+    status = "approved";
+  }
+
   if (status) {
     conditions.push(eq(pkgFiles.status, status));
-  } else if (userRole !== "admin" && userRole !== "mod") {
-    conditions.push(eq(pkgFiles.status, "approved"));
   }
 
   // Soft-delete filter
@@ -44,6 +44,10 @@ export async function GET(request: NextRequest) {
 
   if (gameId) {
     conditions.push(eq(pkgFiles.gameId, gameId));
+  }
+
+  if (platform) {
+    conditions.push(eq(games.platform, platform));
   }
 
   // Full-text search
@@ -103,7 +107,11 @@ export async function GET(request: NextRequest) {
 }
 
 /**
- * POST /api/pkg — Request presigned upload URL
+ * POST /api/pkg — Submit PKG metadata for moderation.
+ *
+ * The current production mode does not upload binaries to first-party storage.
+ * Users submit metadata plus a SHA-256 checksum; moderators can attach external
+ * sources later from the admin panel.
  * Requires authentication.
  */
 export async function POST(request: NextRequest) {
@@ -127,45 +135,89 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const { title, description, gameId, filename, contentType, sizeBytes, version, fwRequired } =
-    parsed.data;
-
-  // Generate unique R2 key
-  const fileId = generateId();
-  const ext = filename.split(".").pop() ?? "pkg";
-  const r2Key = `uploads/${fileId}.${ext}`;
-
-  // Create presigned PUT URL (expires in 1 hour)
-  const command = new PutObjectCommand({
-    Bucket: R2_BUCKET,
-    Key: r2Key,
-    ContentType: contentType,
-    ContentLength: sizeBytes,
-  });
-
-  const uploadUrl = await getSignedUrl(r2, command, { expiresIn: 3600 });
-
-  // Insert pending record
-  await db.insert(pkgFiles).values({
-    id: fileId,
-    uploaderId: session.user.id,
-    gameId: gameId ?? null,
+  const {
     title,
-    description: description ?? null,
-    sha256: "pending", // Will be updated on confirmation
-    sizeBytes: BigInt(sizeBytes),
-    r2Key,
+    description,
+    gameId,
+    platform,
+    region,
+    filename,
     contentType,
-    originalFilename: filename,
-    version: version ?? null,
-    fwRequired: fwRequired ?? null,
-    status: "pending",
-  });
+    sizeBytes,
+    sha256,
+    version,
+    fwRequired,
+  } = parsed.data;
+
+  const [duplicate] = await db
+    .select({ id: pkgFiles.id, title: pkgFiles.title })
+    .from(pkgFiles)
+    .where(eq(pkgFiles.sha256, sha256))
+    .limit(1);
+
+  if (duplicate) {
+    return NextResponse.json(
+      {
+        duplicate: true,
+        existingId: duplicate.id,
+        existingTitle: duplicate.title,
+        message: "This file already exists in the archive",
+      },
+      { status: 409 },
+    );
+  }
+
+  let resolvedGameId = gameId ?? null;
+  if (!resolvedGameId && platform) {
+    const gameConditions = [eq(games.title, title), eq(games.platform, platform)];
+    gameConditions.push(region ? eq(games.region, region) : isNull(games.region));
+
+    const [existingGame] = await db
+      .select({ id: games.id })
+      .from(games)
+      .where(and(...gameConditions))
+      .limit(1);
+
+    if (existingGame) {
+      resolvedGameId = existingGame.id;
+    } else {
+      const [newGame] = await db
+        .insert(games)
+        .values({
+          title,
+          platform,
+          region: region || null,
+        })
+        .returning({ id: games.id });
+      resolvedGameId = newGame?.id ?? null;
+    }
+  }
+
+  const [file] = await db
+    .insert(pkgFiles)
+    .values({
+      uploaderId: session.user.id,
+      gameId: resolvedGameId,
+      title,
+      description: description ?? null,
+      sha256,
+      sizeBytes: BigInt(sizeBytes),
+      r2Key: null,
+      contentType,
+      originalFilename: filename,
+      version: version ?? null,
+      fwRequired: fwRequired ?? null,
+      status: "pending",
+    })
+    .returning({ id: pkgFiles.id });
+
+  if (!file) {
+    return NextResponse.json({ error: "Failed to create PKG submission" }, { status: 500 });
+  }
 
   return NextResponse.json({
-    fileId,
-    uploadUrl,
-    r2Key,
-    expiresIn: 3600,
+    fileId: file.id,
+    status: "pending",
+    message: "PKG metadata submitted. Add a download source during moderation.",
   });
 }

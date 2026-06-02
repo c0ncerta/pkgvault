@@ -3,6 +3,15 @@ import { db } from "@/lib/db";
 import { requireRole } from "@/lib/session";
 import { and, eq, sql } from "drizzle-orm";
 import { type NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+
+const queueActionSchema = z
+  .object({
+    fileId: z.string().uuid(),
+    action: z.enum(["approve", "reject"]),
+    reason: z.string().max(1000).optional(),
+  })
+  .strict();
 
 /**
  * GET /api/admin/queue — Moderation queue (pending PKG files)
@@ -71,18 +80,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const { fileId, action, reason } = body as {
-    fileId: string;
-    action: "approve" | "reject";
-    reason?: string;
-  };
-
-  if (!fileId || !["approve", "reject"].includes(action)) {
+  const parsed = queueActionSchema.safeParse(body);
+  if (!parsed.success) {
     return NextResponse.json(
-      { error: "fileId and action (approve|reject) required" },
+      { error: "Validation failed", details: parsed.error.flatten() },
       { status: 400 },
     );
   }
+
+  const { fileId, action, reason } = parsed.data;
 
   const [file] = await db.select().from(pkgFiles).where(eq(pkgFiles.id, fileId)).limit(1);
 

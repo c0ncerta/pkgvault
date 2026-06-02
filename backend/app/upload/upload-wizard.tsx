@@ -1,11 +1,18 @@
 "use client";
 
 import { GlassCard } from "@/components/liquid/glass";
-import { IconCatalog, IconUpload } from "@/components/ui/icons";
+import { IconLink } from "@/components/ui/icons";
 import { useRouter } from "next/navigation";
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
-type Step = "file" | "metadata" | "review";
+type Step = "links" | "metadata" | "review";
+
+interface SourceEntry {
+  id: string;
+  url: string;
+  label: string;
+  valid: boolean;
+}
 
 interface FormData {
   title: string;
@@ -14,7 +21,6 @@ interface FormData {
   region: string;
   fwRequired: string;
   description: string;
-  tags: string[];
 }
 
 const emptyForm: FormData = {
@@ -24,130 +30,100 @@ const emptyForm: FormData = {
   region: "",
   fwRequired: "",
   description: "",
-  tags: [],
 };
 
-const validations = [
-  { label: ".pkg extension", check: (f: File | null) => f?.name.endsWith(".pkg") ?? false },
-  {
-    label: "size ≤ 20 GB",
-    check: (f: File | null) => (f?.size ?? Number.POSITIVE_INFINITY) <= 20_000_000_000,
-  },
-  { label: "title required", check: (_f: File | null, d: FormData) => d.title.length >= 2 },
-  {
-    label: "version format",
-    check: (_f: File | null, d: FormData) => /^\d+\.\d+/.test(d.version) || !d.version,
-  },
-  { label: "platform selected", check: (_f: File | null, d: FormData) => !!d.platform },
-];
-
 export function UploadWizard() {
-  const [step, setStep] = useState<Step>("file");
-  const [file, setFile] = useState<File | null>(null);
+  const [step, setStep] = useState<Step>("links");
+  const nextSourceId = useRef(1);
+  const [sources, setSources] = useState<SourceEntry[]>([
+    { id: "source-0", url: "", label: "", valid: true },
+  ]);
   const [form, setForm] = useState<FormData>(emptyForm);
-  const [uploading, setUploading] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [dragOver, setDragOver] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  const steps: Step[] = ["file", "metadata", "review"];
+  const steps: Step[] = ["links", "metadata", "review"];
   const stepIdx = steps.indexOf(step);
 
-  const handleFile = useCallback((f: File) => {
-    if (!f.name.endsWith(".pkg")) {
-      setError("Only .pkg files are allowed");
-      return;
+  const updateSource = (i: number, field: keyof SourceEntry, value: string) => {
+    const next = [...sources];
+    const entry = { ...next[i], [field]: value } as SourceEntry;
+    if (field === "url") {
+      try {
+        new URL(value);
+        entry.valid = true;
+      } catch {
+        entry.valid = !value;
+      }
     }
-    if (f.size > 20_000_000_000) {
-      setError("Max file size is 20 GB");
-      return;
-    }
-    setFile(f);
-    setError(null);
-    // Auto-fill title from filename
-    const name = f.name.replace(/\.pkg$/i, "").replace(/_/g, " ");
-    setForm((prev) => ({ ...prev, title: prev.title || name }));
-    setStep("metadata");
-  }, []);
+    next[i] = entry;
+    setSources(next);
+  };
 
-  const handleDrop = useCallback(
-    (e: React.DragEvent) => {
-      e.preventDefault();
-      setDragOver(false);
-      const f = e.dataTransfer.files[0];
-      if (f) handleFile(f);
-    },
-    [handleFile],
-  );
+  const addSource = () => {
+    const id = `source-${nextSourceId.current}`;
+    nextSourceId.current += 1;
+    setSources([...sources, { id, url: "", label: "", valid: true }]);
+  };
+
+  const removeSource = (i: number) => {
+    if (sources.length <= 1) return;
+    setSources(sources.filter((_, idx) => idx !== i));
+  };
+
+  const validSources = sources.filter((s) => s.url.trim().length > 0 && s.valid);
+  const hasInvalidSource = sources.some((s) => s.url.trim().length > 0 && !s.valid);
+  const canContinue = validSources.length >= 1 && !hasInvalidSource;
 
   const handleSubmit = async () => {
-    if (!file) return;
-    setUploading(true);
+    setSubmitting(true);
     setError(null);
-    setProgress(0);
 
     try {
-      // 1. Get presigned URL
-      const res = await fetch("/api/pkg", {
+      const res = await fetch("/api/pkg/source", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title: form.title,
           description: form.description || undefined,
-          filename: file.name,
-          contentType: file.type || "application/octet-stream",
-          sizeBytes: file.size,
           version: form.version || undefined,
           fwRequired: form.fwRequired || undefined,
+          platform: form.platform || undefined,
+          region: form.region || undefined,
+          sources: validSources.map((s) => ({
+            url: s.url.trim(),
+            label: s.label.trim() || undefined,
+          })),
         }),
       });
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data.error ?? "Failed to create upload");
+        throw new Error(data.error ?? "Failed to submit package");
       }
 
-      const { fileId, uploadUrl } = await res.json();
-
-      // 2. Upload to R2
-      const xhr = new XMLHttpRequest();
-      await new Promise<void>((resolve, reject) => {
-        xhr.upload.onprogress = (e) => {
-          if (e.lengthComputable) setProgress(Math.round((e.loaded / e.total) * 100));
-        };
-        xhr.onload = () =>
-          xhr.status >= 200 && xhr.status < 300
-            ? resolve()
-            : reject(new Error(`Upload failed: ${xhr.status}`));
-        xhr.onerror = () => reject(new Error("Upload failed"));
-        xhr.open("PUT", uploadUrl);
-        xhr.setRequestHeader("Content-Type", file.type || "application/octet-stream");
-        xhr.send(file);
-      });
-
-      setProgress(100);
-
-      // 3. Confirm
-      await fetch("/api/pkg/confirm", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fileId, sha256: "client-pending" }),
-      });
-
+      const { fileId } = await res.json();
       router.push(`/catalog/${fileId}`);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Upload failed");
+      setError(err instanceof Error ? err.message : "Submission failed");
     } finally {
-      setUploading(false);
+      setSubmitting(false);
     }
   };
 
-  const formatSize = (bytes: number) => {
-    if (bytes >= 1e9) return `${(bytes / 1e9).toFixed(1)} GB`;
-    if (bytes >= 1e6) return `${(bytes / 1e6).toFixed(1)} MB`;
-    return `${(bytes / 1e3).toFixed(0)} KB`;
+  const providerIcon = (url: string) => {
+    try {
+      const host = new URL(url).hostname.toLowerCase();
+      if (host.includes("drive.google")) return "GDrive";
+      if (host.includes("mega")) return "MEGA";
+      if (host.includes("mediafire")) return "MF";
+      if (host.includes("archive")) return "IA";
+      if (url.startsWith("magnet:")) return "Torrent";
+      return "Link";
+    } catch {
+      return "Link";
+    }
   };
 
   return (
@@ -161,15 +137,15 @@ export function UploadWizard() {
           marginBottom: 4,
         }}
       >
-        Upload PKG
+        Share a PKG
       </h1>
       <p style={{ color: "var(--color-text-muted)", fontSize: "0.9rem", marginBottom: 24 }}>
-        Files are reviewed by moderators before publishing. Max 20 GB.
+        Submit an external download link. Packages are reviewed before publishing.
       </p>
 
       {/* Steps indicator */}
       <div style={{ display: "flex", gap: 4, marginBottom: 32 }}>
-        {["File", "Metadata", "Review"].map((s, i) => (
+        {["Links", "Metadata", "Review"].map((s, i) => (
           <div key={s} style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
             <div
               style={{
@@ -202,112 +178,155 @@ export function UploadWizard() {
       >
         {/* Main area */}
         <div>
-          {step === "file" && (
-            <GlassCard
-              padding="48px"
-              onClick={() => inputRef.current?.click()}
-              style={{
-                textAlign: "center",
-                cursor: "pointer",
-                border: `2px dashed ${dragOver ? "var(--color-accent)" : "rgba(99, 102, 241, 0.2)"}`,
-                background: dragOver ? "rgba(99, 102, 241, 0.04)" : undefined,
-                transition: "border-color 0.2s, background 0.2s",
-              }}
-            >
-              <div
-                onDragOver={(e) => {
-                  e.preventDefault();
-                  setDragOver(true);
+          {step === "links" && (
+            <GlassCard padding="24px">
+              <h3
+                style={{
+                  fontSize: "1rem",
+                  fontWeight: 700,
+                  color: "var(--color-text-primary)",
+                  marginBottom: 16,
                 }}
-                onDragLeave={() => setDragOver(false)}
-                onDrop={handleDrop}
               >
-                <input
-                  ref={inputRef}
-                  type="file"
-                  accept=".pkg"
-                  style={{ display: "none" }}
-                  onChange={(e) => {
-                    if (e.target.files?.[0]) handleFile(e.target.files[0]);
+                Download Links
+              </h3>
+              <p
+                style={{
+                  fontSize: "0.8rem",
+                  color: "var(--color-text-muted)",
+                  marginBottom: 20,
+                  lineHeight: 1.5,
+                }}
+              >
+                Paste links from GDrive, Mega, MediaFire, Archive.org, or any direct URL. Multiple
+                mirrors welcome.
+              </p>
+
+              {sources.map((source, i) => (
+                <div
+                  key={source.id}
+                  style={{
+                    display: "flex",
+                    gap: 10,
+                    marginBottom: 10,
+                    alignItems: "flex-start",
                   }}
-                />
-                <div style={{ fontSize: "3rem", marginBottom: 12, opacity: 0.4 }}>
-                  <IconUpload size={48} />
+                >
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: "flex", gap: 8, marginBottom: 6 }}>
+                      <input
+                        className="input"
+                        value={source.url}
+                        onChange={(e) => updateSource(i, "url", e.target.value)}
+                        placeholder="https://drive.google.com/file/d/..."
+                        style={{
+                          flex: 1,
+                          borderColor:
+                            source.url && !source.valid ? "rgba(239, 68, 68, 0.5)" : undefined,
+                        }}
+                      />
+                      {source.url && source.valid && (
+                        <span
+                          style={{
+                            fontSize: "0.65rem",
+                            fontWeight: 700,
+                            color: "#818cf8",
+                            background: "rgba(99, 102, 241, 0.1)",
+                            padding: "4px 8px",
+                            borderRadius: 6,
+                            whiteSpace: "nowrap",
+                            marginTop: 8,
+                          }}
+                        >
+                          {providerIcon(source.url)}
+                        </span>
+                      )}
+                    </div>
+                    <div style={{ display: "flex", gap: 8 }}>
+                      <input
+                        className="input"
+                        value={source.label}
+                        onChange={(e) => updateSource(i, "label", e.target.value)}
+                        placeholder="Label (e.g. Mirror EU)"
+                        style={{ flex: 1, fontSize: "0.8rem" }}
+                      />
+                      {sources.length > 1 && (
+                        <button
+                          type="button"
+                          className="btn-ghost"
+                          onClick={() => removeSource(i)}
+                          style={{
+                            padding: "6px 12px",
+                            fontSize: "0.75rem",
+                            color: "#ef4444",
+                          }}
+                        >
+                          Remove
+                        </button>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <h3
-                  style={{
-                    fontSize: "1.1rem",
-                    fontWeight: 700,
-                    color: "var(--color-text-primary)",
-                    marginBottom: 6,
-                  }}
+              ))}
+
+              <button
+                type="button"
+                className="btn-ghost"
+                onClick={addSource}
+                style={{
+                  marginTop: 4,
+                  fontSize: "0.85rem",
+                  width: "100%",
+                  padding: "10px",
+                  border: "1px dashed rgba(99,102,241,0.3)",
+                  borderRadius: 8,
+                }}
+              >
+                + Add another link
+              </button>
+
+              <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 20 }}>
+                <button
+                  type="button"
+                  className="btn-primary"
+                  onClick={() => setStep("metadata")}
+                  disabled={!canContinue}
                 >
-                  Drop your .pkg file here
-                </h3>
-                <p
-                  style={{
-                    color: "var(--color-text-muted)",
-                    fontSize: "0.85rem",
-                    marginBottom: 16,
-                  }}
-                >
-                  or click to browse — max 20 GB
-                </p>
-                <span className="btn-primary">Choose File</span>
+                  Next: Metadata →
+                </button>
               </div>
             </GlassCard>
           )}
 
           {step === "metadata" && (
             <GlassCard padding="24px">
-              {file && (
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 14,
-                    padding: 14,
-                    background: "rgba(255,255,255,0.03)",
-                    borderRadius: 10,
-                    marginBottom: 20,
-                    border: "1px solid rgba(255,255,255,0.06)",
-                  }}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  marginBottom: 20,
+                  padding: "8px 12px",
+                  background: "rgba(99, 102, 241, 0.08)",
+                  borderRadius: 8,
+                  fontSize: "0.8rem",
+                  color: "var(--color-text-secondary)",
+                }}
+              >
+                <IconLink size={14} />
+                <span>
+                  {validSources.length} link{validSources.length !== 1 ? "s" : ""} added
+                </span>
+                <button
+                  type="button"
+                  className="btn-ghost"
+                  onClick={() => setStep("links")}
+                  style={{ marginLeft: "auto", fontSize: "0.75rem", padding: "4px 10px" }}
                 >
-                  <span style={{ fontSize: "1.5rem", display: "flex", alignItems: "center" }}>
-                    <IconCatalog size={24} />
-                  </span>
-                  <div style={{ flex: 1 }}>
-                    <div
-                      style={{
-                        fontSize: "0.9rem",
-                        fontWeight: 600,
-                        color: "var(--color-text-primary)",
-                      }}
-                    >
-                      {file.name}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "0.75rem",
-                        color: "var(--color-text-muted)",
-                        fontFamily: "var(--font-mono)",
-                      }}
-                    >
-                      {formatSize(file.size)}
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    className="btn-ghost"
-                    onClick={() => {
-                      setFile(null);
-                      setStep("file");
-                    }}
-                  >
-                    Change
-                  </button>
-                </div>
-              )}
+                  Edit
+                </button>
+              </div>
+
               <div
                 style={{
                   display: "grid",
@@ -352,7 +371,7 @@ export function UploadWizard() {
                       letterSpacing: "0.05em",
                     }}
                   >
-                    Version *
+                    Version
                   </label>
                   <input
                     id="upload-version"
@@ -363,8 +382,7 @@ export function UploadWizard() {
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="upload-platform"
+                  <span
                     style={{
                       display: "block",
                       fontSize: "0.7rem",
@@ -376,23 +394,27 @@ export function UploadWizard() {
                     }}
                   >
                     Platform *
-                  </label>
-                  <select
-                    id="upload-platform"
-                    className="input"
-                    value={form.platform}
-                    onChange={(e) => setForm({ ...form, platform: e.target.value })}
+                  </span>
+                  <div
+                    className="segmented-shell"
+                    style={{ width: "100%", display: "flex", justifyContent: "stretch" }}
                   >
-                    <option value="">Select</option>
-                    <option>PS3</option>
-                    <option>PS4</option>
-                    <option>PS5</option>
-                    <option>Vita</option>
-                  </select>
+                    {["PS3", "PS4", "PS5", "Vita"].map((platform) => (
+                      <button
+                        type="button"
+                        key={platform}
+                        className="segmented-pill"
+                        data-active={form.platform === platform}
+                        style={{ flex: 1 }}
+                        onClick={() => setForm({ ...form, platform })}
+                      >
+                        {platform}
+                      </button>
+                    ))}
+                  </div>
                 </div>
                 <div>
-                  <label
-                    htmlFor="upload-region"
+                  <span
                     style={{
                       display: "block",
                       fontSize: "0.7rem",
@@ -404,19 +426,30 @@ export function UploadWizard() {
                     }}
                   >
                     Region
-                  </label>
-                  <select
-                    id="upload-region"
-                    className="input"
-                    value={form.region}
-                    onChange={(e) => setForm({ ...form, region: e.target.value })}
+                  </span>
+                  <div
+                    className="segmented-shell"
+                    style={{ width: "100%", display: "flex", justifyContent: "stretch" }}
                   >
-                    <option value="">—</option>
-                    <option>US</option>
-                    <option>EU</option>
-                    <option>JP</option>
-                    <option>ASIA</option>
-                  </select>
+                    {[
+                      { value: "", label: "—" },
+                      { value: "US", label: "US" },
+                      { value: "EU", label: "EU" },
+                      { value: "JP", label: "JP" },
+                      { value: "ASIA", label: "ASIA" },
+                    ].map((region) => (
+                      <button
+                        type="button"
+                        key={region.value}
+                        className="segmented-pill"
+                        data-active={form.region === region.value}
+                        style={{ flex: 1 }}
+                        onClick={() => setForm({ ...form, region: region.value })}
+                      >
+                        {region.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
                 <div>
                   <label
@@ -468,7 +501,7 @@ export function UploadWizard() {
                 />
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <button type="button" className="btn-ghost" onClick={() => setStep("file")}>
+                <button type="button" className="btn-ghost" onClick={() => setStep("links")}>
                   ← Back
                 </button>
                 <button
@@ -495,6 +528,7 @@ export function UploadWizard() {
               >
                 Review & Submit
               </h3>
+
               <div
                 style={{
                   display: "grid",
@@ -505,8 +539,6 @@ export function UploadWizard() {
                 }}
               >
                 {[
-                  ["File", file?.name ?? "—"],
-                  ["Size", file ? formatSize(file.size) : "—"],
                   ["Title", form.title],
                   ["Version", form.version || "—"],
                   ["Platform", form.platform],
@@ -538,6 +570,7 @@ export function UploadWizard() {
                   </div>
                 ))}
               </div>
+
               {form.description && (
                 <div
                   style={{
@@ -554,46 +587,65 @@ export function UploadWizard() {
                 </div>
               )}
 
-              {/* Progress bar */}
-              {uploading && (
-                <div style={{ marginBottom: 16 }}>
+              <h4
+                style={{
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                  color: "var(--color-text-primary)",
+                  marginBottom: 8,
+                }}
+              >
+                Download Links ({validSources.length})
+              </h4>
+              <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 20 }}>
+                {validSources.map((s) => (
                   <div
-                    style={{
-                      height: 8,
-                      borderRadius: 4,
-                      background: "rgba(255,255,255,0.06)",
-                      overflow: "hidden",
-                    }}
-                  >
-                    <div
-                      style={{
-                        height: "100%",
-                        width: `${progress}%`,
-                        background: "linear-gradient(90deg, #6366f1, #8b5cf6)",
-                        borderRadius: 4,
-                        transition: "width 0.3s",
-                      }}
-                    />
-                  </div>
-                  <div
+                    key={s.id}
                     style={{
                       display: "flex",
-                      justifyContent: "space-between",
-                      marginTop: 6,
-                      fontSize: "0.75rem",
-                      color: "var(--color-text-muted)",
-                      fontFamily: "var(--font-mono)",
+                      alignItems: "center",
+                      gap: 8,
+                      padding: "8px 12px",
+                      borderRadius: 8,
+                      background: "rgba(255,255,255,0.03)",
+                      border: "1px solid rgba(255,255,255,0.06)",
+                      fontSize: "0.8rem",
                     }}
                   >
-                    <span>{progress}%</span>
-                    <span>
-                      {file
-                        ? `${formatSize((file.size * progress) / 100)} / ${formatSize(file.size)}`
-                        : ""}
+                    <span
+                      style={{
+                        fontSize: "0.6rem",
+                        fontWeight: 700,
+                        color: "#818cf8",
+                        background: "rgba(99, 102, 241, 0.1)",
+                        padding: "2px 6px",
+                        borderRadius: 4,
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {providerIcon(s.url)}
                     </span>
+                    <span
+                      style={{
+                        flex: 1,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        color: "var(--color-text-muted)",
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "0.75rem",
+                      }}
+                    >
+                      {s.url}
+                    </span>
+                    {s.label && (
+                      <span style={{ color: "var(--color-text-secondary)", fontSize: "0.75rem" }}>
+                        {s.label}
+                      </span>
+                    )}
                   </div>
-                </div>
-              )}
+                ))}
+              </div>
 
               {error && (
                 <div
@@ -616,7 +668,7 @@ export function UploadWizard() {
                   type="button"
                   className="btn-ghost"
                   onClick={() => setStep("metadata")}
-                  disabled={uploading}
+                  disabled={submitting}
                 >
                   ← Back
                 </button>
@@ -624,17 +676,17 @@ export function UploadWizard() {
                   type="button"
                   className="btn-primary"
                   onClick={handleSubmit}
-                  disabled={uploading}
-                  style={{ opacity: uploading ? 0.6 : 1 }}
+                  disabled={submitting}
+                  style={{ opacity: submitting ? 0.6 : 1 }}
                 >
-                  {uploading ? "Uploading…" : "Submit for Review →"}
+                  {submitting ? "Submitting…" : "Submit for Review →"}
                 </button>
               </div>
             </GlassCard>
           )}
         </div>
 
-        {/* Sidebar — Validations */}
+        {/* Sidebar */}
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
           <GlassCard padding="16px">
             <h4
@@ -645,27 +697,20 @@ export function UploadWizard() {
                 marginBottom: 10,
               }}
             >
-              Validations
+              Supported sources
             </h4>
-            {validations.map((v) => {
-              const ok = v.check(file, form);
-              return (
-                <div
-                  key={v.label}
-                  style={{ display: "flex", gap: 8, marginBottom: 6, fontSize: "0.8rem" }}
-                >
-                  <span
-                    style={{
-                      color: ok ? "var(--color-success)" : "#475569",
-                      fontFamily: "var(--font-mono)",
-                    }}
-                  >
-                    {ok ? "✓" : "·"}
-                  </span>
-                  <span style={{ color: ok ? "#e8e8ed" : "#64748b" }}>{v.label}</span>
-                </div>
-              );
-            })}
+            <div
+              style={{ fontSize: "0.8rem", color: "var(--color-text-secondary)", lineHeight: 1.6 }}
+            >
+              <div>✓ Google Drive</div>
+              <div>✓ Mega</div>
+              <div>✓ MediaFire</div>
+              <div>✓ Archive.org</div>
+              <div>✓ Direct HTTP/HTTPS</div>
+              <div>✓ Magnet / Torrent</div>
+              <div>✓ OneDrive</div>
+              <div>✓ Custom links</div>
+            </div>
           </GlassCard>
           <GlassCard padding="16px">
             <h4
@@ -687,11 +732,9 @@ export function UploadWizard() {
                 lineHeight: 1.6,
               }}
             >
-              <li>File uploaded to storage</li>
-              <li>SHA-256 hash computed</li>
-              <li>
-                Status set to <strong>pending</strong>
-              </li>
+              <li>Package info saved</li>
+              <li>Links verified by mods</li>
+              <li>Status set to pending</li>
               <li>Admin reviews (24-48h)</li>
               <li>Published to catalog ✓</li>
             </ol>

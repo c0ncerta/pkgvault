@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/layout/navbar";
 import { getServerSession } from "@/lib/session";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function DashboardLayout({
@@ -52,7 +53,7 @@ export default async function DashboardLayout({
 
 function DashLink({ href, label, accent }: { href: string; label: string; accent?: boolean }) {
   return (
-    <a
+    <Link
       href={href}
       className="btn-ghost"
       style={{
@@ -62,6 +63,6 @@ function DashLink({ href, label, accent }: { href: string; label: string; accent
       }}
     >
       {label}
-    </a>
+    </Link>
   );
 }

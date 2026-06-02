@@ -1,3 +1,5 @@
+import { GlassStat } from "@/components/liquid/glass";
+import { CountUp } from "@/components/ui/count-up";
 import { forumThreads, games, pkgFiles, users } from "@/db/schema";
 import { db } from "@/lib/db";
 import { eq, sql } from "drizzle-orm";
@@ -29,20 +31,19 @@ const getStats = unstable_cache(
   ["home-stats"],
   { revalidate: 300, tags: ["pkgs", "forum", "users"] },
 );
-import { GlassStat } from "@/components/liquid/glass";
 
-function formatCompact(n: number): string {
-  if (n >= 1e9) return `${(n / 1e9).toFixed(1)}B`;
-  if (n >= 1e6) return `${(n / 1e6).toFixed(1)}M`;
-  if (n >= 1e3) return `${(n / 1e3).toFixed(1)}K`;
-  return String(n);
+function parseCompact(n: number) {
+  if (n >= 1e9) return { end: n / 1e9, decimals: 1, suffix: "B" };
+  if (n >= 1e6) return { end: n / 1e6, decimals: 1, suffix: "M" };
+  if (n >= 1e3) return { end: n / 1e3, decimals: 1, suffix: "K" };
+  return { end: n, decimals: 0, suffix: "" };
 }
 
-function formatBytes(b: number): string {
-  if (b >= 1e12) return `${(b / 1e12).toFixed(1)} TB`;
-  if (b >= 1e9) return `${(b / 1e9).toFixed(1)} GB`;
-  if (b >= 1e6) return `${(b / 1e6).toFixed(1)} MB`;
-  return `${(b / 1e3).toFixed(0)} KB`;
+function parseBytes(b: number) {
+  if (b >= 1e12) return { end: b / 1e12, decimals: 1, suffix: " TB" };
+  if (b >= 1e9) return { end: b / 1e9, decimals: 1, suffix: " GB" };
+  if (b >= 1e6) return { end: b / 1e6, decimals: 1, suffix: " MB" };
+  return { end: b / 1e3, decimals: 0, suffix: " KB" };
 }
 
 export async function HomeStats() {
@@ -64,12 +65,12 @@ export async function HomeStats() {
   }
 
   const stats = [
-    { value: formatCompact(totals.pkgs), label: "PKGs" },
-    { value: String(totals.platforms), label: "Platforms" },
-    { value: formatBytes(totals.totalSize), label: "Archive" },
-    { value: formatCompact(totals.downloads), label: "Downloads" },
-    { value: formatCompact(totals.threads), label: "Threads" },
-    { value: formatCompact(totals.users), label: "Members" },
+    { ...parseCompact(totals.pkgs), label: "PKGs" },
+    { end: totals.platforms, decimals: 0, suffix: "", label: "Platforms" },
+    { ...parseBytes(totals.totalSize), label: "Archive" },
+    { ...parseCompact(totals.downloads), label: "Downloads" },
+    { ...parseCompact(totals.threads), label: "Threads" },
+    { ...parseCompact(totals.users), label: "Members" },
   ];
 
   return (
@@ -82,7 +83,11 @@ export async function HomeStats() {
         }}
       >
         {stats.map((s) => (
-          <GlassStat key={s.label} value={s.value} label={s.label} />
+          <GlassStat
+            key={s.label}
+            value={<CountUp end={s.end} decimals={s.decimals} suffix={s.suffix} />}
+            label={s.label}
+          />
         ))}
       </div>
     </section>

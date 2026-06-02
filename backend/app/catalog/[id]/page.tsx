@@ -1,8 +1,8 @@
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
-import { GlassCard } from "@/components/liquid/glass";
+import { GlassCard, GlassEffectContainer } from "@/components/liquid/glass";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
-import { IconCatalog, IconCheck, IconQueue, IconUser } from "@/components/ui/icons";
+import { IconCatalog, IconCheck, IconLink, IconQueue, IconUser } from "@/components/ui/icons";
 import { SpecList } from "@/components/ui/spec-list";
 import { Tag } from "@/components/ui/tag";
 import { games, pkgFiles, pkgSources, users } from "@/db/schema";
@@ -34,6 +34,7 @@ export async function generateMetadata({ params }: DetailPageProps): Promise<Met
 
 function formatBytes(bytes: bigint | number): string {
   const num = Number(bytes);
+  if (num <= 0) return "—";
   if (num >= 1_000_000_000) return `${(num / 1_000_000_000).toFixed(1)} GB`;
   if (num >= 1_000_000) return `${(num / 1_000_000).toFixed(1)} MB`;
   return `${(num / 1_000).toFixed(0)} KB`;
@@ -94,7 +95,8 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
 
   if (!pkg) return notFound();
 
-  const verified = pkg.sha256 !== "pending";
+  const isExternal = pkg.sha256 === "external";
+  const verified = !isExternal && pkg.sha256 !== "pending";
 
   // Fetch available download sources
   let sources: {
@@ -153,7 +155,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
 
         {/* Hero banner */}
         <div
-          className="animate-fade-in"
+          className="detail-hero-shell animate-fade-in"
           style={{ position: "relative", marginBottom: 24, borderRadius: 24, overflow: "hidden" }}
         >
           <div
@@ -235,11 +237,16 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
                 {pkg.version && <Tag>{pkg.version}</Tag>}
                 {pkg.gameRegion && <Tag>{pkg.gameRegion}</Tag>}
                 {pkg.fwRequired && <Tag>FW ≥ {pkg.fwRequired}</Tag>}
-                <Tag variant={verified ? "success" : "warning"}>
+                <Tag variant={verified ? "success" : isExternal ? "default" : "warning"}>
                   {verified ? (
                     <>
                       <IconCheck size={12} style={{ display: "inline", verticalAlign: "middle" }} />{" "}
                       verified
+                    </>
+                  ) : isExternal ? (
+                    <>
+                      <IconLink size={12} style={{ display: "inline", verticalAlign: "middle" }} />{" "}
+                      external source
                     </>
                   ) : (
                     <>
@@ -301,96 +308,108 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
               position: "sticky",
               top: 84,
               alignSelf: "start",
-              display: "flex",
-              flexDirection: "column",
-              gap: 14,
             }}
           >
-            <GlassCard variant="elevated" padding="20px">
-              <DownloadButton
-                pkgId={pkg.id}
-                size={formatBytes(pkg.sizeBytes)}
-                rootzUrl={sources.find((s) => s.url.includes("rootz"))?.url ?? null}
-              />
-              {sources.length > 1 && (
-                <div
+            <GlassEffectContainer
+              spacing={24}
+              style={{ display: "flex", flexDirection: "column", gap: 14 }}
+            >
+              <GlassCard variant="elevated" padding="20px" className="vault-lift" tint="accent">
+                <DownloadButton
+                  pkgId={pkg.id}
+                  size={formatBytes(pkg.sizeBytes)}
+                  rootzUrl={sources.find((s) => s.url.includes("rootz"))?.url ?? null}
+                />
+                {sources.length > 1 && (
+                  <div
+                    style={{
+                      marginTop: 12,
+                      fontSize: "0.72rem",
+                      color: "var(--color-text-muted)",
+                      textAlign: "center",
+                    }}
+                  >
+                    {sources.length} mirror{sources.length === 1 ? "" : "s"} available
+                  </div>
+                )}
+              </GlassCard>
+
+              <GlassCard padding="20px" className="vault-lift" tint="cyan">
+                <h3
                   style={{
-                    marginTop: 12,
-                    fontSize: "0.72rem",
+                    fontSize: "0.7rem",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em",
+                    fontWeight: 600,
                     color: "var(--color-text-muted)",
-                    textAlign: "center",
+                    marginBottom: 12,
                   }}
                 >
-                  {sources.length} mirror{sources.length === 1 ? "" : "s"} available
-                </div>
-              )}
-            </GlassCard>
-
-            <GlassCard padding="20px">
-              <h3
-                style={{
-                  fontSize: "0.7rem",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.1em",
-                  fontWeight: 600,
-                  color: "var(--color-text-muted)",
-                  marginBottom: 12,
-                }}
-              >
-                Technical specs
-              </h3>
-              <SpecList
-                items={[
-                  { label: "size", value: formatBytes(pkg.sizeBytes) },
-                  { label: "version", value: pkg.version ?? "—" },
-                  { label: "platform", value: pkg.gamePlatform ?? "—" },
-                  {
-                    label: "region",
-                    value: `${pkg.gameRegion ?? "—"} ${pkg.gameTitleId ? `(${pkg.gameTitleId})` : ""}`,
-                  },
-                  { label: "min fw", value: pkg.fwRequired ? `≥ ${pkg.fwRequired}` : "—" },
-                  { label: "uploaded", value: pkg.createdAt.toISOString().slice(0, 10) },
-                  { label: "uploader", value: `@${pkg.uploaderName ?? "unknown"}` },
-                  { label: "downloads", value: String(pkg.downloadCount) },
-                ]}
-              />
-            </GlassCard>
-
-            <GlassCard padding="16px">
-              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <span
-                  style={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: "50%",
-                    background: verified ? "var(--color-success)" : "var(--color-warning)",
-                    boxShadow: verified
-                      ? "0 0 12px var(--color-success)"
-                      : "0 0 12px var(--color-warning)",
-                  }}
+                  Technical specs
+                </h3>
+                <SpecList
+                  items={[
+                    { label: "size", value: formatBytes(pkg.sizeBytes) },
+                    { label: "version", value: pkg.version ?? "—" },
+                    { label: "platform", value: pkg.gamePlatform ?? "—" },
+                    {
+                      label: "region",
+                      value: `${pkg.gameRegion ?? "—"} ${pkg.gameTitleId ? `(${pkg.gameTitleId})` : ""}`,
+                    },
+                    { label: "min fw", value: pkg.fwRequired ? `≥ ${pkg.fwRequired}` : "—" },
+                    { label: "uploaded", value: pkg.createdAt.toISOString().slice(0, 10) },
+                    { label: "uploader", value: `@${pkg.uploaderName ?? "unknown"}` },
+                    { label: "downloads", value: String(pkg.downloadCount) },
+                  ]}
                 />
-                <div>
-                  <div
+              </GlassCard>
+
+              <GlassCard
+                padding="16px"
+                className="vault-lift"
+                tint={verified ? "success" : isExternal ? "accent" : "warning"}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <span
                     style={{
-                      fontSize: "0.82rem",
-                      fontWeight: 600,
-                      color: "var(--color-text-primary)",
+                      width: 10,
+                      height: 10,
+                      borderRadius: "50%",
+                      background: verified
+                        ? "var(--color-success)"
+                        : isExternal
+                          ? "var(--color-accent)"
+                          : "var(--color-warning)",
+                      boxShadow: verified
+                        ? "0 0 12px var(--color-success)"
+                        : isExternal
+                          ? "0 0 12px var(--color-accent)"
+                          : "0 0 12px var(--color-warning)",
                     }}
-                  >
-                    {verified ? "Hash verified" : "Hash pending"}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "0.68rem",
-                      color: "var(--color-text-muted)",
-                      fontFamily: "var(--font-mono)",
-                    }}
-                  >
-                    SHA-256 integrity
+                  />
+                  <div>
+                    <div
+                      style={{
+                        fontSize: "0.82rem",
+                        fontWeight: 600,
+                        color: "var(--color-text-primary)",
+                      }}
+                    >
+                      {verified ? "Hash verified" : isExternal ? "External source" : "Hash pending"}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "0.68rem",
+                        color: "var(--color-text-muted)",
+                        fontFamily: "var(--font-mono)",
+                      }}
+                    >
+                      {isExternal ? "No SHA-256 (user-submitted link)" : "SHA-256 integrity"}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </GlassCard>
+              </GlassCard>
+            </GlassEffectContainer>
           </aside>
         </div>
         <Footer />

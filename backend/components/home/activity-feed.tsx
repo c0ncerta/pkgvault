@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const getActivity = unstable_cache(
   async () => {
-    return await Promise.all([
+    const [pkgs, threads] = await Promise.all([
       db
         .select({
           id: pkgFiles.id,
@@ -32,6 +32,11 @@ const getActivity = unstable_cache(
         .orderBy(desc(forumThreads.createdAt))
         .limit(6),
     ]);
+
+    return [
+      pkgs.map((pkg) => ({ ...pkg, createdAt: pkg.createdAt.toISOString() })),
+      threads.map((thread) => ({ ...thread, createdAt: thread.createdAt.toISOString() })),
+    ] as const;
   },
   ["home-activity-feed"],
   { revalidate: 30, tags: ["pkgs", "forum"] },
@@ -40,11 +45,11 @@ import { GlassCard } from "@/components/liquid/glass";
 import { IconForum, IconUpload } from "@/components/ui/icons";
 
 type ActivityItem =
-  | { kind: "pkg"; id: string; title: string; user: string | null; createdAt: Date }
-  | { kind: "thread"; id: string; title: string; user: string | null; createdAt: Date };
+  | { kind: "pkg"; id: string; title: string; user: string | null; createdAt: string }
+  | { kind: "thread"; id: string; title: string; user: string | null; createdAt: string };
 
-function timeAgo(d: Date): string {
-  const diff = Date.now() - d.getTime();
+function timeAgo(d: string): string {
+  const diff = Date.now() - new Date(d).getTime();
   const m = Math.floor(diff / 60000);
   if (m < 1) return "just now";
   if (m < 60) return `${m}m ago`;
@@ -55,8 +60,8 @@ function timeAgo(d: Date): string {
 }
 
 export async function HomeActivityFeed() {
-  let pkgs: Array<{ id: string; title: string; user: string | null; createdAt: Date }> = [];
-  let threads: Array<{ id: string; title: string; user: string | null; createdAt: Date }> = [];
+  let pkgs: Array<{ id: string; title: string; user: string | null; createdAt: string }> = [];
+  let threads: Array<{ id: string; title: string; user: string | null; createdAt: string }> = [];
 
   try {
     [pkgs, threads] = await getActivity();
@@ -68,7 +73,7 @@ export async function HomeActivityFeed() {
     ...pkgs.map((p) => ({ kind: "pkg" as const, ...p })),
     ...threads.map((t) => ({ kind: "thread" as const, ...t })),
   ]
-    .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
     .slice(0, 10);
 
   if (items.length === 0) return null;

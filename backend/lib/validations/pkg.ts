@@ -6,9 +6,15 @@ export const uploadRequestSchema = z.object({
   title: z.string().min(1).max(500),
   description: z.string().max(5000).optional(),
   gameId: z.string().uuid().optional(),
+  platform: z.string().min(1).max(20).optional(),
+  region: z.string().max(10).optional(),
   filename: z.string().min(1).max(500),
   contentType: z.string().max(100).default("application/octet-stream"),
-  sizeBytes: z.number().int().positive().max(50_000_000_000), // 50GB max
+  sizeBytes: z.number().int().positive().max(20_000_000_000), // 20GB max
+  sha256: z
+    .string()
+    .length(64)
+    .regex(/^[a-f0-9]+$/),
   version: z.string().max(50).optional(),
   fwRequired: z.string().max(20).optional(),
 });

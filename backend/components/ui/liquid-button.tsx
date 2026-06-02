@@ -1,7 +1,10 @@
 "use client";
 
 import { type HTMLMotionProps, motion } from "framer-motion";
+import Link from "next/link";
 import type { ReactNode } from "react";
+
+const MotionLink = motion.create(Link);
 
 type Variant = "primary" | "secondary" | "ghost" | "danger";
 type Size = "sm" | "md" | "lg";
@@ -13,6 +16,7 @@ interface LiquidButtonProps extends Omit<HTMLMotionProps<"button">, "children"> 
   fullWidth?: boolean;
   iconLeft?: ReactNode;
   iconRight?: ReactNode;
+  href?: string;
 }
 
 const SIZE_CLASS: Record<Size, string> = {
@@ -36,6 +40,7 @@ const VARIANT_CLASS: Record<Variant, string> = {
  *   - Spring physics on press (squish + release recoil)
  *   - Hover lift via framer-motion (smoother than CSS for chained tweens)
  *   - Optional icon slots
+ *   - Polymorphic rendering as a Link when href is provided.
  *
  * Use this for high-impact CTAs (downloads, submits, hero actions). For
  * everyday buttons the plain `.btn-*` classes are fine.
@@ -50,24 +55,45 @@ export function LiquidButton({
   style,
   className = "",
   disabled,
+  href,
   ...rest
 }: LiquidButtonProps) {
-  return (
-    <motion.button
-      whileHover={disabled ? undefined : { y: -2, scale: 1.015 }}
-      whileTap={disabled ? undefined : { y: 1, scale: 0.95 }}
-      transition={{ type: "spring", stiffness: 480, damping: 22, mass: 0.6 }}
-      disabled={disabled}
-      className={`${VARIANT_CLASS[variant]} ${SIZE_CLASS[size]} ${className}`}
-      style={{
-        width: fullWidth ? "100%" : undefined,
-        ...style,
-      }}
-      {...rest}
-    >
+  const commonProps = {
+    whileHover: disabled ? undefined : { y: -2, scale: 1.015 },
+    whileTap: disabled ? undefined : { y: 1, scale: 0.95 },
+    transition: { type: "spring" as const, stiffness: 480, damping: 22, mass: 0.6 },
+    className: `${VARIANT_CLASS[variant]} ${SIZE_CLASS[size]} ${className}`.trim(),
+    style: {
+      width: fullWidth ? "100%" : undefined,
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 8,
+      textDecoration: "none",
+      ...style,
+    },
+  };
+
+  const content = (
+    <>
       {iconLeft && <span style={{ display: "inline-flex", fontSize: "0.95em" }}>{iconLeft}</span>}
       <span>{children}</span>
       {iconRight && <span style={{ display: "inline-flex", fontSize: "0.95em" }}>{iconRight}</span>}
+    </>
+  );
+
+  if (href && !disabled) {
+    return (
+      // biome-ignore lint/suspicious/noExplicitAny: polymorphic motion/link props are type-erased here
+      <MotionLink href={href} {...commonProps} {...(rest as any)}>
+        {content}
+      </MotionLink>
+    );
+  }
+
+  return (
+    <motion.button disabled={disabled} {...commonProps} {...rest}>
+      {content}
     </motion.button>
   );
 }

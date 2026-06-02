@@ -1,6 +1,7 @@
 import { games, pkgFiles, pkgSources } from "@/db/schema";
 import { db } from "@/lib/db";
 import { getServerSession } from "@/lib/session";
+import { isSafeExternalReference } from "@/lib/url-safety";
 import { eq } from "drizzle-orm";
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
@@ -8,7 +9,10 @@ import { z } from "zod";
 const createPkgSchema = z.object({
   title: z.string().min(1).max(500),
   description: z.string().max(5000).nullable().optional(),
-  sha256: z.string().max(64).optional(),
+  sha256: z
+    .string()
+    .length(64)
+    .regex(/^[a-f0-9]+$/),
   sizeBytes: z.number().int().min(0),
   version: z.string().max(50).nullable().optional(),
   fwRequired: z.string().max(20).nullable().optional(),
@@ -21,7 +25,7 @@ const createPkgSchema = z.object({
   sources: z
     .array(
       z.object({
-        url: z.string().min(1),
+        url: z.string().refine(isSafeExternalReference, "URL must be public http(s) or magnet"),
         provider: z.enum([
           "r2",
           "direct",
@@ -68,6 +72,24 @@ export async function POST(request: NextRequest) {
 
   const { title, description, sha256, sizeBytes, version, fwRequired, game, sources } = parsed.data;
 
+  const [duplicate] = await db
+    .select({ id: pkgFiles.id, title: pkgFiles.title })
+    .from(pkgFiles)
+    .where(eq(pkgFiles.sha256, sha256))
+    .limit(1);
+
+  if (duplicate) {
+    return NextResponse.json(
+      {
+        duplicate: true,
+        existingId: duplicate.id,
+        existingTitle: duplicate.title,
+        message: "This file already exists in the archive",
+      },
+      { status: 409 },
+    );
+  }
+
   // Find or create game
   let gameId: string;
   if (game.titleId) {
@@ -113,7 +135,7 @@ export async function POST(request: NextRequest) {
       gameId,
       title,
       description: description ?? null,
-      sha256: sha256 || "pending",
+      sha256,
       sizeBytes: BigInt(sizeBytes),
       r2Key: null, // No R2 for admin-created entries
       version: version ?? null,

@@ -39,6 +39,9 @@ export async function middleware(request: NextRequest) {
 
   // Not authenticated → redirect to login (pages) or 401 (API)
   if (!session) {
+    if (isAuthPage) {
+      return NextResponse.next();
+    }
     if (pathname.startsWith("/api/")) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }

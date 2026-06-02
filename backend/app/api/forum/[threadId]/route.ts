@@ -134,11 +134,17 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     const [parent] = await db
       .select({ depth: forumPosts.depth })
       .from(forumPosts)
-      .where(eq(forumPosts.id, parentId))
+      .where(
+        and(
+          eq(forumPosts.id, parentId),
+          eq(forumPosts.threadId, threadId),
+          sql`${forumPosts.deletedAt} IS NULL`,
+        ),
+      )
       .limit(1);
 
     if (!parent) {
-      return NextResponse.json({ error: "Parent post not found" }, { status: 404 });
+      return NextResponse.json({ error: "Parent post not found in this thread" }, { status: 404 });
     }
     depth = Math.min((parent.depth ?? 0) + 1, 3); // Max depth 3
   }

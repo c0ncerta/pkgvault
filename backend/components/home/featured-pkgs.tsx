@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const getFeatured = unstable_cache(
   async () => {
-    return await db
+    const rows = await db
       .select({
         id: pkgFiles.id,
         title: pkgFiles.title,
@@ -23,6 +23,12 @@ const getFeatured = unstable_cache(
       .where(and(eq(pkgFiles.status, "approved"), sql`${pkgFiles.deletedAt} IS NULL`))
       .orderBy(desc(pkgFiles.downloadCount))
       .limit(6);
+
+    return rows.map((row) => ({
+      ...row,
+      sizeBytes: Number(row.sizeBytes),
+      createdAt: row.createdAt.toISOString(),
+    }));
   },
   ["home-featured-pkgs"],
   { revalidate: 60, tags: ["pkgs"] },
@@ -41,12 +47,12 @@ export async function HomeFeaturedPkgs() {
   let items: Array<{
     id: string;
     title: string;
-    sizeBytes: bigint;
+    sizeBytes: number;
     downloadCount: number;
     version: string | null;
     gamePlatform: string | null;
     gameRegion: string | null;
-    createdAt: Date;
+    createdAt: string;
   }> = [];
 
   try {
@@ -108,15 +114,16 @@ export async function HomeFeaturedPkgs() {
           <Link
             key={it.id}
             href={`/catalog/${it.id}`}
-            className={`animate-slide-up delay-${Math.min(i + 1, 6)}`}
-            style={{ textDecoration: "none", display: "block" }}
+            className={`pkg-card-link animate-slide-up delay-${Math.min(i + 1, 6)}`}
           >
             <GlassCard
+              className="pkg-card"
               variant={i === 0 ? "elevated" : "content"}
               padding="0"
               style={{ overflow: "hidden", display: "flex", flexDirection: "column" }}
             >
               <div
+                className="pkg-cover"
                 style={{
                   height: 120,
                   position: "relative",
@@ -131,6 +138,8 @@ export async function HomeFeaturedPkgs() {
               >
                 <span
                   style={{
+                    position: "relative",
+                    zIndex: 1,
                     fontSize: "2.4rem",
                     fontWeight: 900,
                     color: "rgba(255,255,255,0.85)",
@@ -144,6 +153,7 @@ export async function HomeFeaturedPkgs() {
                   <span
                     style={{
                       position: "absolute",
+                      zIndex: 1,
                       top: 10,
                       right: 10,
                       background: "rgba(0,0,0,0.4)",

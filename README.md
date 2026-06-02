@@ -14,7 +14,7 @@
 PKGVault is a full-stack web application that serves as a **private catalog and distribution platform** for PlayStation PKG (package) files. It combines:
 
 - **PKG Catalog** — Browse, search, and filter game packages with rich metadata (title, version, firmware, region, tags)
-- **Secure Storage** — Files stored on Cloudflare R2 with SHA-256 integrity verification
+- **Source Catalog** — Files are tracked by SHA-256 and linked to moderator-managed sources; first-party R2 storage is optional and currently disabled by default
 - **Community Forum** — Threaded discussions, voting, and reputation system
 - **Admin Dashboard** — Queue management, source tracking, audit logs, backups, and takedown handling
 - **Liquid Glass UI** — Modern glassmorphism design with smooth animations
@@ -27,7 +27,7 @@ PKGVault/
 │   ├── app/                 # App Router pages & API routes
 │   ├── components/          # React components (UI, layout, liquid glass)
 │   ├── db/                  # Database schema, migrations, seeds
-│   ├── lib/                 # Shared utilities (auth, db, redis, R2)
+│   ├── lib/                 # Shared utilities (auth, db, redis, health checks)
 │   ├── scripts/             # Admin & maintenance scripts
 │   ├── docker-compose.yml   # Local Postgres + Redis
 │   └── package.json         # Dependencies & scripts
@@ -69,7 +69,7 @@ docker compose up -d
 
 ```bash
 cp .env.example .env
-# Edit .env with your R2 credentials and secrets
+# Edit .env with app secrets; R2 is optional and disabled by default
 ```
 
 ### 4. Database Setup
@@ -95,9 +95,9 @@ npm run dev
 | **Framework** | Next.js 15 (App Router + Turbopack) |
 | **Language** | TypeScript 5.8 (strict mode) |
 | **Database** | PostgreSQL 16 + Drizzle ORM |
-| **Cache** | Redis 7 (sessions, rate limiting) |
+| **Cache** | Redis 7 (rate limiting) |
 | **Auth** | Better-Auth (session + role-based) |
-| **Storage** | Cloudflare R2 (S3-compatible) |
+| **Storage** | Moderator-managed external sources; optional Cloudflare R2 support |
 | **Styling** | Tailwind CSS v4 + shadcn/ui |
 | **Animations** | Framer Motion + Liquid Glass React |
 | **Validation** | Zod (runtime schema validation) |
@@ -127,7 +127,7 @@ npm run dev
 - **Authentication** — Email/password registration with secure sessions
 - **PKG Catalog** — Full-text search, filters by platform/version/region
 - **PKG Detail Pages** — Metadata, file integrity (SHA-256), download tracking
-- **Upload Wizard** — Multi-step upload with validation and integrity checking
+- **Upload Wizard** — Multi-step metadata submission with SHA-256 duplicate checks
 - **User Profiles** — Activity history, uploaded packages, reputation
 - **Community Forum** — Threaded discussions with voting system
 - **Notifications** — Activity alerts and system notifications
@@ -145,9 +145,9 @@ npm run dev
 ### Security Features
 - **Role-based Access Control** — User, moderator, admin roles
 - **Rate Limiting** — Redis-backed request throttling
-- **Filename Obfuscation** — Secure storage with hashed filenames
+- **Filename Obfuscation** — Secure naming helpers for optional backup pipelines
 - **Input Validation** — Zod schemas on all API endpoints
-- **Session Security** — Better-Auth with Redis session storage
+- **Session Security** — Better-Auth with database-backed sessions
 - **CORS Protection** — Configured trusted origins
 
 ## Documentation
@@ -165,10 +165,10 @@ npm run dev
 1. Set `NODE_ENV=production`
 2. Configure `BETTER_AUTH_SECRET` with a cryptographically random 64-char string
 3. Set `BETTER_AUTH_URL` to your production domain
-4. Configure Cloudflare R2 credentials
+4. Configure source providers; R2 credentials are optional
 5. Run `npm run build` then `npm run start`
 6. Set up reverse proxy (nginx/Caddy) with TLS
-7. Enable Redis for session persistence
+7. Enable Redis for rate limiting
 8. Configure automated backups
 
 ### Docker Production

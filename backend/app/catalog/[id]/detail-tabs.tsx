@@ -72,10 +72,11 @@ export function DetailTabs(props: DetailTabsProps) {
   return (
     <GlassCard padding="0" style={{ overflow: "hidden" }}>
       <div
+        className="segmented-shell"
         style={{
+          margin: "12px 12px 0",
           display: "flex",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
-          padding: "0 6px",
+          justifyContent: "stretch",
         }}
       >
         {tabs.map((t) => {
@@ -85,18 +86,14 @@ export function DetailTabs(props: DetailTabsProps) {
               type="button"
               key={t.key}
               onClick={() => setTab(t.key)}
+              className="segmented-pill"
+              data-active={active}
               style={{
-                padding: "14px 18px",
-                border: "none",
-                background: "transparent",
-                color: active ? "var(--color-text-primary)" : "var(--color-text-muted)",
-                fontSize: "0.85rem",
-                fontWeight: active ? 600 : 500,
-                cursor: "pointer",
-                position: "relative",
-                fontFamily: "var(--font-sans)",
+                flex: 1,
+                padding: "8px 12px",
                 display: "flex",
                 alignItems: "center",
+                justifyContent: "center",
                 gap: 8,
               }}
             >
@@ -107,7 +104,7 @@ export function DetailTabs(props: DetailTabsProps) {
                     fontSize: "0.65rem",
                     padding: "1px 7px",
                     borderRadius: 999,
-                    background: active ? "var(--color-accent)" : "rgba(255,255,255,0.06)",
+                    background: active ? "var(--color-accent)" : "rgba(255,255,255,0.08)",
                     color: active ? "#fff" : "var(--color-text-muted)",
                     fontFamily: "var(--font-mono)",
                     fontWeight: 700,
@@ -115,19 +112,6 @@ export function DetailTabs(props: DetailTabsProps) {
                 >
                   {t.count}
                 </span>
-              )}
-              {active && (
-                <span
-                  style={{
-                    position: "absolute",
-                    bottom: -1,
-                    left: 12,
-                    right: 12,
-                    height: 2,
-                    background: "linear-gradient(90deg, var(--color-accent), #a78bfa)",
-                    borderRadius: 2,
-                  }}
-                />
               )}
             </button>
           );
@@ -334,60 +318,82 @@ export function DetailTabs(props: DetailTabsProps) {
 
         {tab === "integrity" && (
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            <div>
+            {props.sha256 === "external" ? (
               <div
                 style={{
-                  fontSize: "0.65rem",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.1em",
-                  fontWeight: 600,
-                  color: "var(--color-text-muted)",
-                  marginBottom: 8,
-                }}
-              >
-                SHA-256
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.78rem",
-                  lineHeight: 1.6,
-                  padding: 14,
+                  padding: 20,
                   borderRadius: 12,
-                  background: "rgba(0,0,0,0.25)",
-                  border: "1px solid rgba(255,255,255,0.06)",
-                  wordBreak: "break-all",
-                  color:
-                    props.sha256 === "pending" ? "var(--color-warning)" : "var(--color-success)",
+                  background: "rgba(99, 102, 241, 0.05)",
+                  border: "1px solid rgba(99, 102, 241, 0.12)",
+                  textAlign: "center",
+                  fontSize: "0.85rem",
+                  color: "var(--color-text-secondary)",
+                  lineHeight: 1.6,
                 }}
               >
-                {props.sha256}
+                This package uses an external download link. SHA-256 verification is not available.
+                Verify the file manually after downloading.
               </div>
-            </div>
-            <div
-              style={{
-                fontSize: "0.78rem",
-                color: "var(--color-text-secondary)",
-                lineHeight: 1.55,
-              }}
-            >
-              <strong style={{ color: "var(--color-text-primary)" }}>How to verify:</strong> after
-              downloading, run
-              <code
-                style={{
-                  display: "inline-block",
-                  margin: "0 4px",
-                  padding: "2px 8px",
-                  borderRadius: 6,
-                  background: "rgba(255,255,255,0.05)",
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.75rem",
-                }}
-              >
-                sha256sum {props.originalFilename ?? "<file>"}
-              </code>
-              and compare. They must match exactly.
-            </div>
+            ) : (
+              <>
+                <div>
+                  <div
+                    style={{
+                      fontSize: "0.65rem",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.1em",
+                      fontWeight: 600,
+                      color: "var(--color-text-muted)",
+                      marginBottom: 8,
+                    }}
+                  >
+                    SHA-256
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "0.78rem",
+                      lineHeight: 1.6,
+                      padding: 14,
+                      borderRadius: 12,
+                      background: "rgba(0,0,0,0.25)",
+                      border: "1px solid rgba(255,255,255,0.06)",
+                      wordBreak: "break-all",
+                      color:
+                        props.sha256 === "pending"
+                          ? "var(--color-warning)"
+                          : "var(--color-success)",
+                    }}
+                  >
+                    {props.sha256}
+                  </div>
+                </div>
+                <div
+                  style={{
+                    fontSize: "0.78rem",
+                    color: "var(--color-text-secondary)",
+                    lineHeight: 1.55,
+                  }}
+                >
+                  <strong style={{ color: "var(--color-text-primary)" }}>How to verify:</strong>{" "}
+                  after downloading, run
+                  <code
+                    style={{
+                      display: "inline-block",
+                      margin: "0 4px",
+                      padding: "2px 8px",
+                      borderRadius: 6,
+                      background: "rgba(255,255,255,0.05)",
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "0.75rem",
+                    }}
+                  >
+                    sha256sum {props.originalFilename ?? "<file>"}
+                  </code>
+                  and compare. They must match exactly.
+                </div>
+              </>
+            )}
           </div>
         )}
 
@@ -403,7 +409,10 @@ export function DetailTabs(props: DetailTabsProps) {
               {
                 icon: <IconCatalog size={16} />,
                 label: "Size",
-                value: `${Number(props.sizeBytes).toLocaleString()} bytes`,
+                value:
+                  Number(props.sizeBytes) > 0
+                    ? `${Number(props.sizeBytes).toLocaleString()} bytes`
+                    : "—",
                 sub: undefined,
               },
               {

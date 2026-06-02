@@ -1,4 +1,4 @@
-import { forumPosts, votes } from "@/db/schema";
+import { forumPosts, forumThreads, pkgFiles, votes } from "@/db/schema";
 import { db } from "@/lib/db";
 import { getServerSession } from "@/lib/session";
 import { voteSchema } from "@/lib/validations/forum";
@@ -31,6 +31,11 @@ export async function POST(request: NextRequest) {
   }
 
   const { targetType, targetId, value } = parsed.data;
+
+  const targetExists = await verifyTargetExists(targetType, targetId);
+  if (!targetExists) {
+    return NextResponse.json({ error: "Vote target not found" }, { status: 404 });
+  }
 
   // Check existing vote
   const [existing] = await db
@@ -85,4 +90,31 @@ export async function POST(request: NextRequest) {
     value: value === 0 ? null : value,
     scoreDelta,
   });
+}
+
+async function verifyTargetExists(targetType: "post" | "thread" | "pkg_file", targetId: string) {
+  if (targetType === "post") {
+    const [post] = await db
+      .select({ id: forumPosts.id })
+      .from(forumPosts)
+      .where(and(eq(forumPosts.id, targetId), sql`${forumPosts.deletedAt} IS NULL`))
+      .limit(1);
+    return Boolean(post);
+  }
+
+  if (targetType === "thread") {
+    const [thread] = await db
+      .select({ id: forumThreads.id })
+      .from(forumThreads)
+      .where(and(eq(forumThreads.id, targetId), sql`${forumThreads.deletedAt} IS NULL`))
+      .limit(1);
+    return Boolean(thread);
+  }
+
+  const [pkg] = await db
+    .select({ id: pkgFiles.id })
+    .from(pkgFiles)
+    .where(and(eq(pkgFiles.id, targetId), sql`${pkgFiles.deletedAt} IS NULL`))
+    .limit(1);
+  return Boolean(pkg);
 }

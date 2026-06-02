@@ -1,10 +1,10 @@
 "use client";
 
 import { GlassCard } from "@/components/liquid/glass";
+import { LiquidButton } from "@/components/ui/liquid-button";
 import { Logo } from "@/components/ui/logo";
 import { useSession } from "@/lib/auth-client";
 import { motion } from "framer-motion";
-import Link from "next/link";
 
 export function HomeHero() {
   const { data: session } = useSession();
@@ -76,32 +76,17 @@ export function HomeHero() {
         transition={{ duration: 0.5, delay: 0.35, ease: "easeOut" }}
         style={{ display: "flex", gap: 12, justifyContent: "center" }}
       >
-        <motion.div
-          whileHover={{ scale: 1.04, y: -3 }}
-          whileTap={{ scale: 0.94, y: 1 }}
-          transition={{ type: "spring", stiffness: 480, damping: 22, mass: 0.6 }}
+        <LiquidButton variant="primary" size="lg" href="/catalog" style={{ padding: "14px 32px" }}>
+          Browse Catalog
+        </LiquidButton>
+        <LiquidButton
+          variant="secondary"
+          size="lg"
+          href={isLoggedIn ? "/catalog" : "/register"}
+          style={{ padding: "14px 32px" }}
         >
-          <Link
-            href="/catalog"
-            className="btn-primary"
-            style={{ padding: "14px 32px", fontSize: "1rem" }}
-          >
-            Browse Catalog
-          </Link>
-        </motion.div>
-        <motion.div
-          whileHover={{ scale: 1.04, y: -3 }}
-          whileTap={{ scale: 0.94, y: 1 }}
-          transition={{ type: "spring", stiffness: 480, damping: 22, mass: 0.6 }}
-        >
-          <Link
-            href={isLoggedIn ? "/catalog" : "/register"}
-            className="btn-secondary"
-            style={{ padding: "14px 32px", fontSize: "1rem" }}
-          >
-            {isLoggedIn ? "Go to Catalog" : "Join Community"}
-          </Link>
-        </motion.div>
+          {isLoggedIn ? "Go to Catalog" : "Join Community"}
+        </LiquidButton>
       </motion.div>
     </div>
   );

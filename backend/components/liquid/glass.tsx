@@ -1,7 +1,42 @@
 "use client";
 
+import { createContext, useContext, useRef } from "react";
 import type { CSSProperties, ReactNode, RefObject } from "react";
 import { LiquidGlassSurface } from "./liquid-glass-surface";
+import type { GlassTint } from "./liquid-glass-surface";
+
+const GlassEffectContainerContext = createContext<RefObject<HTMLDivElement | null> | null>(null);
+
+export function GlassEffectContainer({
+  children,
+  className = "",
+  spacing = 28,
+  style,
+}: {
+  children: ReactNode;
+  className?: string;
+  spacing?: number;
+  style?: CSSProperties;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  return (
+    <GlassEffectContainerContext.Provider value={ref}>
+      <div
+        ref={ref}
+        className={`glass-effect-container ${className}`.trim()}
+        style={
+          {
+            "--glass-container-spacing": `${spacing}px`,
+            ...style,
+          } as CSSProperties
+        }
+      >
+        {children}
+      </div>
+    </GlassEffectContainerContext.Provider>
+  );
+}
 
 // ─── GlassCard — content panels, cards, stat blocks ─────────────
 type GlassCardVariant = "content" | "elevated";
@@ -18,19 +53,19 @@ const CARD_PRESETS: Record<
   }
 > = {
   content: {
-    displacementScale: 35,
-    blurAmount: 0.04,
-    saturation: 190,
-    aberrationIntensity: 1,
-    elasticity: 0.06,
+    displacementScale: 42,
+    blurAmount: 0.05,
+    saturation: 205,
+    aberrationIntensity: 1.25,
+    elasticity: 0.08,
     cornerRadius: 22,
   },
   elevated: {
-    displacementScale: 45,
-    blurAmount: 0.05,
-    saturation: 175,
-    aberrationIntensity: 1.5,
-    elasticity: 0.08,
+    displacementScale: 58,
+    blurAmount: 0.065,
+    saturation: 205,
+    aberrationIntensity: 1.8,
+    elasticity: 0.12,
     cornerRadius: 22,
   },
 };
@@ -43,6 +78,9 @@ export function GlassCard({
   children,
   onClick,
   cornerRadius,
+  tint,
+  interactive,
+  mouseContainer,
 }: {
   variant?: GlassCardVariant;
   className?: string;
@@ -51,8 +89,12 @@ export function GlassCard({
   children: ReactNode;
   onClick?: () => void;
   cornerRadius?: number;
+  tint?: GlassTint;
+  interactive?: boolean;
+  mouseContainer?: RefObject<HTMLElement | null> | null;
 }) {
   const preset = CARD_PRESETS[variant];
+  const containerRef = useContext(GlassEffectContainerContext);
 
   return (
     <LiquidGlassSurface
@@ -67,6 +109,9 @@ export function GlassCard({
       padding={padding}
       style={style}
       onClick={onClick}
+      tint={tint}
+      interactive={interactive}
+      mouseContainer={mouseContainer ?? containerRef}
     >
       {children}
     </LiquidGlassSurface>
@@ -88,19 +133,19 @@ const PANEL_PRESETS: Record<
   }
 > = {
   regular: {
-    displacementScale: 50,
-    blurAmount: 0.05,
-    saturation: 180,
-    aberrationIntensity: 1.5,
-    elasticity: 0.15,
+    displacementScale: 58,
+    blurAmount: 0.06,
+    saturation: 205,
+    aberrationIntensity: 1.8,
+    elasticity: 0.18,
     cornerRadius: 999,
   },
   strong: {
-    displacementScale: 64,
-    blurAmount: 0.07,
-    saturation: 190,
-    aberrationIntensity: 2,
-    elasticity: 0.25,
+    displacementScale: 78,
+    blurAmount: 0.08,
+    saturation: 215,
+    aberrationIntensity: 2.4,
+    elasticity: 0.3,
     cornerRadius: 32,
   },
 };
@@ -114,6 +159,8 @@ export function GlassPanel({
   onClick,
   cornerRadius,
   mouseContainer,
+  tint,
+  interactive,
 }: {
   variant?: GlassPanelVariant;
   className?: string;
@@ -123,8 +170,11 @@ export function GlassPanel({
   onClick?: () => void;
   cornerRadius?: number;
   mouseContainer?: RefObject<HTMLElement | null> | null;
+  tint?: GlassTint;
+  interactive?: boolean;
 }) {
   const preset = PANEL_PRESETS[variant];
+  const containerRef = useContext(GlassEffectContainerContext);
 
   return (
     <LiquidGlassSurface
@@ -139,7 +189,9 @@ export function GlassPanel({
       padding={padding}
       style={style}
       onClick={onClick}
-      mouseContainer={mouseContainer}
+      mouseContainer={mouseContainer ?? containerRef}
+      tint={tint}
+      interactive={interactive}
     >
       {children}
     </LiquidGlassSurface>
@@ -147,7 +199,7 @@ export function GlassPanel({
 }
 
 // ─── GlassStat — number + label block ────────────────────────────
-export function GlassStat({ value, label }: { value: string | number; label: string }) {
+export function GlassStat({ value, label }: { value: ReactNode; label: string }) {
   return (
     <GlassCard
       variant="content"

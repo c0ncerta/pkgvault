@@ -3,6 +3,17 @@ import { db } from "@/lib/db";
 import { getServerSession } from "@/lib/session";
 import { eq } from "drizzle-orm";
 import { type NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+
+const updatePkgSchema = z
+  .object({
+    status: z.enum(["pending", "approved", "rejected", "taken_down"]).optional(),
+    title: z.string().min(1).max(500).optional(),
+    description: z.string().max(5000).nullable().optional(),
+    version: z.string().max(50).nullable().optional(),
+    fwRequired: z.string().max(20).nullable().optional(),
+  })
+  .strict();
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -13,6 +24,8 @@ interface RouteParams {
  */
 export async function GET(_request: NextRequest, { params }: RouteParams) {
   const { id } = await params;
+  const session = await getServerSession();
+  const role = (session?.user as { role?: string } | undefined)?.role;
 
   const [file] = await db
     .select({
@@ -21,7 +34,6 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
       description: pkgFiles.description,
       sha256: pkgFiles.sha256,
       sizeBytes: pkgFiles.sizeBytes,
-      r2Key: pkgFiles.r2Key,
       contentType: pkgFiles.contentType,
       originalFilename: pkgFiles.originalFilename,
       version: pkgFiles.version,
@@ -50,7 +62,7 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  if (file.status !== "approved") {
+  if (file.status !== "approved" && role !== "admin" && role !== "mod") {
     // Only mods/admins can see non-approved files
     // (middleware handles this, but extra safety)
     return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -70,14 +82,28 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
   }
 
   const { id } = await params;
-  const body = await request.json();
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+  }
+
+  const parsed = updatePkgSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "Validation failed", details: parsed.error.flatten() },
+      { status: 400 },
+    );
+  }
 
   const updateData: Record<string, unknown> = {};
-  if (body["status"] !== undefined) updateData["status"] = body["status"];
-  if (body["title"] !== undefined) updateData["title"] = body["title"];
-  if (body["description"] !== undefined) updateData["description"] = body["description"];
-  if (body["version"] !== undefined) updateData["version"] = body["version"];
-  if (body["fwRequired"] !== undefined) updateData["fwRequired"] = body["fwRequired"];
+  const data = parsed.data;
+  if (data.status !== undefined) updateData["status"] = data.status;
+  if (data.title !== undefined) updateData["title"] = data.title;
+  if (data.description !== undefined) updateData["description"] = data.description;
+  if (data.version !== undefined) updateData["version"] = data.version;
+  if (data.fwRequired !== undefined) updateData["fwRequired"] = data.fwRequired;
   updateData["updatedAt"] = new Date();
 
   const [updated] = await db

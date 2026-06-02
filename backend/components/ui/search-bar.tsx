@@ -61,6 +61,7 @@ export function SearchBar() {
   return (
     <div ref={ref} style={{ position: "relative" }}>
       <div
+        className="search-glass"
         style={{
           display: "flex",
           alignItems: "center",
@@ -69,10 +70,8 @@ export function SearchBar() {
           height: 38,
           borderRadius: 999,
           border: "1px solid rgba(255,255,255,0.10)",
-          background: "rgba(255,255,255,0.05)",
-          boxShadow: "inset 0 2px 4px rgba(0,0,0,0.15)",
           width: 260,
-          transition: "border-color 0.2s, width 0.2s, background 0.2s",
+          transition: "border-color 0.2s, width 0.2s, background 0.2s, box-shadow 0.2s",
         }}
       >
         <IconSearch size={14} style={{ color: "var(--color-text-muted)", flexShrink: 0 }} />
@@ -108,7 +107,7 @@ export function SearchBar() {
             top: "calc(100% + 6px)",
             overflow: "hidden",
             zIndex: 100,
-            animation: "fade-in 0.12s ease-out",
+            animation: "glass-pop 0.16s var(--ease-out-spring)",
           }}
         >
           {results.map((r) => (
@@ -116,6 +115,7 @@ export function SearchBar() {
               type="button"
               key={r.id}
               onClick={() => handleSelect(r.id)}
+              className="filter-row"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -123,20 +123,10 @@ export function SearchBar() {
                 width: "100%",
                 padding: "10px 12px",
                 borderRadius: 12,
-                border: "none",
-                background: "transparent",
                 cursor: "pointer",
                 textAlign: "left",
-                color: "var(--color-text-primary)",
                 fontSize: "0.85rem",
                 fontFamily: "var(--font-sans)",
-                transition: "background 0.15s",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(255,255,255,0.06)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent";
               }}
             >
               <IconCatalog size={14} style={{ color: "var(--color-text-muted)" }} />

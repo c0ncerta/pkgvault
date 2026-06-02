@@ -1,5 +1,19 @@
 import { redis } from "@/lib/redis";
 
+const slidingWindowScript = `
+redis.call('ZREMRANGEBYSCORE', KEYS[1], 0, ARGV[1])
+local count = redis.call('ZCARD', KEYS[1])
+if count >= tonumber(ARGV[5]) then
+  local oldest = redis.call('ZRANGE', KEYS[1], 0, 0, 'WITHSCORES')
+  local oldestTime = tonumber(oldest[2]) or tonumber(ARGV[2])
+  local retryAfter = math.max(1, math.ceil((oldestTime + tonumber(ARGV[6]) - tonumber(ARGV[2])) / 1000))
+  return {0, count, retryAfter}
+end
+redis.call('ZADD', KEYS[1], ARGV[2], ARGV[3])
+redis.call('EXPIRE', KEYS[1], ARGV[4])
+return {1, count + 1, 0}
+`;
+
 /**
  * Sliding window rate limiter backed by Redis.
  *
@@ -20,38 +34,26 @@ export async function rateLimit(
   const now = Date.now();
   const windowMs = windowSec * 1000;
   const windowStart = now - windowMs;
+  const member = `${now}:${Math.random().toString(36).slice(2, 10)}`;
 
-  const pipeline = redis.pipeline();
+  const result = (await redis.eval(
+    slidingWindowScript,
+    1,
+    key,
+    windowStart,
+    now,
+    member,
+    windowSec + 1,
+    limit,
+    windowMs,
+  )) as [number, number, number];
 
-  // Remove entries outside the window
-  pipeline.zremrangebyscore(key, 0, windowStart);
-
-  // Count current entries
-  pipeline.zcard(key);
-
-  // Add current request
-  pipeline.zadd(key, now, `${now}:${Math.random().toString(36).slice(2, 8)}`);
-
-  // Set expiry on the key
-  pipeline.expire(key, windowSec + 1);
-
-  const results = await pipeline.exec();
-
-  // zcard result is at index 1
-  const count = (results?.[1]?.[1] as number) ?? 0;
-
-  if (count >= limit) {
-    // Find oldest entry to calculate retry time
-    const oldest = await redis.zrange(key, 0, 0, "WITHSCORES");
-    const oldestTime = oldest.length >= 2 ? Number(oldest[1]) : now;
-    const retryAfterSec = Math.max(1, Math.ceil((oldestTime + windowMs - now) / 1000));
-
-    return { allowed: false, remaining: 0, retryAfterSec };
-  }
+  const [allowedFlag, count, retryAfterSec] = result;
+  if (allowedFlag !== 1) return { allowed: false, remaining: 0, retryAfterSec };
 
   return {
     allowed: true,
-    remaining: limit - count - 1,
+    remaining: Math.max(0, limit - count),
     retryAfterSec: 0,
   };
 }

@@ -17,6 +17,8 @@ type LiquidGlassSurfaceProps = {
   aberrationIntensity: number;
   elasticity: number;
   cornerRadius: number;
+  tint?: GlassTint;
+  interactive?: boolean;
   className?: string;
   padding?: string;
   style?: CSSProperties;
@@ -25,6 +27,8 @@ type LiquidGlassSurfaceProps = {
   mouseContainer?: RefObject<HTMLElement | null> | null;
   baseVariant: BaseVariant;
 };
+
+type GlassTint = "accent" | "cyan" | "neon" | "success" | "warning" | "danger";
 
 type LiquidGlassEnhancerProps = Omit<LiquidGlassSurfaceProps, "children" | "baseVariant"> & {
   surfaceId: string;
@@ -43,6 +47,8 @@ export function LiquidGlassSurface({
   children,
   onClick,
   baseVariant,
+  tint,
+  interactive,
   ...props
 }: LiquidGlassSurfaceProps) {
   const surfaceId = useId();
@@ -53,21 +59,29 @@ export function LiquidGlassSurface({
   } satisfies CSSProperties;
 
   return (
-    <button
-      type="button"
+    <div
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
       data-surface-id={surfaceId}
+      data-interactive={interactive || onClick ? "true" : undefined}
+      data-glass-tint={tint}
       className={`liquid-glass-surface relative ${baseVariant} ${className}`.trim()}
       style={
         {
           ...baseStyle,
-          border: "none",
-          textAlign: "left",
           cursor: onClick ? "pointer" : undefined,
         } as React.CSSProperties
       }
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") onClick?.();
-      }}
+      onKeyDown={
+        onClick
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onClick();
+              }
+            }
+          : undefined
+      }
       onClick={onClick}
     >
       {children}
@@ -86,8 +100,8 @@ export function LiquidGlassSurface({
           cornerRadius={cornerRadius}
         />
       </div>
-    </button>
+    </div>
   );
 }
 
-export type { LiquidGlassSurfaceProps, BaseVariant };
+export type { LiquidGlassSurfaceProps, BaseVariant, GlassTint };

@@ -7,6 +7,7 @@ import { useState } from "react";
 
 const platforms = ["PS4", "PS5", "PS3", "PSP", "Vita"];
 const regions = ["US", "EU", "JP", "ASIA"];
+const sha256Pattern = /^[a-f0-9]{64}$/;
 const providers = [
   { value: "direct", label: "Direct URL" },
   { value: "gdrive", label: "Google Drive" },
@@ -80,6 +81,12 @@ export function AddPkgForm() {
     try {
       const sizeBytes = Math.round(Number.parseFloat(sizeGb || "0") * 1_000_000_000);
       const validSources = sources.filter((s) => s.url.trim());
+      const normalizedSha256 = sha256.trim().toLowerCase();
+
+      if (!sha256Pattern.test(normalizedSha256)) {
+        setError("SHA-256 must be 64 lowercase hex characters");
+        return;
+      }
 
       const res = await fetch("/api/admin/pkgs", {
         method: "POST",
@@ -87,7 +94,7 @@ export function AddPkgForm() {
         body: JSON.stringify({
           title: title.trim(),
           description: description.trim() || null,
-          sha256: sha256.trim() || "pending",
+          sha256: normalizedSha256,
           sizeBytes,
           version: version.trim() || null,
           fwRequired: fwRequired.trim() || null,
@@ -108,7 +115,7 @@ export function AddPkgForm() {
 
       if (!res.ok) {
         const data = await res.json();
-        setError(data.error || "Failed to create PKG");
+        setError(data.message || data.error || "Failed to create PKG");
         return;
       }
 
@@ -202,14 +209,15 @@ export function AddPkgForm() {
           </div>
           <div>
             <label htmlFor="pkg-sha256" style={labelStyle}>
-              SHA-256 Hash
+              SHA-256 Hash *
             </label>
             <input
               id="pkg-sha256"
-              placeholder="64-char hex or leave blank"
+              placeholder="64 lowercase hex characters"
               value={sha256}
-              onChange={(e) => setSha256(e.target.value)}
+              onChange={(e) => setSha256(e.target.value.toLowerCase())}
               maxLength={64}
+              required
               style={{ ...inputStyle, fontFamily: "var(--font-mono)", fontSize: "0.75rem" }}
             />
           </div>
@@ -440,7 +448,7 @@ export function AddPkgForm() {
         variant="primary"
         size="lg"
         fullWidth
-        disabled={loading || !title.trim()}
+        disabled={loading || !title.trim() || !sha256Pattern.test(sha256.trim())}
         iconLeft={loading ? "◓" : undefined}
       >
         {loading ? "Creating…" : "Create PKG Entry"}

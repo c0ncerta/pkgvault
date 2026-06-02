@@ -1,4 +1,5 @@
 import { GlassCard } from "@/components/liquid/glass";
+import { CountUp } from "@/components/ui/count-up";
 import { IconAlertTriangle, IconCatalog, IconLink, IconQueue } from "@/components/ui/icons";
 import { forumThreads, linkReports, pkgFiles, pkgSources, users } from "@/db/schema";
 import { db } from "@/lib/db";
@@ -282,7 +283,9 @@ function StatCard({
       padding="18px 20px"
       style={{ cursor: href ? "pointer" : "default", minHeight: 80 }}
     >
-      <div style={{ fontSize: "1.75rem", fontWeight: 800, color, lineHeight: 1 }}>{value}</div>
+      <div style={{ fontSize: "1.75rem", fontWeight: 800, color, lineHeight: 1 }}>
+        <CountUp end={value} />
+      </div>
       <div
         style={{
           fontSize: "0.7rem",

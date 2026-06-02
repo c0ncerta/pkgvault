@@ -88,6 +88,7 @@ docker-compose.override.yml
 # ─── Temporary & Scratch ──────────────────────────────────
 tmp/
 temp/
+Plans/
 *.tmp
 *.bak
 *.orig

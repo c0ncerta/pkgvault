@@ -4,6 +4,15 @@ import { normalizeGDrive, pingGDrive } from "@/lib/gdrive";
 import { getServerSession } from "@/lib/session";
 import { and, eq } from "drizzle-orm";
 import { type NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+
+const backupRequestSchema = z
+  .object({
+    gdriveUrl: z.string().url(),
+    label: z.string().max(200).optional(),
+    verify: z.boolean().optional(),
+  })
+  .strict();
 
 /**
  * POST /api/admin/pkgs/[id]/backup
@@ -28,17 +37,23 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
   }
 
   const { id: pkgId } = await params;
-  const body = (await request.json()) as {
-    gdriveUrl?: string;
-    label?: string;
-    verify?: boolean;
-  };
-
-  if (!body.gdriveUrl) {
-    return NextResponse.json({ error: "gdriveUrl required" }, { status: 400 });
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  const info = normalizeGDrive(body.gdriveUrl);
+  const parsed = backupRequestSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "Validation failed", details: parsed.error.flatten() },
+      { status: 400 },
+    );
+  }
+
+  const { gdriveUrl, label, verify } = parsed.data;
+  const info = normalizeGDrive(gdriveUrl);
   if (!info) {
     return NextResponse.json({ error: "Not a recognizable Google Drive URL" }, { status: 400 });
   }
@@ -53,7 +68,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
   }
 
   let alive = true;
-  if (body.verify) {
+  if (verify) {
     alive = await pingGDrive(info.shareUrl);
   }
 
@@ -72,10 +87,10 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       .update(pkgSources)
       .set({
         url: info.shareUrl,
-        label: body.label ?? existing.label ?? "GDrive backup",
+        label: label ?? existing.label ?? "GDrive backup",
         status: alive ? "alive" : "unknown",
-        lastCheckedAt: body.verify ? now : existing.lastCheckedAt,
-        lastAliveAt: alive && body.verify ? now : existing.lastAliveAt,
+        lastCheckedAt: verify ? now : existing.lastCheckedAt,
+        lastAliveAt: alive && verify ? now : existing.lastAliveAt,
         failCount: alive ? 0 : existing.failCount,
         updatedAt: now,
       })
@@ -95,11 +110,11 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       pkgId,
       provider: "gdrive",
       url: info.shareUrl,
-      label: body.label ?? "GDrive backup",
+      label: label ?? "GDrive backup",
       isPrimary: false,
       status: alive ? "alive" : "unknown",
-      lastCheckedAt: body.verify ? now : null,
-      lastAliveAt: alive && body.verify ? now : null,
+      lastCheckedAt: verify ? now : null,
+      lastAliveAt: alive && verify ? now : null,
       addedById: userId,
     })
     .returning({ id: pkgSources.id });

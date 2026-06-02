@@ -18,7 +18,17 @@ const geistMono = Geist_Mono({
   weight: ["400", "500", "600", "700"],
 });
 
+function getMetadataBase() {
+  const configuredUrl = process.env["NEXT_PUBLIC_APP_URL"] ?? process.env["BETTER_AUTH_URL"];
+  try {
+    return new URL(configuredUrl ?? "https://pkgvault.fun");
+  } catch {
+    return new URL("https://pkgvault.fun");
+  }
+}
+
 export const metadata: Metadata = {
+  metadataBase: getMetadataBase(),
   title: {
     default: "PKGVault",
     template: "%s | PKGVault",

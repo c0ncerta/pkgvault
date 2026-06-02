@@ -5,6 +5,8 @@
  * embedded in the magnet URI. No native deps; uses fetch + manual bencode parse.
  */
 
+import { isSafeHttpUrl, requireSafeHttpUrl } from "@/lib/url-safety";
+
 const FETCH_TIMEOUT_MS = 10_000;
 
 const PUBLIC_TRACKERS = [
@@ -55,9 +57,7 @@ async function checkTorrent(magnet: string): Promise<HealthResult> {
   }
 
   const magnetTrackers = extractTrackers(magnet);
-  const trackers = [...new Set([...magnetTrackers, ...PUBLIC_TRACKERS])].filter((t) =>
-    t.startsWith("http"),
-  );
+  const trackers = [...new Set([...magnetTrackers, ...PUBLIC_TRACKERS])].filter(isSafeHttpUrl);
 
   let bestSeeders = 0;
   let bestLeechers = 0;
@@ -122,9 +122,11 @@ async function scrapeHttpTracker(
   announceUrl: string,
   infoHashHex: string,
 ): Promise<{ seeders: number; leechers: number } | null> {
+  if (!isSafeHttpUrl(announceUrl)) return null;
+
   // Convert announce → scrape URL (replace last /announce with /scrape)
   const scrapeUrl = announceUrl.replace(/\/announce([^/]*)$/, "/scrape$1");
-  if (scrapeUrl === announceUrl) return null;
+  if (scrapeUrl === announceUrl || !isSafeHttpUrl(scrapeUrl)) return null;
 
   const infoHashBin = hexToBinaryUrl(infoHashHex);
   const url = `${scrapeUrl}?info_hash=${infoHashBin}`;
@@ -186,7 +188,8 @@ async function checkHttpHead(url: string): Promise<HealthResult> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
   try {
-    const res = await fetch(url, {
+    const safeUrl = requireSafeHttpUrl(url);
+    const res = await fetch(safeUrl, {
       method: "HEAD",
       redirect: "follow",
       signal: controller.signal,
@@ -223,7 +226,8 @@ async function checkMega(url: string): Promise<HealthResult> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
   try {
-    const res = await fetch(url, {
+    const safeUrl = requireSafeHttpUrl(url);
+    const res = await fetch(safeUrl, {
       method: "GET",
       redirect: "follow",
       signal: controller.signal,

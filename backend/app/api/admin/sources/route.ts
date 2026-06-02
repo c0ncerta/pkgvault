@@ -1,28 +1,31 @@
 import { pkgFiles, pkgSources } from "@/db/schema";
 import { db } from "@/lib/db";
 import { getServerSession } from "@/lib/session";
+import { isSafeExternalReference } from "@/lib/url-safety";
 import { eq } from "drizzle-orm";
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
-const addSourceSchema = z.object({
-  pkgId: z.string().uuid(),
-  provider: z.enum([
-    "r2",
-    "direct",
-    "gdrive",
-    "mega",
-    "mediafire",
-    "archive_org",
-    "torrent",
-    "onedrive",
-    "other",
-  ]),
-  url: z.string().url().or(z.string().startsWith("magnet:")), // Allow magnet links
-  label: z.string().max(200).optional(),
-  isPrimary: z.boolean().optional(),
-  notes: z.string().optional(),
-});
+const addSourceSchema = z
+  .object({
+    pkgId: z.string().uuid(),
+    provider: z.enum([
+      "r2",
+      "direct",
+      "gdrive",
+      "mega",
+      "mediafire",
+      "archive_org",
+      "torrent",
+      "onedrive",
+      "other",
+    ]),
+    url: z.string().refine(isSafeExternalReference, "URL must be public http(s) or magnet"),
+    label: z.string().max(200).optional(),
+    isPrimary: z.boolean().optional(),
+    notes: z.string().max(5000).optional(),
+  })
+  .strict();
 
 /**
  * GET /api/admin/sources — List all sources (admin only)
