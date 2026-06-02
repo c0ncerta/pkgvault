@@ -78,32 +78,32 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
         padding="8px"
         style={{ alignSelf: "start" }}
       >
-        {sections.map((s) => (
-          <button
-            type="button"
-            key={s.key}
-            onClick={() => setSection(s.key)}
-            style={{
-              display: "block",
-              width: "100%",
-              textAlign: "left",
-              padding: "11px 14px",
-              borderRadius: 8,
-              cursor: "pointer",
-              background: section === s.key ? "rgba(99, 102, 241, 0.06)" : "transparent",
-              borderLeft:
-                section === s.key ? "3px solid var(--color-accent)" : "3px solid transparent",
-              border: "none",
-              fontSize: "var(--fs-md)",
-              fontWeight: section === s.key ? 600 : 400,
-              color: s.danger ? "var(--color-danger)" : "var(--color-text-primary)",
-              fontFamily: "var(--font-sans)",
-              transition: "background var(--dur-fast)",
-            }}
-          >
-            {s.label}
-          </button>
-        ))}
+        {sections.map((s) => {
+          const active = section === s.key;
+          return (
+            <button
+              type="button"
+              key={s.key}
+              onClick={() => setSection(s.key)}
+              className="filter-row"
+              data-active={active ? "true" : "false"}
+              style={{
+                display: "block",
+                width: "100%",
+                textAlign: "left",
+                padding: "8px 12px",
+                borderRadius: 10,
+                cursor: "pointer",
+                fontSize: "var(--fs-base)",
+                fontWeight: active ? 600 : 400,
+                color: s.danger ? "var(--color-danger)" : undefined,
+                fontFamily: "var(--font-sans)",
+              }}
+            >
+              {s.label}
+            </button>
+          );
+        })}
       </GlassCard>
 
       {/* Content */}

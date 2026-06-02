@@ -58,33 +58,44 @@ export function ProfileTabs({
   return (
     <div>
       {/* Tabs */}
-      <div
-        style={{
-          display: "flex",
-          gap: 4,
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
-          marginBottom: 16,
-        }}
-      >
-        {tabs.map((t) => (
-          <button
-            type="button"
-            key={t.key}
-            onClick={() => setTab(t.key)}
-            className="btn-ghost"
-            style={{
-              borderBottom:
-                tab === t.key ? "2px solid var(--color-accent)" : "2px solid transparent",
-              borderRadius: 0,
-              padding: "12px 16px",
-              marginBottom: -1,
-              color: tab === t.key ? "#e8e8ed" : "#64748b",
-              fontWeight: tab === t.key ? 600 : 400,
-            }}
-          >
-            {t.label} {t.count !== undefined && t.count > 0 ? `(${t.count})` : ""}
-          </button>
-        ))}
+      <div className="segmented-shell" style={{ display: "flex", marginBottom: 16 }}>
+        {tabs.map((t) => {
+          const active = tab === t.key;
+          return (
+            <button
+              type="button"
+              key={t.key}
+              onClick={() => setTab(t.key)}
+              className="segmented-pill"
+              data-active={active}
+              style={{
+                flex: 1,
+                padding: "8px 12px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+              }}
+            >
+              {t.label}
+              {t.count !== undefined && t.count > 0 && (
+                <span
+                  style={{
+                    fontSize: "var(--fs-2xs)",
+                    padding: "1px 7px",
+                    borderRadius: 999,
+                    background: active ? "var(--color-accent)" : "rgba(255,255,255,0.08)",
+                    color: active ? "#fff" : "var(--color-text-muted)",
+                    fontFamily: "var(--font-mono)",
+                    fontWeight: 700,
+                  }}
+                >
+                  {t.count}
+                </span>
+              )}
+            </button>
+          );
+        })}
       </div>
 
       {/* PKG list */}

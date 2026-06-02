@@ -133,25 +133,23 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
             <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
               <Link
                 href="/forum"
+                className="filter-row"
+                data-active={!activeCat ? "true" : "false"}
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  padding: "10px 12px",
-                  borderRadius: 14,
+                  padding: "8px 12px",
+                  borderRadius: 10,
                   textDecoration: "none",
-                  background: !activeCat ? "rgba(99, 102, 241, 0.08)" : "transparent",
-                  border: !activeCat
-                    ? "1px solid rgba(99, 102, 241, 0.15)"
-                    : "1px solid transparent",
-                  fontSize: "var(--fs-md)",
-                  color: "var(--color-text-primary)",
+                  fontSize: "var(--fs-base)",
+                  fontWeight: !activeCat ? 600 : 400,
                 }}
               >
                 <span>All</span>
                 <span
                   style={{
-                    fontSize: "var(--fs-sm)",
+                    fontSize: "var(--fs-xs)",
                     color: "var(--color-text-muted)",
                     fontFamily: "var(--font-mono)",
                   }}
@@ -159,39 +157,38 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
                   {totalThreads}
                 </span>
               </Link>
-              {Object.entries(categoryLabels).map(([key, label]) => (
-                <Link
-                  key={key}
-                  href={`/forum?cat=${key}`}
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    padding: "10px 12px",
-                    borderRadius: 14,
-                    textDecoration: "none",
-                    background: activeCat === key ? "rgba(99, 102, 241, 0.08)" : "transparent",
-                    border:
-                      activeCat === key
-                        ? "1px solid rgba(99, 102, 241, 0.15)"
-                        : "1px solid transparent",
-                    fontSize: "var(--fs-md)",
-                    color: "var(--color-text-primary)",
-                    transition: "background var(--dur-fast)",
-                  }}
-                >
-                  <span>{label}</span>
-                  <span
+              {Object.entries(categoryLabels).map(([key, label]) => {
+                const active = activeCat === key;
+                return (
+                  <Link
+                    key={key}
+                    href={`/forum?cat=${key}`}
+                    className="filter-row"
+                    data-active={active ? "true" : "false"}
                     style={{
-                      fontSize: "var(--fs-sm)",
-                      color: "var(--color-text-muted)",
-                      fontFamily: "var(--font-mono)",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      padding: "8px 12px",
+                      borderRadius: 10,
+                      textDecoration: "none",
+                      fontSize: "var(--fs-base)",
+                      fontWeight: active ? 600 : 400,
                     }}
                   >
-                    {categoryCounts[key] ?? 0}
-                  </span>
-                </Link>
-              ))}
+                    <span>{label}</span>
+                    <span
+                      style={{
+                        fontSize: "var(--fs-xs)",
+                        color: "var(--color-text-muted)",
+                        fontFamily: "var(--font-mono)",
+                      }}
+                    >
+                      {categoryCounts[key] ?? 0}
+                    </span>
+                  </Link>
+                );
+              })}
             </div>
             <div style={{ height: 1, background: "rgba(255,255,255,0.06)", margin: "16px 0" }} />
             <Link
@@ -223,18 +220,14 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
               >
                 {activeCat ? (categoryLabels[activeCat] ?? "Threads") : "All Threads"}
               </h1>
-              <div style={{ display: "flex", gap: 6 }}>
+              <div className="segmented-shell">
                 {["recent", "popular"].map((s) => (
                   <Link
                     key={s}
                     href={`/forum?${new URLSearchParams({ ...(activeCat && { cat: activeCat }), ...(s !== "recent" && { sort: s }) })}`}
-                    className="tag"
-                    style={{
-                      cursor: "pointer",
-                      textDecoration: "none",
-                      borderColor: sort === s ? "var(--color-accent)" : undefined,
-                      color: sort === s ? "var(--color-accent-hover)" : undefined,
-                    }}
+                    className="segmented-pill"
+                    data-active={sort === s}
+                    style={{ textDecoration: "none" }}
                   >
                     {s.charAt(0).toUpperCase() + s.slice(1)}
                   </Link>
