@@ -28,37 +28,6 @@ export function assertDefined<T>(value: T | null | undefined, name = "value"): a
 }
 
 /**
- * Build a safe `Content-Disposition` value for a (possibly user-supplied) filename.
- *
- * Strips control chars and quotes/backslashes for the legacy `filename="..."` token,
- * and adds an RFC 5987 `filename*` token with the UTF-8 percent-encoded original so
- * unicode names survive. Prevents header injection via crafted filenames.
- */
-export function contentDispositionAttachment(rawName: string | null | undefined): string {
-  const fallback = "download.pkg";
-  // Drop control chars (code point < 0x20 or 0x7f, incl. CR/LF) that could break the header.
-  const cleaned = Array.from(rawName ?? "")
-    .filter((ch) => {
-      const code = ch.codePointAt(0) ?? 0;
-      return code >= 0x20 && code !== 0x7f;
-    })
-    .join("")
-    .trim();
-  const name = cleaned || fallback;
-  // Legacy token: ASCII printable only, no quotes/backslashes.
-  const asciiSafe =
-    Array.from(name)
-      .map((ch) => {
-        const code = ch.codePointAt(0) ?? 0;
-        if (ch === '"' || ch === "\\") return "_";
-        return code >= 0x20 && code <= 0x7e ? ch : "_";
-      })
-      .join("") || fallback;
-  const encoded = encodeURIComponent(name);
-  return `attachment; filename="${asciiSafe}"; filename*=UTF-8''${encoded}`;
-}
-
-/**
  * Sleep for the given number of milliseconds.
  */
 export function sleep(ms: number): Promise<void> {
