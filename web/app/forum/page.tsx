@@ -116,7 +116,7 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
       >
         <div
           className="responsive-sidebar-layout"
-          style={{ display: "grid", gridTemplateColumns: "240px 1fr", gap: 24 }}
+          style={{ display: "grid", gridTemplateColumns: "240px 1fr", gap: "var(--space-24)" }}
         >
           {/* Sidebar */}
           <GlassCard className="animate-fade-in" padding="20px" style={{ alignSelf: "start" }}>
@@ -124,13 +124,13 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
               style={{
                 fontSize: "var(--fs-lg)",
                 fontWeight: 700,
-                marginBottom: 14,
+                marginBottom: "var(--space-14)",
                 color: "var(--color-text-primary)",
               }}
             >
               Categories
             </h3>
-            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
               <Link
                 href="/forum"
                 className="filter-row"
@@ -207,7 +207,7 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                marginBottom: 16,
+                marginBottom: "var(--space-16)",
               }}
             >
               <h1
@@ -253,7 +253,14 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
                       transition: "background var(--dur-fast)",
                     }}
                   >
-                    <div style={{ display: "flex", gap: 14, alignItems: "center", minWidth: 0 }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "var(--space-14)",
+                        alignItems: "center",
+                        minWidth: 0,
+                      }}
+                    >
                       <span style={{ width: 24, textAlign: "center", fontSize: "var(--fs-md)" }}>
                         {t.isPinned ? (
                           <IconPin size={14} />
@@ -271,7 +278,7 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
                             color: "var(--color-text-primary)",
                             display: "flex",
                             alignItems: "center",
-                            gap: 8,
+                            gap: "var(--space-8)",
                           }}
                         >
                           {t.title}
@@ -286,7 +293,7 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
                           style={{
                             fontSize: "var(--fs-sm)",
                             color: "var(--color-text-muted)",
-                            marginTop: 3,
+                            marginTop: "var(--space-4)",
                             fontFamily: "var(--font-mono)",
                           }}
                         >
@@ -314,7 +321,13 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
               </GlassCard>
             ) : (
               <GlassCard padding="60px 40px" style={{ textAlign: "center" }}>
-                <div style={{ fontSize: "var(--fs-6xl)", marginBottom: 16, opacity: 0.3 }}>
+                <div
+                  style={{
+                    fontSize: "var(--fs-6xl)",
+                    marginBottom: "var(--space-16)",
+                    opacity: 0.3,
+                  }}
+                >
                   <IconForum size={40} />
                 </div>
                 <h2
@@ -322,7 +335,7 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
                     fontSize: "var(--fs-2xl)",
                     fontWeight: 700,
                     color: "var(--color-text-primary)",
-                    marginBottom: 8,
+                    marginBottom: "var(--space-8)",
                   }}
                 >
                   No threads yet
@@ -331,7 +344,7 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
                   style={{
                     color: "var(--color-text-muted)",
                     fontSize: "var(--fs-md)",
-                    marginBottom: 20,
+                    marginBottom: "var(--space-20)",
                   }}
                 >
                   Start the conversation.

@@ -8,16 +8,22 @@ export default function RulesPage() {
           fontSize: "var(--fs-5xl)",
           fontWeight: 800,
           color: "var(--color-text-primary)",
-          marginBottom: 8,
+          marginBottom: "var(--space-8)",
         }}
       >
         Community Rules
       </h1>
-      <p style={{ color: "var(--color-text-muted)", fontSize: "var(--fs-lg)", marginBottom: 32 }}>
+      <p
+        style={{
+          color: "var(--color-text-muted)",
+          fontSize: "var(--fs-lg)",
+          marginBottom: "var(--space-32)",
+        }}
+      >
         By using PKGVault you agree to follow these rules.
       </p>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-12)" }}>
         {[
           {
             num: 1,
@@ -51,7 +57,7 @@ export default function RulesPage() {
           },
         ].map((rule) => (
           <GlassCard key={rule.title} padding="18px 20px">
-            <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+            <div style={{ display: "flex", gap: "var(--space-14)", alignItems: "flex-start" }}>
               <div
                 style={{
                   width: 28,
@@ -76,7 +82,7 @@ export default function RulesPage() {
                     fontSize: "var(--fs-lg)",
                     fontWeight: 600,
                     color: "var(--color-text-primary)",
-                    marginBottom: 4,
+                    marginBottom: "var(--space-4)",
                   }}
                 >
                   {rule.title}

@@ -26,7 +26,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+    <div style={{ display: "flex", alignItems: "center", gap: "var(--space-14)" }}>
       <SearchBar />
       {user ? (
         <AvatarMenu user={user} />
@@ -80,7 +80,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
             animation: "fade-in var(--dur-base) ease-out",
           }}
         >
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
             {mobileNavItems.map((item) => {
               const Icon = item.icon;
               return (
@@ -91,7 +91,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: 14,
+                    gap: "var(--space-14)",
                     padding: "14px 16px",
                     borderRadius: "var(--radius-md)",
                     textDecoration: "none",
@@ -110,7 +110,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
             <div style={{ height: 1, background: "rgba(255,255,255,0.06)", margin: "8px 0" }} />
 
             {!user ? (
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
                 <Link
                   href="/login"
                   className="btn-secondary"
@@ -129,7 +129,14 @@ export function NavbarClient({ user }: NavbarClientProps) {
                 </Link>
               </div>
             ) : (
-              <div style={{ padding: "12px 0", display: "flex", alignItems: "center", gap: 12 }}>
+              <div
+                style={{
+                  padding: "12px 0",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "var(--space-12)",
+                }}
+              >
                 <div
                   style={{
                     width: 40,

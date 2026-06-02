@@ -52,7 +52,7 @@ export function VoteButton({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 2,
+        gap: "var(--space-2)",
         opacity: isPending ? 0.6 : 1,
       }}
     >

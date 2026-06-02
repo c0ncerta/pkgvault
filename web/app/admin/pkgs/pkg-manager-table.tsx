@@ -57,8 +57,15 @@ export function PkgManagerTable({ pkgs }: { pkgs: PkgManagerRow[] }) {
   }, [pkgs, query]);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-12)" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "var(--space-12)",
+          flexWrap: "wrap",
+        }}
+      >
         <label style={{ position: "relative", display: "block", width: "min(100%, 360px)" }}>
           <IconSearch
             size={14}
@@ -132,7 +139,7 @@ export function PkgManagerTable({ pkgs }: { pkgs: PkgManagerRow[] }) {
                       style={{
                         fontSize: "var(--fs-xs)",
                         color: "var(--color-text-faint)",
-                        marginTop: 2,
+                        marginTop: "var(--space-2)",
                       }}
                     >
                       by @{pkg.uploaderName}
@@ -167,7 +174,7 @@ export function PkgManagerTable({ pkgs }: { pkgs: PkgManagerRow[] }) {
                   </span>
                 </td>
                 <td style={{ padding: "12px 16px" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "var(--space-6)" }}>
                     <span style={{ color: "var(--color-text-primary)", fontWeight: 600 }}>
                       {pkg.sourceCount}
                     </span>
@@ -192,7 +199,7 @@ export function PkgManagerTable({ pkgs }: { pkgs: PkgManagerRow[] }) {
                           fontSize: "var(--fs-xs)",
                           display: "inline-flex",
                           alignItems: "center",
-                          gap: 2,
+                          gap: "var(--space-2)",
                         }}
                       >
                         <IconAlertTriangle size={10} /> none

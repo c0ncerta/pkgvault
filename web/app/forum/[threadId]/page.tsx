@@ -116,7 +116,7 @@ export default async function ForumThreadPage({ params }: ThreadPageProps) {
 
         <div
           className="animate-fade-in"
-          style={{ display: "flex", flexDirection: "column", gap: 16 }}
+          style={{ display: "flex", flexDirection: "column", gap: "var(--space-16)" }}
         >
           {/* Header */}
           <GlassCard padding="20px">
@@ -129,7 +129,7 @@ export default async function ForumThreadPage({ params }: ThreadPageProps) {
                     fontSize: "var(--fs-3xl)",
                     fontWeight: 800,
                     color: "var(--color-text-primary)",
-                    marginBottom: 6,
+                    marginBottom: "var(--space-6)",
                   }}
                 >
                   {thread.title}
@@ -137,7 +137,7 @@ export default async function ForumThreadPage({ params }: ThreadPageProps) {
                 <div
                   style={{
                     display: "flex",
-                    gap: 8,
+                    gap: "var(--space-8)",
                     alignItems: "center",
                     fontSize: "var(--fs-base)",
                     color: "var(--color-text-muted)",
@@ -179,7 +179,7 @@ export default async function ForumThreadPage({ params }: ThreadPageProps) {
               style={{
                 display: "grid",
                 gridTemplateColumns: "100px 1fr 70px",
-                gap: 16,
+                gap: "var(--space-16)",
                 marginLeft: Math.min(p.depth, 3) * 32,
               }}
             >
@@ -227,7 +227,7 @@ export default async function ForumThreadPage({ params }: ThreadPageProps) {
                     fontSize: "var(--fs-xs)",
                     color: "var(--color-text-muted)",
                     fontFamily: "var(--font-mono)",
-                    marginBottom: 8,
+                    marginBottom: "var(--space-8)",
                   }}
                 >
                   {timeAgo(p.createdAt)} · #{i + 1}
@@ -260,7 +260,7 @@ export default async function ForumThreadPage({ params }: ThreadPageProps) {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  gap: 6,
+                  gap: "var(--space-6)",
                 }}
               >
                 <IconLock size={14} /> This thread is locked — no new replies.

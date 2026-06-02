@@ -6,9 +6,13 @@ export const metadata: Metadata = { title: "Add PKG" };
 export default function AddPkgPage() {
   return (
     <div className="animate-fade-in" style={{ maxWidth: 800 }}>
-      <div style={{ marginBottom: 24 }}>
+      <div style={{ marginBottom: "var(--space-24)" }}>
         <div
-          style={{ fontSize: "var(--fs-base)", color: "var(--color-text-faint)", marginBottom: 12 }}
+          style={{
+            fontSize: "var(--fs-base)",
+            color: "var(--color-text-faint)",
+            marginBottom: "var(--space-12)",
+          }}
         >
           <a
             href="/admin/pkgs"
@@ -25,7 +29,7 @@ export default function AddPkgPage() {
             fontWeight: 800,
             color: "var(--color-text-primary)",
             letterSpacing: "-0.03em",
-            marginBottom: 4,
+            marginBottom: "var(--space-4)",
           }}
         >
           Add PKG Entry

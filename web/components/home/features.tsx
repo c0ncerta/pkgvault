@@ -37,7 +37,7 @@ export function HomeFeatures() {
       style={{
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
-        gap: 16,
+        gap: "var(--space-16)",
         maxWidth: 1100,
         width: "100%",
         margin: "80px auto 0",
@@ -70,7 +70,7 @@ export function HomeFeatures() {
                     fontSize: "var(--fs-lg)",
                     fontWeight: 700,
                     color: "var(--color-text-primary)",
-                    marginBottom: 6,
+                    marginBottom: "var(--space-6)",
                   }}
                 >
                   {f.title}

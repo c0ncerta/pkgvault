@@ -59,7 +59,10 @@ export async function HomeTrendingTags() {
   const max = Math.max(1, ...platforms.map((p) => p.count));
 
   return (
-    <GlassCard padding="22px 24px" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+    <GlassCard
+      padding="22px 24px"
+      style={{ display: "flex", flexDirection: "column", gap: "var(--space-16)" }}
+    >
       <h3 style={{ fontSize: "var(--fs-lg)", fontWeight: 700, color: "var(--color-text-primary)" }}>
         Browse by tag
       </h3>
@@ -73,12 +76,12 @@ export async function HomeTrendingTags() {
               letterSpacing: "0.1em",
               color: "var(--color-text-muted)",
               fontWeight: 600,
-              marginBottom: 8,
+              marginBottom: "var(--space-8)",
             }}
           >
             Platforms
           </div>
-          <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: "var(--space-6)", flexWrap: "wrap" }}>
             {platforms.map((p) => {
               const size = 0.75 + (p.count / max) * 0.35;
               return (
@@ -100,7 +103,7 @@ export async function HomeTrendingTags() {
                   {p.platform}
                   <span
                     style={{
-                      marginLeft: 6,
+                      marginLeft: "var(--space-6)",
                       fontSize: "var(--fs-2xs)",
                       color: "var(--color-text-muted)",
                       fontFamily: "var(--font-mono)",
@@ -124,12 +127,12 @@ export async function HomeTrendingTags() {
               letterSpacing: "0.1em",
               color: "var(--color-text-muted)",
               fontWeight: 600,
-              marginBottom: 8,
+              marginBottom: "var(--space-8)",
             }}
           >
             Regions
           </div>
-          <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: "var(--space-6)", flexWrap: "wrap" }}>
             {regions.map((r) => (
               <Link
                 key={r.region}

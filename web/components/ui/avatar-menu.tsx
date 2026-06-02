@@ -54,7 +54,7 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
         style={{
           display: "flex",
           alignItems: "center",
-          gap: 10,
+          gap: "var(--space-10)",
           background: "none",
           border: "none",
           cursor: "pointer",
@@ -115,17 +115,17 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
             border: "1px solid rgba(255, 255, 255, 0.12)",
             boxShadow: "0 24px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)",
             animation: "fade-in var(--dur-fast) ease-out",
-            padding: 6,
+            padding: "var(--space-6)",
           }}
         >
           {/* Header */}
           <div
             style={{
               display: "flex",
-              gap: 12,
+              gap: "var(--space-12)",
               padding: "14px 14px 12px",
               borderBottom: "1px solid rgba(255,255,255,0.06)",
-              marginBottom: 4,
+              marginBottom: "var(--space-4)",
             }}
           >
             <div
@@ -169,7 +169,7 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
                 style={{
                   fontSize: "var(--fs-2xs)",
                   padding: "1px 8px",
-                  marginTop: 4,
+                  marginTop: "var(--space-4)",
                   display: "inline-block",
                 }}
               >
@@ -189,7 +189,7 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: 10,
+                  gap: "var(--space-10)",
                   padding: "9px 14px",
                   borderRadius: "var(--radius-base)",
                   textDecoration: "none",
@@ -220,7 +220,7 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: 10,
+                  gap: "var(--space-10)",
                   padding: "9px 14px",
                   borderRadius: "var(--radius-base)",
                   textDecoration: "none",
@@ -249,7 +249,7 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 10,
+              gap: "var(--space-10)",
               width: "100%",
               padding: "9px 14px",
               borderRadius: "var(--radius-base)",

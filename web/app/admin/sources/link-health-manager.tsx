@@ -316,9 +316,9 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
         style={{
           display: "flex",
           justifyContent: "space-between",
-          gap: 16,
+          gap: "var(--space-16)",
           alignItems: "flex-end",
-          marginBottom: 20,
+          marginBottom: "var(--space-20)",
           flexWrap: "wrap",
         }}
       >
@@ -329,7 +329,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
               fontWeight: 800,
               color: "var(--color-text-primary)",
               letterSpacing: "-0.03em",
-              marginBottom: 4,
+              marginBottom: "var(--space-4)",
             }}
           >
             Link Health
@@ -360,13 +360,13 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
         variant="content"
         cornerRadius={14}
         padding="12px 16px"
-        style={{ marginBottom: 16 }}
+        style={{ marginBottom: "var(--space-16)" }}
       >
         <div
           className="admin-filter-bar"
           style={{
             display: "flex",
-            gap: 8,
+            gap: "var(--space-8)",
             alignItems: "center",
             flexWrap: "wrap",
           }}
@@ -442,11 +442,11 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
         <div
           style={{
             display: "flex",
-            gap: 8,
+            gap: "var(--space-8)",
             alignItems: "center",
             padding: "10px 12px",
             borderRadius: "var(--radius-sm)",
-            marginBottom: 12,
+            marginBottom: "var(--space-12)",
             background: "rgba(248,113,113,0.08)",
             border: "1px solid rgba(248,113,113,0.2)",
             color: "var(--color-danger-soft)",
@@ -458,7 +458,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
         </div>
       )}
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
         {filteredSources.map((source) => {
           const st = statusConfig[source.status];
           const isChecking = checkingIds.has(source.id);
@@ -466,7 +466,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
             <GlassCard key={source.id} variant="content" cornerRadius={14} padding="14px 18px">
               <div
                 className="admin-source-row"
-                style={{ display: "flex", alignItems: "center", gap: 14 }}
+                style={{ display: "flex", alignItems: "center", gap: "var(--space-14)" }}
               >
                 <div
                   style={{
@@ -484,8 +484,8 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: 8,
-                      marginBottom: 4,
+                      gap: "var(--space-8)",
+                      marginBottom: "var(--space-4)",
                       flexWrap: "wrap",
                     }}
                   >
@@ -568,7 +568,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                   className="admin-source-stats"
                   style={{
                     display: "flex",
-                    gap: 16,
+                    gap: "var(--space-16)",
                     fontSize: "var(--fs-sm)",
                     color: "var(--color-text-faint)",
                     whiteSpace: "nowrap",
@@ -583,7 +583,10 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                   <span>{formatCheckedAt(source.lastCheckedAt)}</span>
                 </div>
 
-                <div className="admin-source-actions" style={{ display: "flex", gap: 6 }}>
+                <div
+                  className="admin-source-actions"
+                  style={{ display: "flex", gap: "var(--space-6)" }}
+                >
                   <button
                     type="button"
                     onClick={() => checkOne(source.id)}

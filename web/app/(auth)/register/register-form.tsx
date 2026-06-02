@@ -22,7 +22,7 @@ const labelStyle: React.CSSProperties = {
   color: "var(--color-text-secondary)",
   fontSize: "var(--fs-base)",
   fontWeight: 500,
-  marginBottom: 6,
+  marginBottom: "var(--space-6)",
   letterSpacing: "0.02em",
 };
 
@@ -87,7 +87,7 @@ export function RegisterForm() {
         <div
           style={{
             fontSize: "var(--fs-6xl)",
-            marginBottom: 16,
+            marginBottom: "var(--space-16)",
           }}
         >
           ✉️
@@ -97,7 +97,7 @@ export function RegisterForm() {
             fontSize: "var(--fs-2xl)",
             fontWeight: 700,
             color: "var(--color-text-primary)",
-            marginBottom: 8,
+            marginBottom: "var(--space-8)",
           }}
         >
           Check your email
@@ -118,7 +118,7 @@ export function RegisterForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div style={{ marginBottom: 20 }}>
+      <div style={{ marginBottom: "var(--space-20)" }}>
         <label htmlFor="reg-name" style={labelStyle}>
           Display Name
         </label>
@@ -138,7 +138,7 @@ export function RegisterForm() {
         />
       </div>
 
-      <div style={{ marginBottom: 20 }}>
+      <div style={{ marginBottom: "var(--space-20)" }}>
         <label htmlFor="reg-email" style={labelStyle}>
           Email
         </label>
@@ -156,7 +156,7 @@ export function RegisterForm() {
         />
       </div>
 
-      <div style={{ marginBottom: 20 }}>
+      <div style={{ marginBottom: "var(--space-20)" }}>
         <label htmlFor="reg-password" style={labelStyle}>
           Password
         </label>
@@ -175,7 +175,7 @@ export function RegisterForm() {
         />
       </div>
 
-      <div style={{ marginBottom: 24 }}>
+      <div style={{ marginBottom: "var(--space-24)" }}>
         <label htmlFor="reg-confirm" style={labelStyle}>
           Confirm Password
         </label>
@@ -203,7 +203,7 @@ export function RegisterForm() {
             border: "1px solid rgba(239, 68, 68, 0.2)",
             color: "var(--color-danger-soft)",
             fontSize: "var(--fs-md)",
-            marginBottom: 16,
+            marginBottom: "var(--space-16)",
           }}
         >
           {error}

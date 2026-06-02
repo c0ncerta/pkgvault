@@ -31,7 +31,7 @@ export default function CatalogLoading() {
           zIndex: 1,
         }}
       >
-        <div style={{ marginBottom: 28 }}>
+        <div style={{ marginBottom: "var(--space-32)" }}>
           <Bar w={100} h={10} />
           <div style={{ height: 10 }} />
           <Bar w={260} h={30} />
@@ -40,8 +40,8 @@ export default function CatalogLoading() {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(5, 1fr)",
-            gap: 12,
-            marginBottom: 28,
+            gap: "var(--space-12)",
+            marginBottom: "var(--space-32)",
           }}
         >
           {[0, 1, 2, 3, 4].map((i) => (
@@ -52,9 +52,13 @@ export default function CatalogLoading() {
         </div>
         <div
           className="responsive-catalog-layout"
-          style={{ display: "grid", gridTemplateColumns: "260px minmax(0, 1fr)", gap: 22 }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "260px minmax(0, 1fr)",
+            gap: "var(--space-24)",
+          }}
         >
-          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-14)" }}>
             {[0, 1, 2, 3].map((i) => (
               <GlassCard key={i} padding="18px">
                 <Bar w="100%" h={36} />
@@ -65,13 +69,20 @@ export default function CatalogLoading() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
-              gap: 16,
+              gap: "var(--space-16)",
             }}
           >
             {Array.from({ length: 9 }, (_, i) => i).map((i) => (
               <GlassCard key={i} padding="0" style={{ overflow: "hidden" }}>
                 <div style={{ height: 116, background: "rgba(255,255,255,0.04)" }} />
-                <div style={{ padding: 14, display: "flex", flexDirection: "column", gap: 8 }}>
+                <div
+                  style={{
+                    padding: "var(--space-14)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "var(--space-8)",
+                  }}
+                >
                   <Bar w="80%" h={14} />
                   <Bar w="50%" h={10} />
                 </div>

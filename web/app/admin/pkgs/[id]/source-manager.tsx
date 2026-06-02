@@ -112,7 +112,7 @@ export function PkgSourceManager({
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          marginBottom: 16,
+          marginBottom: "var(--space-16)",
         }}
       >
         <h3
@@ -141,16 +141,21 @@ export function PkgSourceManager({
       {showAdd && (
         <div
           style={{
-            padding: 16,
+            padding: "var(--space-16)",
             borderRadius: "var(--radius-base)",
-            marginBottom: 16,
+            marginBottom: "var(--space-16)",
             background: "rgba(99,102,241,0.04)",
             border: "1px solid rgba(99,102,241,0.1)",
           }}
         >
           <div
             className="admin-source-add-primary"
-            style={{ display: "grid", gridTemplateColumns: "1fr 160px", gap: 10, marginBottom: 10 }}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 160px",
+              gap: "var(--space-10)",
+              marginBottom: "var(--space-10)",
+            }}
           >
             <input
               type="url"
@@ -176,7 +181,7 @@ export function PkgSourceManager({
             style={{
               display: "grid",
               gridTemplateColumns: "1fr auto auto",
-              gap: 10,
+              gap: "var(--space-10)",
               alignItems: "center",
             }}
           >
@@ -190,7 +195,7 @@ export function PkgSourceManager({
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: 6,
+                gap: "var(--space-6)",
                 fontSize: "var(--fs-base)",
                 color: "var(--color-text-secondary)",
                 cursor: "pointer",
@@ -230,7 +235,7 @@ export function PkgSourceManager({
           No sources yet. Add a download link above.
         </div>
       ) : (
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
           {sources.map((source) => {
             const st = statusConfig[source.status] ??
               statusConfig["unknown"] ?? { color: "var(--color-text-muted)", label: "Unknown" };
@@ -245,7 +250,7 @@ export function PkgSourceManager({
                   border: "1px solid rgba(255,255,255,0.04)",
                   display: "flex",
                   alignItems: "center",
-                  gap: 12,
+                  gap: "var(--space-12)",
                 }}
               >
                 <div
@@ -259,7 +264,7 @@ export function PkgSourceManager({
                   }}
                 />
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "var(--space-6)" }}>
                     <span
                       style={{
                         fontSize: "var(--fs-sm)",
@@ -297,7 +302,7 @@ export function PkgSourceManager({
                       overflow: "hidden",
                       textOverflow: "ellipsis",
                       whiteSpace: "nowrap",
-                      marginTop: 2,
+                      marginTop: "var(--space-2)",
                     }}
                   >
                     {source.url}

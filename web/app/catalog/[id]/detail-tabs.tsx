@@ -94,7 +94,7 @@ export function DetailTabs(props: DetailTabsProps) {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: 8,
+                gap: "var(--space-8)",
               }}
             >
               {t.label}
@@ -118,9 +118,9 @@ export function DetailTabs(props: DetailTabsProps) {
         })}
       </div>
 
-      <div style={{ padding: 24, minHeight: 240 }}>
+      <div style={{ padding: "var(--space-24)", minHeight: 240 }}>
         {tab === "overview" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-16)" }}>
             {props.description ? (
               <div>
                 <h3
@@ -130,7 +130,7 @@ export function DetailTabs(props: DetailTabsProps) {
                     letterSpacing: "0.1em",
                     fontWeight: 600,
                     color: "var(--color-text-muted)",
-                    marginBottom: 10,
+                    marginBottom: "var(--space-10)",
                   }}
                 >
                   Description
@@ -166,7 +166,7 @@ export function DetailTabs(props: DetailTabsProps) {
                   letterSpacing: "0.1em",
                   fontWeight: 600,
                   color: "var(--color-text-muted)",
-                  marginBottom: 10,
+                  marginBottom: "var(--space-10)",
                 }}
               >
                 Quick facts
@@ -175,7 +175,7 @@ export function DetailTabs(props: DetailTabsProps) {
                 style={{
                   display: "grid",
                   gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
-                  gap: 10,
+                  gap: "var(--space-10)",
                 }}
               >
                 {[
@@ -199,7 +199,7 @@ export function DetailTabs(props: DetailTabsProps) {
                         textTransform: "uppercase",
                         letterSpacing: "0.08em",
                         color: "var(--color-text-muted)",
-                        marginBottom: 4,
+                        marginBottom: "var(--space-4)",
                       }}
                     >
                       {f.l}
@@ -223,14 +223,14 @@ export function DetailTabs(props: DetailTabsProps) {
 
         {tab === "mirrors" &&
           (props.sources.length > 0 ? (
-            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
               {props.sources.map((s) => (
                 <div
                   key={s.id}
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: 12,
+                    gap: "var(--space-12)",
                     padding: "12px 14px",
                     borderRadius: "var(--radius-base)",
                     background: "rgba(255,255,255,0.025)",
@@ -260,7 +260,7 @@ export function DetailTabs(props: DetailTabsProps) {
                       {s.isPrimary && (
                         <span
                           style={{
-                            marginLeft: 8,
+                            marginLeft: "var(--space-8)",
                             fontSize: "var(--fs-2xs)",
                             padding: "1px 6px",
                             borderRadius: "var(--radius-pill)",
@@ -280,7 +280,7 @@ export function DetailTabs(props: DetailTabsProps) {
                         fontSize: "var(--fs-xs)",
                         color: "var(--color-text-muted)",
                         fontFamily: "var(--font-mono)",
-                        marginTop: 2,
+                        marginTop: "var(--space-2)",
                       }}
                     >
                       {PROVIDER_LABELS[s.provider] ?? s.provider}
@@ -309,7 +309,7 @@ export function DetailTabs(props: DetailTabsProps) {
                 fontSize: "var(--fs-md)",
                 color: "var(--color-text-muted)",
                 textAlign: "center",
-                padding: 24,
+                padding: "var(--space-24)",
               }}
             >
               No mirrors available.
@@ -317,11 +317,11 @@ export function DetailTabs(props: DetailTabsProps) {
           ))}
 
         {tab === "integrity" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-16)" }}>
             {props.sha256 === "external" ? (
               <div
                 style={{
-                  padding: 20,
+                  padding: "var(--space-20)",
                   borderRadius: "var(--radius-base)",
                   background: "rgba(99, 102, 241, 0.05)",
                   border: "1px solid rgba(99, 102, 241, 0.12)",
@@ -344,7 +344,7 @@ export function DetailTabs(props: DetailTabsProps) {
                       letterSpacing: "0.1em",
                       fontWeight: 600,
                       color: "var(--color-text-muted)",
-                      marginBottom: 8,
+                      marginBottom: "var(--space-8)",
                     }}
                   >
                     SHA-256
@@ -354,7 +354,7 @@ export function DetailTabs(props: DetailTabsProps) {
                       fontFamily: "var(--font-mono)",
                       fontSize: "var(--fs-sm)",
                       lineHeight: 1.6,
-                      padding: 14,
+                      padding: "var(--space-14)",
                       borderRadius: "var(--radius-base)",
                       background: "rgba(0,0,0,0.25)",
                       border: "1px solid rgba(255,255,255,0.06)",
@@ -398,7 +398,7 @@ export function DetailTabs(props: DetailTabsProps) {
         )}
 
         {tab === "history" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-14)" }}>
             {[
               {
                 icon: <IconUpload size={16} />,
@@ -427,7 +427,7 @@ export function DetailTabs(props: DetailTabsProps) {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: 14,
+                  gap: "var(--space-14)",
                   padding: "10px 14px",
                   borderRadius: "var(--radius-base)",
                   background: "rgba(255,255,255,0.025)",
@@ -470,7 +470,7 @@ export function DetailTabs(props: DetailTabsProps) {
                       style={{
                         fontSize: "var(--fs-xs)",
                         color: "var(--color-text-muted)",
-                        marginTop: 2,
+                        marginTop: "var(--space-2)",
                       }}
                     >
                       {e.sub}

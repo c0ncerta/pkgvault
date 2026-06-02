@@ -134,19 +134,28 @@ export function UploadWizard() {
           fontWeight: 800,
           letterSpacing: "-0.03em",
           color: "var(--color-text-primary)",
-          marginBottom: 4,
+          marginBottom: "var(--space-4)",
         }}
       >
         Share a PKG
       </h1>
-      <p style={{ color: "var(--color-text-muted)", fontSize: "var(--fs-lg)", marginBottom: 24 }}>
+      <p
+        style={{
+          color: "var(--color-text-muted)",
+          fontSize: "var(--fs-lg)",
+          marginBottom: "var(--space-24)",
+        }}
+      >
         Submit an external download link. Packages are reviewed before publishing.
       </p>
 
       {/* Steps indicator */}
-      <div style={{ display: "flex", gap: 4, marginBottom: 32 }}>
+      <div style={{ display: "flex", gap: "var(--space-4)", marginBottom: "var(--space-32)" }}>
         {["Links", "Metadata", "Review"].map((s, i) => (
-          <div key={s} style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
+          <div
+            key={s}
+            style={{ flex: 1, display: "flex", flexDirection: "column", gap: "var(--space-6)" }}
+          >
             <div
               style={{
                 height: 4,
@@ -174,7 +183,7 @@ export function UploadWizard() {
 
       <div
         className="responsive-upload-layout"
-        style={{ display: "grid", gridTemplateColumns: "1fr 280px", gap: 20 }}
+        style={{ display: "grid", gridTemplateColumns: "1fr 280px", gap: "var(--space-20)" }}
       >
         {/* Main area */}
         <div>
@@ -185,7 +194,7 @@ export function UploadWizard() {
                   fontSize: "var(--fs-xl)",
                   fontWeight: 700,
                   color: "var(--color-text-primary)",
-                  marginBottom: 16,
+                  marginBottom: "var(--space-16)",
                 }}
               >
                 Download Links
@@ -194,7 +203,7 @@ export function UploadWizard() {
                 style={{
                   fontSize: "var(--fs-base)",
                   color: "var(--color-text-muted)",
-                  marginBottom: 20,
+                  marginBottom: "var(--space-20)",
                   lineHeight: 1.5,
                 }}
               >
@@ -207,13 +216,19 @@ export function UploadWizard() {
                   key={source.id}
                   style={{
                     display: "flex",
-                    gap: 10,
-                    marginBottom: 10,
+                    gap: "var(--space-10)",
+                    marginBottom: "var(--space-10)",
                     alignItems: "flex-start",
                   }}
                 >
                   <div style={{ flex: 1 }}>
-                    <div style={{ display: "flex", gap: 8, marginBottom: 6 }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "var(--space-8)",
+                        marginBottom: "var(--space-6)",
+                      }}
+                    >
                       <input
                         className="input"
                         value={source.url}
@@ -235,14 +250,14 @@ export function UploadWizard() {
                             padding: "4px 8px",
                             borderRadius: "var(--radius-xs)",
                             whiteSpace: "nowrap",
-                            marginTop: 8,
+                            marginTop: "var(--space-8)",
                           }}
                         >
                           {providerIcon(source.url)}
                         </span>
                       )}
                     </div>
-                    <div style={{ display: "flex", gap: 8 }}>
+                    <div style={{ display: "flex", gap: "var(--space-8)" }}>
                       <input
                         className="input"
                         value={source.label}
@@ -274,7 +289,7 @@ export function UploadWizard() {
                 className="btn-ghost"
                 onClick={addSource}
                 style={{
-                  marginTop: 4,
+                  marginTop: "var(--space-4)",
                   fontSize: "var(--fs-md)",
                   width: "100%",
                   padding: "10px",
@@ -285,7 +300,13 @@ export function UploadWizard() {
                 + Add another link
               </button>
 
-              <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 20 }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  marginTop: "var(--space-20)",
+                }}
+              >
                 <button
                   type="button"
                   className="btn-primary"
@@ -304,8 +325,8 @@ export function UploadWizard() {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: 8,
-                  marginBottom: 20,
+                  gap: "var(--space-8)",
+                  marginBottom: "var(--space-20)",
                   padding: "8px 12px",
                   background: "rgba(99, 102, 241, 0.08)",
                   borderRadius: "var(--radius-xs)",
@@ -331,8 +352,8 @@ export function UploadWizard() {
                 style={{
                   display: "grid",
                   gridTemplateColumns: "1fr 1fr",
-                  gap: 14,
-                  marginBottom: 14,
+                  gap: "var(--space-14)",
+                  marginBottom: "var(--space-14)",
                 }}
               >
                 <div>
@@ -343,7 +364,7 @@ export function UploadWizard() {
                       fontSize: "var(--fs-xs)",
                       fontWeight: 500,
                       color: "var(--color-text-secondary)",
-                      marginBottom: 6,
+                      marginBottom: "var(--space-6)",
                       textTransform: "uppercase",
                       letterSpacing: "0.05em",
                     }}
@@ -366,7 +387,7 @@ export function UploadWizard() {
                       fontSize: "var(--fs-xs)",
                       fontWeight: 500,
                       color: "var(--color-text-secondary)",
-                      marginBottom: 6,
+                      marginBottom: "var(--space-6)",
                       textTransform: "uppercase",
                       letterSpacing: "0.05em",
                     }}
@@ -388,7 +409,7 @@ export function UploadWizard() {
                       fontSize: "var(--fs-xs)",
                       fontWeight: 500,
                       color: "var(--color-text-secondary)",
-                      marginBottom: 6,
+                      marginBottom: "var(--space-6)",
                       textTransform: "uppercase",
                       letterSpacing: "0.05em",
                     }}
@@ -420,7 +441,7 @@ export function UploadWizard() {
                       fontSize: "var(--fs-xs)",
                       fontWeight: 500,
                       color: "var(--color-text-secondary)",
-                      marginBottom: 6,
+                      marginBottom: "var(--space-6)",
                       textTransform: "uppercase",
                       letterSpacing: "0.05em",
                     }}
@@ -459,7 +480,7 @@ export function UploadWizard() {
                       fontSize: "var(--fs-xs)",
                       fontWeight: 500,
                       color: "var(--color-text-secondary)",
-                      marginBottom: 6,
+                      marginBottom: "var(--space-6)",
                       textTransform: "uppercase",
                       letterSpacing: "0.05em",
                     }}
@@ -475,7 +496,7 @@ export function UploadWizard() {
                   />
                 </div>
               </div>
-              <div style={{ marginBottom: 14 }}>
+              <div style={{ marginBottom: "var(--space-14)" }}>
                 <label
                   htmlFor="upload-description"
                   style={{
@@ -483,7 +504,7 @@ export function UploadWizard() {
                     fontSize: "var(--fs-xs)",
                     fontWeight: 500,
                     color: "var(--color-text-secondary)",
-                    marginBottom: 6,
+                    marginBottom: "var(--space-6)",
                     textTransform: "uppercase",
                     letterSpacing: "0.05em",
                   }}
@@ -523,7 +544,7 @@ export function UploadWizard() {
                   fontSize: "var(--fs-2xl)",
                   fontWeight: 700,
                   color: "var(--color-text-primary)",
-                  marginBottom: 16,
+                  marginBottom: "var(--space-16)",
                 }}
               >
                 Review & Submit
@@ -535,7 +556,7 @@ export function UploadWizard() {
                   gridTemplateColumns: "auto 1fr",
                   gap: "8px 20px",
                   fontSize: "var(--fs-md)",
-                  marginBottom: 20,
+                  marginBottom: "var(--space-20)",
                 }}
               >
                 {[
@@ -574,13 +595,13 @@ export function UploadWizard() {
               {form.description && (
                 <div
                   style={{
-                    padding: 12,
+                    padding: "var(--space-12)",
                     borderRadius: "var(--radius-xs)",
                     background: "rgba(255,255,255,0.03)",
                     border: "1px solid rgba(255,255,255,0.06)",
                     fontSize: "var(--fs-md)",
                     color: "var(--color-text-secondary)",
-                    marginBottom: 20,
+                    marginBottom: "var(--space-20)",
                   }}
                 >
                   {form.description}
@@ -592,19 +613,26 @@ export function UploadWizard() {
                   fontSize: "var(--fs-base)",
                   fontWeight: 600,
                   color: "var(--color-text-primary)",
-                  marginBottom: 8,
+                  marginBottom: "var(--space-8)",
                 }}
               >
                 Download Links ({validSources.length})
               </h4>
-              <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 20 }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "var(--space-6)",
+                  marginBottom: "var(--space-20)",
+                }}
+              >
                 {validSources.map((s) => (
                   <div
                     key={s.id}
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: 8,
+                      gap: "var(--space-8)",
                       padding: "8px 12px",
                       borderRadius: "var(--radius-xs)",
                       background: "rgba(255,255,255,0.03)",
@@ -658,7 +686,7 @@ export function UploadWizard() {
                     border: "1px solid rgba(239, 68, 68, 0.2)",
                     color: "var(--color-danger-soft)",
                     fontSize: "var(--fs-md)",
-                    marginBottom: 16,
+                    marginBottom: "var(--space-16)",
                   }}
                 >
                   {error}
@@ -689,14 +717,14 @@ export function UploadWizard() {
         </div>
 
         {/* Sidebar */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-14)" }}>
           <GlassCard padding="16px">
             <h4
               style={{
                 fontSize: "var(--fs-md)",
                 fontWeight: 700,
                 color: "var(--color-text-primary)",
-                marginBottom: 10,
+                marginBottom: "var(--space-10)",
               }}
             >
               Supported sources
@@ -724,7 +752,7 @@ export function UploadWizard() {
                 fontSize: "var(--fs-md)",
                 fontWeight: 700,
                 color: "var(--color-text-primary)",
-                marginBottom: 8,
+                marginBottom: "var(--space-8)",
               }}
             >
               What happens next?

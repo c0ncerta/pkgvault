@@ -82,7 +82,7 @@ export function CatalogFilters({
     letterSpacing: "0.1em",
     fontWeight: 600,
     color: "var(--color-text-muted)",
-    marginBottom: 10,
+    marginBottom: "var(--space-10)",
   };
 
   return (
@@ -93,12 +93,12 @@ export function CatalogFilters({
         alignSelf: "start",
         display: "flex",
         flexDirection: "column",
-        gap: 14,
+        gap: "var(--space-14)",
       }}
     >
       <GlassEffectContainer
         spacing={22}
-        style={{ display: "flex", flexDirection: "column", gap: 14 }}
+        style={{ display: "flex", flexDirection: "column", gap: "var(--space-14)" }}
       >
         <GlassCard padding="18px" tint="cyan">
           <form onSubmit={handleSearch} style={{ marginBottom: 0 }}>
@@ -111,7 +111,7 @@ export function CatalogFilters({
                 letterSpacing: "0.1em",
                 fontWeight: 600,
                 color: "var(--color-text-muted)",
-                marginBottom: 8,
+                marginBottom: "var(--space-8)",
               }}
             >
               Search
@@ -150,7 +150,7 @@ export function CatalogFilters({
               style={{
                 fontSize: "var(--fs-xs)",
                 color: "var(--color-text-muted)",
-                marginTop: 6,
+                marginTop: "var(--space-6)",
                 fontFamily: "var(--font-mono)",
               }}
             >
@@ -166,7 +166,7 @@ export function CatalogFilters({
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                marginBottom: 8,
+                marginBottom: "var(--space-8)",
               }}
             >
               <span
@@ -195,7 +195,7 @@ export function CatalogFilters({
                 Clear all
               </button>
             </div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-4)" }}>
               {activeFilters.map((f) => (
                 <button
                   type="button"
@@ -210,7 +210,7 @@ export function CatalogFilters({
                     cursor: "pointer",
                     display: "inline-flex",
                     alignItems: "center",
-                    gap: 4,
+                    gap: "var(--space-4)",
                     fontFamily: "var(--font-sans)",
                   }}
                 >
@@ -223,7 +223,7 @@ export function CatalogFilters({
 
         <GlassCard padding="18px">
           <h3 style={sectionHeadingStyle}>Sort</h3>
-          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
             {SORT_OPTIONS.map((s) => {
               const active = currentSort === s.value || (s.value === "newest" && !currentSort);
               return (
@@ -236,7 +236,7 @@ export function CatalogFilters({
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: 10,
+                    gap: "var(--space-10)",
                     padding: "7px 10px",
                     borderRadius: "var(--radius-sm)",
                     fontSize: "var(--fs-base)",
@@ -265,7 +265,7 @@ export function CatalogFilters({
 
         <GlassCard padding="18px">
           <h3 style={sectionHeadingStyle}>Platform</h3>
-          <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
             <button
               type="button"
               onClick={() => updateParam("platform", "")}
@@ -336,7 +336,7 @@ export function CatalogFilters({
         {regionCounts.length > 0 && (
           <GlassCard padding="18px">
             <h3 style={sectionHeadingStyle}>Region</h3>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-4)" }}>
               {regionCounts.map((r) => (
                 <button
                   type="button"

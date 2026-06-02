@@ -79,7 +79,7 @@ export async function HomeStats() {
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
-          gap: 10,
+          gap: "var(--space-10)",
         }}
       >
         {stats.map((s) => (

@@ -25,7 +25,7 @@ const labelStyle: React.CSSProperties = {
   color: "var(--color-text-secondary)",
   fontSize: "var(--fs-base)",
   fontWeight: 500,
-  marginBottom: 6,
+  marginBottom: "var(--space-6)",
   letterSpacing: "0.02em",
 };
 
@@ -74,7 +74,7 @@ export function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div style={{ marginBottom: 20 }}>
+      <div style={{ marginBottom: "var(--space-20)" }}>
         <label htmlFor="login-email" style={labelStyle}>
           Email
         </label>
@@ -98,7 +98,7 @@ export function LoginForm() {
         />
       </div>
 
-      <div style={{ marginBottom: 24 }}>
+      <div style={{ marginBottom: "var(--space-24)" }}>
         <label htmlFor="login-password" style={labelStyle}>
           Password
         </label>
@@ -132,7 +132,7 @@ export function LoginForm() {
             border: "1px solid rgba(239, 68, 68, 0.2)",
             color: "var(--color-danger-soft)",
             fontSize: "var(--fs-md)",
-            marginBottom: 16,
+            marginBottom: "var(--space-16)",
           }}
         >
           {error}

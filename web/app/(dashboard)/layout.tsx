@@ -31,8 +31,8 @@ export default async function DashboardLayout({
           style={{
             display: "flex",
             flexWrap: "wrap",
-            gap: 8,
-            marginBottom: 24,
+            gap: "var(--space-8)",
+            marginBottom: "var(--space-24)",
             paddingBottom: 12,
             paddingTop: 12,
             paddingLeft: 18,

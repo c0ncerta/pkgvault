@@ -45,7 +45,14 @@ export function QueueActions({ pkgId }: { pkgId: string }) {
   }
 
   return (
-    <div style={{ display: "flex", gap: 8, marginLeft: 20, flexShrink: 0 }}>
+    <div
+      style={{
+        display: "flex",
+        gap: "var(--space-8)",
+        marginLeft: "var(--space-20)",
+        flexShrink: 0,
+      }}
+    >
       <LiquidButton
         variant="primary"
         size="sm"

@@ -55,8 +55,8 @@ export async function RelatedPkgs({ pkgId, platform }: RelatedPkgsProps) {
   if (related.length === 0) return null;
 
   return (
-    <section style={{ marginTop: 32 }}>
-      <div style={{ marginBottom: 16 }}>
+    <section style={{ marginTop: "var(--space-32)" }}>
+      <div style={{ marginBottom: "var(--space-16)" }}>
         <div
           style={{
             fontSize: "var(--fs-xs)",
@@ -64,7 +64,7 @@ export async function RelatedPkgs({ pkgId, platform }: RelatedPkgsProps) {
             letterSpacing: "0.12em",
             color: "var(--color-accent-hover)",
             fontWeight: 600,
-            marginBottom: 4,
+            marginBottom: "var(--space-4)",
           }}
         >
           Related
@@ -84,7 +84,7 @@ export async function RelatedPkgs({ pkgId, platform }: RelatedPkgsProps) {
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-          gap: 12,
+          gap: "var(--space-12)",
         }}
       >
         {related.map((r, i) => (
@@ -119,7 +119,14 @@ export async function RelatedPkgs({ pkgId, platform }: RelatedPkgsProps) {
                   {r.title.slice(0, 2).toUpperCase()}
                 </span>
               </div>
-              <div style={{ padding: 12, display: "flex", flexDirection: "column", gap: 6 }}>
+              <div
+                style={{
+                  padding: "var(--space-12)",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "var(--space-6)",
+                }}
+              >
                 <span
                   style={{
                     fontSize: "var(--fs-base)",

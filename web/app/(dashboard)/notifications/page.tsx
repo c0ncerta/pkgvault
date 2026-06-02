@@ -10,7 +10,14 @@ export default async function NotificationsPage() {
   // Placeholder — no real notification system yet
   return (
     <div style={{ maxWidth: 640, margin: "0 auto", padding: "48px 24px 64px" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 32 }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "var(--space-12)",
+          marginBottom: "var(--space-32)",
+        }}
+      >
         <div
           style={{
             width: 36,
@@ -43,7 +50,7 @@ export default async function NotificationsPage() {
       </div>
 
       <GlassCard padding="40px 24px" style={{ textAlign: "center" }}>
-        <div style={{ fontSize: "var(--fs-6xl)", marginBottom: 12, opacity: 0.3 }}>
+        <div style={{ fontSize: "var(--fs-6xl)", marginBottom: "var(--space-12)", opacity: 0.3 }}>
           <IconBell size={48} />
         </div>
         <h2
@@ -51,7 +58,7 @@ export default async function NotificationsPage() {
             fontSize: "var(--fs-2xl)",
             fontWeight: 700,
             color: "var(--color-text-primary)",
-            marginBottom: 8,
+            marginBottom: "var(--space-8)",
           }}
         >
           No notifications yet

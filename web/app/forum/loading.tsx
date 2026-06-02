@@ -3,7 +3,7 @@ import { GlassCard } from "@/components/liquid/glass";
 export default function ForumLoading() {
   return (
     <div style={{ maxWidth: 1200, margin: "0 auto", padding: "32px 24px 64px" }}>
-      <div style={{ display: "grid", gridTemplateColumns: "240px 1fr", gap: 24 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "240px 1fr", gap: "var(--space-24)" }}>
         {/* Sidebar skeleton */}
         <GlassCard padding="20px" style={{ alignSelf: "start" }}>
           <div
@@ -12,7 +12,7 @@ export default function ForumLoading() {
               height: 16,
               borderRadius: "var(--radius-2xs)",
               background: "rgba(255,255,255,0.04)",
-              marginBottom: 14,
+              marginBottom: "var(--space-14)",
             }}
           />
           {Array.from({ length: 6 }, (_, i) => ({ id: `skel-side-${i}` })).map((s) => (
@@ -23,7 +23,7 @@ export default function ForumLoading() {
                 height: 36,
                 borderRadius: "var(--radius-xs)",
                 background: "rgba(255,255,255,0.03)",
-                marginBottom: 4,
+                marginBottom: "var(--space-4)",
               }}
             />
           ))}
@@ -37,7 +37,7 @@ export default function ForumLoading() {
               height: 24,
               borderRadius: "var(--radius-2xs)",
               background: "rgba(255,255,255,0.04)",
-              marginBottom: 16,
+              marginBottom: "var(--space-16)",
             }}
           />
           <GlassCard padding="0" style={{ overflow: "hidden" }}>
@@ -59,7 +59,7 @@ export default function ForumLoading() {
                         height: 14,
                         borderRadius: "var(--radius-2xs)",
                         background: "rgba(255,255,255,0.04)",
-                        marginBottom: 6,
+                        marginBottom: "var(--space-6)",
                       }}
                     />
                     <div

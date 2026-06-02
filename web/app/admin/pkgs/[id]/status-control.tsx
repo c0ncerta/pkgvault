@@ -40,8 +40,8 @@ export function PkgStatusControl({
       className="admin-status-control"
       style={{
         display: "inline-flex",
-        gap: 2,
-        padding: 4,
+        gap: "var(--space-2)",
+        padding: "var(--space-4)",
         borderRadius: "var(--radius-pill)",
         background: "rgba(255,255,255,0.04)",
         border: "1px solid rgba(255,255,255,0.06)",

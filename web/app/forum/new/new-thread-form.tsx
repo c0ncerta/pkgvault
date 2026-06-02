@@ -94,10 +94,10 @@ export function NewThreadForm() {
   return (
     <div
       className="animate-fade-in"
-      style={{ display: "grid", gridTemplateColumns: "1fr 280px", gap: 20 }}
+      style={{ display: "grid", gridTemplateColumns: "1fr 280px", gap: "var(--space-20)" }}
     >
       {/* Main editor */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-14)" }}>
         <h1
           style={{ fontSize: "var(--fs-4xl)", fontWeight: 800, color: "var(--color-text-primary)" }}
         >
@@ -114,7 +114,7 @@ export function NewThreadForm() {
               color: "var(--color-text-secondary)",
               textTransform: "uppercase",
               letterSpacing: "0.05em",
-              marginBottom: 6,
+              marginBottom: "var(--space-6)",
             }}
           >
             Title *
@@ -132,7 +132,7 @@ export function NewThreadForm() {
               fontSize: "var(--fs-xs)",
               color: "var(--color-text-faint)",
               fontFamily: "var(--font-mono)",
-              marginTop: 4,
+              marginTop: "var(--space-4)",
             }}
           >
             min 10 · max 120 · {title.length}/120
@@ -149,12 +149,12 @@ export function NewThreadForm() {
               color: "var(--color-text-secondary)",
               textTransform: "uppercase",
               letterSpacing: "0.05em",
-              marginBottom: 6,
+              marginBottom: "var(--space-6)",
             }}
           >
             Category *
           </div>
-          <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: "var(--space-6)", flexWrap: "wrap" }}>
             {categories.map((cat) => (
               <button
                 type="button"
@@ -221,12 +221,12 @@ export function NewThreadForm() {
               color: "var(--color-text-faint)",
               display: "flex",
               alignItems: "center",
-              gap: 4,
+              gap: "var(--space-4)",
             }}
           >
             <IconFile size={12} /> draft auto-saved
           </span>
-          <div style={{ display: "flex", gap: 8 }}>
+          <div style={{ display: "flex", gap: "var(--space-8)" }}>
             <button type="button" className="btn-ghost" onClick={() => router.push("/forum")}>
               Cancel
             </button>
@@ -244,14 +244,14 @@ export function NewThreadForm() {
       </div>
 
       {/* Sidebar */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-14)" }}>
         <GlassCard padding="16px">
           <h4
             style={{
               fontSize: "var(--fs-md)",
               fontWeight: 700,
               color: "var(--color-text-primary)",
-              marginBottom: 10,
+              marginBottom: "var(--space-10)",
             }}
           >
             Quick rules

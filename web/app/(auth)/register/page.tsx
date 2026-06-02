@@ -20,7 +20,7 @@ export default function RegisterPage() {
           fontSize: "var(--fs-4xl)",
           fontWeight: 800,
           color: "var(--color-text-primary)",
-          marginBottom: 8,
+          marginBottom: "var(--space-8)",
           textAlign: "center",
           letterSpacing: "-0.02em",
         }}
@@ -31,7 +31,7 @@ export default function RegisterPage() {
         style={{
           color: "var(--color-text-muted)",
           textAlign: "center",
-          marginBottom: 32,
+          marginBottom: "var(--space-32)",
           fontSize: "var(--fs-lg)",
         }}
       >
@@ -42,7 +42,7 @@ export default function RegisterPage() {
         style={{
           color: "var(--color-text-faint)",
           textAlign: "center",
-          marginTop: 24,
+          marginTop: "var(--space-24)",
           fontSize: "var(--fs-md)",
         }}
       >

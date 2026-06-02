@@ -36,14 +36,17 @@ export default async function AdminUsersPage() {
   const mods = userList.filter((u) => u.role === "mod").length;
 
   return (
-    <div className="animate-fade-in" style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+    <div
+      className="animate-fade-in"
+      style={{ display: "flex", flexDirection: "column", gap: "var(--space-20)" }}
+    >
       <div>
         <h1
           style={{
             fontSize: "var(--fs-3xl)",
             fontWeight: 800,
             color: "var(--color-text-primary)",
-            marginBottom: 4,
+            marginBottom: "var(--space-4)",
           }}
         >
           Users
@@ -54,7 +57,9 @@ export default async function AdminUsersPage() {
       </div>
 
       {/* Stats */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10 }}>
+      <div
+        style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--space-10)" }}
+      >
         <GlassStat value={totalCount} label="Total users" />
         <GlassStat value={admins} label="Admins" />
         <GlassStat value={mods} label="Moderators" />
@@ -95,7 +100,7 @@ export default async function AdminUsersPage() {
                   }}
                 >
                   <td style={{ padding: "10px 16px" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "var(--space-10)" }}>
                       <div
                         style={{
                           width: 28,
@@ -156,7 +161,11 @@ export default async function AdminUsersPage() {
                 <tr>
                   <td
                     colSpan={4}
-                    style={{ padding: 32, textAlign: "center", color: "var(--color-text-muted)" }}
+                    style={{
+                      padding: "var(--space-32)",
+                      textAlign: "center",
+                      color: "var(--color-text-muted)",
+                    }}
                   >
                     No users found
                   </td>

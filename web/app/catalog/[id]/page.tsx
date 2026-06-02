@@ -158,7 +158,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
           className="detail-hero-shell animate-fade-in"
           style={{
             position: "relative",
-            marginBottom: 24,
+            marginBottom: "var(--space-24)",
             borderRadius: "var(--radius-lg)",
             overflow: "hidden",
           }}
@@ -187,7 +187,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
               padding: "40px 36px 36px",
               display: "grid",
               gridTemplateColumns: "160px 1fr",
-              gap: 28,
+              gap: "var(--space-32)",
               alignItems: "end",
             }}
             className="responsive-detail-hero"
@@ -219,7 +219,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
                   letterSpacing: "0.14em",
                   color: "rgba(255,255,255,0.7)",
                   fontWeight: 600,
-                  marginBottom: 8,
+                  marginBottom: "var(--space-8)",
                 }}
               >
                 Package · {pkg.gamePlatform ?? "Unknown platform"}
@@ -230,14 +230,21 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
                   fontWeight: 900,
                   letterSpacing: "-0.035em",
                   color: "#fff",
-                  marginBottom: 10,
+                  marginBottom: "var(--space-10)",
                   lineHeight: 1.05,
                   textShadow: "0 2px 10px rgba(0,0,0,0.35)",
                 }}
               >
                 {pkg.title}
               </h1>
-              <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 14 }}>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "var(--space-6)",
+                  flexWrap: "wrap",
+                  marginBottom: "var(--space-14)",
+                }}
+              >
                 {pkg.gamePlatform && <Tag>{pkg.gamePlatform}</Tag>}
                 {pkg.version && <Tag>{pkg.version}</Tag>}
                 {pkg.gameRegion && <Tag>{pkg.gameRegion}</Tag>}
@@ -265,7 +272,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: 18,
+                  gap: "var(--space-16)",
                   fontSize: "var(--fs-base)",
                   color: "rgba(255,255,255,0.78)",
                   fontFamily: "var(--font-mono)",
@@ -287,10 +294,14 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
 
         <div
           className="responsive-grid-2"
-          style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 320px", gap: 24 }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(0, 1fr) 320px",
+            gap: "var(--space-24)",
+          }}
         >
           {/* Main content */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-24)" }}>
             <DetailTabs
               description={pkg.description}
               sha256={pkg.sha256}
@@ -317,7 +328,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
           >
             <GlassEffectContainer
               spacing={24}
-              style={{ display: "flex", flexDirection: "column", gap: 14 }}
+              style={{ display: "flex", flexDirection: "column", gap: "var(--space-14)" }}
             >
               <GlassCard variant="elevated" padding="20px" className="vault-lift" tint="accent">
                 <DownloadButton
@@ -328,7 +339,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
                 {sources.length > 1 && (
                   <div
                     style={{
-                      marginTop: 12,
+                      marginTop: "var(--space-12)",
                       fontSize: "var(--fs-xs)",
                       color: "var(--color-text-muted)",
                       textAlign: "center",
@@ -347,7 +358,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
                     letterSpacing: "0.1em",
                     fontWeight: 600,
                     color: "var(--color-text-muted)",
-                    marginBottom: 12,
+                    marginBottom: "var(--space-12)",
                   }}
                 >
                   Technical specs
@@ -374,7 +385,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
                 className="vault-lift"
                 tint={verified ? "success" : isExternal ? "accent" : "warning"}
               >
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "var(--space-10)" }}>
                   <span
                     style={{
                       width: 10,

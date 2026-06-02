@@ -25,7 +25,7 @@ export default function HomePage() {
 
         <InViewFade>
           <section style={{ maxWidth: 1100, margin: "96px auto 0", padding: "0 24px" }}>
-            <div style={{ marginBottom: 20 }}>
+            <div style={{ marginBottom: "var(--space-20)" }}>
               <div
                 style={{
                   fontSize: "var(--fs-xs)",
@@ -33,7 +33,7 @@ export default function HomePage() {
                   letterSpacing: "0.12em",
                   color: "var(--color-cyan)",
                   fontWeight: 600,
-                  marginBottom: 4,
+                  marginBottom: "var(--space-4)",
                 }}
               >
                 Community
@@ -54,11 +54,11 @@ export default function HomePage() {
               style={{
                 display: "grid",
                 gridTemplateColumns: "minmax(0, 1.4fr) minmax(0, 1fr)",
-                gap: 16,
+                gap: "var(--space-16)",
               }}
             >
               <HomeActivityFeed />
-              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-16)" }}>
                 <HomeLeaderboard />
                 <HomeTrendingTags />
               </div>

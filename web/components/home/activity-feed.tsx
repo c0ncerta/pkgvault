@@ -79,7 +79,10 @@ export async function HomeActivityFeed() {
   if (items.length === 0) return null;
 
   return (
-    <GlassCard padding="22px 24px" style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+    <GlassCard
+      padding="22px 24px"
+      style={{ display: "flex", flexDirection: "column", gap: "var(--space-14)" }}
+    >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <h3
           style={{
@@ -88,7 +91,7 @@ export async function HomeActivityFeed() {
             color: "var(--color-text-primary)",
             display: "flex",
             alignItems: "center",
-            gap: 8,
+            gap: "var(--space-8)",
           }}
         >
           <span
@@ -114,7 +117,7 @@ export async function HomeActivityFeed() {
         </span>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
         {items.map((it) => {
           const href = it.kind === "pkg" ? `/catalog/${it.id}` : `/forum/${it.id}`;
           const Icon = it.kind === "pkg" ? IconUpload : IconForum;
@@ -128,7 +131,7 @@ export async function HomeActivityFeed() {
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: 10,
+                gap: "var(--space-10)",
                 padding: "8px 10px",
                 borderRadius: "var(--radius-sm)",
                 textDecoration: "none",

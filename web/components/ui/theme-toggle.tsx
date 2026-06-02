@@ -142,7 +142,10 @@ export function ThemeToggle() {
   ];
 
   return (
-    <div className="segmented-shell" style={{ display: "flex", gap: 2, padding: 3 }}>
+    <div
+      className="segmented-shell"
+      style={{ display: "flex", gap: "var(--space-2)", padding: "var(--space-4)" }}
+    >
       {options.map((opt) => (
         <button
           type="button"
@@ -161,7 +164,7 @@ export function ThemeToggle() {
             transition: "background var(--dur-fast), color var(--dur-fast)",
             display: "flex",
             alignItems: "center",
-            gap: 4,
+            gap: "var(--space-4)",
           }}
         >
           {opt.icon} {opt.label}

@@ -15,14 +15,17 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
       style={{
         fontSize: "var(--fs-base)",
         color: "var(--color-text-muted)",
-        marginBottom: 20,
+        marginBottom: "var(--space-20)",
         display: "flex",
         alignItems: "center",
-        gap: 8,
+        gap: "var(--space-8)",
       }}
     >
       {items.map((item, i) => (
-        <span key={item.label} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <span
+          key={item.label}
+          style={{ display: "flex", alignItems: "center", gap: "var(--space-8)" }}
+        >
           {i > 0 && <span style={{ opacity: 0.4 }}>/</span>}
           {item.href ? (
             <Link

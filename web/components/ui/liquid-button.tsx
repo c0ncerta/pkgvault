@@ -68,7 +68,7 @@ export function LiquidButton({
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
-      gap: 8,
+      gap: "var(--space-8)",
       textDecoration: "none",
       ...style,
     },

@@ -30,7 +30,7 @@ export function SourceActions({ sourceId }: { sourceId: string; currentStatus: s
   };
 
   return (
-    <div style={{ display: "flex", gap: 6 }}>
+    <div style={{ display: "flex", gap: "var(--space-6)" }}>
       <LiquidButton
         variant="secondary"
         size="sm"

@@ -133,18 +133,31 @@ export default async function AdminOverview() {
           fontWeight: 800,
           color: "var(--color-text-primary)",
           letterSpacing: "-0.03em",
-          marginBottom: 4,
+          marginBottom: "var(--space-4)",
         }}
       >
         Dashboard
       </h1>
-      <p style={{ color: "var(--color-text-muted)", fontSize: "var(--fs-md)", marginBottom: 32 }}>
+      <p
+        style={{
+          color: "var(--color-text-muted)",
+          fontSize: "var(--fs-md)",
+          marginBottom: "var(--space-32)",
+        }}
+      >
         System overview — {stats.users.total} users · {stats.forum.threads} threads
       </p>
 
       {/* Alerts */}
       {alerts.length > 0 && (
-        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 28 }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "var(--space-8)",
+            marginBottom: "var(--space-32)",
+          }}
+        >
           {alerts.map((a) => (
             <Link
               key={a.href}
@@ -152,7 +165,7 @@ export default async function AdminOverview() {
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: 10,
+                gap: "var(--space-10)",
                 padding: "12px 16px",
                 borderRadius: "var(--radius-base)",
                 textDecoration: "none",
@@ -194,7 +207,7 @@ export default async function AdminOverview() {
           color: "var(--color-text-muted)",
           textTransform: "uppercase",
           letterSpacing: "0.06em",
-          marginBottom: 12,
+          marginBottom: "var(--space-12)",
         }}
       >
         Packages
@@ -203,8 +216,8 @@ export default async function AdminOverview() {
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
-          gap: 12,
-          marginBottom: 32,
+          gap: "var(--space-12)",
+          marginBottom: "var(--space-32)",
         }}
       >
         {statCards.map((card) => (
@@ -220,7 +233,7 @@ export default async function AdminOverview() {
           color: "var(--color-text-muted)",
           textTransform: "uppercase",
           letterSpacing: "0.06em",
-          marginBottom: 12,
+          marginBottom: "var(--space-12)",
         }}
       >
         Download Sources
@@ -229,8 +242,8 @@ export default async function AdminOverview() {
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
-          gap: 12,
-          marginBottom: 32,
+          gap: "var(--space-12)",
+          marginBottom: "var(--space-32)",
         }}
       >
         {sourceCards.map((card) => (
@@ -246,12 +259,14 @@ export default async function AdminOverview() {
           color: "var(--color-text-muted)",
           textTransform: "uppercase",
           letterSpacing: "0.06em",
-          marginBottom: 12,
+          marginBottom: "var(--space-12)",
         }}
       >
         Quick Actions
       </h3>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
+      <div
+        style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--space-12)" }}
+      >
         <QuickAction
           href="/admin/queue"
           icon={<IconQueue size={24} />}
@@ -296,7 +311,7 @@ function StatCard({
           fontSize: "var(--fs-xs)",
           color: "var(--color-text-muted)",
           fontWeight: 500,
-          marginTop: 6,
+          marginTop: "var(--space-6)",
           textTransform: "uppercase",
           letterSpacing: "0.04em",
         }}
@@ -324,7 +339,7 @@ function QuickAction({
   return (
     <Link href={href} style={{ textDecoration: "none" }}>
       <GlassCard variant="content" cornerRadius={16} padding="20px" style={{ minHeight: 72 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "var(--space-14)" }}>
           <span
             style={{
               display: "flex",

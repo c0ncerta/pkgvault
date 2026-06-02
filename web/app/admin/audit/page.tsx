@@ -79,14 +79,17 @@ export default async function AdminAuditPage() {
   }
 
   return (
-    <div className="animate-fade-in" style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+    <div
+      className="animate-fade-in"
+      style={{ display: "flex", flexDirection: "column", gap: "var(--space-20)" }}
+    >
       <div>
         <h1
           style={{
             fontSize: "var(--fs-3xl)",
             fontWeight: 800,
             color: "var(--color-text-primary)",
-            marginBottom: 4,
+            marginBottom: "var(--space-4)",
           }}
         >
           Audit Log
@@ -113,7 +116,7 @@ export default async function AdminAuditPage() {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: 14,
+                  gap: "var(--space-14)",
                   padding: "12px 18px",
                   borderBottom:
                     i < entries.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
@@ -132,7 +135,14 @@ export default async function AdminAuditPage() {
 
                 {/* Content */}
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ display: "flex", gap: 6, alignItems: "center", flexWrap: "wrap" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "var(--space-6)",
+                      alignItems: "center",
+                      flexWrap: "wrap",
+                    }}
+                  >
                     <span
                       style={{
                         fontSize: "var(--fs-base)",

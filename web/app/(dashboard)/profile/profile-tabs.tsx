@@ -58,7 +58,7 @@ export function ProfileTabs({
   return (
     <div>
       {/* Tabs */}
-      <div className="segmented-shell" style={{ display: "flex", marginBottom: 16 }}>
+      <div className="segmented-shell" style={{ display: "flex", marginBottom: "var(--space-16)" }}>
         {tabs.map((t) => {
           const active = tab === t.key;
           return (
@@ -74,7 +74,7 @@ export function ProfileTabs({
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: 8,
+                gap: "var(--space-8)",
               }}
             >
               {t.label}
@@ -101,7 +101,7 @@ export function ProfileTabs({
       {/* PKG list */}
       {(tab === "approved" || tab === "pending") &&
         (filteredPkgs.length > 0 ? (
-          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
             {filteredPkgs.map((pkg, i) => (
               <Link
                 key={pkg.id}
@@ -137,7 +137,7 @@ export function ProfileTabs({
                     {new Date(pkg.createdAt).toLocaleDateString()} · {pkg.downloadCount} downloads
                   </div>
                 </div>
-                <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                <div style={{ display: "flex", gap: "var(--space-10)", alignItems: "center" }}>
                   {pkg.gamePlatform && <Tag>{pkg.gamePlatform}</Tag>}
                   <span
                     style={{
@@ -187,10 +187,16 @@ export function ProfileTabs({
       {/* Posts list */}
       {tab === "posts" &&
         (posts.length > 0 ? (
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
             {posts.map((post) => (
               <GlassCard key={post.id} padding="14px">
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: "var(--space-6)",
+                  }}
+                >
                   <span
                     style={{
                       fontSize: "var(--fs-base)",

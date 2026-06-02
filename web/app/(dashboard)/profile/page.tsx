@@ -120,7 +120,7 @@ export default async function ProfilePage() {
   return (
     <div
       className="animate-fade-in responsive-grid-2"
-      style={{ display: "grid", gridTemplateColumns: "300px 1fr", gap: 28 }}
+      style={{ display: "grid", gridTemplateColumns: "300px 1fr", gap: "var(--space-32)" }}
     >
       {/* Profile card */}
       <GlassCard padding="24px" style={{ alignSelf: "start" }}>
@@ -136,7 +136,7 @@ export default async function ProfilePage() {
             fontWeight: 800,
             fontSize: "var(--fs-3xl)",
             color: "#fff",
-            marginBottom: 14,
+            marginBottom: "var(--space-14)",
           }}
         >
           {initials}
@@ -151,12 +151,19 @@ export default async function ProfilePage() {
             fontSize: "var(--fs-sm)",
             color: "var(--color-text-muted)",
             fontFamily: "var(--font-mono)",
-            marginBottom: 16,
+            marginBottom: "var(--space-16)",
           }}
         >
           member since · {joined}
         </p>
-        <div style={{ display: "flex", gap: 6, marginBottom: 16, flexWrap: "wrap" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "var(--space-6)",
+            marginBottom: "var(--space-16)",
+            flexWrap: "wrap",
+          }}
+        >
           <Tag variant="accent">{userRole}</Tag>
         </div>
         <SpecList
@@ -170,7 +177,7 @@ export default async function ProfilePage() {
           ]}
         />
         <div style={{ height: 1, background: "rgba(255,255,255,0.06)", margin: "16px 0" }} />
-        <div style={{ display: "flex", gap: 8 }}>
+        <div style={{ display: "flex", gap: "var(--space-8)" }}>
           <a
             href="/settings"
             className="btn-secondary"

@@ -70,7 +70,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
   return (
     <div
       className="animate-fade-in responsive-settings-layout"
-      style={{ display: "grid", gridTemplateColumns: "230px 1fr", gap: 24 }}
+      style={{ display: "grid", gridTemplateColumns: "230px 1fr", gap: "var(--space-24)" }}
     >
       {/* Sidebar */}
       <GlassCard
@@ -107,7 +107,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
       </GlassCard>
 
       {/* Content */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-24)" }}>
         {section === "account" && (
           <>
             <h1
@@ -121,7 +121,10 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
             </h1>
 
             {/* Avatar */}
-            <GlassCard padding="18px" style={{ display: "flex", gap: 20, alignItems: "center" }}>
+            <GlassCard
+              padding="18px"
+              style={{ display: "flex", gap: "var(--space-20)", alignItems: "center" }}
+            >
               <div
                 style={{
                   width: 88,
@@ -145,7 +148,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                     fontSize: "var(--fs-lg)",
                     fontWeight: 700,
                     color: "var(--color-text-primary)",
-                    marginBottom: 4,
+                    marginBottom: "var(--space-4)",
                   }}
                 >
                   Avatar
@@ -154,12 +157,12 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                   style={{
                     fontSize: "var(--fs-base)",
                     color: "var(--color-text-muted)",
-                    marginBottom: 12,
+                    marginBottom: "var(--space-12)",
                   }}
                 >
                   JPG/PNG · max 1MB
                 </p>
-                <div style={{ display: "flex", gap: 8 }}>
+                <div style={{ display: "flex", gap: "var(--space-8)" }}>
                   <button type="button" className="btn-secondary">
                     Upload image
                   </button>
@@ -171,7 +174,9 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
             </GlassCard>
 
             {/* Fields */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            <div
+              style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-16)" }}
+            >
               <div>
                 <label
                   htmlFor="settings-display-name"
@@ -182,7 +187,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                     color: "var(--color-text-muted)",
                     textTransform: "uppercase",
                     letterSpacing: "0.05em",
-                    marginBottom: 6,
+                    marginBottom: "var(--space-6)",
                   }}
                 >
                   Display name
@@ -204,7 +209,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                     color: "var(--color-text-muted)",
                     textTransform: "uppercase",
                     letterSpacing: "0.05em",
-                    marginBottom: 6,
+                    marginBottom: "var(--space-6)",
                   }}
                 >
                   Email
@@ -221,7 +226,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                     fontSize: "var(--fs-xs)",
                     color: "var(--color-success)",
                     fontFamily: "var(--font-mono)",
-                    marginTop: 4,
+                    marginTop: "var(--space-4)",
                   }}
                 >
                   ✓ verified
@@ -240,7 +245,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                   color: "var(--color-text-muted)",
                   textTransform: "uppercase",
                   letterSpacing: "0.05em",
-                  marginBottom: 6,
+                  marginBottom: "var(--space-6)",
                 }}
               >
                 Bio
@@ -259,7 +264,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                   fontSize: "var(--fs-xs)",
                   color: "var(--color-text-muted)",
                   fontFamily: "var(--font-mono)",
-                  marginTop: 4,
+                  marginTop: "var(--space-4)",
                 }}
               >
                 {bio.length}/200
@@ -324,12 +329,12 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                   fontSize: "var(--fs-lg)",
                   fontWeight: 700,
                   color: "var(--color-text-primary)",
-                  marginBottom: 12,
+                  marginBottom: "var(--space-12)",
                 }}
               >
                 Change password
               </h3>
-              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-12)" }}>
                 <input className="input" type="password" placeholder="Current password" />
                 <input
                   className="input"
@@ -348,7 +353,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                   fontSize: "var(--fs-lg)",
                   fontWeight: 700,
                   color: "var(--color-text-primary)",
-                  marginBottom: 8,
+                  marginBottom: "var(--space-8)",
                 }}
               >
                 Active sessions
@@ -356,7 +361,11 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
               <p style={{ fontSize: "var(--fs-base)", color: "var(--color-text-muted)" }}>
                 Current session is active. Use the button below to sign out from all devices.
               </p>
-              <button type="button" className="btn-secondary" style={{ marginTop: 12 }}>
+              <button
+                type="button"
+                className="btn-secondary"
+                style={{ marginTop: "var(--space-12)" }}
+              >
                 Sign out everywhere
               </button>
             </GlassCard>
@@ -476,7 +485,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
             </h1>
             <div
               style={{
-                padding: 18,
+                padding: "var(--space-16)",
                 borderRadius: "var(--radius-sm)",
                 border: "1px solid rgba(239, 68, 68, 0.2)",
                 background: "rgba(239, 68, 68, 0.04)",
@@ -487,7 +496,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                   fontSize: "var(--fs-lg)",
                   fontWeight: 700,
                   color: "var(--color-text-primary)",
-                  marginBottom: 8,
+                  marginBottom: "var(--space-8)",
                 }}
               >
                 Delete account
@@ -496,7 +505,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                 style={{
                   fontSize: "var(--fs-md)",
                   color: "var(--color-text-secondary)",
-                  marginBottom: 16,
+                  marginBottom: "var(--space-16)",
                 }}
               >
                 This will permanently delete your account, contributions, and forum posts. This
@@ -527,7 +536,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
               border: "1px solid rgba(99, 102, 241, 0.15)",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "var(--space-10)" }}>
               <span
                 style={{
                   width: 8,
@@ -540,7 +549,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                 You have unsaved changes
               </span>
             </div>
-            <div style={{ display: "flex", gap: 8 }}>
+            <div style={{ display: "flex", gap: "var(--space-8)" }}>
               {feedback && (
                 <span
                   style={{

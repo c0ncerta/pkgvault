@@ -48,15 +48,21 @@ export default function ApiDocsPage() {
           fontSize: "var(--fs-5xl)",
           fontWeight: 800,
           color: "var(--color-text-primary)",
-          marginBottom: 8,
+          marginBottom: "var(--space-8)",
         }}
       >
         API Reference
       </h1>
-      <p style={{ color: "var(--color-text-muted)", fontSize: "var(--fs-lg)", marginBottom: 12 }}>
+      <p
+        style={{
+          color: "var(--color-text-muted)",
+          fontSize: "var(--fs-lg)",
+          marginBottom: "var(--space-12)",
+        }}
+      >
         All endpoints return JSON. Authentication uses session cookies via Better-Auth.
       </p>
-      <div style={{ display: "flex", gap: 8, marginBottom: 32 }}>
+      <div style={{ display: "flex", gap: "var(--space-8)", marginBottom: "var(--space-32)" }}>
         <span className="tag" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-xs)" }}>
           Base URL: /api
         </span>
@@ -65,10 +71,10 @@ export default function ApiDocsPage() {
         </span>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
         {endpoints.map((ep) => (
           <GlassCard key={ep.path} padding="14px 18px">
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "var(--space-12)" }}>
               <span
                 style={{
                   fontFamily: "var(--font-mono)",

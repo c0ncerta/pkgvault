@@ -58,7 +58,7 @@ export function ReplyForm({ threadId, parentId, onCancel }: ReplyFormProps) {
             fontSize: "var(--fs-lg)",
             fontWeight: 700,
             color: "var(--color-text-primary)",
-            marginBottom: 10,
+            marginBottom: "var(--space-10)",
           }}
         >
           {parentId ? "Reply" : "Your reply"}
@@ -70,7 +70,7 @@ export function ReplyForm({ threadId, parentId, onCancel }: ReplyFormProps) {
           placeholder="Write your reply…"
           value={body}
           onChange={(e) => setBody(e.target.value)}
-          style={{ resize: "vertical", marginBottom: 8 }}
+          style={{ resize: "vertical", marginBottom: "var(--space-8)" }}
         />
 
         {error && (
@@ -78,7 +78,7 @@ export function ReplyForm({ threadId, parentId, onCancel }: ReplyFormProps) {
             style={{
               padding: "8px 12px",
               borderRadius: "var(--radius-xs)",
-              marginBottom: 8,
+              marginBottom: "var(--space-8)",
               background: "rgba(239, 68, 68, 0.1)",
               border: "1px solid rgba(239, 68, 68, 0.2)",
               color: "var(--color-danger-soft)",
@@ -90,7 +90,7 @@ export function ReplyForm({ threadId, parentId, onCancel }: ReplyFormProps) {
         )}
 
         <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
-          <div style={{ display: "flex", gap: 8 }}>
+          <div style={{ display: "flex", gap: "var(--space-8)" }}>
             {onCancel && (
               <button type="button" className="btn-ghost" onClick={onCancel}>
                 Cancel

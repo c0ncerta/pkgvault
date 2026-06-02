@@ -53,7 +53,7 @@ export default function OGImage() {
           height: 96,
           borderRadius: "var(--radius-lg)",
           background: "linear-gradient(135deg, #6366f1, #a855f7)",
-          marginBottom: 32,
+          marginBottom: "var(--space-32)",
           fontSize: "var(--fs-7xl)",
         }}
       >
@@ -67,7 +67,7 @@ export default function OGImage() {
           fontWeight: 800,
           color: "#ffffff",
           letterSpacing: "-0.02em",
-          marginBottom: 16,
+          marginBottom: "var(--space-16)",
         }}
       >
         PKGVault
@@ -92,7 +92,7 @@ export default function OGImage() {
           position: "absolute",
           bottom: 40,
           display: "flex",
-          gap: 32,
+          gap: "var(--space-32)",
           fontSize: "var(--fs-2xl)",
           color: "rgba(255,255,255,0.4)",
         }}

@@ -74,7 +74,7 @@ export default async function PkgManagerPage() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          marginBottom: 24,
+          marginBottom: "var(--space-24)",
         }}
       >
         <div>

@@ -173,7 +173,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "flex-end",
-            marginBottom: 12,
+            marginBottom: "var(--space-12)",
           }}
         >
           <div>
@@ -183,7 +183,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                 fontWeight: 800,
                 letterSpacing: "-0.03em",
                 color: "var(--color-text-primary)",
-                marginBottom: 4,
+                marginBottom: "var(--space-4)",
               }}
             >
               Public Catalog
@@ -203,8 +203,8 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(5, 1fr)",
-            gap: 12,
-            marginBottom: 24,
+            gap: "var(--space-12)",
+            marginBottom: "var(--space-24)",
           }}
         >
           {[
@@ -232,7 +232,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                     color: "var(--color-text-muted)",
                     textTransform: "uppercase",
                     letterSpacing: "0.05em",
-                    marginTop: 4,
+                    marginTop: "var(--space-4)",
                     fontWeight: 500,
                   }}
                 >
@@ -246,7 +246,11 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
         {/* Sidebar + content layout */}
         <div
           className="responsive-catalog-layout"
-          style={{ display: "grid", gridTemplateColumns: "260px minmax(0, 1fr)", gap: 22 }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "260px minmax(0, 1fr)",
+            gap: "var(--space-24)",
+          }}
         >
           <CatalogFilters
             currentQ={q}
@@ -265,7 +269,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                 style={{
                   display: "grid",
                   gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
-                  gap: 16,
+                  gap: "var(--space-16)",
                 }}
               >
                 {items.map((item, i) => (
@@ -337,7 +341,12 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                         )}
                       </div>
                       <div
-                        style={{ padding: 14, display: "flex", flexDirection: "column", gap: 6 }}
+                        style={{
+                          padding: "var(--space-14)",
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "var(--space-6)",
+                        }}
                       >
                         <span
                           style={{
@@ -351,7 +360,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                         <div
                           style={{
                             display: "flex",
-                            gap: 6,
+                            gap: "var(--space-6)",
                             flexWrap: "wrap",
                             alignItems: "center",
                           }}
@@ -376,7 +385,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                             display: "flex",
                             justifyContent: "space-between",
                             alignItems: "center",
-                            marginTop: 4,
+                            marginTop: "var(--space-4)",
                           }}
                         >
                           <span
@@ -398,7 +407,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                                   : "var(--color-warning)",
                               display: "inline-flex",
                               alignItems: "center",
-                              gap: 3,
+                              gap: "var(--space-4)",
                             }}
                           >
                             {item.sha256 !== "pending" ? (
@@ -423,7 +432,13 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                 className="animate-fade-in"
                 style={{ textAlign: "center" }}
               >
-                <div style={{ fontSize: "var(--fs-7xl)", marginBottom: 16, opacity: 0.3 }}>
+                <div
+                  style={{
+                    fontSize: "var(--fs-7xl)",
+                    marginBottom: "var(--space-16)",
+                    opacity: 0.3,
+                  }}
+                >
                   <IconCatalog size={48} />
                 </div>
                 <h2
@@ -431,7 +446,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                     fontSize: "var(--fs-2xl)",
                     fontWeight: 700,
                     color: "var(--color-text-primary)",
-                    marginBottom: 8,
+                    marginBottom: "var(--space-8)",
                   }}
                 >
                   {q ? `No results for "${q}"` : "No packages yet"}
@@ -439,7 +454,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                 <p
                   style={{
                     color: "var(--color-text-muted)",
-                    marginBottom: 24,
+                    marginBottom: "var(--space-24)",
                     fontSize: "var(--fs-lg)",
                   }}
                 >
@@ -453,7 +468,14 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 32 }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "var(--space-8)",
+                  marginTop: "var(--space-32)",
+                }}
+              >
                 {page > 1 && (
                   <Link
                     href={`/catalog?${new URLSearchParams({ ...(q && { q }), ...(sort !== "newest" && { sort }), page: String(page - 1) })}`}

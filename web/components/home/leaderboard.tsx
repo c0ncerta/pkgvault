@@ -38,7 +38,10 @@ export async function HomeLeaderboard() {
   const medals = ["🥇", "🥈", "🥉"];
 
   return (
-    <GlassCard padding="22px 24px" style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+    <GlassCard
+      padding="22px 24px"
+      style={{ display: "flex", flexDirection: "column", gap: "var(--space-14)" }}
+    >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <h3
           style={{ fontSize: "var(--fs-lg)", fontWeight: 700, color: "var(--color-text-primary)" }}
@@ -56,14 +59,14 @@ export async function HomeLeaderboard() {
         </span>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
         {top.map((u, i) => (
           <div
             key={u.id}
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 12,
+              gap: "var(--space-12)",
               padding: "8px 10px",
               borderRadius: "var(--radius-sm)",
               background: i === 0 ? "rgba(245, 158, 11, 0.06)" : "transparent",

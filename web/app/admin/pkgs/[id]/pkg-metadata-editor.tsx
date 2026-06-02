@@ -70,7 +70,7 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
     fontSize: "var(--fs-xs)",
     fontWeight: 600,
     color: "var(--color-text-secondary)",
-    marginBottom: 6,
+    marginBottom: "var(--space-6)",
     display: "block",
     textTransform: "uppercase",
     letterSpacing: "0.04em",
@@ -163,9 +163,9 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            gap: 12,
+            gap: "var(--space-12)",
             alignItems: "flex-start",
-            marginBottom: 16,
+            marginBottom: "var(--space-16)",
           }}
         >
           <div>
@@ -176,7 +176,7 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
                 color: "var(--color-text-muted)",
                 textTransform: "uppercase",
                 letterSpacing: "0.04em",
-                marginBottom: 4,
+                marginBottom: "var(--space-4)",
               }}
             >
               Edit metadata
@@ -198,11 +198,20 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
 
         <div
           className="admin-editor-grid"
-          style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 210px", gap: 18 }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(0, 1fr) 210px",
+            gap: "var(--space-16)",
+          }}
         >
           <div
             className="admin-editor-fields"
-            style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, minWidth: 0 }}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "var(--space-12)",
+              minWidth: 0,
+            }}
           >
             <div style={{ gridColumn: "1 / -1" }}>
               <label htmlFor="edit-pkg-title" style={labelStyle}>
@@ -311,7 +320,11 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
               </label>
               <div
                 className="admin-cover-url-row"
-                style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) auto", gap: 8 }}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "minmax(0, 1fr) auto",
+                  gap: "var(--space-8)",
+                }}
               >
                 <input
                   id="edit-cover-url"
@@ -336,7 +349,12 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
 
           <div
             className="admin-cover-panel"
-            style={{ display: "flex", flexDirection: "column", gap: 10, minWidth: 0 }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "var(--space-10)",
+              minWidth: 0,
+            }}
           >
             <div
               className="admin-cover-preview"
@@ -384,8 +402,8 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 8,
-              marginTop: 14,
+              gap: "var(--space-8)",
+              marginTop: "var(--space-14)",
               padding: "10px 12px",
               borderRadius: "var(--radius-sm)",
               fontSize: "var(--fs-sm)",
@@ -403,7 +421,7 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
           style={{
             display: "flex",
             justifyContent: "flex-end",
-            marginTop: 16,
+            marginTop: "var(--space-16)",
             borderTop: "1px solid rgba(255,255,255,0.06)",
             paddingTop: 14,
           }}

@@ -70,7 +70,7 @@ export async function HomeFeaturedPkgs() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "baseline",
-          marginBottom: 20,
+          marginBottom: "var(--space-20)",
         }}
       >
         <div>
@@ -81,7 +81,7 @@ export async function HomeFeaturedPkgs() {
               letterSpacing: "0.12em",
               color: "var(--color-accent-hover)",
               fontWeight: 600,
-              marginBottom: 4,
+              marginBottom: "var(--space-4)",
             }}
           >
             Featured
@@ -107,7 +107,7 @@ export async function HomeFeaturedPkgs() {
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-          gap: 16,
+          gap: "var(--space-16)",
         }}
       >
         {items.map((it, i) => (
@@ -172,7 +172,13 @@ export async function HomeFeaturedPkgs() {
                 )}
               </div>
               <div
-                style={{ padding: 14, display: "flex", flexDirection: "column", gap: 6, flex: 1 }}
+                style={{
+                  padding: "var(--space-14)",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "var(--space-6)",
+                  flex: 1,
+                }}
               >
                 <span
                   style={{
@@ -184,7 +190,14 @@ export async function HomeFeaturedPkgs() {
                 >
                   {it.title}
                 </span>
-                <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "var(--space-6)",
+                    flexWrap: "wrap",
+                    alignItems: "center",
+                  }}
+                >
                   {it.gamePlatform && <Tag>{it.gamePlatform}</Tag>}
                   {it.gameRegion && <Tag>{it.gameRegion}</Tag>}
                 </div>

@@ -39,7 +39,7 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
         display: "flex",
         flexDirection: "column",
         padding: "24px 16px",
-        gap: 4,
+        gap: "var(--space-4)",
       }}
     >
       {/* Header */}
@@ -48,12 +48,17 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
         style={{
           padding: "0 12px 20px",
           borderBottom: "1px solid rgba(255,255,255,0.06)",
-          marginBottom: 12,
+          marginBottom: "var(--space-12)",
         }}
       >
         <Link
           href="/"
-          style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 10 }}
+          style={{
+            textDecoration: "none",
+            display: "flex",
+            alignItems: "center",
+            gap: "var(--space-10)",
+          }}
         >
           <Logo size={26} />
           <span
@@ -83,7 +88,7 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
               position: "relative",
               display: "flex",
               alignItems: "center",
-              gap: 10,
+              gap: "var(--space-10)",
               padding: "10px 14px",
               borderRadius: "var(--radius-base)",
               textDecoration: "none",
@@ -136,7 +141,7 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
           border: "1px solid rgba(255,255,255,0.06)",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "var(--space-10)" }}>
           <div
             style={{
               width: 32,
@@ -185,11 +190,11 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
         style={{
           display: "flex",
           alignItems: "center",
-          gap: 8,
+          gap: "var(--space-8)",
           justifyContent: "center",
           padding: "10px 14px",
           borderRadius: "var(--radius-sm)",
-          marginTop: 8,
+          marginTop: "var(--space-8)",
           textDecoration: "none",
           fontSize: "var(--fs-base)",
           color: "var(--color-text-muted)",

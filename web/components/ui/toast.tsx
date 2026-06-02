@@ -103,7 +103,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                 color: "var(--color-text-muted)",
                 cursor: "pointer",
                 fontSize: "var(--fs-sm)",
-                padding: 4,
+                padding: "var(--space-4)",
                 flexShrink: 0,
               }}
             >

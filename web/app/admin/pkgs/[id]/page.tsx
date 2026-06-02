@@ -121,7 +121,11 @@ export default async function AdminPkgDetail({
     <div className="animate-fade-in">
       {/* Breadcrumb */}
       <div
-        style={{ fontSize: "var(--fs-base)", color: "var(--color-text-faint)", marginBottom: 20 }}
+        style={{
+          fontSize: "var(--fs-base)",
+          color: "var(--color-text-faint)",
+          marginBottom: "var(--space-20)",
+        }}
       >
         <a
           href="/admin/pkgs"
@@ -140,7 +144,7 @@ export default async function AdminPkgDetail({
           display: "flex",
           justifyContent: "space-between",
           alignItems: "flex-start",
-          marginBottom: 28,
+          marginBottom: "var(--space-32)",
         }}
       >
         <div>
@@ -150,7 +154,7 @@ export default async function AdminPkgDetail({
               fontWeight: 800,
               color: "var(--color-text-primary)",
               letterSpacing: "-0.03em",
-              marginBottom: 6,
+              marginBottom: "var(--space-6)",
             }}
           >
             {pkg.title}
@@ -159,7 +163,7 @@ export default async function AdminPkgDetail({
             className="admin-detail-meta"
             style={{
               display: "flex",
-              gap: 12,
+              gap: "var(--space-12)",
               alignItems: "center",
               fontSize: "var(--fs-base)",
               color: "var(--color-text-muted)",
@@ -178,10 +182,16 @@ export default async function AdminPkgDetail({
 
       <div
         className="admin-pkg-layout"
-        style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 320px", gap: 20 }}
+        style={{
+          display: "grid",
+          gridTemplateColumns: "minmax(0, 1fr) 320px",
+          gap: "var(--space-20)",
+        }}
       >
         {/* Main */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}>
+        <div
+          style={{ display: "flex", flexDirection: "column", gap: "var(--space-16)", minWidth: 0 }}
+        >
           {/* Info card */}
           <GlassCard variant="content" cornerRadius={16} padding="20px 24px">
             <h3
@@ -191,7 +201,7 @@ export default async function AdminPkgDetail({
                 color: "var(--color-text-muted)",
                 textTransform: "uppercase",
                 letterSpacing: "0.04em",
-                marginBottom: 14,
+                marginBottom: "var(--space-14)",
               }}
             >
               Package Details
@@ -244,7 +254,7 @@ export default async function AdminPkgDetail({
                 style={{
                   color: "var(--color-text-secondary)",
                   fontSize: "var(--fs-md)",
-                  marginTop: 16,
+                  marginTop: "var(--space-16)",
                   lineHeight: 1.6,
                 }}
               >
@@ -283,7 +293,7 @@ export default async function AdminPkgDetail({
         {/* Sidebar */}
         <div
           className="admin-sidebar-cards"
-          style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}
+          style={{ display: "flex", flexDirection: "column", gap: "var(--space-16)", minWidth: 0 }}
         >
           {/* Status */}
           <GlassCard variant="content" cornerRadius={16} padding="20px">
@@ -294,12 +304,12 @@ export default async function AdminPkgDetail({
                 color: "var(--color-text-muted)",
                 textTransform: "uppercase",
                 letterSpacing: "0.04em",
-                marginBottom: 12,
+                marginBottom: "var(--space-12)",
               }}
             >
               Status
             </h3>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "var(--space-10)" }}>
               <div
                 style={{
                   width: 10,
@@ -331,12 +341,12 @@ export default async function AdminPkgDetail({
                 color: "var(--color-text-muted)",
                 textTransform: "uppercase",
                 letterSpacing: "0.04em",
-                marginBottom: 12,
+                marginBottom: "var(--space-12)",
               }}
             >
               Download Sources
             </h3>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-8)" }}>
               <div
                 style={{
                   padding: "10px 12px",
@@ -394,7 +404,7 @@ export default async function AdminPkgDetail({
             </div>
             <div
               style={{
-                marginTop: 8,
+                marginTop: "var(--space-8)",
                 padding: "10px 12px",
                 borderRadius: "var(--radius-xs)",
                 background: "rgba(255,255,255,0.03)",
@@ -434,7 +444,7 @@ export default async function AdminPkgDetail({
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: 10,
+                  gap: "var(--space-10)",
                   fontSize: "var(--fs-md)",
                   color: "var(--color-accent-hover)",
                   fontWeight: 500,

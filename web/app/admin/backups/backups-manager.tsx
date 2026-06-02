@@ -142,8 +142,8 @@ export function BackupsManager({
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
-          gap: 12,
-          marginBottom: 24,
+          gap: "var(--space-12)",
+          marginBottom: "var(--space-24)",
         }}
       >
         <GlassStat value={totalApproved} label="Approved PKGs" />
@@ -159,7 +159,7 @@ export function BackupsManager({
           cornerRadius={12}
           padding="10px 16px"
           style={{
-            marginBottom: 16,
+            marginBottom: "var(--space-16)",
             color: error ? "var(--color-danger-soft)" : "var(--color-success-soft)",
             fontSize: "var(--fs-md)",
           }}
@@ -173,12 +173,12 @@ export function BackupsManager({
         variant="content"
         cornerRadius={14}
         padding="12px 16px"
-        style={{ marginBottom: 16 }}
+        style={{ marginBottom: "var(--space-16)" }}
       >
         <div
           style={{
             display: "flex",
-            gap: 8,
+            gap: "var(--space-8)",
             alignItems: "center",
             flexWrap: "wrap",
           }}
@@ -249,7 +249,7 @@ export function BackupsManager({
           No PKGs match this filter.
         </GlassCard>
       ) : (
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-10)" }}>
           {filtered.map((c) => {
             const overrides = localState[c.id];
             const hasGdrive = overrides?.hasGdrive ?? c.hasGdrive;
@@ -269,7 +269,7 @@ export function BackupsManager({
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: 14,
+                    gap: "var(--space-14)",
                   }}
                 >
                   <div
@@ -289,8 +289,8 @@ export function BackupsManager({
                       style={{
                         display: "flex",
                         alignItems: "center",
-                        gap: 8,
-                        marginBottom: 4,
+                        gap: "var(--space-8)",
+                        marginBottom: "var(--space-4)",
                         flexWrap: "wrap",
                       }}
                     >
@@ -373,8 +373,8 @@ export function BackupsManager({
                       <div
                         style={{
                           display: "flex",
-                          gap: 8,
-                          marginTop: 8,
+                          gap: "var(--space-8)",
+                          marginTop: "var(--space-8)",
                         }}
                       >
                         <input
@@ -414,7 +414,7 @@ export function BackupsManager({
                   </div>
 
                   {!editing && (
-                    <div style={{ display: "flex", gap: 6 }}>
+                    <div style={{ display: "flex", gap: "var(--space-6)" }}>
                       {c.magnetUrl && (
                         <LiquidButton
                           variant="secondary"

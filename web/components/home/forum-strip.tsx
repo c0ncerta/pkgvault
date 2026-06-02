@@ -72,7 +72,7 @@ export async function HomeForumStrip() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "baseline",
-          marginBottom: 16,
+          marginBottom: "var(--space-16)",
         }}
       >
         <div>
@@ -83,7 +83,7 @@ export async function HomeForumStrip() {
               letterSpacing: "0.12em",
               color: "var(--color-success-bright)",
               fontWeight: 600,
-              marginBottom: 4,
+              marginBottom: "var(--space-4)",
             }}
           >
             Discussion
@@ -121,7 +121,9 @@ export async function HomeForumStrip() {
               transition: "background var(--dur-fast)",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 0 }}>
+            <div
+              style={{ display: "flex", alignItems: "center", gap: "var(--space-12)", minWidth: 0 }}
+            >
               <span
                 style={{
                   width: 22,
@@ -160,7 +162,7 @@ export async function HomeForumStrip() {
                   style={{
                     fontSize: "var(--fs-xs)",
                     color: "var(--color-text-muted)",
-                    marginTop: 2,
+                    marginTop: "var(--space-2)",
                     fontFamily: "var(--font-mono)",
                   }}
                 >
@@ -168,7 +170,14 @@ export async function HomeForumStrip() {
                 </div>
               </div>
             </div>
-            <div style={{ display: "flex", gap: 10, alignItems: "center", flexShrink: 0 }}>
+            <div
+              style={{
+                display: "flex",
+                gap: "var(--space-10)",
+                alignItems: "center",
+                flexShrink: 0,
+              }}
+            >
               <Tag>{t.category}</Tag>
               <span
                 style={{

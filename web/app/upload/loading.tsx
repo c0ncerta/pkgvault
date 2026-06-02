@@ -31,13 +31,13 @@ export default function UploadLoading() {
           zIndex: 1,
         }}
       >
-        <div style={{ marginBottom: 22 }}>
+        <div style={{ marginBottom: "var(--space-24)" }}>
           <Bar w={180} h={12} />
           <div style={{ height: 16 }} />
           <Bar w={280} h={32} />
         </div>
-        <GlassCard padding="24px" style={{ marginBottom: 16 }}>
-          <div style={{ display: "flex", gap: 4, marginBottom: 28 }}>
+        <GlassCard padding="24px" style={{ marginBottom: "var(--space-16)" }}>
+          <div style={{ display: "flex", gap: "var(--space-4)", marginBottom: "var(--space-32)" }}>
             {[0, 1, 2].map((item) => (
               <div
                 key={item}
@@ -52,7 +52,9 @@ export default function UploadLoading() {
           </div>
           <Bar w={160} h={18} />
           <div style={{ height: 18 }} />
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 180px", gap: 12 }}>
+          <div
+            style={{ display: "grid", gridTemplateColumns: "1fr 180px", gap: "var(--space-12)" }}
+          >
             <Bar h={42} />
             <Bar h={42} />
           </div>

@@ -45,7 +45,7 @@ export async function Navbar() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          gap: 16,
+          gap: "var(--space-16)",
         }}
       >
         {/* Logo */}
@@ -54,7 +54,7 @@ export async function Navbar() {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 10,
+            gap: "var(--space-10)",
             textDecoration: "none",
             flexShrink: 0,
           }}
@@ -75,7 +75,7 @@ export async function Navbar() {
         {/* Nav links (hidden on mobile via CSS) */}
         <div
           className="nav-links-desktop"
-          style={{ display: "flex", alignItems: "center", gap: 4 }}
+          style={{ display: "flex", alignItems: "center", gap: "var(--space-4)" }}
         >
           {navItems.map((item) => (
             <Link

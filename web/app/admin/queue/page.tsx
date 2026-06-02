@@ -63,12 +63,18 @@ export default async function QueuePage() {
           fontWeight: 800,
           color: "var(--color-text-primary)",
           letterSpacing: "-0.03em",
-          marginBottom: 4,
+          marginBottom: "var(--space-4)",
         }}
       >
         Mod Queue
       </h1>
-      <p style={{ color: "var(--color-text-muted)", fontSize: "var(--fs-md)", marginBottom: 24 }}>
+      <p
+        style={{
+          color: "var(--color-text-muted)",
+          fontSize: "var(--fs-md)",
+          marginBottom: "var(--space-24)",
+        }}
+      >
         {pendingPkgs.length} submissions waiting for review
       </p>
 
@@ -79,7 +85,9 @@ export default async function QueuePage() {
           padding="60px 20px"
           style={{ textAlign: "center" }}
         >
-          <div style={{ fontSize: "var(--fs-6xl)", marginBottom: 12, opacity: 0.3 }}>✓</div>
+          <div style={{ fontSize: "var(--fs-6xl)", marginBottom: "var(--space-12)", opacity: 0.3 }}>
+            ✓
+          </div>
           <div
             style={{
               color: "var(--color-success-bright)",
@@ -89,12 +97,18 @@ export default async function QueuePage() {
           >
             Queue is clear
           </div>
-          <div style={{ color: "var(--color-text-faint)", fontSize: "var(--fs-md)", marginTop: 4 }}>
+          <div
+            style={{
+              color: "var(--color-text-faint)",
+              fontSize: "var(--fs-md)",
+              marginTop: "var(--space-4)",
+            }}
+          >
             No pending submissions
           </div>
         </GlassCard>
       ) : (
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-12)" }}>
           {pendingPkgs.map((pkg) => (
             <GlassCard key={pkg.id} variant="content" cornerRadius={16} padding="20px 24px">
               <div
@@ -105,7 +119,14 @@ export default async function QueuePage() {
                 }}
               >
                 <div style={{ flex: 1 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "var(--space-10)",
+                      marginBottom: "var(--space-8)",
+                    }}
+                  >
                     <h3
                       style={{
                         fontSize: "var(--fs-xl)",
@@ -149,7 +170,7 @@ export default async function QueuePage() {
                       style={{
                         color: "var(--color-text-secondary)",
                         fontSize: "var(--fs-md)",
-                        marginBottom: 10,
+                        marginBottom: "var(--space-10)",
                         lineHeight: 1.5,
                       }}
                     >
@@ -161,25 +182,49 @@ export default async function QueuePage() {
                   <div
                     style={{
                       display: "flex",
-                      gap: 20,
+                      gap: "var(--space-20)",
                       fontSize: "var(--fs-sm)",
                       color: "var(--color-text-faint)",
                     }}
                   >
-                    <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
+                    <span
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "var(--space-4)",
+                      }}
+                    >
                       <IconCatalog size={12} /> {formatBytes(pkg.sizeBytes)}
                     </span>
                     {pkg.gameTitle && (
-                      <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
+                      <span
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "var(--space-4)",
+                        }}
+                      >
                         <IconSettings size={12} /> {pkg.gameTitle}
                       </span>
                     )}
-                    <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
+                    <span
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "var(--space-4)",
+                      }}
+                    >
                       <IconUser size={12} /> {pkg.uploaderName ?? "anonymous"}
                     </span>
                     <span>{pkg.createdAt.toISOString().slice(0, 10)}</span>
                     {pkg.fwRequired && (
-                      <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
+                      <span
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "var(--space-4)",
+                        }}
+                      >
                         <IconSettings size={12} /> FW {pkg.fwRequired}
                       </span>
                     )}
@@ -187,7 +232,7 @@ export default async function QueuePage() {
 
                   <div
                     style={{
-                      marginTop: 10,
+                      marginTop: "var(--space-10)",
                       fontSize: "var(--fs-xs)",
                       color: "var(--color-text-faint)",
                       fontFamily: "var(--font-mono)",

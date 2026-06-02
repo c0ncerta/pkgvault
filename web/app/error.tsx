@@ -18,7 +18,7 @@ export default function GlobalError({
         alignItems: "center",
         justifyContent: "center",
         background: "var(--color-bg-primary)",
-        padding: 24,
+        padding: "var(--space-24)",
       }}
     >
       <GlassCard
@@ -26,7 +26,7 @@ export default function GlobalError({
         padding="48px 40px"
         style={{ textAlign: "center", maxWidth: 440 }}
       >
-        <div style={{ fontSize: "var(--fs-6xl)", marginBottom: 16, opacity: 0.4 }}>
+        <div style={{ fontSize: "var(--fs-6xl)", marginBottom: "var(--space-16)", opacity: 0.4 }}>
           <IconAlertTriangle size={40} />
         </div>
         <h1
@@ -34,7 +34,7 @@ export default function GlobalError({
             fontSize: "var(--fs-3xl)",
             fontWeight: 800,
             color: "var(--color-text-primary)",
-            marginBottom: 8,
+            marginBottom: "var(--space-8)",
           }}
         >
           Something went wrong
@@ -43,13 +43,13 @@ export default function GlobalError({
           style={{
             color: "var(--color-text-muted)",
             fontSize: "var(--fs-lg)",
-            marginBottom: 24,
+            marginBottom: "var(--space-24)",
             lineHeight: 1.5,
           }}
         >
           {error.message || "An unexpected error occurred."}
         </p>
-        <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
+        <div style={{ display: "flex", gap: "var(--space-12)", justifyContent: "center" }}>
           <button type="button" className="btn-primary" onClick={reset}>
             Try again
           </button>

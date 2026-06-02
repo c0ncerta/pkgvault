@@ -18,10 +18,10 @@ export function Footer() {
           flexWrap: "wrap",
           justifyContent: "space-between",
           alignItems: "center",
-          gap: 16,
+          gap: "var(--space-16)",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "var(--space-8)" }}>
           <Logo size={20} />
           <span
             style={{
@@ -33,7 +33,7 @@ export function Footer() {
             PKGVault v0.1.0
           </span>
         </div>
-        <nav style={{ display: "flex", gap: 20, fontSize: "var(--fs-sm)" }}>
+        <nav style={{ display: "flex", gap: "var(--space-20)", fontSize: "var(--fs-sm)" }}>
           <Link
             href="/rules"
             style={{

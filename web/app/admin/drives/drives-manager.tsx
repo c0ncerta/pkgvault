@@ -164,8 +164,8 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
-          gap: 12,
-          marginBottom: 24,
+          gap: "var(--space-12)",
+          marginBottom: "var(--space-24)",
         }}
         className="responsive-stats"
       >
@@ -187,7 +187,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                 color: "var(--color-text-muted)",
                 textTransform: "uppercase",
                 letterSpacing: "0.05em",
-                marginTop: 4,
+                marginTop: "var(--space-4)",
               }}
             >
               Accounts
@@ -212,7 +212,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                 color: "var(--color-text-muted)",
                 textTransform: "uppercase",
                 letterSpacing: "0.05em",
-                marginTop: 4,
+                marginTop: "var(--space-4)",
               }}
             >
               Active
@@ -237,7 +237,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                 color: "var(--color-text-muted)",
                 textTransform: "uppercase",
                 letterSpacing: "0.05em",
-                marginTop: 4,
+                marginTop: "var(--space-4)",
               }}
             >
               Total Used
@@ -262,7 +262,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                 color: "var(--color-text-muted)",
                 textTransform: "uppercase",
                 letterSpacing: "0.05em",
-                marginTop: 4,
+                marginTop: "var(--space-4)",
               }}
             >
               Total Quota
@@ -273,13 +273,13 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
 
       {/* Aggregate usage bar */}
       {Number(totals.totalQuota) > 0 && (
-        <GlassCard padding="20px" style={{ marginBottom: 24 }}>
+        <GlassCard padding="20px" style={{ marginBottom: "var(--space-24)" }}>
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              marginBottom: 10,
+              marginBottom: "var(--space-10)",
             }}
           >
             <span
@@ -327,8 +327,8 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
       <div
         style={{
           display: "flex",
-          gap: 10,
-          marginBottom: 24,
+          gap: "var(--space-10)",
+          marginBottom: "var(--space-24)",
           flexWrap: "wrap",
         }}
       >
@@ -356,13 +356,15 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
       {/* Account cards */}
       {accounts.length === 0 ? (
         <GlassCard padding="60px 40px" style={{ textAlign: "center" }}>
-          <div style={{ fontSize: "var(--fs-7xl)", marginBottom: 16, opacity: 0.3 }}>☁️</div>
+          <div style={{ fontSize: "var(--fs-7xl)", marginBottom: "var(--space-16)", opacity: 0.3 }}>
+            ☁️
+          </div>
           <h2
             style={{
               fontSize: "var(--fs-2xl)",
               fontWeight: 700,
               color: "var(--color-text-primary)",
-              marginBottom: 8,
+              marginBottom: "var(--space-8)",
             }}
           >
             No Drive accounts connected
@@ -371,7 +373,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
             style={{
               color: "var(--color-text-muted)",
               fontSize: "var(--fs-lg)",
-              marginBottom: 20,
+              marginBottom: "var(--space-20)",
             }}
           >
             Connect a Google Drive account to monitor storage usage and manage PKG backups.
@@ -386,7 +388,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
           </button>
         </GlassCard>
       ) : (
-        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-14)" }}>
           {accounts.map((a) => {
             const pct = usagePercent(a.quotaUsedBytes, a.quotaTotalBytes);
             const isSyncing = syncing === a.id;
@@ -400,12 +402,12 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "flex-start",
-                      marginBottom: 16,
+                      marginBottom: "var(--space-16)",
                       flexWrap: "wrap",
-                      gap: 12,
+                      gap: "var(--space-12)",
                     }}
                   >
-                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "var(--space-12)" }}>
                       {/* Google avatar */}
                       <div
                         style={{
@@ -432,7 +434,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                             color: "var(--color-text-primary)",
                             display: "flex",
                             alignItems: "center",
-                            gap: 8,
+                            gap: "var(--space-8)",
                           }}
                         >
                           {a.email}
@@ -457,17 +459,17 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                           style={{
                             fontSize: "var(--fs-sm)",
                             color: "var(--color-text-muted)",
-                            marginTop: 2,
+                            marginTop: "var(--space-2)",
                             display: "flex",
                             alignItems: "center",
-                            gap: 8,
+                            gap: "var(--space-8)",
                           }}
                         >
                           <span
                             style={{
                               display: "inline-flex",
                               alignItems: "center",
-                              gap: 4,
+                              gap: "var(--space-4)",
                             }}
                           >
                             <span
@@ -490,7 +492,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                     </div>
 
                     {/* Actions */}
-                    <div style={{ display: "flex", gap: 6 }}>
+                    <div style={{ display: "flex", gap: "var(--space-6)" }}>
                       <button
                         type="button"
                         className="btn-ghost"
@@ -531,12 +533,12 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
 
                   {/* Storage bar */}
                   {a.quotaTotalBytes && (
-                    <div style={{ marginBottom: 16 }}>
+                    <div style={{ marginBottom: "var(--space-16)" }}>
                       <div
                         style={{
                           display: "flex",
                           justifyContent: "space-between",
-                          marginBottom: 6,
+                          marginBottom: "var(--space-6)",
                         }}
                       >
                         <span
@@ -585,7 +587,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                     style={{
                       display: "grid",
                       gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
-                      gap: 12,
+                      gap: "var(--space-12)",
                     }}
                   >
                     {a.fileCount !== null && <StatPill label="Files" value={String(a.fileCount)} />}
@@ -669,7 +671,7 @@ function StatPill({
           color: "var(--color-text-muted)",
           textTransform: "uppercase",
           letterSpacing: "0.05em",
-          marginTop: 2,
+          marginTop: "var(--space-2)",
         }}
       >
         {label}

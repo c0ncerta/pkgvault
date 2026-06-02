@@ -123,7 +123,7 @@ export default async function AdminBackupsPage() {
           fontWeight: 800,
           color: "var(--color-text-primary)",
           letterSpacing: "-0.03em",
-          marginBottom: 4,
+          marginBottom: "var(--space-4)",
         }}
       >
         GDrive Backups
@@ -132,7 +132,7 @@ export default async function AdminBackupsPage() {
         style={{
           color: "var(--color-text-muted)",
           fontSize: "var(--fs-md)",
-          marginBottom: 32,
+          marginBottom: "var(--space-32)",
         }}
       >
         Manage Google Drive mirrors. Backup candidates appear when no GDrive mirror exists or

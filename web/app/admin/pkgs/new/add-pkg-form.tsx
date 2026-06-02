@@ -144,7 +144,7 @@ export function AddPkgForm() {
     fontSize: "var(--fs-sm)",
     fontWeight: 600,
     color: "var(--color-text-secondary)",
-    marginBottom: 6,
+    marginBottom: "var(--space-6)",
     display: "block",
   };
 
@@ -155,7 +155,7 @@ export function AddPkgForm() {
           style={{
             padding: "12px 16px",
             borderRadius: "var(--radius-sm)",
-            marginBottom: 20,
+            marginBottom: "var(--space-20)",
             background: "rgba(248,113,113,0.08)",
             border: "1px solid rgba(248,113,113,0.2)",
             color: "var(--color-danger-soft)",
@@ -167,7 +167,7 @@ export function AddPkgForm() {
       )}
 
       {/* PKG Info */}
-      <GlassCard padding="24px" style={{ marginBottom: 16 }}>
+      <GlassCard padding="24px" style={{ marginBottom: "var(--space-16)" }}>
         <h3
           style={{
             fontSize: "var(--fs-base)",
@@ -175,12 +175,12 @@ export function AddPkgForm() {
             color: "var(--color-text-muted)",
             textTransform: "uppercase",
             letterSpacing: "0.04em",
-            marginBottom: 16,
+            marginBottom: "var(--space-16)",
           }}
         >
           Package Info
         </h3>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-14)" }}>
           <div style={{ gridColumn: "1 / -1" }}>
             <label htmlFor="pkg-title" style={labelStyle}>
               Title *
@@ -263,7 +263,7 @@ export function AddPkgForm() {
       </GlassCard>
 
       {/* Game Info */}
-      <GlassCard padding="24px" style={{ marginBottom: 16 }}>
+      <GlassCard padding="24px" style={{ marginBottom: "var(--space-16)" }}>
         <h3
           style={{
             fontSize: "var(--fs-base)",
@@ -271,12 +271,18 @@ export function AddPkgForm() {
             color: "var(--color-text-muted)",
             textTransform: "uppercase",
             letterSpacing: "0.04em",
-            marginBottom: 16,
+            marginBottom: "var(--space-16)",
           }}
         >
           Game Info
         </h3>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 120px 100px 100px", gap: 14 }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 120px 100px 100px",
+            gap: "var(--space-14)",
+          }}
+        >
           <div>
             <label htmlFor="game-title" style={labelStyle}>
               Game Title
@@ -339,13 +345,13 @@ export function AddPkgForm() {
       </GlassCard>
 
       {/* Download Sources */}
-      <GlassCard padding="24px" style={{ marginBottom: 24 }}>
+      <GlassCard padding="24px" style={{ marginBottom: "var(--space-24)" }}>
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            marginBottom: 16,
+            marginBottom: "var(--space-16)",
           }}
         >
           <h3
@@ -364,12 +370,12 @@ export function AddPkgForm() {
             Add
           </LiquidButton>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-10)" }}>
           {sources.map((source, idx) => (
             <div
               key={`${source.url}-${source.provider}-${idx}`}
               style={{
-                padding: 12,
+                padding: "var(--space-12)",
                 borderRadius: "var(--radius-sm)",
                 background: "rgba(255,255,255,0.02)",
                 border: "1px solid rgba(255,255,255,0.04)",
@@ -379,7 +385,7 @@ export function AddPkgForm() {
                 style={{
                   display: "grid",
                   gridTemplateColumns: "1fr 150px auto",
-                  gap: 8,
+                  gap: "var(--space-8)",
                   alignItems: "center",
                 }}
               >
@@ -400,12 +406,12 @@ export function AddPkgForm() {
                     </option>
                   ))}
                 </select>
-                <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+                <div style={{ display: "flex", gap: "var(--space-6)", alignItems: "center" }}>
                   <label
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: 4,
+                      gap: "var(--space-4)",
                       fontSize: "var(--fs-xs)",
                       color: "var(--color-text-muted)",
                       cursor: "pointer",
@@ -435,7 +441,7 @@ export function AddPkgForm() {
                 placeholder="Label (optional)"
                 value={source.label}
                 onChange={(e) => updateSource(idx, "label", e.target.value)}
-                style={{ ...inputStyle, fontSize: "var(--fs-sm)", marginTop: 6 }}
+                style={{ ...inputStyle, fontSize: "var(--fs-sm)", marginTop: "var(--space-6)" }}
               />
             </div>
           ))}

@@ -65,7 +65,7 @@ export function SearchBar() {
         style={{
           display: "flex",
           alignItems: "center",
-          gap: 8,
+          gap: "var(--space-8)",
           padding: "0 16px",
           height: 38,
           borderRadius: "var(--radius-pill)",
@@ -122,7 +122,7 @@ export function SearchBar() {
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: 10,
+                gap: "var(--space-10)",
                 width: "100%",
                 padding: "10px 12px",
                 borderRadius: "var(--radius-base)",

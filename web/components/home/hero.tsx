@@ -42,8 +42,8 @@ export function HomeHero() {
           fontWeight: 900,
           letterSpacing: "-0.04em",
           lineHeight: 1.05,
-          marginTop: 24,
-          marginBottom: 16,
+          marginTop: "var(--space-24)",
+          marginBottom: "var(--space-16)",
           background: "linear-gradient(135deg, #e8e8ed 0%, #94a3b8 100%)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
@@ -74,7 +74,7 @@ export function HomeHero() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.35, ease: "easeOut" }}
-        style={{ display: "flex", gap: 12, justifyContent: "center" }}
+        style={{ display: "flex", gap: "var(--space-12)", justifyContent: "center" }}
       >
         <LiquidButton variant="primary" size="lg" href="/catalog" style={{ padding: "14px 32px" }}>
           Browse Catalog

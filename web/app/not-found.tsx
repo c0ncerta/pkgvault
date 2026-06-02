@@ -10,7 +10,7 @@ export default function NotFound() {
         alignItems: "center",
         justifyContent: "center",
         background: "var(--color-bg-primary)",
-        padding: 24,
+        padding: "var(--space-24)",
       }}
     >
       <GlassCard
@@ -28,7 +28,7 @@ export default function NotFound() {
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             lineHeight: 1,
-            marginBottom: 12,
+            marginBottom: "var(--space-12)",
           }}
         >
           404
@@ -38,15 +38,21 @@ export default function NotFound() {
             fontSize: "var(--fs-2xl)",
             fontWeight: 700,
             color: "var(--color-text-primary)",
-            marginBottom: 8,
+            marginBottom: "var(--space-8)",
           }}
         >
           Page not found
         </h1>
-        <p style={{ color: "var(--color-text-muted)", fontSize: "var(--fs-lg)", marginBottom: 28 }}>
+        <p
+          style={{
+            color: "var(--color-text-muted)",
+            fontSize: "var(--fs-lg)",
+            marginBottom: "var(--space-32)",
+          }}
+        >
           The vault doesn&apos;t have what you&apos;re looking for.
         </p>
-        <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
+        <div style={{ display: "flex", gap: "var(--space-12)", justifyContent: "center" }}>
           <Link href="/" className="btn-primary">
             Go home
           </Link>

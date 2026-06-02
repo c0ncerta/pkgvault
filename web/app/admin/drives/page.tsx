@@ -79,14 +79,14 @@ export default async function DrivesPage() {
 
   return (
     <div className="animate-fade-in">
-      <div style={{ marginBottom: 32 }}>
+      <div style={{ marginBottom: "var(--space-32)" }}>
         <h1
           style={{
             fontSize: "var(--fs-4xl)",
             fontWeight: 800,
             letterSpacing: "-0.03em",
             color: "var(--color-text-primary)",
-            marginBottom: 4,
+            marginBottom: "var(--space-4)",
           }}
         >
           Google Drive Accounts

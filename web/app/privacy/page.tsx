@@ -8,7 +8,7 @@ export default function PrivacyPage() {
           fontSize: "var(--fs-5xl)",
           fontWeight: 800,
           color: "var(--color-text-primary)",
-          marginBottom: 8,
+          marginBottom: "var(--space-8)",
         }}
       >
         Privacy Policy
@@ -17,14 +17,14 @@ export default function PrivacyPage() {
         style={{
           color: "var(--color-text-muted)",
           fontSize: "var(--fs-lg)",
-          marginBottom: 32,
+          marginBottom: "var(--space-32)",
           fontFamily: "var(--font-mono)",
         }}
       >
         Last updated · May 2026
       </p>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-16)" }}>
         {[
           {
             title: "Data we collect",
@@ -57,7 +57,7 @@ export default function PrivacyPage() {
                 fontSize: "var(--fs-lg)",
                 fontWeight: 700,
                 color: "var(--color-text-primary)",
-                marginBottom: 8,
+                marginBottom: "var(--space-8)",
               }}
             >
               {section.title}

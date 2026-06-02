@@ -213,7 +213,13 @@ export function GlassStat({ value, label }: { value: ReactNode; label: string })
         >
           {value}
         </div>
-        <div style={{ fontSize: "var(--fs-xs)", color: "var(--color-text-muted)", marginTop: 2 }}>
+        <div
+          style={{
+            fontSize: "var(--fs-xs)",
+            color: "var(--color-text-muted)",
+            marginTop: "var(--space-2)",
+          }}
+        >
           {label}
         </div>
       </div>
