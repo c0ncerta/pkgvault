@@ -40,14 +40,17 @@ export default function LoginPage() {
       <LoginForm />
       <p
         style={{
-          color: "#475569",
+          color: "var(--color-text-faint)",
           textAlign: "center",
           marginTop: 24,
           fontSize: "var(--fs-md)",
         }}
       >
         Don&apos;t have an account?{" "}
-        <a href="/register" style={{ color: "#818cf8", textDecoration: "none", fontWeight: 500 }}>
+        <a
+          href="/register"
+          style={{ color: "var(--color-accent-hover)", textDecoration: "none", fontWeight: 500 }}
+        >
           Create one
         </a>
       </p>

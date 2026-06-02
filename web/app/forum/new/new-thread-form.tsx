@@ -130,7 +130,7 @@ export function NewThreadForm() {
           <div
             style={{
               fontSize: "var(--fs-xs)",
-              color: "#475569",
+              color: "var(--color-text-faint)",
               fontFamily: "var(--font-mono)",
               marginTop: 4,
             }}
@@ -167,8 +167,8 @@ export function NewThreadForm() {
                   padding: "5px 12px",
                   background:
                     category === cat.value ? "var(--color-accent)" : "rgba(255,255,255,0.04)",
-                  color: category === cat.value ? "#fff" : "#94a3b8",
-                  borderRadius: 999,
+                  color: category === cat.value ? "#fff" : "var(--color-text-secondary)",
+                  borderRadius: "var(--radius-pill)",
                   fontSize: "var(--fs-base)",
                   fontWeight: 500,
                   fontFamily: "var(--font-sans)",
@@ -194,7 +194,7 @@ export function NewThreadForm() {
           <div
             style={{
               padding: "10px 14px",
-              borderRadius: 8,
+              borderRadius: "var(--radius-xs)",
               background: "rgba(239, 68, 68, 0.1)",
               border: "1px solid rgba(239, 68, 68, 0.2)",
               color: "#fca5a5",
@@ -218,7 +218,7 @@ export function NewThreadForm() {
           <span
             style={{
               fontSize: "var(--fs-sm)",
-              color: "#475569",
+              color: "var(--color-text-faint)",
               display: "flex",
               alignItems: "center",
               gap: 4,

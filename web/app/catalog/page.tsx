@@ -321,7 +321,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                               background: "rgba(0,0,0,0.35)",
                               backdropFilter: "blur(8px)",
                               padding: "2px 8px",
-                              borderRadius: 999,
+                              borderRadius: "var(--radius-pill)",
                               fontSize: "var(--fs-2xs)",
                               fontWeight: 700,
                               color: "#fff",

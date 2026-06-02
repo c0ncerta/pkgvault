@@ -35,7 +35,7 @@ const endpoints = [
 
 const methodColors: Record<string, string> = {
   GET: "#34d399",
-  POST: "#818cf8",
+  POST: "var(--color-accent-hover)",
   PATCH: "#fbbf24",
   DELETE: "#f87171",
 };

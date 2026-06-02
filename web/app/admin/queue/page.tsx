@@ -83,7 +83,7 @@ export default async function QueuePage() {
           <div style={{ color: "#34d399", fontWeight: 600, fontSize: "var(--fs-2xl)" }}>
             Queue is clear
           </div>
-          <div style={{ color: "#475569", fontSize: "var(--fs-md)", marginTop: 4 }}>
+          <div style={{ color: "var(--color-text-faint)", fontSize: "var(--fs-md)", marginTop: 4 }}>
             No pending submissions
           </div>
         </GlassCard>
@@ -114,10 +114,10 @@ export default async function QueuePage() {
                       <span
                         style={{
                           padding: "2px 8px",
-                          borderRadius: 6,
+                          borderRadius: "var(--radius-xs)",
                           fontSize: "var(--fs-xs)",
                           fontWeight: 600,
-                          color: "#818cf8",
+                          color: "var(--color-accent-hover)",
                           background: "rgba(99,102,241,0.12)",
                           border: "1px solid rgba(99,102,241,0.2)",
                         }}
@@ -129,7 +129,7 @@ export default async function QueuePage() {
                       <span
                         style={{
                           fontSize: "var(--fs-sm)",
-                          color: "#475569",
+                          color: "var(--color-text-faint)",
                           fontFamily: "var(--font-mono)",
                         }}
                       >
@@ -153,7 +153,12 @@ export default async function QueuePage() {
                   )}
 
                   <div
-                    style={{ display: "flex", gap: 20, fontSize: "var(--fs-sm)", color: "#475569" }}
+                    style={{
+                      display: "flex",
+                      gap: 20,
+                      fontSize: "var(--fs-sm)",
+                      color: "var(--color-text-faint)",
+                    }}
                   >
                     <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
                       <IconCatalog size={12} /> {formatBytes(pkg.sizeBytes)}
@@ -178,7 +183,7 @@ export default async function QueuePage() {
                     style={{
                       marginTop: 10,
                       fontSize: "var(--fs-xs)",
-                      color: "#475569",
+                      color: "var(--color-text-faint)",
                       fontFamily: "var(--font-mono)",
                       wordBreak: "break-all",
                     }}

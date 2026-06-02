@@ -51,7 +51,7 @@ export default function OGImage() {
           justifyContent: "center",
           width: 96,
           height: 96,
-          borderRadius: 24,
+          borderRadius: "var(--radius-lg)",
           background: "linear-gradient(135deg, #6366f1, #a855f7)",
           marginBottom: 32,
           fontSize: "var(--fs-7xl)",

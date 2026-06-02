@@ -380,7 +380,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                 onClick={() => setFilter(item.value)}
                 style={{
                   padding: "7px 14px",
-                  borderRadius: 999,
+                  borderRadius: "var(--radius-pill)",
                   fontSize: "var(--fs-sm)",
                   fontWeight: 600,
                   cursor: "pointer",
@@ -427,7 +427,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
               style={{
                 width: "100%",
                 padding: "8px 12px 8px 34px",
-                borderRadius: 10,
+                borderRadius: "var(--radius-sm)",
                 border: "1px solid rgba(255,255,255,0.08)",
                 background: "rgba(0,0,0,0.25)",
                 color: "var(--color-text-primary)",
@@ -445,7 +445,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
             gap: 8,
             alignItems: "center",
             padding: "10px 12px",
-            borderRadius: 10,
+            borderRadius: "var(--radius-sm)",
             marginBottom: 12,
             background: "rgba(248,113,113,0.08)",
             border: "1px solid rgba(248,113,113,0.2)",
@@ -504,10 +504,10 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                       <span
                         style={{
                           padding: "1px 6px",
-                          borderRadius: 4,
+                          borderRadius: "var(--radius-2xs)",
                           fontSize: "var(--fs-2xs)",
                           fontWeight: 600,
-                          color: "#818cf8",
+                          color: "var(--color-accent-hover)",
                           background: "rgba(99,102,241,0.12)",
                         }}
                       >
@@ -515,7 +515,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                       </span>
                     )}
                     {source.label && (
-                      <span style={{ fontSize: "var(--fs-sm)", color: "#475569" }}>
+                      <span style={{ fontSize: "var(--fs-sm)", color: "var(--color-text-faint)" }}>
                         ({source.label})
                       </span>
                     )}
@@ -523,7 +523,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                   <div
                     style={{
                       fontSize: "var(--fs-sm)",
-                      color: "#475569",
+                      color: "var(--color-text-faint)",
                       fontFamily: "var(--font-mono)",
                       overflow: "hidden",
                       textOverflow: "ellipsis",
@@ -537,7 +537,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                 <span
                   style={{
                     padding: "4px 10px",
-                    borderRadius: 6,
+                    borderRadius: "var(--radius-xs)",
                     fontSize: "var(--fs-xs)",
                     fontWeight: 500,
                     color: "var(--color-text-secondary)",
@@ -552,7 +552,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                 <span
                   style={{
                     padding: "4px 10px",
-                    borderRadius: 999,
+                    borderRadius: "var(--radius-pill)",
                     fontSize: "var(--fs-xs)",
                     fontWeight: 600,
                     color: st.color,
@@ -570,7 +570,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                     display: "flex",
                     gap: 16,
                     fontSize: "var(--fs-sm)",
-                    color: "#475569",
+                    color: "var(--color-text-faint)",
                     whiteSpace: "nowrap",
                   }}
                 >
@@ -610,7 +610,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
             variant="content"
             cornerRadius={16}
             padding="60px 20px"
-            style={{ textAlign: "center", color: "#475569" }}
+            style={{ textAlign: "center", color: "var(--color-text-faint)" }}
           >
             No sources match this view.
           </GlassCard>

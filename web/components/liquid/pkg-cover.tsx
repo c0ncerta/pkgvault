@@ -30,7 +30,7 @@ export function PkgCover({ name, platform, color1, color2, size = "md", onClick 
       style={{
         width: s.width,
         aspectRatio: "3/4",
-        borderRadius: 16,
+        borderRadius: "var(--radius-md)",
         overflow: "hidden",
         background: `linear-gradient(155deg, ${color1} 0%, ${color2} 100%)`,
         position: "relative",
@@ -63,7 +63,7 @@ export function PkgCover({ name, platform, color1, color2, size = "md", onClick 
           top: 8,
           left: 8,
           padding: "2px 8px",
-          borderRadius: 999,
+          borderRadius: "var(--radius-pill)",
           background: "rgba(0,0,0,0.4)",
           backdropFilter: "blur(8px)",
           color: "#fff",

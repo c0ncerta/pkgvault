@@ -118,7 +118,7 @@ export async function HomeActivityFeed() {
         {items.map((it) => {
           const href = it.kind === "pkg" ? `/catalog/${it.id}` : `/forum/${it.id}`;
           const Icon = it.kind === "pkg" ? IconUpload : IconForum;
-          const tint = it.kind === "pkg" ? "#818cf8" : "#34d399";
+          const tint = it.kind === "pkg" ? "var(--color-accent-hover)" : "#34d399";
           const verb = it.kind === "pkg" ? "uploaded" : "started";
           return (
             <Link
@@ -129,7 +129,7 @@ export async function HomeActivityFeed() {
                 alignItems: "center",
                 gap: 10,
                 padding: "8px 10px",
-                borderRadius: 10,
+                borderRadius: "var(--radius-sm)",
                 textDecoration: "none",
                 color: "var(--color-text-primary)",
                 fontSize: "var(--fs-md)",

@@ -14,6 +14,7 @@
   --color-text-primary: #e8e8ed;
   --color-text-secondary: #94a3b8;
   --color-text-muted: #64748b;
+  --color-text-faint: #475569; /* fainter than muted — footnotes, hints */
   --color-text-inverse: #0f0f14;
 
   --color-accent: #6366f1;
@@ -34,7 +35,10 @@
   --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, "SF Mono", monospace;
 
   /* ─── Radius (Apple liquid-glass continuous corners) ───── */
-  --radius-sm: 0.75rem; /* 12px — small controls, vote btns */
+  --radius-2xs: 0.25rem; /* 4px — chips, tiny controls */
+  --radius-xs: 0.5rem; /* 8px — small buttons, inline inputs */
+  --radius-sm: 0.625rem; /* 10px — list rows, filter rows */
+  --radius-base: 0.75rem; /* 12px — default small panels */
   --radius-md: 1rem; /* 16px — buttons, inputs, tags */
   --radius-lg: 1.25rem; /* 20px — cards, panels */
   --radius-xl: 1.75rem; /* 28px — hero cards, modals */
@@ -138,6 +142,7 @@ footer a:hover {
   --color-text-primary: #1a1a2e;
   --color-text-secondary: #475569;
   --color-text-muted: #94a3b8;
+  --color-text-faint: #aeb6c2;
   --color-text-inverse: #f4f5f7;
 
   --color-accent-glow: rgba(99, 102, 241, 0.15);

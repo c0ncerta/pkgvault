@@ -92,7 +92,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                 width: "100%",
                 textAlign: "left",
                 padding: "8px 12px",
-                borderRadius: 10,
+                borderRadius: "var(--radius-sm)",
                 cursor: "pointer",
                 fontSize: "var(--fs-base)",
                 fontWeight: active ? 600 : 400,
@@ -391,7 +391,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                   style={{
                     width: 36,
                     height: 20,
-                    borderRadius: 10,
+                    borderRadius: "var(--radius-sm)",
                     cursor: "pointer",
                     background: t.on ? "var(--color-accent)" : "rgba(255,255,255,0.1)",
                     position: "relative",
@@ -443,7 +443,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                   style={{
                     width: 36,
                     height: 20,
-                    borderRadius: 10,
+                    borderRadius: "var(--radius-sm)",
                     cursor: "pointer",
                     background: t.on ? "var(--color-accent)" : "rgba(255,255,255,0.1)",
                     position: "relative",
@@ -477,7 +477,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
             <div
               style={{
                 padding: 18,
-                borderRadius: 10,
+                borderRadius: "var(--radius-sm)",
                 border: "1px solid rgba(239, 68, 68, 0.2)",
                 background: "rgba(239, 68, 68, 0.04)",
               }}
@@ -522,14 +522,19 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
               justifyContent: "space-between",
               alignItems: "center",
               padding: "14px 18px",
-              borderRadius: 10,
+              borderRadius: "var(--radius-sm)",
               background: "rgba(99, 102, 241, 0.06)",
               border: "1px solid rgba(99, 102, 241, 0.15)",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <span
-                style={{ width: 8, height: 8, borderRadius: 4, background: "var(--color-accent)" }}
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: "var(--radius-2xs)",
+                  background: "var(--color-accent)",
+                }}
               />
               <span style={{ fontSize: "var(--fs-md)", color: "var(--color-text-primary)" }}>
                 You have unsaved changes

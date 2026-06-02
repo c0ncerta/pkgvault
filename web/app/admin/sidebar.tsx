@@ -85,7 +85,7 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
               alignItems: "center",
               gap: 10,
               padding: "10px 14px",
-              borderRadius: 12,
+              borderRadius: "var(--radius-base)",
               textDecoration: "none",
               fontSize: "var(--fs-md)",
               fontWeight: active ? 600 : 500,
@@ -108,7 +108,7 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
                   transform: "translateY(-50%)",
                   width: 3,
                   height: 18,
-                  borderRadius: 3,
+                  borderRadius: "var(--radius-2xs)",
                   background: "linear-gradient(180deg, #818cf8, #a78bfa)",
                   boxShadow: "0 0 10px rgba(129, 140, 248, 0.6)",
                 }}
@@ -131,7 +131,7 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
         className="admin-sidebar-user"
         style={{
           padding: "14px",
-          borderRadius: 10,
+          borderRadius: "var(--radius-sm)",
           background: "rgba(255,255,255,0.03)",
           border: "1px solid rgba(255,255,255,0.06)",
         }}
@@ -166,7 +166,7 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
             <div
               style={{
                 fontSize: "var(--fs-2xs)",
-                color: "#818cf8",
+                color: "var(--color-accent-hover)",
                 textTransform: "uppercase",
                 fontWeight: 600,
                 letterSpacing: "0.04em",
@@ -188,7 +188,7 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
           gap: 8,
           justifyContent: "center",
           padding: "10px 14px",
-          borderRadius: 10,
+          borderRadius: "var(--radius-sm)",
           marginTop: 8,
           textDecoration: "none",
           fontSize: "var(--fs-base)",

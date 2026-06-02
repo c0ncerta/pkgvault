@@ -150,7 +150,7 @@ export function ThemeToggle() {
           onClick={() => setTheme(opt.value)}
           style={{
             padding: "5px 12px",
-            borderRadius: 12,
+            borderRadius: "var(--radius-base)",
             border: "none",
             background: theme === opt.value ? "rgba(99, 102, 241, 0.15)" : "transparent",
             color: theme === opt.value ? "var(--color-accent-hover)" : "var(--color-text-muted)",

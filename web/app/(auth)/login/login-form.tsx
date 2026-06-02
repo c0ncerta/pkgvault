@@ -7,10 +7,10 @@ import { useState } from "react";
 const inputStyle: React.CSSProperties = {
   width: "100%",
   padding: "12px 18px",
-  borderRadius: 999,
+  borderRadius: "var(--radius-pill)",
   border: "1px solid rgba(255, 255, 255, 0.10)",
   background: "rgba(255, 255, 255, 0.06)",
-  color: "#e0e0e0",
+  color: "var(--color-text-primary)",
   fontSize: "var(--fs-lg)",
   fontFamily: "var(--font-sans)",
   outline: "none",
@@ -88,7 +88,7 @@ export function LoginForm() {
           autoComplete="email"
           style={inputStyle}
           onFocus={(e) => {
-            e.currentTarget.style.borderColor = "#6366f1";
+            e.currentTarget.style.borderColor = "var(--color-accent)";
             e.currentTarget.style.boxShadow = "0 0 0 3px rgba(99, 102, 241, 0.15)";
           }}
           onBlur={(e) => {
@@ -113,7 +113,7 @@ export function LoginForm() {
           autoComplete="current-password"
           style={inputStyle}
           onFocus={(e) => {
-            e.currentTarget.style.borderColor = "#6366f1";
+            e.currentTarget.style.borderColor = "var(--color-accent)";
             e.currentTarget.style.boxShadow = "0 0 0 3px rgba(99, 102, 241, 0.15)";
           }}
           onBlur={(e) => {
@@ -127,7 +127,7 @@ export function LoginForm() {
         <div
           style={{
             padding: "10px 14px",
-            borderRadius: 8,
+            borderRadius: "var(--radius-xs)",
             background: "rgba(239, 68, 68, 0.1)",
             border: "1px solid rgba(239, 68, 68, 0.2)",
             color: "#fca5a5",
@@ -145,7 +145,7 @@ export function LoginForm() {
         style={{
           width: "100%",
           padding: "12px 24px",
-          borderRadius: 10,
+          borderRadius: "var(--radius-sm)",
           border: "none",
           background: loading
             ? "rgba(99, 102, 241, 0.5)"

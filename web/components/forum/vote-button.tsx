@@ -74,7 +74,7 @@ export function VoteButton({
               ? "var(--color-accent)"
               : userVote === -1
                 ? "var(--color-danger)"
-                : "#e8e8ed",
+                : "var(--color-text-primary)",
         }}
       >
         {score}

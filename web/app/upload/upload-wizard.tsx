@@ -150,7 +150,7 @@ export function UploadWizard() {
             <div
               style={{
                 height: 4,
-                borderRadius: 2,
+                borderRadius: "var(--radius-2xs)",
                 background:
                   i <= stepIdx
                     ? "linear-gradient(90deg, #6366f1, #8b5cf6)"
@@ -161,7 +161,7 @@ export function UploadWizard() {
               style={{
                 fontSize: "var(--fs-sm)",
                 fontWeight: 600,
-                color: i <= stepIdx ? "#818cf8" : "#475569",
+                color: i <= stepIdx ? "var(--color-accent-hover)" : "var(--color-text-faint)",
                 textTransform: "uppercase",
                 letterSpacing: "0.05em",
               }}
@@ -230,10 +230,10 @@ export function UploadWizard() {
                           style={{
                             fontSize: "var(--fs-2xs)",
                             fontWeight: 700,
-                            color: "#818cf8",
+                            color: "var(--color-accent-hover)",
                             background: "rgba(99, 102, 241, 0.1)",
                             padding: "4px 8px",
-                            borderRadius: 6,
+                            borderRadius: "var(--radius-xs)",
                             whiteSpace: "nowrap",
                             marginTop: 8,
                           }}
@@ -258,7 +258,7 @@ export function UploadWizard() {
                           style={{
                             padding: "6px 12px",
                             fontSize: "var(--fs-sm)",
-                            color: "#ef4444",
+                            color: "var(--color-danger)",
                           }}
                         >
                           Remove
@@ -279,7 +279,7 @@ export function UploadWizard() {
                   width: "100%",
                   padding: "10px",
                   border: "1px dashed rgba(99,102,241,0.3)",
-                  borderRadius: 8,
+                  borderRadius: "var(--radius-xs)",
                 }}
               >
                 + Add another link
@@ -308,7 +308,7 @@ export function UploadWizard() {
                   marginBottom: 20,
                   padding: "8px 12px",
                   background: "rgba(99, 102, 241, 0.08)",
-                  borderRadius: 8,
+                  borderRadius: "var(--radius-xs)",
                   fontSize: "var(--fs-base)",
                   color: "var(--color-text-secondary)",
                 }}
@@ -575,7 +575,7 @@ export function UploadWizard() {
                 <div
                   style={{
                     padding: 12,
-                    borderRadius: 8,
+                    borderRadius: "var(--radius-xs)",
                     background: "rgba(255,255,255,0.03)",
                     border: "1px solid rgba(255,255,255,0.06)",
                     fontSize: "var(--fs-md)",
@@ -606,7 +606,7 @@ export function UploadWizard() {
                       alignItems: "center",
                       gap: 8,
                       padding: "8px 12px",
-                      borderRadius: 8,
+                      borderRadius: "var(--radius-xs)",
                       background: "rgba(255,255,255,0.03)",
                       border: "1px solid rgba(255,255,255,0.06)",
                       fontSize: "var(--fs-base)",
@@ -616,10 +616,10 @@ export function UploadWizard() {
                       style={{
                         fontSize: "var(--fs-2xs)",
                         fontWeight: 700,
-                        color: "#818cf8",
+                        color: "var(--color-accent-hover)",
                         background: "rgba(99, 102, 241, 0.1)",
                         padding: "2px 6px",
-                        borderRadius: 4,
+                        borderRadius: "var(--radius-2xs)",
                         whiteSpace: "nowrap",
                       }}
                     >
@@ -653,7 +653,7 @@ export function UploadWizard() {
                 <div
                   style={{
                     padding: "10px 14px",
-                    borderRadius: 8,
+                    borderRadius: "var(--radius-xs)",
                     background: "rgba(239, 68, 68, 0.1)",
                     border: "1px solid rgba(239, 68, 68, 0.2)",
                     color: "#fca5a5",

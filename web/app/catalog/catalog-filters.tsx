@@ -134,7 +134,7 @@ export function CatalogFilters({
                   transform: "translateY(-50%)",
                   background: "var(--color-accent)",
                   border: "none",
-                  borderRadius: 8,
+                  borderRadius: "var(--radius-xs)",
                   color: "#fff",
                   width: 28,
                   height: 28,
@@ -205,7 +205,7 @@ export function CatalogFilters({
                   data-active="true"
                   style={{
                     padding: "3px 8px 3px 10px",
-                    borderRadius: 999,
+                    borderRadius: "var(--radius-pill)",
                     fontSize: "var(--fs-xs)",
                     cursor: "pointer",
                     display: "inline-flex",
@@ -238,7 +238,7 @@ export function CatalogFilters({
                     alignItems: "center",
                     gap: 10,
                     padding: "7px 10px",
-                    borderRadius: 10,
+                    borderRadius: "var(--radius-sm)",
                     fontSize: "var(--fs-base)",
                     textAlign: "left",
                     cursor: "pointer",
@@ -276,7 +276,7 @@ export function CatalogFilters({
                 justifyContent: "space-between",
                 alignItems: "center",
                 padding: "7px 10px",
-                borderRadius: 10,
+                borderRadius: "var(--radius-sm)",
                 fontSize: "var(--fs-base)",
                 textAlign: "left",
                 cursor: "pointer",
@@ -309,7 +309,7 @@ export function CatalogFilters({
                     justifyContent: "space-between",
                     alignItems: "center",
                     padding: "7px 10px",
-                    borderRadius: 10,
+                    borderRadius: "var(--radius-sm)",
                     fontSize: "var(--fs-base)",
                     textAlign: "left",
                     cursor: "pointer",
@@ -345,7 +345,7 @@ export function CatalogFilters({
                   className="chip-button"
                   style={{
                     padding: "4px 9px",
-                    borderRadius: 999,
+                    borderRadius: "var(--radius-pill)",
                     fontSize: "var(--fs-xs)",
                     cursor: "pointer",
                     fontFamily: "var(--font-sans)",

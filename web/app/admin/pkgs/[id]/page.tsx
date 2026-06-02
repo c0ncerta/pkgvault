@@ -19,7 +19,7 @@ const statusColors: Record<string, string> = {
   approved: "#34d399",
   pending: "#fbbf24",
   rejected: "#f87171",
-  taken_down: "#64748b",
+  taken_down: "var(--color-text-muted)",
 };
 
 export default async function AdminPkgDetail({
@@ -120,8 +120,13 @@ export default async function AdminPkgDetail({
   return (
     <div className="animate-fade-in">
       {/* Breadcrumb */}
-      <div style={{ fontSize: "var(--fs-base)", color: "#475569", marginBottom: 20 }}>
-        <a href="/admin/pkgs" style={{ color: "#818cf8", textDecoration: "none" }}>
+      <div
+        style={{ fontSize: "var(--fs-base)", color: "var(--color-text-faint)", marginBottom: 20 }}
+      >
+        <a
+          href="/admin/pkgs"
+          style={{ color: "var(--color-accent-hover)", textDecoration: "none" }}
+        >
           PKG Manager
         </a>
         <span style={{ margin: "0 8px" }}>›</span>
@@ -200,7 +205,7 @@ export default async function AdminPkgDetail({
                 fontSize: "var(--fs-md)",
               }}
             >
-              <span style={{ color: "#475569" }}>SHA-256</span>
+              <span style={{ color: "var(--color-text-faint)" }}>SHA-256</span>
               <span
                 style={{
                   color: "var(--color-text-primary)",
@@ -211,25 +216,25 @@ export default async function AdminPkgDetail({
               >
                 {pkg.sha256}
               </span>
-              <span style={{ color: "#475569" }}>R2 Key</span>
+              <span style={{ color: "var(--color-text-faint)" }}>R2 Key</span>
               <span
                 style={{
-                  color: pkg.r2Key ? "#e8e8ed" : "#475569",
+                  color: pkg.r2Key ? "var(--color-text-primary)" : "var(--color-text-faint)",
                   fontFamily: "var(--font-mono)",
                   fontSize: "var(--fs-xs)",
                 }}
               >
                 {pkg.r2Key ?? "— not on R2"}
               </span>
-              <span style={{ color: "#475569" }}>Uploader</span>
+              <span style={{ color: "var(--color-text-faint)" }}>Uploader</span>
               <span style={{ color: "var(--color-text-primary)" }}>
                 {pkg.uploaderName ?? "unknown"}
               </span>
-              <span style={{ color: "#475569" }}>Game</span>
+              <span style={{ color: "var(--color-text-faint)" }}>Game</span>
               <span style={{ color: "var(--color-text-primary)" }}>{pkg.gameTitle ?? "—"}</span>
               {pkg.fwRequired && (
                 <>
-                  <span style={{ color: "#475569" }}>FW Required</span>
+                  <span style={{ color: "var(--color-text-faint)" }}>FW Required</span>
                   <span style={{ color: "var(--color-text-primary)" }}>{pkg.fwRequired}</span>
                 </>
               )}
@@ -300,15 +305,15 @@ export default async function AdminPkgDetail({
                   width: 10,
                   height: 10,
                   borderRadius: "50%",
-                  background: statusColors[pkg.status] ?? "#64748b",
-                  boxShadow: `0 0 8px ${statusColors[pkg.status] ?? "#64748b"}40`,
+                  background: statusColors[pkg.status] ?? "var(--color-text-muted)",
+                  boxShadow: `0 0 8px ${statusColors[pkg.status] ?? "var(--color-text-muted)"}40`,
                 }}
               />
               <span
                 style={{
                   fontSize: "var(--fs-lg)",
                   fontWeight: 600,
-                  color: statusColors[pkg.status] ?? "#64748b",
+                  color: statusColors[pkg.status] ?? "var(--color-text-muted)",
                   textTransform: "capitalize",
                 }}
               >
@@ -335,7 +340,7 @@ export default async function AdminPkgDetail({
               <div
                 style={{
                   padding: "10px 12px",
-                  borderRadius: 8,
+                  borderRadius: "var(--radius-xs)",
                   background: "rgba(52,211,153,0.06)",
                   textAlign: "center",
                 }}
@@ -346,7 +351,7 @@ export default async function AdminPkgDetail({
                 <div
                   style={{
                     fontSize: "var(--fs-2xs)",
-                    color: "#475569",
+                    color: "var(--color-text-faint)",
                     textTransform: "uppercase",
                   }}
                 >
@@ -356,7 +361,7 @@ export default async function AdminPkgDetail({
               <div
                 style={{
                   padding: "10px 12px",
-                  borderRadius: 8,
+                  borderRadius: "var(--radius-xs)",
                   background: "rgba(248,113,113,0.06)",
                   textAlign: "center",
                 }}
@@ -367,7 +372,7 @@ export default async function AdminPkgDetail({
                 <div
                   style={{
                     fontSize: "var(--fs-2xs)",
-                    color: "#475569",
+                    color: "var(--color-text-faint)",
                     textTransform: "uppercase",
                   }}
                 >
@@ -379,7 +384,7 @@ export default async function AdminPkgDetail({
               style={{
                 marginTop: 8,
                 padding: "10px 12px",
-                borderRadius: 8,
+                borderRadius: "var(--radius-xs)",
                 background: "rgba(255,255,255,0.03)",
                 textAlign: "center",
               }}
@@ -394,7 +399,11 @@ export default async function AdminPkgDetail({
                 {sources.length}
               </div>
               <div
-                style={{ fontSize: "var(--fs-2xs)", color: "#475569", textTransform: "uppercase" }}
+                style={{
+                  fontSize: "var(--fs-2xs)",
+                  color: "var(--color-text-faint)",
+                  textTransform: "uppercase",
+                }}
               >
                 Total sources
               </div>
@@ -415,7 +424,7 @@ export default async function AdminPkgDetail({
                   alignItems: "center",
                   gap: 10,
                   fontSize: "var(--fs-md)",
-                  color: "#818cf8",
+                  color: "var(--color-accent-hover)",
                   fontWeight: 500,
                 }}
               >

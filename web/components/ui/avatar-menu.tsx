@@ -107,7 +107,7 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
             top: "calc(100% + 8px)",
             width: 280,
             zIndex: 100,
-            borderRadius: 20,
+            borderRadius: "var(--radius-lg)",
             overflow: "hidden",
             background: "rgba(12, 12, 18, 0.94)",
             backdropFilter: "blur(40px) saturate(180%)",
@@ -191,7 +191,7 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
                   alignItems: "center",
                   gap: 10,
                   padding: "9px 14px",
-                  borderRadius: 12,
+                  borderRadius: "var(--radius-base)",
                   textDecoration: "none",
                   color: "var(--color-text-primary)",
                   fontSize: "var(--fs-md)",
@@ -222,9 +222,9 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
                   alignItems: "center",
                   gap: 10,
                   padding: "9px 14px",
-                  borderRadius: 12,
+                  borderRadius: "var(--radius-base)",
                   textDecoration: "none",
-                  color: "#f59e0b",
+                  color: "var(--color-warning)",
                   fontSize: "var(--fs-md)",
                 }}
                 onMouseEnter={(e) => {
@@ -234,7 +234,7 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
                   e.currentTarget.style.background = "transparent";
                 }}
               >
-                <IconShield size={15} style={{ color: "#f59e0b" }} />
+                <IconShield size={15} style={{ color: "var(--color-warning)" }} />
                 <span>Admin Panel</span>
               </Link>
             </>
@@ -252,7 +252,7 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
               gap: 10,
               width: "100%",
               padding: "9px 14px",
-              borderRadius: 12,
+              borderRadius: "var(--radius-base)",
               border: "none",
               background: "transparent",
               color: "var(--color-danger)",

@@ -31,7 +31,7 @@ export function QueueActions({ pkgId }: { pkgId: string }) {
       <div
         style={{
           padding: "8px 16px",
-          borderRadius: 10,
+          borderRadius: "var(--radius-sm)",
           fontSize: "var(--fs-base)",
           fontWeight: 600,
           color: done === "approve" ? "var(--color-success)" : "var(--color-danger)",

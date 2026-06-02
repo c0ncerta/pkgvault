@@ -156,7 +156,12 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
         {/* Hero banner */}
         <div
           className="detail-hero-shell animate-fade-in"
-          style={{ position: "relative", marginBottom: 24, borderRadius: 24, overflow: "hidden" }}
+          style={{
+            position: "relative",
+            marginBottom: 24,
+            borderRadius: "var(--radius-lg)",
+            overflow: "hidden",
+          }}
         >
           <div
             style={{
@@ -191,7 +196,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
               style={{
                 width: 160,
                 height: 200,
-                borderRadius: 18,
+                borderRadius: "var(--radius-md)",
                 background: `linear-gradient(135deg, hsl(${hue}, 70%, 55%), hsl(${(hue + 50) % 360}, 65%, 30%))`,
                 boxShadow: "0 16px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1) inset",
                 display: "flex",

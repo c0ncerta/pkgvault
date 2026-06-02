@@ -87,7 +87,7 @@ export async function HomeTrendingTags() {
                   href={`/catalog?platform=${encodeURIComponent(p.platform)}`}
                   style={{
                     padding: "5px 11px",
-                    borderRadius: 999,
+                    borderRadius: "var(--radius-pill)",
                     background: "rgba(99, 102, 241, 0.08)",
                     border: "1px solid rgba(99, 102, 241, 0.15)",
                     color: "var(--color-text-primary)",
@@ -136,7 +136,7 @@ export async function HomeTrendingTags() {
                 href={`/catalog?q=${encodeURIComponent(r.region)}`}
                 style={{
                   padding: "4px 10px",
-                  borderRadius: 999,
+                  borderRadius: "var(--radius-pill)",
                   background: "rgba(139, 92, 246, 0.06)",
                   border: "1px solid rgba(139, 92, 246, 0.12)",
                   color: "var(--color-text-secondary)",

@@ -65,7 +65,7 @@ export async function HomeLeaderboard() {
               alignItems: "center",
               gap: 12,
               padding: "8px 10px",
-              borderRadius: 10,
+              borderRadius: "var(--radius-sm)",
               background: i === 0 ? "rgba(245, 158, 11, 0.06)" : "transparent",
             }}
           >

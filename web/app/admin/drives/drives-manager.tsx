@@ -39,7 +39,7 @@ function statusColor(status: string): string {
     case "disconnected":
       return "#6b7280";
     case "quota_exceeded":
-      return "#ef4444";
+      return "var(--color-danger)";
     default:
       return "#6b7280";
   }
@@ -61,9 +61,9 @@ function statusLabel(status: string): string {
 }
 
 function barColor(pct: number): string {
-  if (pct >= 90) return "#ef4444";
-  if (pct >= 75) return "#f59e0b";
-  return "#6366f1";
+  if (pct >= 90) return "var(--color-danger)";
+  if (pct >= 75) return "var(--color-warning)";
+  return "var(--color-accent)";
 }
 
 function timeAgo(iso: string | null): string {
@@ -305,7 +305,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
           <div
             style={{
               height: 10,
-              borderRadius: 999,
+              borderRadius: "var(--radius-pill)",
               background: "rgba(255,255,255,0.06)",
               overflow: "hidden",
             }}
@@ -314,7 +314,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
               style={{
                 height: "100%",
                 width: `${totalPct}%`,
-                borderRadius: 999,
+                borderRadius: "var(--radius-pill)",
                 background: `linear-gradient(90deg, ${barColor(totalPct)}, ${barColor(totalPct)}cc)`,
                 transition: "width 0.5s ease",
               }}
@@ -411,7 +411,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                         style={{
                           width: 40,
                           height: 40,
-                          borderRadius: 12,
+                          borderRadius: "var(--radius-base)",
                           background: "linear-gradient(135deg, #4285f4, #34a853)",
                           display: "flex",
                           alignItems: "center",
@@ -441,9 +441,9 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                               style={{
                                 fontSize: "var(--fs-2xs)",
                                 padding: "2px 8px",
-                                borderRadius: 999,
+                                borderRadius: "var(--radius-pill)",
                                 background: "rgba(99, 102, 241, 0.2)",
-                                color: "#818cf8",
+                                color: "var(--color-accent-hover)",
                                 fontWeight: 700,
                                 letterSpacing: "0.05em",
                                 textTransform: "uppercase",
@@ -562,7 +562,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                       <div
                         style={{
                           height: 8,
-                          borderRadius: 999,
+                          borderRadius: "var(--radius-pill)",
                           background: "rgba(255,255,255,0.06)",
                           overflow: "hidden",
                         }}
@@ -571,7 +571,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                           style={{
                             height: "100%",
                             width: `${pct}%`,
-                            borderRadius: 999,
+                            borderRadius: "var(--radius-pill)",
                             background: `linear-gradient(90deg, ${barColor(pct)}, ${barColor(pct)}cc)`,
                             transition: "width 0.5s ease",
                           }}
@@ -648,7 +648,7 @@ function StatPill({
     <div
       style={{
         padding: "8px 12px",
-        borderRadius: 10,
+        borderRadius: "var(--radius-sm)",
         background: warn ? "rgba(251, 191, 36, 0.08)" : "rgba(255,255,255,0.03)",
         border: `1px solid ${warn ? "rgba(251, 191, 36, 0.15)" : "rgba(255,255,255,0.06)"}`,
       }}

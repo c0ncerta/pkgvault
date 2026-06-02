@@ -13,7 +13,7 @@ const actionColors: Record<string, string> = {
   unban: "#34d399",
   promote: "#fbbf24",
   demote: "#f97316",
-  create: "#818cf8",
+  create: "var(--color-accent-hover)",
   update: "#38bdf8",
   "pkg.update": "#38bdf8",
 };

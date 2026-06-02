@@ -96,7 +96,7 @@ export function PkgSourceManager({
 
   const inputStyle: React.CSSProperties = {
     padding: "9px 14px",
-    borderRadius: 8,
+    borderRadius: "var(--radius-xs)",
     fontSize: "var(--fs-base)",
     border: "1px solid rgba(255,255,255,0.08)",
     background: "rgba(255,255,255,0.04)",
@@ -142,7 +142,7 @@ export function PkgSourceManager({
         <div
           style={{
             padding: 16,
-            borderRadius: 12,
+            borderRadius: "var(--radius-base)",
             marginBottom: 16,
             background: "rgba(99,102,241,0.04)",
             border: "1px solid rgba(99,102,241,0.1)",
@@ -223,7 +223,7 @@ export function PkgSourceManager({
           style={{
             padding: "30px 0",
             textAlign: "center",
-            color: "#475569",
+            color: "var(--color-text-faint)",
             fontSize: "var(--fs-md)",
           }}
         >
@@ -233,14 +233,14 @@ export function PkgSourceManager({
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {sources.map((source) => {
             const st = statusConfig[source.status] ??
-              statusConfig["unknown"] ?? { color: "#64748b", label: "Unknown" };
+              statusConfig["unknown"] ?? { color: "var(--color-text-muted)", label: "Unknown" };
             return (
               <div
                 className="admin-pkg-source-row"
                 key={source.id}
                 style={{
                   padding: "12px 16px",
-                  borderRadius: 10,
+                  borderRadius: "var(--radius-sm)",
                   background: "rgba(255,255,255,0.02)",
                   border: "1px solid rgba(255,255,255,0.04)",
                   display: "flex",
@@ -274,8 +274,8 @@ export function PkgSourceManager({
                         style={{
                           fontSize: "var(--fs-2xs)",
                           padding: "1px 5px",
-                          borderRadius: 4,
-                          color: "#818cf8",
+                          borderRadius: "var(--radius-2xs)",
+                          color: "var(--color-accent-hover)",
                           background: "rgba(99,102,241,0.12)",
                           fontWeight: 600,
                         }}
@@ -284,7 +284,7 @@ export function PkgSourceManager({
                       </span>
                     )}
                     {source.label && (
-                      <span style={{ fontSize: "var(--fs-xs)", color: "#475569" }}>
+                      <span style={{ fontSize: "var(--fs-xs)", color: "var(--color-text-faint)" }}>
                         • {source.label}
                       </span>
                     )}
@@ -292,7 +292,7 @@ export function PkgSourceManager({
                   <div
                     style={{
                       fontSize: "var(--fs-xs)",
-                      color: "#475569",
+                      color: "var(--color-text-faint)",
                       fontFamily: "var(--font-mono)",
                       overflow: "hidden",
                       textOverflow: "ellipsis",
@@ -303,7 +303,13 @@ export function PkgSourceManager({
                     {source.url}
                   </div>
                 </div>
-                <span style={{ fontSize: "var(--fs-xs)", color: "#475569", whiteSpace: "nowrap" }}>
+                <span
+                  style={{
+                    fontSize: "var(--fs-xs)",
+                    color: "var(--color-text-faint)",
+                    whiteSpace: "nowrap",
+                  }}
+                >
                   ↓{source.downloadCount}
                 </span>
                 <LiquidButton

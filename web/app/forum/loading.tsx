@@ -10,7 +10,7 @@ export default function ForumLoading() {
             style={{
               width: 100,
               height: 16,
-              borderRadius: 4,
+              borderRadius: "var(--radius-2xs)",
               background: "rgba(255,255,255,0.04)",
               marginBottom: 14,
             }}
@@ -21,7 +21,7 @@ export default function ForumLoading() {
               style={{
                 width: "100%",
                 height: 36,
-                borderRadius: 8,
+                borderRadius: "var(--radius-xs)",
                 background: "rgba(255,255,255,0.03)",
                 marginBottom: 4,
               }}
@@ -35,7 +35,7 @@ export default function ForumLoading() {
             style={{
               width: 160,
               height: 24,
-              borderRadius: 4,
+              borderRadius: "var(--radius-2xs)",
               background: "rgba(255,255,255,0.04)",
               marginBottom: 16,
             }}
@@ -57,7 +57,7 @@ export default function ForumLoading() {
                       style={{
                         width: 260,
                         height: 14,
-                        borderRadius: 4,
+                        borderRadius: "var(--radius-2xs)",
                         background: "rgba(255,255,255,0.04)",
                         marginBottom: 6,
                       }}
@@ -66,7 +66,7 @@ export default function ForumLoading() {
                       style={{
                         width: 180,
                         height: 10,
-                        borderRadius: 3,
+                        borderRadius: "var(--radius-2xs)",
                         background: "rgba(255,255,255,0.03)",
                       }}
                     />
@@ -75,7 +75,7 @@ export default function ForumLoading() {
                     style={{
                       width: 30,
                       height: 30,
-                      borderRadius: 4,
+                      borderRadius: "var(--radius-2xs)",
                       background: "rgba(255,255,255,0.03)",
                     }}
                   />

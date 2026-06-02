@@ -83,7 +83,7 @@ export function ProfileTabs({
                   style={{
                     fontSize: "var(--fs-2xs)",
                     padding: "1px 7px",
-                    borderRadius: 999,
+                    borderRadius: "var(--radius-pill)",
                     background: active ? "var(--color-accent)" : "rgba(255,255,255,0.08)",
                     color: active ? "#fff" : "var(--color-text-muted)",
                     fontFamily: "var(--font-mono)",
@@ -111,7 +111,7 @@ export function ProfileTabs({
                   justifyContent: "space-between",
                   alignItems: "center",
                   padding: "10px 14px",
-                  borderRadius: 8,
+                  borderRadius: "var(--radius-xs)",
                   textDecoration: "none",
                   background: i % 2 === 0 ? "rgba(255,255,255,0.02)" : "transparent",
                   transition: "background var(--dur-fast)",
@@ -191,7 +191,13 @@ export function ProfileTabs({
             {posts.map((post) => (
               <GlassCard key={post.id} padding="14px">
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-                  <span style={{ fontSize: "var(--fs-base)", color: "#818cf8", fontWeight: 500 }}>
+                  <span
+                    style={{
+                      fontSize: "var(--fs-base)",
+                      color: "var(--color-accent-hover)",
+                      fontWeight: 500,
+                    }}
+                  >
                     {post.threadTitle ?? "Thread"}
                   </span>
                   <span

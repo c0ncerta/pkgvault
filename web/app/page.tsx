@@ -31,7 +31,7 @@ export default function HomePage() {
                   fontSize: "var(--fs-xs)",
                   textTransform: "uppercase",
                   letterSpacing: "0.12em",
-                  color: "#22d3ee",
+                  color: "var(--color-cyan)",
                   fontWeight: 600,
                   marginBottom: 4,
                 }}

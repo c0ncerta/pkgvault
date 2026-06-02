@@ -8,7 +8,7 @@ function Bar({ w = "100%", h = 12 }: { w?: number | string; h?: number }) {
       style={{
         width: w,
         height: h,
-        borderRadius: 8,
+        borderRadius: "var(--radius-xs)",
         background:
           "linear-gradient(90deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0.04) 100%)",
         backgroundSize: "200% 100%",
@@ -44,7 +44,7 @@ export default function UploadLoading() {
                 style={{
                   flex: 1,
                   height: 6,
-                  borderRadius: 999,
+                  borderRadius: "var(--radius-pill)",
                   background: item === 0 ? "rgba(99,102,241,0.35)" : "rgba(255,255,255,0.06)",
                 }}
               />

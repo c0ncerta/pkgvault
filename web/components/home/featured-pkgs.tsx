@@ -159,7 +159,7 @@ export async function HomeFeaturedPkgs() {
                       background: "rgba(0,0,0,0.4)",
                       backdropFilter: "blur(8px)",
                       padding: "3px 9px",
-                      borderRadius: 999,
+                      borderRadius: "var(--radius-pill)",
                       fontSize: "var(--fs-2xs)",
                       fontWeight: 700,
                       color: "#fff",

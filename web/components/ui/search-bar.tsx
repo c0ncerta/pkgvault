@@ -68,7 +68,7 @@ export function SearchBar() {
           gap: 8,
           padding: "0 16px",
           height: 38,
-          borderRadius: 999,
+          borderRadius: "var(--radius-pill)",
           border: "1px solid rgba(255,255,255,0.10)",
           width: 260,
           transition:
@@ -125,7 +125,7 @@ export function SearchBar() {
                 gap: 10,
                 width: "100%",
                 padding: "10px 12px",
-                borderRadius: 12,
+                borderRadius: "var(--radius-base)",
                 cursor: "pointer",
                 textAlign: "left",
                 fontSize: "var(--fs-md)",

@@ -197,7 +197,7 @@ export function BackupsManager({
               onClick={() => setFilter(key)}
               style={{
                 padding: "7px 14px",
-                borderRadius: 999,
+                borderRadius: "var(--radius-pill)",
                 fontSize: "var(--fs-sm)",
                 fontWeight: 600,
                 cursor: "pointer",
@@ -228,7 +228,7 @@ export function BackupsManager({
               marginLeft: "auto",
               minWidth: 220,
               padding: "8px 12px",
-              borderRadius: 10,
+              borderRadius: "var(--radius-sm)",
               border: "1px solid rgba(255,255,255,0.08)",
               background: "rgba(0,0,0,0.25)",
               color: "var(--color-text-primary)",
@@ -244,7 +244,7 @@ export function BackupsManager({
           variant="content"
           cornerRadius={14}
           padding="40px"
-          style={{ textAlign: "center", color: "#475569" }}
+          style={{ textAlign: "center", color: "var(--color-text-faint)" }}
         >
           No PKGs match this filter.
         </GlassCard>
@@ -304,7 +304,9 @@ export function BackupsManager({
                         {c.title}
                       </a>
                       {c.version && (
-                        <span style={{ color: "#475569", fontSize: "var(--fs-xs)" }}>
+                        <span
+                          style={{ color: "var(--color-text-faint)", fontSize: "var(--fs-xs)" }}
+                        >
                           v{c.version}
                         </span>
                       )}
@@ -313,7 +315,7 @@ export function BackupsManager({
                           style={{
                             fontSize: "var(--fs-2xs)",
                             padding: "2px 6px",
-                            borderRadius: 4,
+                            borderRadius: "var(--radius-2xs)",
                             color: "#fca5a5",
                             background: "rgba(248, 113, 113, 0.12)",
                             fontWeight: 600,
@@ -327,7 +329,7 @@ export function BackupsManager({
                           style={{
                             fontSize: "var(--fs-2xs)",
                             padding: "2px 6px",
-                            borderRadius: 4,
+                            borderRadius: "var(--radius-2xs)",
                             color: "#34d399",
                             background: "rgba(52, 211, 153, 0.12)",
                             fontWeight: 600,
@@ -339,7 +341,7 @@ export function BackupsManager({
                     </div>
                     <div
                       style={{
-                        color: "#475569",
+                        color: "var(--color-text-faint)",
                         fontSize: "var(--fs-xs)",
                         fontFamily: "ui-monospace, SF Mono, monospace",
                       }}
@@ -352,7 +354,7 @@ export function BackupsManager({
                         target="_blank"
                         rel="noreferrer noopener"
                         style={{
-                          color: "#818cf8",
+                          color: "var(--color-accent-hover)",
                           fontSize: "var(--fs-xs)",
                           textDecoration: "none",
                           display: "block",
@@ -380,7 +382,7 @@ export function BackupsManager({
                           style={{
                             flex: 1,
                             padding: "6px 10px",
-                            borderRadius: 8,
+                            borderRadius: "var(--radius-xs)",
                             border: "1px solid rgba(255,255,255,0.1)",
                             background: "rgba(0,0,0,0.3)",
                             color: "var(--color-text-primary)",

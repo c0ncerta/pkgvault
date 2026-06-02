@@ -57,7 +57,7 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
 
   const inputStyle: React.CSSProperties = {
     padding: "10px 14px",
-    borderRadius: 10,
+    borderRadius: "var(--radius-sm)",
     fontSize: "var(--fs-md)",
     border: "1px solid rgba(255,255,255,0.08)",
     background: "rgba(255,255,255,0.04)",
@@ -342,7 +342,7 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
               className="admin-cover-preview"
               style={{
                 aspectRatio: "3 / 4",
-                borderRadius: 14,
+                borderRadius: "var(--radius-base)",
                 border: "1px solid rgba(255,255,255,0.08)",
                 background: "rgba(255,255,255,0.035)",
                 overflow: "hidden",
@@ -387,7 +387,7 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
               gap: 8,
               marginTop: 14,
               padding: "10px 12px",
-              borderRadius: 10,
+              borderRadius: "var(--radius-sm)",
               fontSize: "var(--fs-sm)",
               color: error ? "#fca5a5" : "#86efac",
               background: error ? "rgba(248,113,113,0.08)" : "rgba(52,211,153,0.08)",

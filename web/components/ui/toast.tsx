@@ -63,7 +63,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
               style={{
                 width: 24,
                 height: 24,
-                borderRadius: 6,
+                borderRadius: "var(--radius-xs)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",

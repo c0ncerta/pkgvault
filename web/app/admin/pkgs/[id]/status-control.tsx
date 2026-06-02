@@ -42,7 +42,7 @@ export function PkgStatusControl({
         display: "inline-flex",
         gap: 2,
         padding: 4,
-        borderRadius: 999,
+        borderRadius: "var(--radius-pill)",
         background: "rgba(255,255,255,0.04)",
         border: "1px solid rgba(255,255,255,0.06)",
         boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), 0 2px 6px rgba(0,0,0,0.18)",
@@ -58,7 +58,7 @@ export function PkgStatusControl({
             disabled={loading}
             style={{
               padding: "7px 16px",
-              borderRadius: 999,
+              borderRadius: "var(--radius-pill)",
               fontSize: "var(--fs-sm)",
               fontWeight: 600,
               border: `1px solid ${active ? `${s.color}50` : "transparent"}`,

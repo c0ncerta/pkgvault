@@ -82,14 +82,14 @@ export default async function AdminOverview() {
   const stats = await getStats();
 
   const statCards = [
-    { label: "Total PKGs", value: stats.pkg.total, color: "#818cf8" },
+    { label: "Total PKGs", value: stats.pkg.total, color: "var(--color-accent-hover)" },
     { label: "Approved", value: stats.pkg.approved, color: "#34d399" },
     { label: "Pending Review", value: stats.pkg.pending, color: "#fbbf24", href: "/admin/queue" },
     { label: "Downloads", value: stats.pkg.totalDownloads, color: "#60a5fa" },
   ];
 
   const sourceCards = [
-    { label: "Total Sources", value: stats.sources.total, color: "#818cf8" },
+    { label: "Total Sources", value: stats.sources.total, color: "var(--color-accent-hover)" },
     { label: "Alive", value: stats.sources.alive, color: "#34d399" },
     {
       label: "Dead",
@@ -149,7 +149,7 @@ export default async function AdminOverview() {
                 alignItems: "center",
                 gap: 10,
                 padding: "12px 16px",
-                borderRadius: 12,
+                borderRadius: "var(--radius-base)",
                 textDecoration: "none",
                 background:
                   a.type === "error" ? "rgba(248, 113, 113, 0.08)" : "rgba(251, 191, 36, 0.08)",

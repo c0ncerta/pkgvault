@@ -31,7 +31,7 @@ export function Logo({ size = 32, className, style, monochrome }: LogoProps) {
       {!monochrome && (
         <defs>
           <linearGradient id={id} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#818cf8" />
+            <stop offset="0%" stopColor="var(--color-accent-hover)" />
             <stop offset="50%" stopColor="#a78bfa" />
             <stop offset="100%" stopColor="#c084fc" />
           </linearGradient>

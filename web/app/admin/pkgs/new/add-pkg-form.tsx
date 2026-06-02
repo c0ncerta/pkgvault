@@ -130,7 +130,7 @@ export function AddPkgForm() {
 
   const inputStyle: React.CSSProperties = {
     padding: "10px 14px",
-    borderRadius: 10,
+    borderRadius: "var(--radius-sm)",
     fontSize: "var(--fs-md)",
     border: "1px solid rgba(255,255,255,0.08)",
     background: "rgba(255,255,255,0.04)",
@@ -154,7 +154,7 @@ export function AddPkgForm() {
         <div
           style={{
             padding: "12px 16px",
-            borderRadius: 10,
+            borderRadius: "var(--radius-sm)",
             marginBottom: 20,
             background: "rgba(248,113,113,0.08)",
             border: "1px solid rgba(248,113,113,0.2)",
@@ -370,7 +370,7 @@ export function AddPkgForm() {
               key={`${source.url}-${source.provider}-${idx}`}
               style={{
                 padding: 12,
-                borderRadius: 10,
+                borderRadius: "var(--radius-sm)",
                 background: "rgba(255,255,255,0.02)",
                 border: "1px solid rgba(255,255,255,0.04)",
               }}

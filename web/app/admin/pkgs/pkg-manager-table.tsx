@@ -24,7 +24,7 @@ const statusColors: Record<string, string> = {
   approved: "#34d399",
   pending: "#fbbf24",
   rejected: "#f87171",
-  taken_down: "#64748b",
+  taken_down: "var(--color-text-muted)",
 };
 
 function formatBytes(bytes: string | bigint | number): string {
@@ -128,7 +128,13 @@ export function PkgManagerTable({ pkgs }: { pkgs: PkgManagerRow[] }) {
                     {pkg.title}
                   </Link>
                   {pkg.uploaderName && (
-                    <div style={{ fontSize: "var(--fs-xs)", color: "#475569", marginTop: 2 }}>
+                    <div
+                      style={{
+                        fontSize: "var(--fs-xs)",
+                        color: "var(--color-text-faint)",
+                        marginTop: 2,
+                      }}
+                    >
                       by @{pkg.uploaderName}
                     </div>
                   )}
@@ -149,12 +155,12 @@ export function PkgManagerTable({ pkgs }: { pkgs: PkgManagerRow[] }) {
                   <span
                     style={{
                       padding: "3px 10px",
-                      borderRadius: 999,
+                      borderRadius: "var(--radius-pill)",
                       fontSize: "var(--fs-xs)",
                       fontWeight: 600,
-                      color: statusColors[pkg.status] ?? "#64748b",
-                      background: `${statusColors[pkg.status] ?? "#64748b"}15`,
-                      border: `1px solid ${statusColors[pkg.status] ?? "#64748b"}30`,
+                      color: statusColors[pkg.status] ?? "var(--color-text-muted)",
+                      background: `${statusColors[pkg.status] ?? "var(--color-text-muted)"}15`,
+                      border: `1px solid ${statusColors[pkg.status] ?? "var(--color-text-muted)"}30`,
                     }}
                   >
                     {pkg.status}
@@ -199,7 +205,13 @@ export function PkgManagerTable({ pkgs }: { pkgs: PkgManagerRow[] }) {
                 >
                   {pkg.downloadCount}
                 </td>
-                <td style={{ padding: "12px 16px", color: "#475569", fontSize: "var(--fs-sm)" }}>
+                <td
+                  style={{
+                    padding: "12px 16px",
+                    color: "var(--color-text-faint)",
+                    fontSize: "var(--fs-sm)",
+                  }}
+                >
                   {pkg.createdAt.slice(0, 10)}
                 </td>
                 <td style={{ padding: "12px 16px", textAlign: "right" }}>
@@ -221,7 +233,11 @@ export function PkgManagerTable({ pkgs }: { pkgs: PkgManagerRow[] }) {
               <tr>
                 <td
                   colSpan={8}
-                  style={{ padding: "60px 16px", textAlign: "center", color: "#475569" }}
+                  style={{
+                    padding: "60px 16px",
+                    textAlign: "center",
+                    color: "var(--color-text-faint)",
+                  }}
                 >
                   No packages match this search.
                 </td>

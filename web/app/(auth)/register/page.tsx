@@ -40,14 +40,17 @@ export default function RegisterPage() {
       <RegisterForm />
       <p
         style={{
-          color: "#475569",
+          color: "var(--color-text-faint)",
           textAlign: "center",
           marginTop: 24,
           fontSize: "var(--fs-md)",
         }}
       >
         Already have an account?{" "}
-        <a href="/login" style={{ color: "#818cf8", textDecoration: "none", fontWeight: 500 }}>
+        <a
+          href="/login"
+          style={{ color: "var(--color-accent-hover)", textDecoration: "none", fontWeight: 500 }}
+        >
           Sign in
         </a>
       </p>

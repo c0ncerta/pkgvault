@@ -15,7 +15,7 @@ export default async function NotificationsPage() {
           style={{
             width: 36,
             height: 36,
-            borderRadius: 10,
+            borderRadius: "var(--radius-sm)",
             background: "rgba(99,102,241,0.1)",
             border: "1px solid rgba(99,102,241,0.15)",
             display: "flex",

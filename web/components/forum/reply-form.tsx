@@ -77,7 +77,7 @@ export function ReplyForm({ threadId, parentId, onCancel }: ReplyFormProps) {
           <div
             style={{
               padding: "8px 12px",
-              borderRadius: 6,
+              borderRadius: "var(--radius-xs)",
               marginBottom: 8,
               background: "rgba(239, 68, 68, 0.1)",
               border: "1px solid rgba(239, 68, 68, 0.2)",

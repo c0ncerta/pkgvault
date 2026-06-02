@@ -7,8 +7,13 @@ export default function AddPkgPage() {
   return (
     <div className="animate-fade-in" style={{ maxWidth: 800 }}>
       <div style={{ marginBottom: 24 }}>
-        <div style={{ fontSize: "var(--fs-base)", color: "#475569", marginBottom: 12 }}>
-          <a href="/admin/pkgs" style={{ color: "#818cf8", textDecoration: "none" }}>
+        <div
+          style={{ fontSize: "var(--fs-base)", color: "var(--color-text-faint)", marginBottom: 12 }}
+        >
+          <a
+            href="/admin/pkgs"
+            style={{ color: "var(--color-accent-hover)", textDecoration: "none" }}
+          >
             PKG Manager
           </a>
           <span style={{ margin: "0 8px" }}>›</span>

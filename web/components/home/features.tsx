@@ -21,13 +21,13 @@ const features: Array<{
     icon: IconUsers,
     title: "Community Driven",
     desc: "Upload, review, and discuss together",
-    color: "#818cf8",
+    color: "var(--color-accent-hover)",
   },
   {
     icon: IconShield,
     title: "Mod Reviewed",
     desc: "All submissions manually approved",
-    color: "#f59e0b",
+    color: "var(--color-warning)",
   },
 ];
 
@@ -54,7 +54,7 @@ export function HomeFeatures() {
                   style={{
                     width: 44,
                     height: 44,
-                    borderRadius: 12,
+                    borderRadius: "var(--radius-base)",
                     margin: "0 auto 12px",
                     background: `${f.color}15`,
                     border: `1px solid ${f.color}25`,

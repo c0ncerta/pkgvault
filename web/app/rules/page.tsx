@@ -56,7 +56,7 @@ export default function RulesPage() {
                 style={{
                   width: 28,
                   height: 28,
-                  borderRadius: 8,
+                  borderRadius: "var(--radius-xs)",
                   flexShrink: 0,
                   background: "rgba(99,102,241,0.1)",
                   border: "1px solid rgba(99,102,241,0.15)",

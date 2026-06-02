@@ -103,7 +103,7 @@ export function DetailTabs(props: DetailTabsProps) {
                   style={{
                     fontSize: "var(--fs-2xs)",
                     padding: "1px 7px",
-                    borderRadius: 999,
+                    borderRadius: "var(--radius-pill)",
                     background: active ? "var(--color-accent)" : "rgba(255,255,255,0.08)",
                     color: active ? "#fff" : "var(--color-text-muted)",
                     fontFamily: "var(--font-mono)",
@@ -188,7 +188,7 @@ export function DetailTabs(props: DetailTabsProps) {
                     key={f.l}
                     style={{
                       padding: "10px 12px",
-                      borderRadius: 12,
+                      borderRadius: "var(--radius-base)",
                       background: "rgba(255,255,255,0.025)",
                       border: "1px solid rgba(255,255,255,0.05)",
                     }}
@@ -232,7 +232,7 @@ export function DetailTabs(props: DetailTabsProps) {
                     alignItems: "center",
                     gap: 12,
                     padding: "12px 14px",
-                    borderRadius: 12,
+                    borderRadius: "var(--radius-base)",
                     background: "rgba(255,255,255,0.025)",
                     border: `1px solid ${s.status === "alive" ? "rgba(52,211,153,0.18)" : "rgba(255,255,255,0.05)"}`,
                   }}
@@ -263,7 +263,7 @@ export function DetailTabs(props: DetailTabsProps) {
                             marginLeft: 8,
                             fontSize: "var(--fs-2xs)",
                             padding: "1px 6px",
-                            borderRadius: 999,
+                            borderRadius: "var(--radius-pill)",
                             background: "var(--color-accent)",
                             color: "#fff",
                             letterSpacing: "0.05em",
@@ -291,7 +291,7 @@ export function DetailTabs(props: DetailTabsProps) {
                       fontSize: "var(--fs-xs)",
                       fontWeight: 600,
                       padding: "3px 10px",
-                      borderRadius: 999,
+                      borderRadius: "var(--radius-pill)",
                       background:
                         s.status === "alive" ? "rgba(52,211,153,0.1)" : "rgba(255,255,255,0.04)",
                       color:
@@ -322,7 +322,7 @@ export function DetailTabs(props: DetailTabsProps) {
               <div
                 style={{
                   padding: 20,
-                  borderRadius: 12,
+                  borderRadius: "var(--radius-base)",
                   background: "rgba(99, 102, 241, 0.05)",
                   border: "1px solid rgba(99, 102, 241, 0.12)",
                   textAlign: "center",
@@ -355,7 +355,7 @@ export function DetailTabs(props: DetailTabsProps) {
                       fontSize: "var(--fs-sm)",
                       lineHeight: 1.6,
                       padding: 14,
-                      borderRadius: 12,
+                      borderRadius: "var(--radius-base)",
                       background: "rgba(0,0,0,0.25)",
                       border: "1px solid rgba(255,255,255,0.06)",
                       wordBreak: "break-all",
@@ -382,7 +382,7 @@ export function DetailTabs(props: DetailTabsProps) {
                       display: "inline-block",
                       margin: "0 4px",
                       padding: "2px 8px",
-                      borderRadius: 6,
+                      borderRadius: "var(--radius-xs)",
                       background: "rgba(255,255,255,0.05)",
                       fontFamily: "var(--font-mono)",
                       fontSize: "var(--fs-sm)",
@@ -429,7 +429,7 @@ export function DetailTabs(props: DetailTabsProps) {
                   alignItems: "center",
                   gap: 14,
                   padding: "10px 14px",
-                  borderRadius: 12,
+                  borderRadius: "var(--radius-base)",
                   background: "rgba(255,255,255,0.025)",
                   border: "1px solid rgba(255,255,255,0.05)",
                 }}
