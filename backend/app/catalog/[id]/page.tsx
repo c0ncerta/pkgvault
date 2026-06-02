@@ -2,7 +2,7 @@ import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { GlassCard } from "@/components/liquid/glass";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
-import { IconCatalog, IconCheck, IconQueue, IconUser } from "@/components/ui/icons";
+import { IconCatalog, IconCheck, IconLink, IconQueue, IconUser } from "@/components/ui/icons";
 import { SpecList } from "@/components/ui/spec-list";
 import { Tag } from "@/components/ui/tag";
 import { games, pkgFiles, pkgSources, users } from "@/db/schema";
@@ -34,6 +34,7 @@ export async function generateMetadata({ params }: DetailPageProps): Promise<Met
 
 function formatBytes(bytes: bigint | number): string {
   const num = Number(bytes);
+  if (num <= 0) return "—";
   if (num >= 1_000_000_000) return `${(num / 1_000_000_000).toFixed(1)} GB`;
   if (num >= 1_000_000) return `${(num / 1_000_000).toFixed(1)} MB`;
   return `${(num / 1_000).toFixed(0)} KB`;
@@ -94,7 +95,8 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
 
   if (!pkg) return notFound();
 
-  const verified = pkg.sha256 !== "pending";
+  const isExternal = pkg.sha256 === "external";
+  const verified = !isExternal && pkg.sha256 !== "pending";
 
   // Fetch available download sources
   let sources: {
@@ -235,11 +237,16 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
                 {pkg.version && <Tag>{pkg.version}</Tag>}
                 {pkg.gameRegion && <Tag>{pkg.gameRegion}</Tag>}
                 {pkg.fwRequired && <Tag>FW ≥ {pkg.fwRequired}</Tag>}
-                <Tag variant={verified ? "success" : "warning"}>
+                <Tag variant={verified ? "success" : isExternal ? "default" : "warning"}>
                   {verified ? (
                     <>
                       <IconCheck size={12} style={{ display: "inline", verticalAlign: "middle" }} />{" "}
                       verified
+                    </>
+                  ) : isExternal ? (
+                    <>
+                      <IconLink size={12} style={{ display: "inline", verticalAlign: "middle" }} />{" "}
+                      external source
                     </>
                   ) : (
                     <>
@@ -363,10 +370,12 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
                     width: 10,
                     height: 10,
                     borderRadius: "50%",
-                    background: verified ? "var(--color-success)" : "var(--color-warning)",
+                    background: verified ? "var(--color-success)" : isExternal ? "var(--color-accent)" : "var(--color-warning)",
                     boxShadow: verified
                       ? "0 0 12px var(--color-success)"
-                      : "0 0 12px var(--color-warning)",
+                      : isExternal
+                        ? "0 0 12px var(--color-accent)"
+                        : "0 0 12px var(--color-warning)",
                   }}
                 />
                 <div>
@@ -377,7 +386,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
                       color: "var(--color-text-primary)",
                     }}
                   >
-                    {verified ? "Hash verified" : "Hash pending"}
+                    {verified ? "Hash verified" : isExternal ? "External source" : "Hash pending"}
                   </div>
                   <div
                     style={{
@@ -386,7 +395,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
                       fontFamily: "var(--font-mono)",
                     }}
                   >
-                    SHA-256 integrity
+                    {isExternal ? "No SHA-256 (user-submitted link)" : "SHA-256 integrity"}
                   </div>
                 </div>
               </div>

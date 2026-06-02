@@ -37,15 +37,18 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  // Not authenticated → redirect to login (pages) or 401 (API)
-  if (!session) {
-    if (pathname.startsWith("/api/")) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-    const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("callbackUrl", pathname);
-    return NextResponse.redirect(loginUrl);
+// Not authenticated → redirect to login (pages) or 401 (API)
+if (!session) {
+  if (isAuthPage) {
+    return NextResponse.next();
   }
+  if (pathname.startsWith("/api/")) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const loginUrl = new URL("/login", request.url);
+  loginUrl.searchParams.set("callbackUrl", pathname);
+  return NextResponse.redirect(loginUrl);
+}
 
   // Role checks
   const userRole = (session.user as { role?: string }).role ?? "user";
