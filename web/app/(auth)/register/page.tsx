@@ -17,7 +17,7 @@ export default function RegisterPage() {
     >
       <h1
         style={{
-          fontSize: "1.75rem",
+          fontSize: "var(--fs-4xl)",
           fontWeight: 800,
           color: "var(--color-text-primary)",
           marginBottom: 8,
@@ -32,7 +32,7 @@ export default function RegisterPage() {
           color: "var(--color-text-muted)",
           textAlign: "center",
           marginBottom: 32,
-          fontSize: "0.9rem",
+          fontSize: "var(--fs-lg)",
         }}
       >
         Join the PKGVault community
@@ -43,7 +43,7 @@ export default function RegisterPage() {
           color: "#475569",
           textAlign: "center",
           marginTop: 24,
-          fontSize: "0.85rem",
+          fontSize: "var(--fs-md)",
         }}
       >
         Already have an account?{" "}

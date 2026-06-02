@@ -98,7 +98,9 @@ export function NewThreadForm() {
     >
       {/* Main editor */}
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <h1 style={{ fontSize: "1.75rem", fontWeight: 800, color: "var(--color-text-primary)" }}>
+        <h1
+          style={{ fontSize: "var(--fs-4xl)", fontWeight: 800, color: "var(--color-text-primary)" }}
+        >
           New Thread
         </h1>
 
@@ -107,7 +109,7 @@ export function NewThreadForm() {
             htmlFor="thread-title"
             style={{
               display: "block",
-              fontSize: "0.7rem",
+              fontSize: "var(--fs-xs)",
               fontWeight: 500,
               color: "var(--color-text-secondary)",
               textTransform: "uppercase",
@@ -123,11 +125,11 @@ export function NewThreadForm() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="e.g. Guide: full PKG dump with webMAN MOD 1.47"
-            style={{ fontSize: "1rem" }}
+            style={{ fontSize: "var(--fs-xl)" }}
           />
           <div
             style={{
-              fontSize: "0.7rem",
+              fontSize: "var(--fs-xs)",
               color: "#475569",
               fontFamily: "var(--font-mono)",
               marginTop: 4,
@@ -142,7 +144,7 @@ export function NewThreadForm() {
           <div
             style={{
               display: "block",
-              fontSize: "0.7rem",
+              fontSize: "var(--fs-xs)",
               fontWeight: 500,
               color: "var(--color-text-secondary)",
               textTransform: "uppercase",
@@ -167,7 +169,7 @@ export function NewThreadForm() {
                     category === cat.value ? "var(--color-accent)" : "rgba(255,255,255,0.04)",
                   color: category === cat.value ? "#fff" : "#94a3b8",
                   borderRadius: 999,
-                  fontSize: "0.8rem",
+                  fontSize: "var(--fs-base)",
                   fontWeight: 500,
                   fontFamily: "var(--font-sans)",
                 }}
@@ -185,7 +187,7 @@ export function NewThreadForm() {
           value={body}
           onChange={(e) => setBody(e.target.value)}
           placeholder="Write your post here…"
-          style={{ resize: "vertical", lineHeight: 1.6, fontSize: "0.9rem" }}
+          style={{ resize: "vertical", lineHeight: 1.6, fontSize: "var(--fs-lg)" }}
         />
 
         {error && (
@@ -196,7 +198,7 @@ export function NewThreadForm() {
               background: "rgba(239, 68, 68, 0.1)",
               border: "1px solid rgba(239, 68, 68, 0.2)",
               color: "#fca5a5",
-              fontSize: "0.85rem",
+              fontSize: "var(--fs-md)",
             }}
           >
             {error}
@@ -215,7 +217,7 @@ export function NewThreadForm() {
         >
           <span
             style={{
-              fontSize: "0.75rem",
+              fontSize: "var(--fs-sm)",
               color: "#475569",
               display: "flex",
               alignItems: "center",
@@ -246,7 +248,7 @@ export function NewThreadForm() {
         <GlassCard padding="16px">
           <h4
             style={{
-              fontSize: "0.85rem",
+              fontSize: "var(--fs-md)",
               fontWeight: 700,
               color: "var(--color-text-primary)",
               marginBottom: 10,
@@ -258,7 +260,7 @@ export function NewThreadForm() {
             style={{
               margin: 0,
               paddingLeft: 16,
-              fontSize: "0.8rem",
+              fontSize: "var(--fs-base)",
               color: "var(--color-text-secondary)",
               lineHeight: 1.6,
             }}
@@ -267,7 +269,7 @@ export function NewThreadForm() {
             <li>No commercial ROM requests</li>
             <li>Cite sources for cross-posts</li>
             <li>
-              Use <code style={{ fontSize: "0.75rem" }}>guide</code> tag for guides
+              Use <code style={{ fontSize: "var(--fs-sm)" }}>guide</code> tag for guides
             </li>
           </ul>
         </GlassCard>

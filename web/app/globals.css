@@ -41,6 +41,32 @@
   --radius-pill: 999px; /* pill / capsule */
 }
 
+/* ─── Type scale + motion tokens (single source of truth) ────────
+ * Font sizes were previously ad-hoc inline values (34 distinct sizes).
+ * All inline `fontSize` now references one of these steps. Motion
+ * durations are likewise tokenized so micro-transitions stay in sync.
+ * ──────────────────────────────────────────────────────────────── */
+:root {
+  --fs-2xs: 0.65rem; /* ~10px — micro labels, badges */
+  --fs-xs: 0.7rem; /* ~11px — meta, captions */
+  --fs-sm: 0.75rem; /* 12px — small UI text */
+  --fs-base: 0.8125rem; /* 13px — secondary body */
+  --fs-md: 0.875rem; /* 14px — body */
+  --fs-lg: 0.9375rem; /* 15px — emphasized body */
+  --fs-xl: 1rem; /* 16px — lead / small heading */
+  --fs-2xl: 1.25rem; /* 20px — h3 */
+  --fs-3xl: 1.5rem; /* 24px — h2 */
+  --fs-4xl: 1.75rem; /* 28px — h1 */
+  --fs-5xl: 2rem; /* 32px — page title */
+  --fs-6xl: 2.5rem; /* 40px — hero */
+  --fs-7xl: 3rem; /* 48px — large hero */
+  --fs-display: 4.5rem; /* display / 404 numeral */
+
+  --dur-fast: 0.15s; /* press / tap feedback */
+  --dur-base: 0.2s; /* default micro-transition */
+  --dur-slow: 0.3s; /* larger surfaces, panels */
+}
+
 /* ─── Base ──────────────────────────────────────────────────── */
 * {
   box-sizing: border-box;

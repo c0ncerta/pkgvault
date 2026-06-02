@@ -75,16 +75,22 @@ export function PkgManagerTable({ pkgs }: { pkgs: PkgManagerRow[] }) {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search packages, uploader, SHA..."
-            style={{ paddingLeft: 34, height: 38, fontSize: "0.82rem" }}
+            style={{ paddingLeft: 34, height: 38, fontSize: "var(--fs-base)" }}
           />
         </label>
-        <div style={{ color: "var(--color-text-muted)", fontSize: "0.78rem", alignSelf: "center" }}>
+        <div
+          style={{
+            color: "var(--color-text-muted)",
+            fontSize: "var(--fs-sm)",
+            alignSelf: "center",
+          }}
+        >
           {filteredPkgs.length} shown
         </div>
       </div>
 
       <GlassCard variant="content" cornerRadius={16} padding="0" style={{ overflow: "hidden" }}>
-        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.82rem" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "var(--fs-base)" }}>
           <thead>
             <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
               {["Title", "Platform", "Size", "Status", "Sources", "Downloads", "Date", ""].map(
@@ -96,7 +102,7 @@ export function PkgManagerTable({ pkgs }: { pkgs: PkgManagerRow[] }) {
                       textAlign: h ? "left" : "right",
                       fontWeight: 600,
                       color: "var(--color-text-muted)",
-                      fontSize: "0.7rem",
+                      fontSize: "var(--fs-xs)",
                       textTransform: "uppercase",
                       letterSpacing: "0.06em",
                     }}
@@ -122,7 +128,7 @@ export function PkgManagerTable({ pkgs }: { pkgs: PkgManagerRow[] }) {
                     {pkg.title}
                   </Link>
                   {pkg.uploaderName && (
-                    <div style={{ fontSize: "0.7rem", color: "#475569", marginTop: 2 }}>
+                    <div style={{ fontSize: "var(--fs-xs)", color: "#475569", marginTop: 2 }}>
                       by @{pkg.uploaderName}
                     </div>
                   )}
@@ -144,7 +150,7 @@ export function PkgManagerTable({ pkgs }: { pkgs: PkgManagerRow[] }) {
                     style={{
                       padding: "3px 10px",
                       borderRadius: 999,
-                      fontSize: "0.7rem",
+                      fontSize: "var(--fs-xs)",
                       fontWeight: 600,
                       color: statusColors[pkg.status] ?? "#64748b",
                       background: `${statusColors[pkg.status] ?? "#64748b"}15`,
@@ -160,12 +166,12 @@ export function PkgManagerTable({ pkgs }: { pkgs: PkgManagerRow[] }) {
                       {pkg.sourceCount}
                     </span>
                     {pkg.aliveCount > 0 && (
-                      <span style={{ color: "#34d399", fontSize: "0.7rem" }}>
+                      <span style={{ color: "#34d399", fontSize: "var(--fs-xs)" }}>
                         {pkg.aliveCount} alive
                       </span>
                     )}
                     {pkg.deadCount > 0 && (
-                      <span style={{ color: "#f87171", fontSize: "0.7rem" }}>
+                      <span style={{ color: "#f87171", fontSize: "var(--fs-xs)" }}>
                         {pkg.deadCount} dead
                       </span>
                     )}
@@ -173,7 +179,7 @@ export function PkgManagerTable({ pkgs }: { pkgs: PkgManagerRow[] }) {
                       <span
                         style={{
                           color: "#f87171",
-                          fontSize: "0.7rem",
+                          fontSize: "var(--fs-xs)",
                           display: "inline-flex",
                           alignItems: "center",
                           gap: 2,
@@ -193,14 +199,18 @@ export function PkgManagerTable({ pkgs }: { pkgs: PkgManagerRow[] }) {
                 >
                   {pkg.downloadCount}
                 </td>
-                <td style={{ padding: "12px 16px", color: "#475569", fontSize: "0.75rem" }}>
+                <td style={{ padding: "12px 16px", color: "#475569", fontSize: "var(--fs-sm)" }}>
                   {pkg.createdAt.slice(0, 10)}
                 </td>
                 <td style={{ padding: "12px 16px", textAlign: "right" }}>
                   <Link
                     href={`/admin/pkgs/${pkg.id}#edit`}
                     className="btn-secondary"
-                    style={{ padding: "6px 10px", fontSize: "0.72rem", textDecoration: "none" }}
+                    style={{
+                      padding: "6px 10px",
+                      fontSize: "var(--fs-xs)",
+                      textDecoration: "none",
+                    }}
                   >
                     Edit
                   </Link>

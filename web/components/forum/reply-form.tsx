@@ -55,7 +55,7 @@ export function ReplyForm({ threadId, parentId, onCancel }: ReplyFormProps) {
       <form onSubmit={handleSubmit}>
         <h3
           style={{
-            fontSize: "0.95rem",
+            fontSize: "var(--fs-lg)",
             fontWeight: 700,
             color: "var(--color-text-primary)",
             marginBottom: 10,
@@ -82,7 +82,7 @@ export function ReplyForm({ threadId, parentId, onCancel }: ReplyFormProps) {
               background: "rgba(239, 68, 68, 0.1)",
               border: "1px solid rgba(239, 68, 68, 0.2)",
               color: "#fca5a5",
-              fontSize: "0.8rem",
+              fontSize: "var(--fs-base)",
             }}
           >
             {error}

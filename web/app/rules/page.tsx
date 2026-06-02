@@ -5,7 +5,7 @@ export default function RulesPage() {
     <div style={{ maxWidth: 720, margin: "0 auto", padding: "48px 24px 64px" }}>
       <h1
         style={{
-          fontSize: "2rem",
+          fontSize: "var(--fs-5xl)",
           fontWeight: 800,
           color: "var(--color-text-primary)",
           marginBottom: 8,
@@ -13,7 +13,7 @@ export default function RulesPage() {
       >
         Community Rules
       </h1>
-      <p style={{ color: "var(--color-text-muted)", fontSize: "0.9rem", marginBottom: 32 }}>
+      <p style={{ color: "var(--color-text-muted)", fontSize: "var(--fs-lg)", marginBottom: 32 }}>
         By using PKGVault you agree to follow these rules.
       </p>
 
@@ -64,7 +64,7 @@ export default function RulesPage() {
                   alignItems: "center",
                   justifyContent: "center",
                   color: "var(--color-accent)",
-                  fontSize: "0.75rem",
+                  fontSize: "var(--fs-sm)",
                   fontWeight: 700,
                 }}
               >
@@ -73,7 +73,7 @@ export default function RulesPage() {
               <div>
                 <h3
                   style={{
-                    fontSize: "0.9rem",
+                    fontSize: "var(--fs-lg)",
                     fontWeight: 600,
                     color: "var(--color-text-primary)",
                     marginBottom: 4,
@@ -83,7 +83,7 @@ export default function RulesPage() {
                 </h3>
                 <p
                   style={{
-                    fontSize: "0.8rem",
+                    fontSize: "var(--fs-base)",
                     color: "var(--color-text-muted)",
                     lineHeight: 1.5,
                     margin: 0,

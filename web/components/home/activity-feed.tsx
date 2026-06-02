@@ -83,7 +83,7 @@ export async function HomeActivityFeed() {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <h3
           style={{
-            fontSize: "0.95rem",
+            fontSize: "var(--fs-lg)",
             fontWeight: 700,
             color: "var(--color-text-primary)",
             display: "flex",
@@ -105,7 +105,7 @@ export async function HomeActivityFeed() {
         </h3>
         <span
           style={{
-            fontSize: "0.7rem",
+            fontSize: "var(--fs-xs)",
             color: "var(--color-text-muted)",
             fontFamily: "var(--font-mono)",
           }}
@@ -132,8 +132,8 @@ export async function HomeActivityFeed() {
                 borderRadius: 10,
                 textDecoration: "none",
                 color: "var(--color-text-primary)",
-                fontSize: "0.85rem",
-                transition: "background 0.15s",
+                fontSize: "var(--fs-md)",
+                transition: "background var(--dur-fast)",
               }}
             >
               <span
@@ -164,7 +164,7 @@ export async function HomeActivityFeed() {
               </span>
               <span
                 style={{
-                  fontSize: "0.7rem",
+                  fontSize: "var(--fs-xs)",
                   color: "var(--color-text-muted)",
                   fontFamily: "var(--font-mono)",
                   whiteSpace: "nowrap",

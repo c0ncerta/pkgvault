@@ -120,7 +120,7 @@ export default async function AdminPkgDetail({
   return (
     <div className="animate-fade-in">
       {/* Breadcrumb */}
-      <div style={{ fontSize: "0.8rem", color: "#475569", marginBottom: 20 }}>
+      <div style={{ fontSize: "var(--fs-base)", color: "#475569", marginBottom: 20 }}>
         <a href="/admin/pkgs" style={{ color: "#818cf8", textDecoration: "none" }}>
           PKG Manager
         </a>
@@ -141,7 +141,7 @@ export default async function AdminPkgDetail({
         <div>
           <h1
             style={{
-              fontSize: "1.5rem",
+              fontSize: "var(--fs-3xl)",
               fontWeight: 800,
               color: "var(--color-text-primary)",
               letterSpacing: "-0.03em",
@@ -156,7 +156,7 @@ export default async function AdminPkgDetail({
               display: "flex",
               gap: 12,
               alignItems: "center",
-              fontSize: "0.8rem",
+              fontSize: "var(--fs-base)",
               color: "var(--color-text-muted)",
             }}
           >
@@ -181,7 +181,7 @@ export default async function AdminPkgDetail({
           <GlassCard variant="content" cornerRadius={16} padding="20px 24px">
             <h3
               style={{
-                fontSize: "0.8rem",
+                fontSize: "var(--fs-base)",
                 fontWeight: 600,
                 color: "var(--color-text-muted)",
                 textTransform: "uppercase",
@@ -197,7 +197,7 @@ export default async function AdminPkgDetail({
                 display: "grid",
                 gridTemplateColumns: "120px 1fr",
                 gap: "8px 16px",
-                fontSize: "0.85rem",
+                fontSize: "var(--fs-md)",
               }}
             >
               <span style={{ color: "#475569" }}>SHA-256</span>
@@ -205,7 +205,7 @@ export default async function AdminPkgDetail({
                 style={{
                   color: "var(--color-text-primary)",
                   fontFamily: "var(--font-mono)",
-                  fontSize: "0.7rem",
+                  fontSize: "var(--fs-xs)",
                   wordBreak: "break-all",
                 }}
               >
@@ -216,7 +216,7 @@ export default async function AdminPkgDetail({
                 style={{
                   color: pkg.r2Key ? "#e8e8ed" : "#475569",
                   fontFamily: "var(--font-mono)",
-                  fontSize: "0.7rem",
+                  fontSize: "var(--fs-xs)",
                 }}
               >
                 {pkg.r2Key ?? "— not on R2"}
@@ -238,7 +238,7 @@ export default async function AdminPkgDetail({
               <p
                 style={{
                   color: "var(--color-text-secondary)",
-                  fontSize: "0.85rem",
+                  fontSize: "var(--fs-md)",
                   marginTop: 16,
                   lineHeight: 1.6,
                 }}
@@ -284,7 +284,7 @@ export default async function AdminPkgDetail({
           <GlassCard variant="content" cornerRadius={16} padding="20px">
             <h3
               style={{
-                fontSize: "0.8rem",
+                fontSize: "var(--fs-base)",
                 fontWeight: 600,
                 color: "var(--color-text-muted)",
                 textTransform: "uppercase",
@@ -306,7 +306,7 @@ export default async function AdminPkgDetail({
               />
               <span
                 style={{
-                  fontSize: "0.9rem",
+                  fontSize: "var(--fs-lg)",
                   fontWeight: 600,
                   color: statusColors[pkg.status] ?? "#64748b",
                   textTransform: "capitalize",
@@ -321,7 +321,7 @@ export default async function AdminPkgDetail({
           <GlassCard variant="content" cornerRadius={16} padding="20px">
             <h3
               style={{
-                fontSize: "0.8rem",
+                fontSize: "var(--fs-base)",
                 fontWeight: 600,
                 color: "var(--color-text-muted)",
                 textTransform: "uppercase",
@@ -340,10 +340,16 @@ export default async function AdminPkgDetail({
                   textAlign: "center",
                 }}
               >
-                <div style={{ fontSize: "1.25rem", fontWeight: 800, color: "#34d399" }}>
+                <div style={{ fontSize: "var(--fs-2xl)", fontWeight: 800, color: "#34d399" }}>
                   {sources.filter((s) => s.status === "alive").length}
                 </div>
-                <div style={{ fontSize: "0.65rem", color: "#475569", textTransform: "uppercase" }}>
+                <div
+                  style={{
+                    fontSize: "var(--fs-2xs)",
+                    color: "#475569",
+                    textTransform: "uppercase",
+                  }}
+                >
                   Alive
                 </div>
               </div>
@@ -355,10 +361,16 @@ export default async function AdminPkgDetail({
                   textAlign: "center",
                 }}
               >
-                <div style={{ fontSize: "1.25rem", fontWeight: 800, color: "#f87171" }}>
+                <div style={{ fontSize: "var(--fs-2xl)", fontWeight: 800, color: "#f87171" }}>
                   {sources.filter((s) => s.status === "dead").length}
                 </div>
-                <div style={{ fontSize: "0.65rem", color: "#475569", textTransform: "uppercase" }}>
+                <div
+                  style={{
+                    fontSize: "var(--fs-2xs)",
+                    color: "#475569",
+                    textTransform: "uppercase",
+                  }}
+                >
                   Dead
                 </div>
               </div>
@@ -373,11 +385,17 @@ export default async function AdminPkgDetail({
               }}
             >
               <div
-                style={{ fontSize: "1.25rem", fontWeight: 800, color: "var(--color-text-primary)" }}
+                style={{
+                  fontSize: "var(--fs-2xl)",
+                  fontWeight: 800,
+                  color: "var(--color-text-primary)",
+                }}
               >
                 {sources.length}
               </div>
-              <div style={{ fontSize: "0.65rem", color: "#475569", textTransform: "uppercase" }}>
+              <div
+                style={{ fontSize: "var(--fs-2xs)", color: "#475569", textTransform: "uppercase" }}
+              >
                 Total sources
               </div>
             </div>
@@ -396,7 +414,7 @@ export default async function AdminPkgDetail({
                   display: "flex",
                   alignItems: "center",
                   gap: 10,
-                  fontSize: "0.85rem",
+                  fontSize: "var(--fs-md)",
                   color: "#818cf8",
                   fontWeight: 500,
                 }}

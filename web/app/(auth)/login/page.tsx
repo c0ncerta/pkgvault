@@ -17,7 +17,7 @@ export default function LoginPage() {
     >
       <h1
         style={{
-          fontSize: "1.75rem",
+          fontSize: "var(--fs-4xl)",
           fontWeight: 800,
           color: "var(--color-text-primary)",
           marginBottom: 8,
@@ -32,7 +32,7 @@ export default function LoginPage() {
           color: "var(--color-text-muted)",
           textAlign: "center",
           marginBottom: 32,
-          fontSize: "0.9rem",
+          fontSize: "var(--fs-lg)",
         }}
       >
         Sign in to your PKGVault account
@@ -43,7 +43,7 @@ export default function LoginPage() {
           color: "#475569",
           textAlign: "center",
           marginTop: 24,
-          fontSize: "0.85rem",
+          fontSize: "var(--fs-md)",
         }}
       >
         Don&apos;t have an account?{" "}

@@ -197,7 +197,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: "3.6rem",
+                fontSize: "var(--fs-7xl)",
                 fontWeight: 900,
                 color: "rgba(255,255,255,0.95)",
                 letterSpacing: "-0.04em",
@@ -209,7 +209,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
             <div>
               <div
                 style={{
-                  fontSize: "0.7rem",
+                  fontSize: "var(--fs-xs)",
                   textTransform: "uppercase",
                   letterSpacing: "0.14em",
                   color: "rgba(255,255,255,0.7)",
@@ -221,7 +221,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
               </div>
               <h1
                 style={{
-                  fontSize: "2.6rem",
+                  fontSize: "var(--fs-6xl)",
                   fontWeight: 900,
                   letterSpacing: "-0.035em",
                   color: "#fff",
@@ -261,7 +261,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
                   display: "flex",
                   alignItems: "center",
                   gap: 18,
-                  fontSize: "0.82rem",
+                  fontSize: "var(--fs-base)",
                   color: "rgba(255,255,255,0.78)",
                   fontFamily: "var(--font-mono)",
                 }}
@@ -324,7 +324,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
                   <div
                     style={{
                       marginTop: 12,
-                      fontSize: "0.72rem",
+                      fontSize: "var(--fs-xs)",
                       color: "var(--color-text-muted)",
                       textAlign: "center",
                     }}
@@ -337,7 +337,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
               <GlassCard padding="20px" className="vault-lift" tint="cyan">
                 <h3
                   style={{
-                    fontSize: "0.7rem",
+                    fontSize: "var(--fs-xs)",
                     textTransform: "uppercase",
                     letterSpacing: "0.1em",
                     fontWeight: 600,
@@ -390,7 +390,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
                   <div>
                     <div
                       style={{
-                        fontSize: "0.82rem",
+                        fontSize: "var(--fs-base)",
                         fontWeight: 600,
                         color: "var(--color-text-primary)",
                       }}
@@ -399,7 +399,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
                     </div>
                     <div
                       style={{
-                        fontSize: "0.68rem",
+                        fontSize: "var(--fs-xs)",
                         color: "var(--color-text-muted)",
                         fontFamily: "var(--font-mono)",
                       }}

@@ -13,7 +13,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
   return (
     <nav
       style={{
-        fontSize: "0.8125rem",
+        fontSize: "var(--fs-base)",
         color: "var(--color-text-muted)",
         marginBottom: 20,
         display: "flex",

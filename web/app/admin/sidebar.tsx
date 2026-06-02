@@ -58,7 +58,7 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
           <Logo size={26} />
           <span
             style={{
-              fontSize: "0.95rem",
+              fontSize: "var(--fs-lg)",
               fontWeight: 700,
               color: "var(--color-text-primary)",
               letterSpacing: "-0.02em",
@@ -87,7 +87,7 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
               padding: "10px 14px",
               borderRadius: 12,
               textDecoration: "none",
-              fontSize: "0.85rem",
+              fontSize: "var(--fs-md)",
               fontWeight: active ? 600 : 500,
               color: active ? "var(--color-text-primary)" : "var(--color-text-muted)",
               background: active
@@ -147,7 +147,7 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
               alignItems: "center",
               justifyContent: "center",
               fontWeight: 700,
-              fontSize: 11,
+              fontSize: "var(--fs-xs)",
               color: "#fff",
             }}
           >
@@ -155,13 +155,17 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
           </div>
           <div>
             <div
-              style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--color-text-primary)" }}
+              style={{
+                fontSize: "var(--fs-base)",
+                fontWeight: 600,
+                color: "var(--color-text-primary)",
+              }}
             >
               {userName}
             </div>
             <div
               style={{
-                fontSize: "0.65rem",
+                fontSize: "var(--fs-2xs)",
                 color: "#818cf8",
                 textTransform: "uppercase",
                 fontWeight: 600,
@@ -187,7 +191,7 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
           borderRadius: 10,
           marginTop: 8,
           textDecoration: "none",
-          fontSize: "0.8rem",
+          fontSize: "var(--fs-base)",
           color: "var(--color-text-muted)",
           fontWeight: 500,
         }}

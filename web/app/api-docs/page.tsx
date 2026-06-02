@@ -45,7 +45,7 @@ export default function ApiDocsPage() {
     <div style={{ maxWidth: 800, margin: "0 auto", padding: "48px 24px 64px" }}>
       <h1
         style={{
-          fontSize: "2rem",
+          fontSize: "var(--fs-5xl)",
           fontWeight: 800,
           color: "var(--color-text-primary)",
           marginBottom: 8,
@@ -53,14 +53,14 @@ export default function ApiDocsPage() {
       >
         API Reference
       </h1>
-      <p style={{ color: "var(--color-text-muted)", fontSize: "0.9rem", marginBottom: 12 }}>
+      <p style={{ color: "var(--color-text-muted)", fontSize: "var(--fs-lg)", marginBottom: 12 }}>
         All endpoints return JSON. Authentication uses session cookies via Better-Auth.
       </p>
       <div style={{ display: "flex", gap: 8, marginBottom: 32 }}>
-        <span className="tag" style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem" }}>
+        <span className="tag" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-xs)" }}>
           Base URL: /api
         </span>
-        <span className="tag" style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem" }}>
+        <span className="tag" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-xs)" }}>
           Content-Type: application/json
         </span>
       </div>
@@ -72,7 +72,7 @@ export default function ApiDocsPage() {
               <span
                 style={{
                   fontFamily: "var(--font-mono)",
-                  fontSize: "0.7rem",
+                  fontSize: "var(--fs-xs)",
                   fontWeight: 700,
                   color: methodColors[ep.method] ?? "var(--color-text-muted)",
                   width: 44,
@@ -84,7 +84,7 @@ export default function ApiDocsPage() {
               <code
                 style={{
                   fontFamily: "var(--font-mono)",
-                  fontSize: "0.8rem",
+                  fontSize: "var(--fs-base)",
                   color: "var(--color-text-primary)",
                   flex: 1,
                 }}
@@ -94,7 +94,7 @@ export default function ApiDocsPage() {
               {ep.auth && (
                 <span
                   className="tag tag-warning"
-                  style={{ fontSize: "0.6rem", padding: "1px 6px" }}
+                  style={{ fontSize: "var(--fs-2xs)", padding: "1px 6px" }}
                 >
                   AUTH
                 </span>
@@ -102,7 +102,7 @@ export default function ApiDocsPage() {
             </div>
             <p
               style={{
-                fontSize: "0.78rem",
+                fontSize: "var(--fs-sm)",
                 color: "var(--color-text-muted)",
                 margin: "6px 0 0 56px",
                 lineHeight: 1.4,

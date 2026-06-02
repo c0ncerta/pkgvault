@@ -117,7 +117,7 @@ export function DownloadButton({ pkgId, size, rootzUrl }: DownloadButtonProps) {
           role="dialog"
           aria-modal="true"
           aria-labelledby="download-modal-title"
-          className="relative w-full max-w-md animate-[modal-scale-in_0.18s_ease-out]"
+          className="relative w-full max-w-md animate-[modal-scale-in_var(--dur-base)_ease-out]"
         >
           <GlassPanel
             variant="strong"

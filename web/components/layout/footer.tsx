@@ -25,7 +25,7 @@ export function Footer() {
           <Logo size={20} />
           <span
             style={{
-              fontSize: "0.72rem",
+              fontSize: "var(--fs-xs)",
               color: "var(--color-text-muted)",
               fontFamily: "var(--font-mono)",
             }}
@@ -33,13 +33,13 @@ export function Footer() {
             PKGVault v0.1.0
           </span>
         </div>
-        <nav style={{ display: "flex", gap: 20, fontSize: "0.75rem" }}>
+        <nav style={{ display: "flex", gap: 20, fontSize: "var(--fs-sm)" }}>
           <Link
             href="/rules"
             style={{
               color: "var(--color-text-muted)",
               textDecoration: "none",
-              transition: "color 0.15s",
+              transition: "color var(--dur-fast)",
             }}
           >
             Community Rules
@@ -49,7 +49,7 @@ export function Footer() {
             style={{
               color: "var(--color-text-muted)",
               textDecoration: "none",
-              transition: "color 0.15s",
+              transition: "color var(--dur-fast)",
             }}
           >
             Privacy
@@ -59,7 +59,7 @@ export function Footer() {
             style={{
               color: "var(--color-text-muted)",
               textDecoration: "none",
-              transition: "color 0.15s",
+              transition: "color var(--dur-fast)",
             }}
           >
             API

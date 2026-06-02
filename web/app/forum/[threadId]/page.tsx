@@ -126,7 +126,7 @@ export default async function ForumThreadPage({ params }: ThreadPageProps) {
               <div>
                 <h1
                   style={{
-                    fontSize: "1.5rem",
+                    fontSize: "var(--fs-3xl)",
                     fontWeight: 800,
                     color: "var(--color-text-primary)",
                     marginBottom: 6,
@@ -139,7 +139,7 @@ export default async function ForumThreadPage({ params }: ThreadPageProps) {
                     display: "flex",
                     gap: 8,
                     alignItems: "center",
-                    fontSize: "0.8rem",
+                    fontSize: "var(--fs-base)",
                     color: "var(--color-text-muted)",
                   }}
                 >
@@ -204,7 +204,7 @@ export default async function ForumThreadPage({ params }: ThreadPageProps) {
                 </div>
                 <div
                   style={{
-                    fontSize: "0.8rem",
+                    fontSize: "var(--fs-base)",
                     fontWeight: 600,
                     color: "var(--color-text-primary)",
                   }}
@@ -213,7 +213,7 @@ export default async function ForumThreadPage({ params }: ThreadPageProps) {
                 </div>
                 <div
                   style={{
-                    fontSize: "0.65rem",
+                    fontSize: "var(--fs-2xs)",
                     color: "var(--color-text-muted)",
                     fontFamily: "var(--font-mono)",
                   }}
@@ -224,7 +224,7 @@ export default async function ForumThreadPage({ params }: ThreadPageProps) {
               <div>
                 <div
                   style={{
-                    fontSize: "0.7rem",
+                    fontSize: "var(--fs-xs)",
                     color: "var(--color-text-muted)",
                     fontFamily: "var(--font-mono)",
                     marginBottom: 8,
@@ -234,7 +234,7 @@ export default async function ForumThreadPage({ params }: ThreadPageProps) {
                 </div>
                 <p
                   style={{
-                    fontSize: "0.875rem",
+                    fontSize: "var(--fs-md)",
                     color: "var(--color-text-primary)",
                     lineHeight: 1.6,
                     margin: 0,
@@ -256,7 +256,7 @@ export default async function ForumThreadPage({ params }: ThreadPageProps) {
               <p
                 style={{
                   color: "var(--color-text-muted)",
-                  fontSize: "0.85rem",
+                  fontSize: "var(--fs-md)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",

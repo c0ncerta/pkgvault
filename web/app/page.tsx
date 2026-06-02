@@ -28,7 +28,7 @@ export default function HomePage() {
             <div style={{ marginBottom: 20 }}>
               <div
                 style={{
-                  fontSize: "0.7rem",
+                  fontSize: "var(--fs-xs)",
                   textTransform: "uppercase",
                   letterSpacing: "0.12em",
                   color: "#22d3ee",
@@ -40,7 +40,7 @@ export default function HomePage() {
               </div>
               <h2
                 style={{
-                  fontSize: "1.6rem",
+                  fontSize: "var(--fs-3xl)",
                   fontWeight: 800,
                   letterSpacing: "-0.02em",
                   color: "var(--color-text-primary)",

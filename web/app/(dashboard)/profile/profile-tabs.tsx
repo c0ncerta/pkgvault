@@ -103,13 +103,13 @@ export function ProfileTabs({
                   borderRadius: 8,
                   textDecoration: "none",
                   background: i % 2 === 0 ? "rgba(255,255,255,0.02)" : "transparent",
-                  transition: "background 0.15s",
+                  transition: "background var(--dur-fast)",
                 }}
               >
                 <div>
                   <div
                     style={{
-                      fontSize: "0.875rem",
+                      fontSize: "var(--fs-md)",
                       fontWeight: 500,
                       color: "var(--color-text-primary)",
                     }}
@@ -118,7 +118,7 @@ export function ProfileTabs({
                   </div>
                   <div
                     style={{
-                      fontSize: "0.7rem",
+                      fontSize: "var(--fs-xs)",
                       color: "var(--color-text-muted)",
                       fontFamily: "var(--font-mono)",
                     }}
@@ -130,7 +130,7 @@ export function ProfileTabs({
                   {pkg.gamePlatform && <Tag>{pkg.gamePlatform}</Tag>}
                   <span
                     style={{
-                      fontSize: "0.75rem",
+                      fontSize: "var(--fs-sm)",
                       color: "var(--color-text-secondary)",
                       fontFamily: "var(--font-mono)",
                     }}
@@ -166,7 +166,7 @@ export function ProfileTabs({
               padding: "40px 20px",
               textAlign: "center",
               color: "var(--color-text-muted)",
-              fontSize: "0.85rem",
+              fontSize: "var(--fs-md)",
             }}
           >
             No {tab} packages yet.
@@ -180,12 +180,12 @@ export function ProfileTabs({
             {posts.map((post) => (
               <GlassCard key={post.id} padding="14px">
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-                  <span style={{ fontSize: "0.8rem", color: "#818cf8", fontWeight: 500 }}>
+                  <span style={{ fontSize: "var(--fs-base)", color: "#818cf8", fontWeight: 500 }}>
                     {post.threadTitle ?? "Thread"}
                   </span>
                   <span
                     style={{
-                      fontSize: "0.7rem",
+                      fontSize: "var(--fs-xs)",
                       color: "var(--color-text-muted)",
                       fontFamily: "var(--font-mono)",
                     }}
@@ -195,7 +195,7 @@ export function ProfileTabs({
                 </div>
                 <p
                   style={{
-                    fontSize: "0.85rem",
+                    fontSize: "var(--fs-md)",
                     color: "var(--color-text-primary)",
                     margin: 0,
                     lineHeight: 1.5,
@@ -212,7 +212,7 @@ export function ProfileTabs({
               padding: "40px 20px",
               textAlign: "center",
               color: "var(--color-text-muted)",
-              fontSize: "0.85rem",
+              fontSize: "var(--fs-md)",
             }}
           >
             No forum posts yet.

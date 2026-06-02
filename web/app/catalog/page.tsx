@@ -179,7 +179,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
           <div>
             <h1
               style={{
-                fontSize: "2rem",
+                fontSize: "var(--fs-5xl)",
                 fontWeight: 800,
                 letterSpacing: "-0.03em",
                 color: "var(--color-text-primary)",
@@ -188,7 +188,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
             >
               Public Catalog
             </h1>
-            <p style={{ color: "var(--color-text-muted)", fontSize: "0.9rem" }}>
+            <p style={{ color: "var(--color-text-muted)", fontSize: "var(--fs-lg)" }}>
               Community archive — every package manually reviewed before publishing.
             </p>
           </div>
@@ -218,7 +218,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
               <div style={{ textAlign: "center" }}>
                 <div
                   style={{
-                    fontSize: "1.5rem",
+                    fontSize: "var(--fs-3xl)",
                     fontWeight: 800,
                     color: "var(--color-text-primary)",
                     lineHeight: 1,
@@ -228,7 +228,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                 </div>
                 <div
                   style={{
-                    fontSize: "0.7rem",
+                    fontSize: "var(--fs-xs)",
                     color: "var(--color-text-muted)",
                     textTransform: "uppercase",
                     letterSpacing: "0.05em",
@@ -302,7 +302,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                           style={{
                             position: "relative",
                             zIndex: 1,
-                            fontSize: "2rem",
+                            fontSize: "var(--fs-5xl)",
                             fontWeight: 900,
                             color: "rgba(255,255,255,0.85)",
                             letterSpacing: "-0.04em",
@@ -322,7 +322,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                               backdropFilter: "blur(8px)",
                               padding: "2px 8px",
                               borderRadius: 999,
-                              fontSize: "0.6rem",
+                              fontSize: "var(--fs-2xs)",
                               fontWeight: 700,
                               color: "#fff",
                               letterSpacing: "0.05em",
@@ -341,7 +341,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                       >
                         <span
                           style={{
-                            fontSize: "0.95rem",
+                            fontSize: "var(--fs-lg)",
                             fontWeight: 600,
                             color: "var(--color-text-primary)",
                           }}
@@ -362,7 +362,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                             <span
                               style={{
                                 marginLeft: "auto",
-                                fontSize: "0.7rem",
+                                fontSize: "var(--fs-xs)",
                                 color: "var(--color-text-muted)",
                                 fontFamily: "var(--font-mono)",
                               }}
@@ -381,7 +381,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                         >
                           <span
                             style={{
-                              fontSize: "0.7rem",
+                              fontSize: "var(--fs-xs)",
                               color: "var(--color-text-muted)",
                               fontFamily: "var(--font-mono)",
                             }}
@@ -390,7 +390,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                           </span>
                           <span
                             style={{
-                              fontSize: "0.7rem",
+                              fontSize: "var(--fs-xs)",
                               fontFamily: "var(--font-mono)",
                               color:
                                 item.sha256 !== "pending"
@@ -423,12 +423,12 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                 className="animate-fade-in"
                 style={{ textAlign: "center" }}
               >
-                <div style={{ fontSize: "3rem", marginBottom: 16, opacity: 0.3 }}>
+                <div style={{ fontSize: "var(--fs-7xl)", marginBottom: 16, opacity: 0.3 }}>
                   <IconCatalog size={48} />
                 </div>
                 <h2
                   style={{
-                    fontSize: "1.25rem",
+                    fontSize: "var(--fs-2xl)",
                     fontWeight: 700,
                     color: "var(--color-text-primary)",
                     marginBottom: 8,
@@ -437,7 +437,11 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                   {q ? `No results for "${q}"` : "No packages yet"}
                 </h2>
                 <p
-                  style={{ color: "var(--color-text-muted)", marginBottom: 24, fontSize: "0.9rem" }}
+                  style={{
+                    color: "var(--color-text-muted)",
+                    marginBottom: 24,
+                    fontSize: "var(--fs-lg)",
+                  }}
                 >
                   {q ? "Try different search terms." : "Be the first to contribute to the archive."}
                 </p>
@@ -462,7 +466,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    fontSize: "0.85rem",
+                    fontSize: "var(--fs-md)",
                     color: "var(--color-text-muted)",
                     padding: "0 16px",
                   }}

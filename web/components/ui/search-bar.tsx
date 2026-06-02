@@ -71,7 +71,8 @@ export function SearchBar() {
           borderRadius: 999,
           border: "1px solid rgba(255,255,255,0.10)",
           width: 260,
-          transition: "border-color 0.2s, width 0.2s, background 0.2s, box-shadow 0.2s",
+          transition:
+            "border-color var(--dur-base), width var(--dur-base), background var(--dur-base), box-shadow var(--dur-base)",
         }}
       >
         <IconSearch size={14} style={{ color: "var(--color-text-muted)", flexShrink: 0 }} />
@@ -87,12 +88,14 @@ export function SearchBar() {
             background: "none",
             outline: "none",
             color: "var(--color-text-primary)",
-            fontSize: "0.8rem",
+            fontSize: "var(--fs-base)",
             fontFamily: "var(--font-mono)",
             width: "100%",
           }}
         />
-        {loading && <span style={{ fontSize: "0.7rem", color: "var(--color-text-muted)" }}>…</span>}
+        {loading && (
+          <span style={{ fontSize: "var(--fs-xs)", color: "var(--color-text-muted)" }}>…</span>
+        )}
       </div>
 
       {/* Results dropdown */}
@@ -107,7 +110,7 @@ export function SearchBar() {
             top: "calc(100% + 6px)",
             overflow: "hidden",
             zIndex: 100,
-            animation: "glass-pop 0.16s var(--ease-out-spring)",
+            animation: "glass-pop var(--dur-fast) var(--ease-out-spring)",
           }}
         >
           {results.map((r) => (
@@ -125,14 +128,14 @@ export function SearchBar() {
                 borderRadius: 12,
                 cursor: "pointer",
                 textAlign: "left",
-                fontSize: "0.85rem",
+                fontSize: "var(--fs-md)",
                 fontFamily: "var(--font-sans)",
               }}
             >
               <IconCatalog size={14} style={{ color: "var(--color-text-muted)" }} />
               <span style={{ flex: 1 }}>{r.title}</span>
               {r.platform && (
-                <span className="tag" style={{ fontSize: "0.65rem" }}>
+                <span className="tag" style={{ fontSize: "var(--fs-2xs)" }}>
                   {r.platform}
                 </span>
               )}
@@ -152,7 +155,7 @@ export function SearchBar() {
               background: "transparent",
               cursor: "pointer",
               color: "var(--color-accent-hover)",
-              fontSize: "0.8rem",
+              fontSize: "var(--fs-base)",
               fontFamily: "var(--font-sans)",
               textAlign: "center",
               borderTop: "1px solid rgba(255,255,255,0.04)",

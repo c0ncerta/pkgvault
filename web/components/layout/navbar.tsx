@@ -62,7 +62,7 @@ export async function Navbar() {
           <Logo size={30} />
           <span
             style={{
-              fontSize: "1.1rem",
+              fontSize: "var(--fs-2xl)",
               fontWeight: 700,
               color: "var(--color-text-primary)",
               letterSpacing: "-0.02em",
@@ -82,7 +82,7 @@ export async function Navbar() {
               key={item.href}
               href={item.href}
               className="btn-ghost"
-              style={{ padding: "8px 16px", fontSize: "0.875rem" }}
+              style={{ padding: "8px 16px", fontSize: "var(--fs-md)" }}
             >
               {item.label}
             </Link>

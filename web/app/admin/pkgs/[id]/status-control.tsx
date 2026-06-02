@@ -59,7 +59,7 @@ export function PkgStatusControl({
             style={{
               padding: "7px 16px",
               borderRadius: 999,
-              fontSize: "0.75rem",
+              fontSize: "var(--fs-sm)",
               fontWeight: 600,
               border: `1px solid ${active ? `${s.color}50` : "transparent"}`,
               background: active

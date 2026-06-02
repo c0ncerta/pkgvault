@@ -32,7 +32,7 @@ export function QueueActions({ pkgId }: { pkgId: string }) {
         style={{
           padding: "8px 16px",
           borderRadius: 10,
-          fontSize: "0.8rem",
+          fontSize: "var(--fs-base)",
           fontWeight: 600,
           color: done === "approve" ? "var(--color-success)" : "var(--color-danger)",
           background: done === "approve" ? "rgba(52,211,153,0.1)" : "rgba(248,113,113,0.1)",

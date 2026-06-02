@@ -7,7 +7,7 @@ export default function AddPkgPage() {
   return (
     <div className="animate-fade-in" style={{ maxWidth: 800 }}>
       <div style={{ marginBottom: 24 }}>
-        <div style={{ fontSize: "0.8rem", color: "#475569", marginBottom: 12 }}>
+        <div style={{ fontSize: "var(--fs-base)", color: "#475569", marginBottom: 12 }}>
           <a href="/admin/pkgs" style={{ color: "#818cf8", textDecoration: "none" }}>
             PKG Manager
           </a>
@@ -16,7 +16,7 @@ export default function AddPkgPage() {
         </div>
         <h1
           style={{
-            fontSize: "1.5rem",
+            fontSize: "var(--fs-3xl)",
             fontWeight: 800,
             color: "var(--color-text-primary)",
             letterSpacing: "-0.03em",
@@ -25,7 +25,7 @@ export default function AddPkgPage() {
         >
           Add PKG Entry
         </h1>
-        <p style={{ color: "var(--color-text-muted)", fontSize: "0.85rem" }}>
+        <p style={{ color: "var(--color-text-muted)", fontSize: "var(--fs-md)" }}>
           Register a new package with metadata and download sources.
         </p>
       </div>

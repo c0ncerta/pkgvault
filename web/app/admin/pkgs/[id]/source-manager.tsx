@@ -97,7 +97,7 @@ export function PkgSourceManager({
   const inputStyle: React.CSSProperties = {
     padding: "9px 14px",
     borderRadius: 8,
-    fontSize: "0.82rem",
+    fontSize: "var(--fs-base)",
     border: "1px solid rgba(255,255,255,0.08)",
     background: "rgba(255,255,255,0.04)",
     color: "var(--color-text-primary)",
@@ -117,7 +117,7 @@ export function PkgSourceManager({
       >
         <h3
           style={{
-            fontSize: "0.8rem",
+            fontSize: "var(--fs-base)",
             fontWeight: 600,
             color: "var(--color-text-muted)",
             textTransform: "uppercase",
@@ -191,7 +191,7 @@ export function PkgSourceManager({
                 display: "flex",
                 alignItems: "center",
                 gap: 6,
-                fontSize: "0.8rem",
+                fontSize: "var(--fs-base)",
                 color: "var(--color-text-secondary)",
                 cursor: "pointer",
                 whiteSpace: "nowrap",
@@ -220,7 +220,12 @@ export function PkgSourceManager({
       {/* Sources list */}
       {sources.length === 0 ? (
         <div
-          style={{ padding: "30px 0", textAlign: "center", color: "#475569", fontSize: "0.85rem" }}
+          style={{
+            padding: "30px 0",
+            textAlign: "center",
+            color: "#475569",
+            fontSize: "var(--fs-md)",
+          }}
         >
           No sources yet. Add a download link above.
         </div>
@@ -257,7 +262,7 @@ export function PkgSourceManager({
                   <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                     <span
                       style={{
-                        fontSize: "0.78rem",
+                        fontSize: "var(--fs-sm)",
                         color: "var(--color-text-secondary)",
                         fontWeight: 500,
                       }}
@@ -267,7 +272,7 @@ export function PkgSourceManager({
                     {source.isPrimary && (
                       <span
                         style={{
-                          fontSize: "0.6rem",
+                          fontSize: "var(--fs-2xs)",
                           padding: "1px 5px",
                           borderRadius: 4,
                           color: "#818cf8",
@@ -279,12 +284,14 @@ export function PkgSourceManager({
                       </span>
                     )}
                     {source.label && (
-                      <span style={{ fontSize: "0.7rem", color: "#475569" }}>• {source.label}</span>
+                      <span style={{ fontSize: "var(--fs-xs)", color: "#475569" }}>
+                        • {source.label}
+                      </span>
                     )}
                   </div>
                   <div
                     style={{
-                      fontSize: "0.72rem",
+                      fontSize: "var(--fs-xs)",
                       color: "#475569",
                       fontFamily: "var(--font-mono)",
                       overflow: "hidden",
@@ -296,7 +303,7 @@ export function PkgSourceManager({
                     {source.url}
                   </div>
                 </div>
-                <span style={{ fontSize: "0.7rem", color: "#475569", whiteSpace: "nowrap" }}>
+                <span style={{ fontSize: "var(--fs-xs)", color: "#475569", whiteSpace: "nowrap" }}>
                   ↓{source.downloadCount}
                 </span>
                 <LiquidButton

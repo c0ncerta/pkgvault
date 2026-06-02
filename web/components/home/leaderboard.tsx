@@ -40,12 +40,14 @@ export async function HomeLeaderboard() {
   return (
     <GlassCard padding="22px 24px" style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h3 style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--color-text-primary)" }}>
+        <h3
+          style={{ fontSize: "var(--fs-lg)", fontWeight: 700, color: "var(--color-text-primary)" }}
+        >
           Top contributors
         </h3>
         <span
           style={{
-            fontSize: "0.7rem",
+            fontSize: "var(--fs-xs)",
             color: "var(--color-text-muted)",
             fontFamily: "var(--font-mono)",
           }}
@@ -89,7 +91,7 @@ export async function HomeLeaderboard() {
                 alignItems: "center",
                 justifyContent: "center",
                 fontWeight: 700,
-                fontSize: 11,
+                fontSize: "var(--fs-xs)",
                 color: "#fff",
               }}
             >
@@ -98,7 +100,7 @@ export async function HomeLeaderboard() {
             <div style={{ flex: 1, minWidth: 0 }}>
               <div
                 style={{
-                  fontSize: "0.85rem",
+                  fontSize: "var(--fs-md)",
                   fontWeight: 600,
                   color: "var(--color-text-primary)",
                   overflow: "hidden",
@@ -110,7 +112,7 @@ export async function HomeLeaderboard() {
               </div>
               <div
                 style={{
-                  fontSize: "0.7rem",
+                  fontSize: "var(--fs-xs)",
                   color: "var(--color-text-muted)",
                   fontFamily: "var(--font-mono)",
                 }}

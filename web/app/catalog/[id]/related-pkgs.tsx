@@ -59,7 +59,7 @@ export async function RelatedPkgs({ pkgId, platform }: RelatedPkgsProps) {
       <div style={{ marginBottom: 16 }}>
         <div
           style={{
-            fontSize: "0.7rem",
+            fontSize: "var(--fs-xs)",
             textTransform: "uppercase",
             letterSpacing: "0.12em",
             color: "var(--color-accent-hover)",
@@ -71,7 +71,7 @@ export async function RelatedPkgs({ pkgId, platform }: RelatedPkgsProps) {
         </div>
         <h2
           style={{
-            fontSize: "1.2rem",
+            fontSize: "var(--fs-2xl)",
             fontWeight: 800,
             letterSpacing: "-0.02em",
             color: "var(--color-text-primary)",
@@ -110,7 +110,7 @@ export async function RelatedPkgs({ pkgId, platform }: RelatedPkgsProps) {
               >
                 <span
                   style={{
-                    fontSize: "1.4rem",
+                    fontSize: "var(--fs-3xl)",
                     fontWeight: 900,
                     color: "rgba(255,255,255,0.85)",
                     letterSpacing: "-0.04em",
@@ -122,7 +122,7 @@ export async function RelatedPkgs({ pkgId, platform }: RelatedPkgsProps) {
               <div style={{ padding: 12, display: "flex", flexDirection: "column", gap: 6 }}>
                 <span
                   style={{
-                    fontSize: "0.82rem",
+                    fontSize: "var(--fs-base)",
                     fontWeight: 600,
                     color: "var(--color-text-primary)",
                     overflow: "hidden",
@@ -137,7 +137,7 @@ export async function RelatedPkgs({ pkgId, platform }: RelatedPkgsProps) {
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    fontSize: "0.7rem",
+                    fontSize: "var(--fs-xs)",
                     color: "var(--color-text-muted)",
                     fontFamily: "var(--font-mono)",
                   }}

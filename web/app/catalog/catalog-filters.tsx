@@ -77,7 +77,7 @@ export function CatalogFilters({
 
   const sectionHeadingStyle: React.CSSProperties = {
     display: "block",
-    fontSize: "0.7rem",
+    fontSize: "var(--fs-xs)",
     textTransform: "uppercase",
     letterSpacing: "0.1em",
     fontWeight: 600,
@@ -106,7 +106,7 @@ export function CatalogFilters({
               htmlFor="catalog-search"
               style={{
                 display: "block",
-                fontSize: "0.7rem",
+                fontSize: "var(--fs-xs)",
                 textTransform: "uppercase",
                 letterSpacing: "0.1em",
                 fontWeight: 600,
@@ -139,7 +139,7 @@ export function CatalogFilters({
                   width: 28,
                   height: 28,
                   cursor: "pointer",
-                  fontSize: "0.85rem",
+                  fontSize: "var(--fs-md)",
                 }}
                 aria-label="Search"
               >
@@ -148,7 +148,7 @@ export function CatalogFilters({
             </div>
             <div
               style={{
-                fontSize: "0.7rem",
+                fontSize: "var(--fs-xs)",
                 color: "var(--color-text-muted)",
                 marginTop: 6,
                 fontFamily: "var(--font-mono)",
@@ -171,7 +171,7 @@ export function CatalogFilters({
             >
               <span
                 style={{
-                  fontSize: "0.7rem",
+                  fontSize: "var(--fs-xs)",
                   textTransform: "uppercase",
                   letterSpacing: "0.1em",
                   fontWeight: 600,
@@ -187,7 +187,7 @@ export function CatalogFilters({
                   background: "none",
                   border: "none",
                   color: "var(--color-danger)",
-                  fontSize: "0.7rem",
+                  fontSize: "var(--fs-xs)",
                   cursor: "pointer",
                   fontFamily: "var(--font-sans)",
                 }}
@@ -206,7 +206,7 @@ export function CatalogFilters({
                   style={{
                     padding: "3px 8px 3px 10px",
                     borderRadius: 999,
-                    fontSize: "0.72rem",
+                    fontSize: "var(--fs-xs)",
                     cursor: "pointer",
                     display: "inline-flex",
                     alignItems: "center",
@@ -214,7 +214,7 @@ export function CatalogFilters({
                     fontFamily: "var(--font-sans)",
                   }}
                 >
-                  {f.label} <span style={{ opacity: 0.6, fontSize: "0.85rem" }}>\u00d7</span>
+                  {f.label} <span style={{ opacity: 0.6, fontSize: "var(--fs-md)" }}>\u00d7</span>
                 </button>
               ))}
             </div>
@@ -239,7 +239,7 @@ export function CatalogFilters({
                     gap: 10,
                     padding: "7px 10px",
                     borderRadius: 10,
-                    fontSize: "0.8rem",
+                    fontSize: "var(--fs-base)",
                     textAlign: "left",
                     cursor: "pointer",
                     fontFamily: "var(--font-sans)",
@@ -250,7 +250,7 @@ export function CatalogFilters({
                     style={{
                       width: 14,
                       textAlign: "center",
-                      fontSize: "0.75rem",
+                      fontSize: "var(--fs-sm)",
                       fontFamily: "var(--font-mono)",
                     }}
                   >
@@ -277,7 +277,7 @@ export function CatalogFilters({
                 alignItems: "center",
                 padding: "7px 10px",
                 borderRadius: 10,
-                fontSize: "0.8rem",
+                fontSize: "var(--fs-base)",
                 textAlign: "left",
                 cursor: "pointer",
                 fontFamily: "var(--font-sans)",
@@ -287,7 +287,7 @@ export function CatalogFilters({
               <span>All platforms</span>
               <span
                 style={{
-                  fontSize: "0.7rem",
+                  fontSize: "var(--fs-xs)",
                   color: "var(--color-text-muted)",
                   fontFamily: "var(--font-mono)",
                 }}
@@ -310,7 +310,7 @@ export function CatalogFilters({
                     alignItems: "center",
                     padding: "7px 10px",
                     borderRadius: 10,
-                    fontSize: "0.8rem",
+                    fontSize: "var(--fs-base)",
                     textAlign: "left",
                     cursor: "pointer",
                     fontFamily: "var(--font-sans)",
@@ -320,7 +320,7 @@ export function CatalogFilters({
                   <span>{p.value}</span>
                   <span
                     style={{
-                      fontSize: "0.7rem",
+                      fontSize: "var(--fs-xs)",
                       color: "var(--color-text-muted)",
                       fontFamily: "var(--font-mono)",
                     }}
@@ -346,7 +346,7 @@ export function CatalogFilters({
                   style={{
                     padding: "4px 9px",
                     borderRadius: 999,
-                    fontSize: "0.72rem",
+                    fontSize: "var(--fs-xs)",
                     cursor: "pointer",
                     fontFamily: "var(--font-sans)",
                   }}

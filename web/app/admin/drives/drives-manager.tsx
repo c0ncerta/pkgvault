@@ -173,7 +173,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
           <div style={{ textAlign: "center" }}>
             <div
               style={{
-                fontSize: "2rem",
+                fontSize: "var(--fs-5xl)",
                 fontWeight: 800,
                 color: "var(--color-text-primary)",
                 lineHeight: 1,
@@ -183,7 +183,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
             </div>
             <div
               style={{
-                fontSize: "0.7rem",
+                fontSize: "var(--fs-xs)",
                 color: "var(--color-text-muted)",
                 textTransform: "uppercase",
                 letterSpacing: "0.05em",
@@ -198,7 +198,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
           <div style={{ textAlign: "center" }}>
             <div
               style={{
-                fontSize: "2rem",
+                fontSize: "var(--fs-5xl)",
                 fontWeight: 800,
                 color: "#34d399",
                 lineHeight: 1,
@@ -208,7 +208,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
             </div>
             <div
               style={{
-                fontSize: "0.7rem",
+                fontSize: "var(--fs-xs)",
                 color: "var(--color-text-muted)",
                 textTransform: "uppercase",
                 letterSpacing: "0.05em",
@@ -223,7 +223,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
           <div style={{ textAlign: "center" }}>
             <div
               style={{
-                fontSize: "2rem",
+                fontSize: "var(--fs-5xl)",
                 fontWeight: 800,
                 color: "var(--color-text-primary)",
                 lineHeight: 1,
@@ -233,7 +233,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
             </div>
             <div
               style={{
-                fontSize: "0.7rem",
+                fontSize: "var(--fs-xs)",
                 color: "var(--color-text-muted)",
                 textTransform: "uppercase",
                 letterSpacing: "0.05em",
@@ -248,7 +248,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
           <div style={{ textAlign: "center" }}>
             <div
               style={{
-                fontSize: "2rem",
+                fontSize: "var(--fs-5xl)",
                 fontWeight: 800,
                 color: "var(--color-text-primary)",
                 lineHeight: 1,
@@ -258,7 +258,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
             </div>
             <div
               style={{
-                fontSize: "0.7rem",
+                fontSize: "var(--fs-xs)",
                 color: "var(--color-text-muted)",
                 textTransform: "uppercase",
                 letterSpacing: "0.05em",
@@ -284,7 +284,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
           >
             <span
               style={{
-                fontSize: "0.85rem",
+                fontSize: "var(--fs-md)",
                 fontWeight: 600,
                 color: "var(--color-text-primary)",
               }}
@@ -293,7 +293,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
             </span>
             <span
               style={{
-                fontSize: "0.8rem",
+                fontSize: "var(--fs-base)",
                 fontFamily: "var(--font-mono)",
                 color: "var(--color-text-muted)",
               }}
@@ -337,7 +337,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
           className="btn-primary"
           onClick={handleConnect}
           disabled={connecting}
-          style={{ padding: "10px 20px", fontSize: "0.85rem" }}
+          style={{ padding: "10px 20px", fontSize: "var(--fs-md)" }}
         >
           {connecting ? "Redirecting…" : "＋ Connect Google Account"}
         </button>
@@ -346,7 +346,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
             type="button"
             className="btn-secondary"
             onClick={handleSyncAll}
-            style={{ padding: "10px 20px", fontSize: "0.85rem" }}
+            style={{ padding: "10px 20px", fontSize: "var(--fs-md)" }}
           >
             ↻ Sync All
           </button>
@@ -356,10 +356,10 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
       {/* Account cards */}
       {accounts.length === 0 ? (
         <GlassCard padding="60px 40px" style={{ textAlign: "center" }}>
-          <div style={{ fontSize: "3rem", marginBottom: 16, opacity: 0.3 }}>☁️</div>
+          <div style={{ fontSize: "var(--fs-7xl)", marginBottom: 16, opacity: 0.3 }}>☁️</div>
           <h2
             style={{
-              fontSize: "1.25rem",
+              fontSize: "var(--fs-2xl)",
               fontWeight: 700,
               color: "var(--color-text-primary)",
               marginBottom: 8,
@@ -370,7 +370,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
           <p
             style={{
               color: "var(--color-text-muted)",
-              fontSize: "0.9rem",
+              fontSize: "var(--fs-lg)",
               marginBottom: 20,
             }}
           >
@@ -417,7 +417,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                           alignItems: "center",
                           justifyContent: "center",
                           fontWeight: 800,
-                          fontSize: 14,
+                          fontSize: "var(--fs-md)",
                           color: "#fff",
                           flexShrink: 0,
                         }}
@@ -427,7 +427,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                       <div>
                         <div
                           style={{
-                            fontSize: "0.95rem",
+                            fontSize: "var(--fs-lg)",
                             fontWeight: 700,
                             color: "var(--color-text-primary)",
                             display: "flex",
@@ -439,7 +439,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                           {a.isPrimary && (
                             <span
                               style={{
-                                fontSize: "0.6rem",
+                                fontSize: "var(--fs-2xs)",
                                 padding: "2px 8px",
                                 borderRadius: 999,
                                 background: "rgba(99, 102, 241, 0.2)",
@@ -455,7 +455,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                         </div>
                         <div
                           style={{
-                            fontSize: "0.75rem",
+                            fontSize: "var(--fs-sm)",
                             color: "var(--color-text-muted)",
                             marginTop: 2,
                             display: "flex",
@@ -496,7 +496,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                         className="btn-ghost"
                         onClick={() => handleSync(a.id)}
                         disabled={isSyncing || a.status === "disconnected"}
-                        style={{ padding: "6px 12px", fontSize: "0.75rem" }}
+                        style={{ padding: "6px 12px", fontSize: "var(--fs-sm)" }}
                       >
                         {isSyncing ? "Syncing…" : "↻ Sync"}
                       </button>
@@ -507,7 +507,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                           onClick={() => handleDisconnect(a.id)}
                           style={{
                             padding: "6px 12px",
-                            fontSize: "0.75rem",
+                            fontSize: "var(--fs-sm)",
                             color: "var(--color-warning)",
                           }}
                         >
@@ -520,7 +520,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                         onClick={() => handleDelete(a.id)}
                         style={{
                           padding: "6px 12px",
-                          fontSize: "0.75rem",
+                          fontSize: "var(--fs-sm)",
                           color: "var(--color-danger)",
                         }}
                       >
@@ -541,7 +541,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                       >
                         <span
                           style={{
-                            fontSize: "0.8rem",
+                            fontSize: "var(--fs-base)",
                             fontFamily: "var(--font-mono)",
                             color: "var(--color-text-secondary)",
                           }}
@@ -550,7 +550,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                         </span>
                         <span
                           style={{
-                            fontSize: "0.8rem",
+                            fontSize: "var(--fs-base)",
                             fontFamily: "var(--font-mono)",
                             color: barColor(pct),
                             fontWeight: 600,
@@ -618,7 +618,7 @@ export function DrivesManager({ accounts: initialAccounts, totals }: Props) {
                     style={{
                       padding: "10px 24px",
                       borderTop: "1px solid rgba(255,255,255,0.06)",
-                      fontSize: "0.8rem",
+                      fontSize: "var(--fs-base)",
                       color: "var(--color-text-muted)",
                       fontStyle: "italic",
                     }}
@@ -655,7 +655,7 @@ function StatPill({
     >
       <div
         style={{
-          fontSize: "0.95rem",
+          fontSize: "var(--fs-lg)",
           fontWeight: 700,
           color: warn ? "#fbbf24" : "var(--color-text-primary)",
           fontFamily: "var(--font-mono)",
@@ -665,7 +665,7 @@ function StatPill({
       </div>
       <div
         style={{
-          fontSize: "0.65rem",
+          fontSize: "var(--fs-2xs)",
           color: "var(--color-text-muted)",
           textTransform: "uppercase",
           letterSpacing: "0.05em",

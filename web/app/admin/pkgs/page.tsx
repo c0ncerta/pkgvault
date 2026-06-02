@@ -80,7 +80,7 @@ export default async function PkgManagerPage() {
         <div>
           <h1
             style={{
-              fontSize: "1.5rem",
+              fontSize: "var(--fs-3xl)",
               fontWeight: 800,
               color: "var(--color-text-primary)",
               letterSpacing: "-0.03em",
@@ -88,11 +88,11 @@ export default async function PkgManagerPage() {
           >
             PKG Manager
           </h1>
-          <p style={{ color: "var(--color-text-muted)", fontSize: "0.85rem" }}>
+          <p style={{ color: "var(--color-text-muted)", fontSize: "var(--fs-md)" }}>
             {pkgs.length} packages — manage metadata, sources, and status
           </p>
         </div>
-        <Link href="/admin/pkgs/new" className="btn-primary" style={{ fontSize: "0.85rem" }}>
+        <Link href="/admin/pkgs/new" className="btn-primary" style={{ fontSize: "var(--fs-md)" }}>
           + Add PKG
         </Link>
       </div>

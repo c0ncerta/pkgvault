@@ -131,7 +131,7 @@ export function AddPkgForm() {
   const inputStyle: React.CSSProperties = {
     padding: "10px 14px",
     borderRadius: 10,
-    fontSize: "0.85rem",
+    fontSize: "var(--fs-md)",
     border: "1px solid rgba(255,255,255,0.08)",
     background: "rgba(255,255,255,0.04)",
     color: "var(--color-text-primary)",
@@ -141,7 +141,7 @@ export function AddPkgForm() {
   };
 
   const labelStyle: React.CSSProperties = {
-    fontSize: "0.78rem",
+    fontSize: "var(--fs-sm)",
     fontWeight: 600,
     color: "var(--color-text-secondary)",
     marginBottom: 6,
@@ -159,7 +159,7 @@ export function AddPkgForm() {
             background: "rgba(248,113,113,0.08)",
             border: "1px solid rgba(248,113,113,0.2)",
             color: "#fca5a5",
-            fontSize: "0.85rem",
+            fontSize: "var(--fs-md)",
           }}
         >
           {error}
@@ -170,7 +170,7 @@ export function AddPkgForm() {
       <GlassCard padding="24px" style={{ marginBottom: 16 }}>
         <h3
           style={{
-            fontSize: "0.8rem",
+            fontSize: "var(--fs-base)",
             fontWeight: 600,
             color: "var(--color-text-muted)",
             textTransform: "uppercase",
@@ -218,7 +218,7 @@ export function AddPkgForm() {
               onChange={(e) => setSha256(e.target.value.toLowerCase())}
               maxLength={64}
               required
-              style={{ ...inputStyle, fontFamily: "var(--font-mono)", fontSize: "0.75rem" }}
+              style={{ ...inputStyle, fontFamily: "var(--font-mono)", fontSize: "var(--fs-sm)" }}
             />
           </div>
           <div>
@@ -266,7 +266,7 @@ export function AddPkgForm() {
       <GlassCard padding="24px" style={{ marginBottom: 16 }}>
         <h3
           style={{
-            fontSize: "0.8rem",
+            fontSize: "var(--fs-base)",
             fontWeight: 600,
             color: "var(--color-text-muted)",
             textTransform: "uppercase",
@@ -298,7 +298,7 @@ export function AddPkgForm() {
               placeholder="CUSA12345"
               value={titleId}
               onChange={(e) => setTitleId(e.target.value)}
-              style={{ ...inputStyle, fontFamily: "var(--font-mono)", fontSize: "0.8rem" }}
+              style={{ ...inputStyle, fontFamily: "var(--font-mono)", fontSize: "var(--fs-base)" }}
             />
           </div>
           <div>
@@ -350,7 +350,7 @@ export function AddPkgForm() {
         >
           <h3
             style={{
-              fontSize: "0.8rem",
+              fontSize: "var(--fs-base)",
               fontWeight: 600,
               color: "var(--color-text-muted)",
               textTransform: "uppercase",
@@ -387,12 +387,12 @@ export function AddPkgForm() {
                   placeholder="https://... or magnet:?xt=..."
                   value={source.url}
                   onChange={(e) => updateSource(idx, "url", e.target.value)}
-                  style={{ ...inputStyle, fontSize: "0.8rem" }}
+                  style={{ ...inputStyle, fontSize: "var(--fs-base)" }}
                 />
                 <select
                   value={source.provider}
                   onChange={(e) => updateSource(idx, "provider", e.target.value)}
-                  style={{ ...inputStyle, fontSize: "0.8rem", cursor: "pointer" }}
+                  style={{ ...inputStyle, fontSize: "var(--fs-base)", cursor: "pointer" }}
                 >
                   {providers.map((p) => (
                     <option key={p.value} value={p.value}>
@@ -406,7 +406,7 @@ export function AddPkgForm() {
                       display: "flex",
                       alignItems: "center",
                       gap: 4,
-                      fontSize: "0.72rem",
+                      fontSize: "var(--fs-xs)",
                       color: "var(--color-text-muted)",
                       cursor: "pointer",
                     }}
@@ -435,7 +435,7 @@ export function AddPkgForm() {
                 placeholder="Label (optional)"
                 value={source.label}
                 onChange={(e) => updateSource(idx, "label", e.target.value)}
-                style={{ ...inputStyle, fontSize: "0.75rem", marginTop: 6 }}
+                style={{ ...inputStyle, fontSize: "var(--fs-sm)", marginTop: 6 }}
               />
             </div>
           ))}

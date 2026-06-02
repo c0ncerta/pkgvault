@@ -56,7 +56,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
           border: "none",
           background: "transparent",
           cursor: "pointer",
-          fontSize: "1.2rem",
+          fontSize: "var(--fs-2xl)",
           color: "var(--color-text-primary)",
         }}
         aria-label="Menu"
@@ -77,7 +77,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
             right: 0,
             bottom: 0,
             zIndex: 100,
-            animation: "fade-in 0.2s ease-out",
+            animation: "fade-in var(--dur-base) ease-out",
           }}
         >
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -96,7 +96,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
                     borderRadius: 16,
                     textDecoration: "none",
                     color: "var(--color-text-primary)",
-                    fontSize: "1rem",
+                    fontSize: "var(--fs-xl)",
                     fontWeight: 500,
                     background: "rgba(255,255,255,0.04)",
                   }}
@@ -140,7 +140,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
                     alignItems: "center",
                     justifyContent: "center",
                     fontWeight: 700,
-                    fontSize: 14,
+                    fontSize: "var(--fs-md)",
                     color: "#fff",
                   }}
                 >
@@ -149,14 +149,14 @@ export function NavbarClient({ user }: NavbarClientProps) {
                 <div>
                   <div
                     style={{
-                      fontSize: "0.9rem",
+                      fontSize: "var(--fs-lg)",
                       fontWeight: 600,
                       color: "var(--color-text-primary)",
                     }}
                   >
                     {user.name}
                   </div>
-                  <div style={{ fontSize: "0.7rem", color: "var(--color-text-muted)" }}>
+                  <div style={{ fontSize: "var(--fs-xs)", color: "var(--color-text-muted)" }}>
                     {user.email}
                   </div>
                 </div>

@@ -38,7 +38,7 @@ export function HomeHero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
         style={{
-          fontSize: "3.5rem",
+          fontSize: "var(--fs-7xl)",
           fontWeight: 900,
           letterSpacing: "-0.04em",
           lineHeight: 1.05,
@@ -58,7 +58,7 @@ export function HomeHero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.25, ease: "easeOut" }}
         style={{
-          fontSize: "1.125rem",
+          fontSize: "var(--fs-2xl)",
           color: "var(--color-text-secondary)",
           lineHeight: 1.6,
           marginBottom: 36,

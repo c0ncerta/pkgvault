@@ -101,7 +101,7 @@ export function DetailTabs(props: DetailTabsProps) {
               {t.count !== undefined && t.count > 0 && (
                 <span
                   style={{
-                    fontSize: "0.65rem",
+                    fontSize: "var(--fs-2xs)",
                     padding: "1px 7px",
                     borderRadius: 999,
                     background: active ? "var(--color-accent)" : "rgba(255,255,255,0.08)",
@@ -125,7 +125,7 @@ export function DetailTabs(props: DetailTabsProps) {
               <div>
                 <h3
                   style={{
-                    fontSize: "0.7rem",
+                    fontSize: "var(--fs-xs)",
                     textTransform: "uppercase",
                     letterSpacing: "0.1em",
                     fontWeight: 600,
@@ -137,7 +137,7 @@ export function DetailTabs(props: DetailTabsProps) {
                 </h3>
                 <p
                   style={{
-                    fontSize: "0.92rem",
+                    fontSize: "var(--fs-lg)",
                     color: "var(--color-text-primary)",
                     lineHeight: 1.65,
                     whiteSpace: "pre-wrap",
@@ -149,7 +149,7 @@ export function DetailTabs(props: DetailTabsProps) {
             ) : (
               <p
                 style={{
-                  fontSize: "0.85rem",
+                  fontSize: "var(--fs-md)",
                   color: "var(--color-text-muted)",
                   fontStyle: "italic",
                 }}
@@ -161,7 +161,7 @@ export function DetailTabs(props: DetailTabsProps) {
             <div>
               <h3
                 style={{
-                  fontSize: "0.7rem",
+                  fontSize: "var(--fs-xs)",
                   textTransform: "uppercase",
                   letterSpacing: "0.1em",
                   fontWeight: 600,
@@ -195,7 +195,7 @@ export function DetailTabs(props: DetailTabsProps) {
                   >
                     <div
                       style={{
-                        fontSize: "0.65rem",
+                        fontSize: "var(--fs-2xs)",
                         textTransform: "uppercase",
                         letterSpacing: "0.08em",
                         color: "var(--color-text-muted)",
@@ -206,7 +206,7 @@ export function DetailTabs(props: DetailTabsProps) {
                     </div>
                     <div
                       style={{
-                        fontSize: "0.85rem",
+                        fontSize: "var(--fs-md)",
                         fontFamily: "var(--font-mono)",
                         color: "var(--color-text-primary)",
                         wordBreak: "break-word",
@@ -239,7 +239,7 @@ export function DetailTabs(props: DetailTabsProps) {
                 >
                   <span
                     style={{
-                      fontSize: "1.1rem",
+                      fontSize: "var(--fs-2xl)",
                       width: 24,
                       display: "flex",
                       alignItems: "center",
@@ -251,7 +251,7 @@ export function DetailTabs(props: DetailTabsProps) {
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div
                       style={{
-                        fontSize: "0.88rem",
+                        fontSize: "var(--fs-md)",
                         fontWeight: 600,
                         color: "var(--color-text-primary)",
                       }}
@@ -261,7 +261,7 @@ export function DetailTabs(props: DetailTabsProps) {
                         <span
                           style={{
                             marginLeft: 8,
-                            fontSize: "0.6rem",
+                            fontSize: "var(--fs-2xs)",
                             padding: "1px 6px",
                             borderRadius: 999,
                             background: "var(--color-accent)",
@@ -277,7 +277,7 @@ export function DetailTabs(props: DetailTabsProps) {
                     </div>
                     <div
                       style={{
-                        fontSize: "0.7rem",
+                        fontSize: "var(--fs-xs)",
                         color: "var(--color-text-muted)",
                         fontFamily: "var(--font-mono)",
                         marginTop: 2,
@@ -288,7 +288,7 @@ export function DetailTabs(props: DetailTabsProps) {
                   </div>
                   <span
                     style={{
-                      fontSize: "0.7rem",
+                      fontSize: "var(--fs-xs)",
                       fontWeight: 600,
                       padding: "3px 10px",
                       borderRadius: 999,
@@ -306,7 +306,7 @@ export function DetailTabs(props: DetailTabsProps) {
           ) : (
             <p
               style={{
-                fontSize: "0.85rem",
+                fontSize: "var(--fs-md)",
                 color: "var(--color-text-muted)",
                 textAlign: "center",
                 padding: 24,
@@ -326,7 +326,7 @@ export function DetailTabs(props: DetailTabsProps) {
                   background: "rgba(99, 102, 241, 0.05)",
                   border: "1px solid rgba(99, 102, 241, 0.12)",
                   textAlign: "center",
-                  fontSize: "0.85rem",
+                  fontSize: "var(--fs-md)",
                   color: "var(--color-text-secondary)",
                   lineHeight: 1.6,
                 }}
@@ -339,7 +339,7 @@ export function DetailTabs(props: DetailTabsProps) {
                 <div>
                   <div
                     style={{
-                      fontSize: "0.65rem",
+                      fontSize: "var(--fs-2xs)",
                       textTransform: "uppercase",
                       letterSpacing: "0.1em",
                       fontWeight: 600,
@@ -352,7 +352,7 @@ export function DetailTabs(props: DetailTabsProps) {
                   <div
                     style={{
                       fontFamily: "var(--font-mono)",
-                      fontSize: "0.78rem",
+                      fontSize: "var(--fs-sm)",
                       lineHeight: 1.6,
                       padding: 14,
                       borderRadius: 12,
@@ -370,7 +370,7 @@ export function DetailTabs(props: DetailTabsProps) {
                 </div>
                 <div
                   style={{
-                    fontSize: "0.78rem",
+                    fontSize: "var(--fs-sm)",
                     color: "var(--color-text-secondary)",
                     lineHeight: 1.55,
                   }}
@@ -385,7 +385,7 @@ export function DetailTabs(props: DetailTabsProps) {
                       borderRadius: 6,
                       background: "rgba(255,255,255,0.05)",
                       fontFamily: "var(--font-mono)",
-                      fontSize: "0.75rem",
+                      fontSize: "var(--fs-sm)",
                     }}
                   >
                     sha256sum {props.originalFilename ?? "<file>"}
@@ -448,7 +448,7 @@ export function DetailTabs(props: DetailTabsProps) {
                 <div style={{ flex: 1 }}>
                   <div
                     style={{
-                      fontSize: "0.7rem",
+                      fontSize: "var(--fs-xs)",
                       textTransform: "uppercase",
                       letterSpacing: "0.08em",
                       color: "var(--color-text-muted)",
@@ -458,7 +458,7 @@ export function DetailTabs(props: DetailTabsProps) {
                   </div>
                   <div
                     style={{
-                      fontSize: "0.88rem",
+                      fontSize: "var(--fs-md)",
                       color: "var(--color-text-primary)",
                       fontFamily: "var(--font-mono)",
                     }}
@@ -467,7 +467,11 @@ export function DetailTabs(props: DetailTabsProps) {
                   </div>
                   {e.sub && (
                     <div
-                      style={{ fontSize: "0.7rem", color: "var(--color-text-muted)", marginTop: 2 }}
+                      style={{
+                        fontSize: "var(--fs-xs)",
+                        color: "var(--color-text-muted)",
+                        marginTop: 2,
+                      }}
                     >
                       {e.sub}
                     </div>

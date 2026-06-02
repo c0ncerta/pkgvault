@@ -161,7 +161,7 @@ export function BackupsManager({
           style={{
             marginBottom: 16,
             color: error ? "#fca5a5" : "#86efac",
-            fontSize: "0.85rem",
+            fontSize: "var(--fs-md)",
           }}
         >
           {error ?? feedback}
@@ -198,7 +198,7 @@ export function BackupsManager({
               style={{
                 padding: "7px 14px",
                 borderRadius: 999,
-                fontSize: "0.75rem",
+                fontSize: "var(--fs-sm)",
                 fontWeight: 600,
                 cursor: "pointer",
                 color: filter === key ? "var(--color-text-primary)" : "var(--color-text-muted)",
@@ -232,7 +232,7 @@ export function BackupsManager({
               border: "1px solid rgba(255,255,255,0.08)",
               background: "rgba(0,0,0,0.25)",
               color: "var(--color-text-primary)",
-              fontSize: "0.8rem",
+              fontSize: "var(--fs-base)",
             }}
           />
         </div>
@@ -297,19 +297,21 @@ export function BackupsManager({
                         style={{
                           color: "var(--color-text-primary)",
                           fontWeight: 600,
-                          fontSize: "0.9rem",
+                          fontSize: "var(--fs-lg)",
                           textDecoration: "none",
                         }}
                       >
                         {c.title}
                       </a>
                       {c.version && (
-                        <span style={{ color: "#475569", fontSize: "0.7rem" }}>v{c.version}</span>
+                        <span style={{ color: "#475569", fontSize: "var(--fs-xs)" }}>
+                          v{c.version}
+                        </span>
                       )}
                       {c.torrentDead && (
                         <span
                           style={{
-                            fontSize: "0.6rem",
+                            fontSize: "var(--fs-2xs)",
                             padding: "2px 6px",
                             borderRadius: 4,
                             color: "#fca5a5",
@@ -323,7 +325,7 @@ export function BackupsManager({
                       {hasGdrive && (
                         <span
                           style={{
-                            fontSize: "0.6rem",
+                            fontSize: "var(--fs-2xs)",
                             padding: "2px 6px",
                             borderRadius: 4,
                             color: "#34d399",
@@ -338,7 +340,7 @@ export function BackupsManager({
                     <div
                       style={{
                         color: "#475569",
-                        fontSize: "0.72rem",
+                        fontSize: "var(--fs-xs)",
                         fontFamily: "ui-monospace, SF Mono, monospace",
                       }}
                     >
@@ -351,7 +353,7 @@ export function BackupsManager({
                         rel="noreferrer noopener"
                         style={{
                           color: "#818cf8",
-                          fontSize: "0.7rem",
+                          fontSize: "var(--fs-xs)",
                           textDecoration: "none",
                           display: "block",
                           overflow: "hidden",
@@ -382,7 +384,7 @@ export function BackupsManager({
                             border: "1px solid rgba(255,255,255,0.1)",
                             background: "rgba(0,0,0,0.3)",
                             color: "var(--color-text-primary)",
-                            fontSize: "0.78rem",
+                            fontSize: "var(--fs-sm)",
                           }}
                         />
                         <LiquidButton

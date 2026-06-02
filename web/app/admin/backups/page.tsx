@@ -119,7 +119,7 @@ export default async function AdminBackupsPage() {
     <div className="animate-fade-in">
       <h1
         style={{
-          fontSize: "1.75rem",
+          fontSize: "var(--fs-4xl)",
           fontWeight: 800,
           color: "var(--color-text-primary)",
           letterSpacing: "-0.03em",
@@ -131,7 +131,7 @@ export default async function AdminBackupsPage() {
       <p
         style={{
           color: "var(--color-text-muted)",
-          fontSize: "0.85rem",
+          fontSize: "var(--fs-md)",
           marginBottom: 32,
         }}
       >

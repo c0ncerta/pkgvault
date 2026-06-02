@@ -21,7 +21,7 @@ export default function NotFound() {
       >
         <div
           style={{
-            fontSize: "5rem",
+            fontSize: "var(--fs-display)",
             fontWeight: 900,
             letterSpacing: "-0.05em",
             background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
@@ -35,7 +35,7 @@ export default function NotFound() {
         </div>
         <h1
           style={{
-            fontSize: "1.25rem",
+            fontSize: "var(--fs-2xl)",
             fontWeight: 700,
             color: "var(--color-text-primary)",
             marginBottom: 8,
@@ -43,7 +43,7 @@ export default function NotFound() {
         >
           Page not found
         </h1>
-        <p style={{ color: "var(--color-text-muted)", fontSize: "0.9rem", marginBottom: 28 }}>
+        <p style={{ color: "var(--color-text-muted)", fontSize: "var(--fs-lg)", marginBottom: 28 }}>
           The vault doesn&apos;t have what you&apos;re looking for.
         </p>
         <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>

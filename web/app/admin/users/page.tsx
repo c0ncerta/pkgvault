@@ -40,7 +40,7 @@ export default async function AdminUsersPage() {
       <div>
         <h1
           style={{
-            fontSize: "1.5rem",
+            fontSize: "var(--fs-3xl)",
             fontWeight: 800,
             color: "var(--color-text-primary)",
             marginBottom: 4,
@@ -48,7 +48,7 @@ export default async function AdminUsersPage() {
         >
           Users
         </h1>
-        <p style={{ fontSize: "0.8rem", color: "var(--color-text-muted)" }}>
+        <p style={{ fontSize: "var(--fs-base)", color: "var(--color-text-muted)" }}>
           Manage registered accounts
         </p>
       </div>
@@ -64,7 +64,7 @@ export default async function AdminUsersPage() {
       {/* Table */}
       <GlassCard padding="0" style={{ overflow: "hidden" }}>
         <div style={{ overflowX: "auto" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.82rem" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "var(--fs-base)" }}>
             <thead>
               <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
                 {["User", "Email", "Role", "Joined"].map((h) => (
@@ -73,7 +73,7 @@ export default async function AdminUsersPage() {
                     style={{
                       padding: "12px 16px",
                       textAlign: "left",
-                      fontSize: "0.7rem",
+                      fontSize: "var(--fs-xs)",
                       fontWeight: 600,
                       color: "var(--color-text-muted)",
                       textTransform: "uppercase",
@@ -106,7 +106,7 @@ export default async function AdminUsersPage() {
                           alignItems: "center",
                           justifyContent: "center",
                           fontWeight: 700,
-                          fontSize: 10,
+                          fontSize: "var(--fs-2xs)",
                           color: "#fff",
                           flexShrink: 0,
                         }}
@@ -123,7 +123,7 @@ export default async function AdminUsersPage() {
                       padding: "10px 16px",
                       fontFamily: "var(--font-mono)",
                       color: "var(--color-text-secondary)",
-                      fontSize: "0.75rem",
+                      fontSize: "var(--fs-sm)",
                     }}
                   >
                     {u.email}
@@ -131,7 +131,7 @@ export default async function AdminUsersPage() {
                   <td style={{ padding: "10px 16px" }}>
                     <span
                       className={`tag ${u.role === "admin" ? "tag-warning" : u.role === "mod" ? "tag-accent" : ""}`}
-                      style={{ fontSize: "0.65rem" }}
+                      style={{ fontSize: "var(--fs-2xs)" }}
                     >
                       {u.role}
                     </span>
@@ -141,7 +141,7 @@ export default async function AdminUsersPage() {
                       padding: "10px 16px",
                       color: "var(--color-text-muted)",
                       fontFamily: "var(--font-mono)",
-                      fontSize: "0.72rem",
+                      fontSize: "var(--fs-xs)",
                     }}
                   >
                     {u.createdAt.toLocaleDateString("en-US", {

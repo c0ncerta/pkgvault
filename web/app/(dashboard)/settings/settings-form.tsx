@@ -94,11 +94,11 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
               borderLeft:
                 section === s.key ? "3px solid var(--color-accent)" : "3px solid transparent",
               border: "none",
-              fontSize: "0.85rem",
+              fontSize: "var(--fs-md)",
               fontWeight: section === s.key ? 600 : 400,
               color: s.danger ? "var(--color-danger)" : "var(--color-text-primary)",
               fontFamily: "var(--font-sans)",
-              transition: "background 0.15s",
+              transition: "background var(--dur-fast)",
             }}
           >
             {s.label}
@@ -111,7 +111,11 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
         {section === "account" && (
           <>
             <h1
-              style={{ fontSize: "1.75rem", fontWeight: 800, color: "var(--color-text-primary)" }}
+              style={{
+                fontSize: "var(--fs-4xl)",
+                fontWeight: 800,
+                color: "var(--color-text-primary)",
+              }}
             >
               Account
             </h1>
@@ -129,7 +133,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                   alignItems: "center",
                   justifyContent: "center",
                   fontWeight: 800,
-                  fontSize: "2rem",
+                  fontSize: "var(--fs-5xl)",
                   color: "#fff",
                 }}
               >
@@ -138,7 +142,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
               <div>
                 <h3
                   style={{
-                    fontSize: "0.95rem",
+                    fontSize: "var(--fs-lg)",
                     fontWeight: 700,
                     color: "var(--color-text-primary)",
                     marginBottom: 4,
@@ -147,7 +151,11 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                   Avatar
                 </h3>
                 <p
-                  style={{ fontSize: "0.8rem", color: "var(--color-text-muted)", marginBottom: 12 }}
+                  style={{
+                    fontSize: "var(--fs-base)",
+                    color: "var(--color-text-muted)",
+                    marginBottom: 12,
+                  }}
                 >
                   JPG/PNG · max 1MB
                 </p>
@@ -169,7 +177,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                   htmlFor="settings-display-name"
                   style={{
                     display: "block",
-                    fontSize: "0.7rem",
+                    fontSize: "var(--fs-xs)",
                     fontWeight: 500,
                     color: "var(--color-text-muted)",
                     textTransform: "uppercase",
@@ -191,7 +199,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                   htmlFor="settings-email"
                   style={{
                     display: "block",
-                    fontSize: "0.7rem",
+                    fontSize: "var(--fs-xs)",
                     fontWeight: 500,
                     color: "var(--color-text-muted)",
                     textTransform: "uppercase",
@@ -210,7 +218,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                 />
                 <div
                   style={{
-                    fontSize: "0.7rem",
+                    fontSize: "var(--fs-xs)",
                     color: "var(--color-success)",
                     fontFamily: "var(--font-mono)",
                     marginTop: 4,
@@ -227,7 +235,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                 htmlFor="settings-bio"
                 style={{
                   display: "block",
-                  fontSize: "0.7rem",
+                  fontSize: "var(--fs-xs)",
                   fontWeight: 500,
                   color: "var(--color-text-muted)",
                   textTransform: "uppercase",
@@ -248,7 +256,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
               />
               <div
                 style={{
-                  fontSize: "0.7rem",
+                  fontSize: "var(--fs-xs)",
                   color: "var(--color-text-muted)",
                   fontFamily: "var(--font-mono)",
                   marginTop: 4,
@@ -263,7 +271,9 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
               padding="14px"
               style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
             >
-              <span style={{ fontSize: "0.85rem", color: "var(--color-text-primary)" }}>Role</span>
+              <span style={{ fontSize: "var(--fs-md)", color: "var(--color-text-primary)" }}>
+                Role
+              </span>
               <span className="tag tag-accent">{initialUser.role}</span>
             </GlassCard>
 
@@ -275,7 +285,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
               <div>
                 <span
                   style={{
-                    fontSize: "0.85rem",
+                    fontSize: "var(--fs-md)",
                     color: "var(--color-text-primary)",
                     fontWeight: 500,
                   }}
@@ -284,7 +294,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                 </span>
                 <p
                   style={{
-                    fontSize: "0.75rem",
+                    fontSize: "var(--fs-sm)",
                     color: "var(--color-text-muted)",
                     margin: "2px 0 0",
                   }}
@@ -300,14 +310,18 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
         {section === "security" && (
           <>
             <h1
-              style={{ fontSize: "1.75rem", fontWeight: 800, color: "var(--color-text-primary)" }}
+              style={{
+                fontSize: "var(--fs-4xl)",
+                fontWeight: 800,
+                color: "var(--color-text-primary)",
+              }}
             >
               Session & Security
             </h1>
             <GlassCard padding="18px">
               <h3
                 style={{
-                  fontSize: "0.95rem",
+                  fontSize: "var(--fs-lg)",
                   fontWeight: 700,
                   color: "var(--color-text-primary)",
                   marginBottom: 12,
@@ -331,7 +345,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
             <GlassCard padding="18px">
               <h3
                 style={{
-                  fontSize: "0.95rem",
+                  fontSize: "var(--fs-lg)",
                   fontWeight: 700,
                   color: "var(--color-text-primary)",
                   marginBottom: 8,
@@ -339,7 +353,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
               >
                 Active sessions
               </h3>
-              <p style={{ fontSize: "0.8rem", color: "var(--color-text-muted)" }}>
+              <p style={{ fontSize: "var(--fs-base)", color: "var(--color-text-muted)" }}>
                 Current session is active. Use the button below to sign out from all devices.
               </p>
               <button type="button" className="btn-secondary" style={{ marginTop: 12 }}>
@@ -352,7 +366,11 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
         {section === "notifications" && (
           <>
             <h1
-              style={{ fontSize: "1.75rem", fontWeight: 800, color: "var(--color-text-primary)" }}
+              style={{
+                fontSize: "var(--fs-4xl)",
+                fontWeight: 800,
+                color: "var(--color-text-primary)",
+              }}
             >
               Notifications
             </h1>
@@ -366,7 +384,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                 padding="12px 14px"
                 style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
               >
-                <span style={{ fontSize: "0.85rem", color: "var(--color-text-primary)" }}>
+                <span style={{ fontSize: "var(--fs-md)", color: "var(--color-text-primary)" }}>
                   {t.label}
                 </span>
                 <div
@@ -388,7 +406,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                       height: 16,
                       borderRadius: "50%",
                       background: "#fff",
-                      transition: "left 0.2s",
+                      transition: "left var(--dur-base)",
                     }}
                   />
                 </div>
@@ -400,7 +418,11 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
         {section === "privacy" && (
           <>
             <h1
-              style={{ fontSize: "1.75rem", fontWeight: 800, color: "var(--color-text-primary)" }}
+              style={{
+                fontSize: "var(--fs-4xl)",
+                fontWeight: 800,
+                color: "var(--color-text-primary)",
+              }}
             >
               Privacy
             </h1>
@@ -414,7 +436,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                 padding="12px 14px"
                 style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
               >
-                <span style={{ fontSize: "0.85rem", color: "var(--color-text-primary)" }}>
+                <span style={{ fontSize: "var(--fs-md)", color: "var(--color-text-primary)" }}>
                   {t.label}
                 </span>
                 <div
@@ -436,7 +458,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                       height: 16,
                       borderRadius: "50%",
                       background: "#fff",
-                      transition: "left 0.2s",
+                      transition: "left var(--dur-base)",
                     }}
                   />
                 </div>
@@ -447,7 +469,9 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
 
         {section === "danger" && (
           <>
-            <h1 style={{ fontSize: "1.75rem", fontWeight: 800, color: "var(--color-danger)" }}>
+            <h1
+              style={{ fontSize: "var(--fs-4xl)", fontWeight: 800, color: "var(--color-danger)" }}
+            >
               Danger Zone
             </h1>
             <div
@@ -460,7 +484,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
             >
               <h3
                 style={{
-                  fontSize: "0.95rem",
+                  fontSize: "var(--fs-lg)",
                   fontWeight: 700,
                   color: "var(--color-text-primary)",
                   marginBottom: 8,
@@ -470,7 +494,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
               </h3>
               <p
                 style={{
-                  fontSize: "0.85rem",
+                  fontSize: "var(--fs-md)",
                   color: "var(--color-text-secondary)",
                   marginBottom: 16,
                 }}
@@ -507,7 +531,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
               <span
                 style={{ width: 8, height: 8, borderRadius: 4, background: "var(--color-accent)" }}
               />
-              <span style={{ fontSize: "0.85rem", color: "var(--color-text-primary)" }}>
+              <span style={{ fontSize: "var(--fs-md)", color: "var(--color-text-primary)" }}>
                 You have unsaved changes
               </span>
             </div>
@@ -515,7 +539,7 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
               {feedback && (
                 <span
                   style={{
-                    fontSize: "0.8rem",
+                    fontSize: "var(--fs-base)",
                     color: feedback.startsWith("✓")
                       ? "var(--color-success)"
                       : "var(--color-danger)",

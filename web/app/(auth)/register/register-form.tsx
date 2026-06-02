@@ -10,17 +10,17 @@ const inputStyle: React.CSSProperties = {
   border: "1px solid rgba(255, 255, 255, 0.1)",
   background: "rgba(255, 255, 255, 0.04)",
   color: "#e0e0e0",
-  fontSize: "0.95rem",
+  fontSize: "var(--fs-lg)",
   fontFamily: "var(--font-sans)",
   outline: "none",
-  transition: "border-color 0.2s, box-shadow 0.2s",
+  transition: "border-color var(--dur-base), box-shadow var(--dur-base)",
   boxSizing: "border-box" as const,
 };
 
 const labelStyle: React.CSSProperties = {
   display: "block",
   color: "var(--color-text-secondary)",
-  fontSize: "0.8rem",
+  fontSize: "var(--fs-base)",
   fontWeight: 500,
   marginBottom: 6,
   letterSpacing: "0.02em",
@@ -86,7 +86,7 @@ export function RegisterForm() {
       <div style={{ textAlign: "center" }}>
         <div
           style={{
-            fontSize: "2.5rem",
+            fontSize: "var(--fs-6xl)",
             marginBottom: 16,
           }}
         >
@@ -94,7 +94,7 @@ export function RegisterForm() {
         </div>
         <h2
           style={{
-            fontSize: "1.25rem",
+            fontSize: "var(--fs-2xl)",
             fontWeight: 700,
             color: "var(--color-text-primary)",
             marginBottom: 8,
@@ -105,7 +105,7 @@ export function RegisterForm() {
         <p
           style={{
             color: "var(--color-text-muted)",
-            fontSize: "0.9rem",
+            fontSize: "var(--fs-lg)",
             lineHeight: 1.6,
           }}
         >
@@ -202,7 +202,7 @@ export function RegisterForm() {
             background: "rgba(239, 68, 68, 0.1)",
             border: "1px solid rgba(239, 68, 68, 0.2)",
             color: "#fca5a5",
-            fontSize: "0.85rem",
+            fontSize: "var(--fs-md)",
             marginBottom: 16,
           }}
         >
@@ -222,11 +222,11 @@ export function RegisterForm() {
             ? "rgba(99, 102, 241, 0.5)"
             : "linear-gradient(135deg, #6366f1, #8b5cf6)",
           color: "#fff",
-          fontSize: "0.95rem",
+          fontSize: "var(--fs-lg)",
           fontWeight: 600,
           fontFamily: "var(--font-sans)",
           cursor: loading ? "not-allowed" : "pointer",
-          transition: "transform 0.15s, box-shadow 0.15s",
+          transition: "transform var(--dur-fast), box-shadow var(--dur-fast)",
           boxShadow: "0 4px 20px rgba(99, 102, 241, 0.3)",
         }}
       >

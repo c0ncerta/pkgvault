@@ -208,10 +208,12 @@ export function GlassStat({ value, label }: { value: ReactNode; label: string })
       style={{ minHeight: 80, display: "flex", alignItems: "center", justifyContent: "center" }}
     >
       <div style={{ textAlign: "center" }}>
-        <div style={{ fontSize: "1.25rem", fontWeight: 800, color: "var(--color-text-primary)" }}>
+        <div
+          style={{ fontSize: "var(--fs-2xl)", fontWeight: 800, color: "var(--color-text-primary)" }}
+        >
           {value}
         </div>
-        <div style={{ fontSize: "0.7rem", color: "var(--color-text-muted)", marginTop: 2 }}>
+        <div style={{ fontSize: "var(--fs-xs)", color: "var(--color-text-muted)", marginTop: 2 }}>
           {label}
         </div>
       </div>

@@ -59,7 +59,7 @@ export default async function QueuePage() {
     <div className="animate-fade-in">
       <h1
         style={{
-          fontSize: "1.5rem",
+          fontSize: "var(--fs-3xl)",
           fontWeight: 800,
           color: "var(--color-text-primary)",
           letterSpacing: "-0.03em",
@@ -68,7 +68,7 @@ export default async function QueuePage() {
       >
         Mod Queue
       </h1>
-      <p style={{ color: "var(--color-text-muted)", fontSize: "0.85rem", marginBottom: 24 }}>
+      <p style={{ color: "var(--color-text-muted)", fontSize: "var(--fs-md)", marginBottom: 24 }}>
         {pendingPkgs.length} submissions waiting for review
       </p>
 
@@ -79,11 +79,11 @@ export default async function QueuePage() {
           padding="60px 20px"
           style={{ textAlign: "center" }}
         >
-          <div style={{ fontSize: "2.5rem", marginBottom: 12, opacity: 0.3 }}>✓</div>
-          <div style={{ color: "#34d399", fontWeight: 600, fontSize: "1.1rem" }}>
+          <div style={{ fontSize: "var(--fs-6xl)", marginBottom: 12, opacity: 0.3 }}>✓</div>
+          <div style={{ color: "#34d399", fontWeight: 600, fontSize: "var(--fs-2xl)" }}>
             Queue is clear
           </div>
-          <div style={{ color: "#475569", fontSize: "0.85rem", marginTop: 4 }}>
+          <div style={{ color: "#475569", fontSize: "var(--fs-md)", marginTop: 4 }}>
             No pending submissions
           </div>
         </GlassCard>
@@ -102,7 +102,7 @@ export default async function QueuePage() {
                   <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
                     <h3
                       style={{
-                        fontSize: "1rem",
+                        fontSize: "var(--fs-xl)",
                         fontWeight: 700,
                         color: "var(--color-text-primary)",
                         margin: 0,
@@ -115,7 +115,7 @@ export default async function QueuePage() {
                         style={{
                           padding: "2px 8px",
                           borderRadius: 6,
-                          fontSize: "0.7rem",
+                          fontSize: "var(--fs-xs)",
                           fontWeight: 600,
                           color: "#818cf8",
                           background: "rgba(99,102,241,0.12)",
@@ -128,7 +128,7 @@ export default async function QueuePage() {
                     {pkg.version && (
                       <span
                         style={{
-                          fontSize: "0.75rem",
+                          fontSize: "var(--fs-sm)",
                           color: "#475569",
                           fontFamily: "var(--font-mono)",
                         }}
@@ -142,7 +142,7 @@ export default async function QueuePage() {
                     <p
                       style={{
                         color: "var(--color-text-secondary)",
-                        fontSize: "0.85rem",
+                        fontSize: "var(--fs-md)",
                         marginBottom: 10,
                         lineHeight: 1.5,
                       }}
@@ -152,7 +152,9 @@ export default async function QueuePage() {
                     </p>
                   )}
 
-                  <div style={{ display: "flex", gap: 20, fontSize: "0.75rem", color: "#475569" }}>
+                  <div
+                    style={{ display: "flex", gap: 20, fontSize: "var(--fs-sm)", color: "#475569" }}
+                  >
                     <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
                       <IconCatalog size={12} /> {formatBytes(pkg.sizeBytes)}
                     </span>
@@ -175,7 +177,7 @@ export default async function QueuePage() {
                   <div
                     style={{
                       marginTop: 10,
-                      fontSize: "0.7rem",
+                      fontSize: "var(--fs-xs)",
                       color: "#475569",
                       fontFamily: "var(--font-mono)",
                       wordBreak: "break-all",

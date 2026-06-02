@@ -78,7 +78,7 @@ export async function HomeForumStrip() {
         <div>
           <div
             style={{
-              fontSize: "0.7rem",
+              fontSize: "var(--fs-xs)",
               textTransform: "uppercase",
               letterSpacing: "0.12em",
               color: "#34d399",
@@ -90,7 +90,7 @@ export async function HomeForumStrip() {
           </div>
           <h2
             style={{
-              fontSize: "1.4rem",
+              fontSize: "var(--fs-3xl)",
               fontWeight: 800,
               letterSpacing: "-0.02em",
               color: "var(--color-text-primary)",
@@ -99,7 +99,7 @@ export async function HomeForumStrip() {
             Latest forum threads
           </h2>
         </div>
-        <Link href="/forum" className="btn-ghost" style={{ fontSize: "0.85rem" }}>
+        <Link href="/forum" className="btn-ghost" style={{ fontSize: "var(--fs-md)" }}>
           View forum →
         </Link>
       </div>
@@ -118,7 +118,7 @@ export async function HomeForumStrip() {
               textDecoration: "none",
               borderBottom: i < threads.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
               background: t.isPinned ? "rgba(245, 158, 11, 0.03)" : "transparent",
-              transition: "background 0.15s",
+              transition: "background var(--dur-fast)",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 0 }}>
@@ -146,7 +146,7 @@ export async function HomeForumStrip() {
               <div style={{ minWidth: 0 }}>
                 <div
                   style={{
-                    fontSize: "0.9rem",
+                    fontSize: "var(--fs-lg)",
                     fontWeight: 600,
                     color: "var(--color-text-primary)",
                     overflow: "hidden",
@@ -158,7 +158,7 @@ export async function HomeForumStrip() {
                 </div>
                 <div
                   style={{
-                    fontSize: "0.72rem",
+                    fontSize: "var(--fs-xs)",
                     color: "var(--color-text-muted)",
                     marginTop: 2,
                     fontFamily: "var(--font-mono)",
@@ -172,7 +172,7 @@ export async function HomeForumStrip() {
               <Tag>{t.category}</Tag>
               <span
                 style={{
-                  fontSize: "0.75rem",
+                  fontSize: "var(--fs-sm)",
                   color: "var(--color-text-muted)",
                   fontFamily: "var(--font-mono)",
                   minWidth: 32,

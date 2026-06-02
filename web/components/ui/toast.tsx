@@ -25,7 +25,7 @@ export function useToast() {
 const icons: Record<ToastType, ReactNode> = {
   success: <IconCheck size={14} />,
   error: <IconX size={14} />,
-  info: <span style={{ fontWeight: 700, fontSize: "0.8rem" }}>ℹ</span>,
+  info: <span style={{ fontWeight: 700, fontSize: "var(--fs-base)" }}>ℹ</span>,
   warning: <IconAlertTriangle size={14} />,
 };
 
@@ -68,7 +68,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                 alignItems: "center",
                 justifyContent: "center",
                 flexShrink: 0,
-                fontSize: "0.8rem",
+                fontSize: "var(--fs-base)",
                 fontWeight: 700,
                 background:
                   t.type === "success"
@@ -102,7 +102,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                 border: "none",
                 color: "var(--color-text-muted)",
                 cursor: "pointer",
-                fontSize: "0.75rem",
+                fontSize: "var(--fs-sm)",
                 padding: 4,
                 flexShrink: 0,
               }}

@@ -82,7 +82,7 @@ export default async function DrivesPage() {
       <div style={{ marginBottom: 32 }}>
         <h1
           style={{
-            fontSize: "1.75rem",
+            fontSize: "var(--fs-4xl)",
             fontWeight: 800,
             letterSpacing: "-0.03em",
             color: "var(--color-text-primary)",
@@ -91,7 +91,7 @@ export default async function DrivesPage() {
         >
           Google Drive Accounts
         </h1>
-        <p style={{ color: "var(--color-text-muted)", fontSize: "0.9rem" }}>
+        <p style={{ color: "var(--color-text-muted)", fontSize: "var(--fs-lg)" }}>
           Connect and monitor Google Drive accounts used for PKG file storage and backups.
         </p>
       </div>

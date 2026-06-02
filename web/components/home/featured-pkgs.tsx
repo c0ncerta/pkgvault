@@ -76,7 +76,7 @@ export async function HomeFeaturedPkgs() {
         <div>
           <div
             style={{
-              fontSize: "0.7rem",
+              fontSize: "var(--fs-xs)",
               textTransform: "uppercase",
               letterSpacing: "0.12em",
               color: "var(--color-accent-hover)",
@@ -88,7 +88,7 @@ export async function HomeFeaturedPkgs() {
           </div>
           <h2
             style={{
-              fontSize: "1.6rem",
+              fontSize: "var(--fs-3xl)",
               fontWeight: 800,
               letterSpacing: "-0.02em",
               color: "var(--color-text-primary)",
@@ -97,7 +97,7 @@ export async function HomeFeaturedPkgs() {
             Most-downloaded packages
           </h2>
         </div>
-        <Link href="/catalog" className="btn-ghost" style={{ fontSize: "0.85rem" }}>
+        <Link href="/catalog" className="btn-ghost" style={{ fontSize: "var(--fs-md)" }}>
           Browse all →
         </Link>
       </div>
@@ -140,7 +140,7 @@ export async function HomeFeaturedPkgs() {
                   style={{
                     position: "relative",
                     zIndex: 1,
-                    fontSize: "2.4rem",
+                    fontSize: "var(--fs-6xl)",
                     fontWeight: 900,
                     color: "rgba(255,255,255,0.85)",
                     textShadow: "0 2px 12px rgba(0,0,0,0.25)",
@@ -160,7 +160,7 @@ export async function HomeFeaturedPkgs() {
                       backdropFilter: "blur(8px)",
                       padding: "3px 9px",
                       borderRadius: 999,
-                      fontSize: "0.65rem",
+                      fontSize: "var(--fs-2xs)",
                       fontWeight: 700,
                       color: "#fff",
                       textTransform: "uppercase",
@@ -176,7 +176,7 @@ export async function HomeFeaturedPkgs() {
               >
                 <span
                   style={{
-                    fontSize: "0.95rem",
+                    fontSize: "var(--fs-lg)",
                     fontWeight: 600,
                     color: "var(--color-text-primary)",
                     lineHeight: 1.3,
@@ -199,7 +199,7 @@ export async function HomeFeaturedPkgs() {
                 >
                   <span
                     style={{
-                      fontSize: "0.7rem",
+                      fontSize: "var(--fs-xs)",
                       color: "var(--color-text-muted)",
                       fontFamily: "var(--font-mono)",
                     }}
@@ -208,7 +208,7 @@ export async function HomeFeaturedPkgs() {
                   </span>
                   <span
                     style={{
-                      fontSize: "0.7rem",
+                      fontSize: "var(--fs-xs)",
                       color: "var(--color-text-muted)",
                       fontFamily: "var(--font-mono)",
                     }}

@@ -28,7 +28,7 @@ export default async function NotificationsPage() {
         <div>
           <h1
             style={{
-              fontSize: "1.5rem",
+              fontSize: "var(--fs-3xl)",
               fontWeight: 800,
               color: "var(--color-text-primary)",
               margin: 0,
@@ -36,19 +36,19 @@ export default async function NotificationsPage() {
           >
             Notifications
           </h1>
-          <p style={{ fontSize: "0.8rem", color: "var(--color-text-muted)", margin: 0 }}>
+          <p style={{ fontSize: "var(--fs-base)", color: "var(--color-text-muted)", margin: 0 }}>
             You&apos;re all caught up
           </p>
         </div>
       </div>
 
       <GlassCard padding="40px 24px" style={{ textAlign: "center" }}>
-        <div style={{ fontSize: "2.5rem", marginBottom: 12, opacity: 0.3 }}>
+        <div style={{ fontSize: "var(--fs-6xl)", marginBottom: 12, opacity: 0.3 }}>
           <IconBell size={48} />
         </div>
         <h2
           style={{
-            fontSize: "1.1rem",
+            fontSize: "var(--fs-2xl)",
             fontWeight: 700,
             color: "var(--color-text-primary)",
             marginBottom: 8,
@@ -58,7 +58,7 @@ export default async function NotificationsPage() {
         </h2>
         <p
           style={{
-            fontSize: "0.85rem",
+            fontSize: "var(--fs-md)",
             color: "var(--color-text-muted)",
             lineHeight: 1.5,
             maxWidth: 360,

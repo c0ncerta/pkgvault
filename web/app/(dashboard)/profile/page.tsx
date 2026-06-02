@@ -134,19 +134,21 @@ export default async function ProfilePage() {
             alignItems: "center",
             justifyContent: "center",
             fontWeight: 800,
-            fontSize: "1.5rem",
+            fontSize: "var(--fs-3xl)",
             color: "#fff",
             marginBottom: 14,
           }}
         >
           {initials}
         </div>
-        <h2 style={{ fontSize: "1.25rem", fontWeight: 800, color: "var(--color-text-primary)" }}>
+        <h2
+          style={{ fontSize: "var(--fs-2xl)", fontWeight: 800, color: "var(--color-text-primary)" }}
+        >
           {userName}
         </h2>
         <p
           style={{
-            fontSize: "0.75rem",
+            fontSize: "var(--fs-sm)",
             color: "var(--color-text-muted)",
             fontFamily: "var(--font-mono)",
             marginBottom: 16,

@@ -130,7 +130,7 @@ export function UploadWizard() {
     <div className="animate-fade-in">
       <h1
         style={{
-          fontSize: "2rem",
+          fontSize: "var(--fs-5xl)",
           fontWeight: 800,
           letterSpacing: "-0.03em",
           color: "var(--color-text-primary)",
@@ -139,7 +139,7 @@ export function UploadWizard() {
       >
         Share a PKG
       </h1>
-      <p style={{ color: "var(--color-text-muted)", fontSize: "0.9rem", marginBottom: 24 }}>
+      <p style={{ color: "var(--color-text-muted)", fontSize: "var(--fs-lg)", marginBottom: 24 }}>
         Submit an external download link. Packages are reviewed before publishing.
       </p>
 
@@ -159,7 +159,7 @@ export function UploadWizard() {
             />
             <span
               style={{
-                fontSize: "0.75rem",
+                fontSize: "var(--fs-sm)",
                 fontWeight: 600,
                 color: i <= stepIdx ? "#818cf8" : "#475569",
                 textTransform: "uppercase",
@@ -182,7 +182,7 @@ export function UploadWizard() {
             <GlassCard padding="24px">
               <h3
                 style={{
-                  fontSize: "1rem",
+                  fontSize: "var(--fs-xl)",
                   fontWeight: 700,
                   color: "var(--color-text-primary)",
                   marginBottom: 16,
@@ -192,7 +192,7 @@ export function UploadWizard() {
               </h3>
               <p
                 style={{
-                  fontSize: "0.8rem",
+                  fontSize: "var(--fs-base)",
                   color: "var(--color-text-muted)",
                   marginBottom: 20,
                   lineHeight: 1.5,
@@ -228,7 +228,7 @@ export function UploadWizard() {
                       {source.url && source.valid && (
                         <span
                           style={{
-                            fontSize: "0.65rem",
+                            fontSize: "var(--fs-2xs)",
                             fontWeight: 700,
                             color: "#818cf8",
                             background: "rgba(99, 102, 241, 0.1)",
@@ -248,7 +248,7 @@ export function UploadWizard() {
                         value={source.label}
                         onChange={(e) => updateSource(i, "label", e.target.value)}
                         placeholder="Label (e.g. Mirror EU)"
-                        style={{ flex: 1, fontSize: "0.8rem" }}
+                        style={{ flex: 1, fontSize: "var(--fs-base)" }}
                       />
                       {sources.length > 1 && (
                         <button
@@ -257,7 +257,7 @@ export function UploadWizard() {
                           onClick={() => removeSource(i)}
                           style={{
                             padding: "6px 12px",
-                            fontSize: "0.75rem",
+                            fontSize: "var(--fs-sm)",
                             color: "#ef4444",
                           }}
                         >
@@ -275,7 +275,7 @@ export function UploadWizard() {
                 onClick={addSource}
                 style={{
                   marginTop: 4,
-                  fontSize: "0.85rem",
+                  fontSize: "var(--fs-md)",
                   width: "100%",
                   padding: "10px",
                   border: "1px dashed rgba(99,102,241,0.3)",
@@ -309,7 +309,7 @@ export function UploadWizard() {
                   padding: "8px 12px",
                   background: "rgba(99, 102, 241, 0.08)",
                   borderRadius: 8,
-                  fontSize: "0.8rem",
+                  fontSize: "var(--fs-base)",
                   color: "var(--color-text-secondary)",
                 }}
               >
@@ -321,7 +321,7 @@ export function UploadWizard() {
                   type="button"
                   className="btn-ghost"
                   onClick={() => setStep("links")}
-                  style={{ marginLeft: "auto", fontSize: "0.75rem", padding: "4px 10px" }}
+                  style={{ marginLeft: "auto", fontSize: "var(--fs-sm)", padding: "4px 10px" }}
                 >
                   Edit
                 </button>
@@ -340,7 +340,7 @@ export function UploadWizard() {
                     htmlFor="upload-title"
                     style={{
                       display: "block",
-                      fontSize: "0.7rem",
+                      fontSize: "var(--fs-xs)",
                       fontWeight: 500,
                       color: "var(--color-text-secondary)",
                       marginBottom: 6,
@@ -363,7 +363,7 @@ export function UploadWizard() {
                     htmlFor="upload-version"
                     style={{
                       display: "block",
-                      fontSize: "0.7rem",
+                      fontSize: "var(--fs-xs)",
                       fontWeight: 500,
                       color: "var(--color-text-secondary)",
                       marginBottom: 6,
@@ -385,7 +385,7 @@ export function UploadWizard() {
                   <span
                     style={{
                       display: "block",
-                      fontSize: "0.7rem",
+                      fontSize: "var(--fs-xs)",
                       fontWeight: 500,
                       color: "var(--color-text-secondary)",
                       marginBottom: 6,
@@ -417,7 +417,7 @@ export function UploadWizard() {
                   <span
                     style={{
                       display: "block",
-                      fontSize: "0.7rem",
+                      fontSize: "var(--fs-xs)",
                       fontWeight: 500,
                       color: "var(--color-text-secondary)",
                       marginBottom: 6,
@@ -456,7 +456,7 @@ export function UploadWizard() {
                     htmlFor="upload-firmware"
                     style={{
                       display: "block",
-                      fontSize: "0.7rem",
+                      fontSize: "var(--fs-xs)",
                       fontWeight: 500,
                       color: "var(--color-text-secondary)",
                       marginBottom: 6,
@@ -480,7 +480,7 @@ export function UploadWizard() {
                   htmlFor="upload-description"
                   style={{
                     display: "block",
-                    fontSize: "0.7rem",
+                    fontSize: "var(--fs-xs)",
                     fontWeight: 500,
                     color: "var(--color-text-secondary)",
                     marginBottom: 6,
@@ -520,7 +520,7 @@ export function UploadWizard() {
             <GlassCard padding="24px">
               <h3
                 style={{
-                  fontSize: "1.1rem",
+                  fontSize: "var(--fs-2xl)",
                   fontWeight: 700,
                   color: "var(--color-text-primary)",
                   marginBottom: 16,
@@ -534,7 +534,7 @@ export function UploadWizard() {
                   display: "grid",
                   gridTemplateColumns: "auto 1fr",
                   gap: "8px 20px",
-                  fontSize: "0.85rem",
+                  fontSize: "var(--fs-md)",
                   marginBottom: 20,
                 }}
               >
@@ -549,7 +549,7 @@ export function UploadWizard() {
                     <dt
                       style={{
                         color: "var(--color-text-muted)",
-                        fontSize: "0.7rem",
+                        fontSize: "var(--fs-xs)",
                         fontWeight: 500,
                         textTransform: "uppercase",
                         letterSpacing: "0.05em",
@@ -561,7 +561,7 @@ export function UploadWizard() {
                       style={{
                         margin: 0,
                         color: "var(--color-text-primary)",
-                        fontSize: "0.9rem",
+                        fontSize: "var(--fs-lg)",
                         fontWeight: 500,
                       }}
                     >
@@ -578,7 +578,7 @@ export function UploadWizard() {
                     borderRadius: 8,
                     background: "rgba(255,255,255,0.03)",
                     border: "1px solid rgba(255,255,255,0.06)",
-                    fontSize: "0.85rem",
+                    fontSize: "var(--fs-md)",
                     color: "var(--color-text-secondary)",
                     marginBottom: 20,
                   }}
@@ -589,7 +589,7 @@ export function UploadWizard() {
 
               <h4
                 style={{
-                  fontSize: "0.8rem",
+                  fontSize: "var(--fs-base)",
                   fontWeight: 600,
                   color: "var(--color-text-primary)",
                   marginBottom: 8,
@@ -609,12 +609,12 @@ export function UploadWizard() {
                       borderRadius: 8,
                       background: "rgba(255,255,255,0.03)",
                       border: "1px solid rgba(255,255,255,0.06)",
-                      fontSize: "0.8rem",
+                      fontSize: "var(--fs-base)",
                     }}
                   >
                     <span
                       style={{
-                        fontSize: "0.6rem",
+                        fontSize: "var(--fs-2xs)",
                         fontWeight: 700,
                         color: "#818cf8",
                         background: "rgba(99, 102, 241, 0.1)",
@@ -633,13 +633,15 @@ export function UploadWizard() {
                         whiteSpace: "nowrap",
                         color: "var(--color-text-muted)",
                         fontFamily: "var(--font-mono)",
-                        fontSize: "0.75rem",
+                        fontSize: "var(--fs-sm)",
                       }}
                     >
                       {s.url}
                     </span>
                     {s.label && (
-                      <span style={{ color: "var(--color-text-secondary)", fontSize: "0.75rem" }}>
+                      <span
+                        style={{ color: "var(--color-text-secondary)", fontSize: "var(--fs-sm)" }}
+                      >
                         {s.label}
                       </span>
                     )}
@@ -655,7 +657,7 @@ export function UploadWizard() {
                     background: "rgba(239, 68, 68, 0.1)",
                     border: "1px solid rgba(239, 68, 68, 0.2)",
                     color: "#fca5a5",
-                    fontSize: "0.85rem",
+                    fontSize: "var(--fs-md)",
                     marginBottom: 16,
                   }}
                 >
@@ -691,7 +693,7 @@ export function UploadWizard() {
           <GlassCard padding="16px">
             <h4
               style={{
-                fontSize: "0.85rem",
+                fontSize: "var(--fs-md)",
                 fontWeight: 700,
                 color: "var(--color-text-primary)",
                 marginBottom: 10,
@@ -700,7 +702,11 @@ export function UploadWizard() {
               Supported sources
             </h4>
             <div
-              style={{ fontSize: "0.8rem", color: "var(--color-text-secondary)", lineHeight: 1.6 }}
+              style={{
+                fontSize: "var(--fs-base)",
+                color: "var(--color-text-secondary)",
+                lineHeight: 1.6,
+              }}
             >
               <div>✓ Google Drive</div>
               <div>✓ Mega</div>
@@ -715,7 +721,7 @@ export function UploadWizard() {
           <GlassCard padding="16px">
             <h4
               style={{
-                fontSize: "0.85rem",
+                fontSize: "var(--fs-md)",
                 fontWeight: 700,
                 color: "var(--color-text-primary)",
                 marginBottom: 8,
@@ -727,7 +733,7 @@ export function UploadWizard() {
               style={{
                 margin: 0,
                 paddingLeft: 18,
-                fontSize: "0.8rem",
+                fontSize: "var(--fs-base)",
                 color: "var(--color-text-secondary)",
                 lineHeight: 1.6,
               }}

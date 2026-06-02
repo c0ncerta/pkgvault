@@ -58,7 +58,7 @@ function DashLink({ href, label, accent }: { href: string; label: string; accent
       className="btn-ghost"
       style={{
         padding: "8px 16px",
-        fontSize: "0.85rem",
+        fontSize: "var(--fs-md)",
         color: accent ? "var(--color-warning)" : undefined,
       }}
     >

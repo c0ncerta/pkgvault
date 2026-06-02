@@ -83,7 +83,7 @@ export default async function AdminAuditPage() {
       <div>
         <h1
           style={{
-            fontSize: "1.5rem",
+            fontSize: "var(--fs-3xl)",
             fontWeight: 800,
             color: "var(--color-text-primary)",
             marginBottom: 4,
@@ -91,14 +91,14 @@ export default async function AdminAuditPage() {
         >
           Audit Log
         </h1>
-        <p style={{ fontSize: "0.8rem", color: "var(--color-text-muted)" }}>
+        <p style={{ fontSize: "var(--fs-base)", color: "var(--color-text-muted)" }}>
           Track all admin actions · {entries.length} entries
         </p>
       </div>
 
       {entries.length === 0 ? (
         <GlassCard padding="40px 24px" style={{ textAlign: "center" }}>
-          <p style={{ color: "var(--color-text-muted)", fontSize: "0.85rem" }}>
+          <p style={{ color: "var(--color-text-muted)", fontSize: "var(--fs-md)" }}>
             No audit entries yet
           </p>
         </GlassCard>
@@ -135,7 +135,7 @@ export default async function AdminAuditPage() {
                   <div style={{ display: "flex", gap: 6, alignItems: "center", flexWrap: "wrap" }}>
                     <span
                       style={{
-                        fontSize: "0.82rem",
+                        fontSize: "var(--fs-base)",
                         fontWeight: 600,
                         color: "var(--color-text-primary)",
                       }}
@@ -145,7 +145,7 @@ export default async function AdminAuditPage() {
                     <span
                       className="tag"
                       style={{
-                        fontSize: "0.6rem",
+                        fontSize: "var(--fs-2xs)",
                         padding: "1px 6px",
                         borderColor: color,
                         color: color,
@@ -154,7 +154,7 @@ export default async function AdminAuditPage() {
                       {e.action}
                     </span>
                     {e.targetType && (
-                      <span style={{ fontSize: "0.75rem", color: "var(--color-text-muted)" }}>
+                      <span style={{ fontSize: "var(--fs-sm)", color: "var(--color-text-muted)" }}>
                         on {e.targetType}
                       </span>
                     )}
@@ -162,7 +162,7 @@ export default async function AdminAuditPage() {
                   {metadataSummary && (
                     <p
                       style={{
-                        fontSize: "0.75rem",
+                        fontSize: "var(--fs-sm)",
                         color: "var(--color-text-muted)",
                         margin: "2px 0 0",
                       }}
@@ -175,7 +175,7 @@ export default async function AdminAuditPage() {
                 {/* Timestamp */}
                 <span
                   style={{
-                    fontSize: "0.7rem",
+                    fontSize: "var(--fs-xs)",
                     color: "var(--color-text-muted)",
                     fontFamily: "var(--font-mono)",
                     flexShrink: 0,

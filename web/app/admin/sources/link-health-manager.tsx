@@ -239,7 +239,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
           role="dialog"
           aria-modal="true"
           aria-labelledby="remove-source-title"
-          className="relative w-full max-w-md animate-[modal-scale-in_0.18s_ease-out]"
+          className="relative w-full max-w-md animate-[modal-scale-in_var(--dur-base)_ease-out]"
         >
           <GlassPanel
             variant="strong"
@@ -325,7 +325,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
         <div>
           <h1
             style={{
-              fontSize: "1.5rem",
+              fontSize: "var(--fs-3xl)",
               fontWeight: 800,
               color: "var(--color-text-primary)",
               letterSpacing: "-0.03em",
@@ -334,7 +334,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
           >
             Link Health
           </h1>
-          <p style={{ color: "var(--color-text-muted)", fontSize: "0.85rem" }}>
+          <p style={{ color: "var(--color-text-muted)", fontSize: "var(--fs-md)" }}>
             Monitor and manage download sources - {items.length} total links
           </p>
         </div>
@@ -381,7 +381,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                 style={{
                   padding: "7px 14px",
                   borderRadius: 999,
-                  fontSize: "0.75rem",
+                  fontSize: "var(--fs-sm)",
                   fontWeight: 600,
                   cursor: "pointer",
                   color: active ? "var(--color-text-primary)" : "var(--color-text-muted)",
@@ -431,7 +431,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                 border: "1px solid rgba(255,255,255,0.08)",
                 background: "rgba(0,0,0,0.25)",
                 color: "var(--color-text-primary)",
-                fontSize: "0.8rem",
+                fontSize: "var(--fs-base)",
               }}
             />
           </label>
@@ -450,7 +450,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
             background: "rgba(248,113,113,0.08)",
             border: "1px solid rgba(248,113,113,0.2)",
             color: "#fca5a5",
-            fontSize: "0.8rem",
+            fontSize: "var(--fs-base)",
           }}
         >
           <IconAlertTriangle size={15} />
@@ -494,7 +494,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                       style={{
                         color: "var(--color-text-primary)",
                         fontWeight: 600,
-                        fontSize: "0.85rem",
+                        fontSize: "var(--fs-md)",
                         textDecoration: "none",
                       }}
                     >
@@ -505,7 +505,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                         style={{
                           padding: "1px 6px",
                           borderRadius: 4,
-                          fontSize: "0.6rem",
+                          fontSize: "var(--fs-2xs)",
                           fontWeight: 600,
                           color: "#818cf8",
                           background: "rgba(99,102,241,0.12)",
@@ -515,14 +515,14 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                       </span>
                     )}
                     {source.label && (
-                      <span style={{ fontSize: "0.75rem", color: "#475569" }}>
+                      <span style={{ fontSize: "var(--fs-sm)", color: "#475569" }}>
                         ({source.label})
                       </span>
                     )}
                   </div>
                   <div
                     style={{
-                      fontSize: "0.75rem",
+                      fontSize: "var(--fs-sm)",
                       color: "#475569",
                       fontFamily: "var(--font-mono)",
                       overflow: "hidden",
@@ -538,7 +538,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                   style={{
                     padding: "4px 10px",
                     borderRadius: 6,
-                    fontSize: "0.7rem",
+                    fontSize: "var(--fs-xs)",
                     fontWeight: 500,
                     color: "var(--color-text-secondary)",
                     background: "rgba(255,255,255,0.04)",
@@ -553,7 +553,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                   style={{
                     padding: "4px 10px",
                     borderRadius: 999,
-                    fontSize: "0.7rem",
+                    fontSize: "var(--fs-xs)",
                     fontWeight: 600,
                     color: st.color,
                     background: `${st.color}15`,
@@ -569,7 +569,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                   style={{
                     display: "flex",
                     gap: 16,
-                    fontSize: "0.75rem",
+                    fontSize: "var(--fs-sm)",
                     color: "#475569",
                     whiteSpace: "nowrap",
                   }}
@@ -587,7 +587,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                     onClick={() => checkOne(source.id)}
                     disabled={isChecking || bulkChecking}
                     className="btn-secondary"
-                    style={{ padding: "6px 10px", fontSize: "0.72rem", minWidth: 64 }}
+                    style={{ padding: "6px 10px", fontSize: "var(--fs-xs)", minWidth: 64 }}
                   >
                     {isChecking ? "Checking..." : "Check"}
                   </button>
@@ -595,7 +595,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                     type="button"
                     onClick={() => setDeleteTarget(source)}
                     className="btn-danger"
-                    style={{ padding: "6px 10px", fontSize: "0.72rem" }}
+                    style={{ padding: "6px 10px", fontSize: "var(--fs-xs)" }}
                   >
                     Remove
                   </button>

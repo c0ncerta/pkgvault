@@ -58,7 +58,7 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
   const inputStyle: React.CSSProperties = {
     padding: "10px 14px",
     borderRadius: 10,
-    fontSize: "0.85rem",
+    fontSize: "var(--fs-md)",
     border: "1px solid rgba(255,255,255,0.08)",
     background: "rgba(255,255,255,0.04)",
     color: "var(--color-text-primary)",
@@ -67,7 +67,7 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
   };
 
   const labelStyle: React.CSSProperties = {
-    fontSize: "0.72rem",
+    fontSize: "var(--fs-xs)",
     fontWeight: 600,
     color: "var(--color-text-secondary)",
     marginBottom: 6,
@@ -171,7 +171,7 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
           <div>
             <h3
               style={{
-                fontSize: "0.8rem",
+                fontSize: "var(--fs-base)",
                 fontWeight: 600,
                 color: "var(--color-text-muted)",
                 textTransform: "uppercase",
@@ -181,7 +181,7 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
             >
               Edit metadata
             </h3>
-            <p style={{ margin: 0, color: "var(--color-text-muted)", fontSize: "0.78rem" }}>
+            <p style={{ margin: 0, color: "var(--color-text-muted)", fontSize: "var(--fs-sm)" }}>
               Update package data, game info, and cover image.
             </p>
           </div>
@@ -350,7 +350,7 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
                 alignItems: "center",
                 justifyContent: "center",
                 color: "var(--color-text-muted)",
-                fontSize: "0.75rem",
+                fontSize: "var(--fs-sm)",
                 textAlign: "center",
               }}
             >
@@ -367,7 +367,7 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
             {pkg.originalFilename && (
               <div
                 style={{
-                  fontSize: "0.7rem",
+                  fontSize: "var(--fs-xs)",
                   color: "var(--color-text-muted)",
                   fontFamily: "var(--font-mono)",
                   wordBreak: "break-all",
@@ -388,7 +388,7 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
               marginTop: 14,
               padding: "10px 12px",
               borderRadius: 10,
-              fontSize: "0.78rem",
+              fontSize: "var(--fs-sm)",
               color: error ? "#fca5a5" : "#86efac",
               background: error ? "rgba(248,113,113,0.08)" : "rgba(52,211,153,0.08)",
               border: `1px solid ${error ? "rgba(248,113,113,0.2)" : "rgba(52,211,153,0.2)"}`,

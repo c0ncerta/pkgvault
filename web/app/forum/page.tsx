@@ -122,7 +122,7 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
           <GlassCard className="animate-fade-in" padding="20px" style={{ alignSelf: "start" }}>
             <h3
               style={{
-                fontSize: "0.95rem",
+                fontSize: "var(--fs-lg)",
                 fontWeight: 700,
                 marginBottom: 14,
                 color: "var(--color-text-primary)",
@@ -144,14 +144,14 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
                   border: !activeCat
                     ? "1px solid rgba(99, 102, 241, 0.15)"
                     : "1px solid transparent",
-                  fontSize: "0.875rem",
+                  fontSize: "var(--fs-md)",
                   color: "var(--color-text-primary)",
                 }}
               >
                 <span>All</span>
                 <span
                   style={{
-                    fontSize: "0.75rem",
+                    fontSize: "var(--fs-sm)",
                     color: "var(--color-text-muted)",
                     fontFamily: "var(--font-mono)",
                   }}
@@ -175,15 +175,15 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
                       activeCat === key
                         ? "1px solid rgba(99, 102, 241, 0.15)"
                         : "1px solid transparent",
-                    fontSize: "0.875rem",
+                    fontSize: "var(--fs-md)",
                     color: "var(--color-text-primary)",
-                    transition: "background 0.15s",
+                    transition: "background var(--dur-fast)",
                   }}
                 >
                   <span>{label}</span>
                   <span
                     style={{
-                      fontSize: "0.75rem",
+                      fontSize: "var(--fs-sm)",
                       color: "var(--color-text-muted)",
                       fontFamily: "var(--font-mono)",
                     }}
@@ -215,7 +215,7 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
             >
               <h1
                 style={{
-                  fontSize: "1.75rem",
+                  fontSize: "var(--fs-4xl)",
                   fontWeight: 800,
                   color: "var(--color-text-primary)",
                   letterSpacing: "-0.02em",
@@ -257,11 +257,11 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
                       borderBottom:
                         i < threads.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
                       background: t.isPinned ? "rgba(99, 102, 241, 0.03)" : "transparent",
-                      transition: "background 0.15s",
+                      transition: "background var(--dur-fast)",
                     }}
                   >
                     <div style={{ display: "flex", gap: 14, alignItems: "center", minWidth: 0 }}>
-                      <span style={{ width: 24, textAlign: "center", fontSize: 14 }}>
+                      <span style={{ width: 24, textAlign: "center", fontSize: "var(--fs-md)" }}>
                         {t.isPinned ? (
                           <IconPin size={14} />
                         ) : t.postCount > 10 ? (
@@ -273,7 +273,7 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
                       <div style={{ minWidth: 0 }}>
                         <div
                           style={{
-                            fontSize: "0.9rem",
+                            fontSize: "var(--fs-lg)",
                             fontWeight: t.isPinned ? 600 : 500,
                             color: "var(--color-text-primary)",
                             display: "flex",
@@ -291,7 +291,7 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
                         </div>
                         <div
                           style={{
-                            fontSize: "0.75rem",
+                            fontSize: "var(--fs-sm)",
                             color: "var(--color-text-muted)",
                             marginTop: 3,
                             fontFamily: "var(--font-mono)",
@@ -306,13 +306,13 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
                       <div
                         style={{
                           fontWeight: 700,
-                          fontSize: "0.95rem",
+                          fontSize: "var(--fs-lg)",
                           color: "var(--color-text-primary)",
                         }}
                       >
                         {t.postCount}
                       </div>
-                      <div style={{ fontSize: "0.65rem", color: "var(--color-text-muted)" }}>
+                      <div style={{ fontSize: "var(--fs-2xs)", color: "var(--color-text-muted)" }}>
                         replies
                       </div>
                     </div>
@@ -321,12 +321,12 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
               </GlassCard>
             ) : (
               <GlassCard padding="60px 40px" style={{ textAlign: "center" }}>
-                <div style={{ fontSize: "2.5rem", marginBottom: 16, opacity: 0.3 }}>
+                <div style={{ fontSize: "var(--fs-6xl)", marginBottom: 16, opacity: 0.3 }}>
                   <IconForum size={40} />
                 </div>
                 <h2
                   style={{
-                    fontSize: "1.15rem",
+                    fontSize: "var(--fs-2xl)",
                     fontWeight: 700,
                     color: "var(--color-text-primary)",
                     marginBottom: 8,
@@ -337,7 +337,7 @@ export default async function ForumPage({ searchParams }: ForumPageProps) {
                 <p
                   style={{
                     color: "var(--color-text-muted)",
-                    fontSize: "0.85rem",
+                    fontSize: "var(--fs-md)",
                     marginBottom: 20,
                   }}
                 >

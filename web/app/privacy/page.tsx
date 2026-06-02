@@ -5,7 +5,7 @@ export default function PrivacyPage() {
     <div style={{ maxWidth: 720, margin: "0 auto", padding: "48px 24px 64px" }}>
       <h1
         style={{
-          fontSize: "2rem",
+          fontSize: "var(--fs-5xl)",
           fontWeight: 800,
           color: "var(--color-text-primary)",
           marginBottom: 8,
@@ -16,7 +16,7 @@ export default function PrivacyPage() {
       <p
         style={{
           color: "var(--color-text-muted)",
-          fontSize: "0.9rem",
+          fontSize: "var(--fs-lg)",
           marginBottom: 32,
           fontFamily: "var(--font-mono)",
         }}
@@ -54,7 +54,7 @@ export default function PrivacyPage() {
           <GlassCard key={section.title} padding="20px 22px">
             <h3
               style={{
-                fontSize: "0.9rem",
+                fontSize: "var(--fs-lg)",
                 fontWeight: 700,
                 color: "var(--color-text-primary)",
                 marginBottom: 8,
@@ -64,7 +64,7 @@ export default function PrivacyPage() {
             </h3>
             <p
               style={{
-                fontSize: "0.82rem",
+                fontSize: "var(--fs-base)",
                 color: "var(--color-text-secondary)",
                 lineHeight: 1.65,
                 margin: 0,

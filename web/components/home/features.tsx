@@ -67,7 +67,7 @@ export function HomeFeatures() {
                 </div>
                 <h3
                   style={{
-                    fontSize: "0.9rem",
+                    fontSize: "var(--fs-lg)",
                     fontWeight: 700,
                     color: "var(--color-text-primary)",
                     marginBottom: 6,
@@ -77,7 +77,7 @@ export function HomeFeatures() {
                 </h3>
                 <p
                   style={{
-                    fontSize: "0.8rem",
+                    fontSize: "var(--fs-base)",
                     color: "var(--color-text-muted)",
                     lineHeight: 1.4,
                   }}

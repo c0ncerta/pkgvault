@@ -26,12 +26,12 @@ export default function GlobalError({
         padding="48px 40px"
         style={{ textAlign: "center", maxWidth: 440 }}
       >
-        <div style={{ fontSize: "2.5rem", marginBottom: 16, opacity: 0.4 }}>
+        <div style={{ fontSize: "var(--fs-6xl)", marginBottom: 16, opacity: 0.4 }}>
           <IconAlertTriangle size={40} />
         </div>
         <h1
           style={{
-            fontSize: "1.5rem",
+            fontSize: "var(--fs-3xl)",
             fontWeight: 800,
             color: "var(--color-text-primary)",
             marginBottom: 8,
@@ -42,7 +42,7 @@ export default function GlobalError({
         <p
           style={{
             color: "var(--color-text-muted)",
-            fontSize: "0.9rem",
+            fontSize: "var(--fs-lg)",
             marginBottom: 24,
             lineHeight: 1.5,
           }}

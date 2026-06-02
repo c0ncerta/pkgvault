@@ -54,7 +54,7 @@ export default function OGImage() {
           borderRadius: 24,
           background: "linear-gradient(135deg, #6366f1, #a855f7)",
           marginBottom: 32,
-          fontSize: 48,
+          fontSize: "var(--fs-7xl)",
         }}
       >
         PKG
@@ -63,7 +63,7 @@ export default function OGImage() {
       {/* Title */}
       <div
         style={{
-          fontSize: 72,
+          fontSize: "var(--fs-display)",
           fontWeight: 800,
           color: "#ffffff",
           letterSpacing: "-0.02em",
@@ -76,7 +76,7 @@ export default function OGImage() {
       {/* Subtitle */}
       <div
         style={{
-          fontSize: 28,
+          fontSize: "var(--fs-4xl)",
           color: "rgba(255,255,255,0.6)",
           maxWidth: 700,
           textAlign: "center",
@@ -93,7 +93,7 @@ export default function OGImage() {
           bottom: 40,
           display: "flex",
           gap: 32,
-          fontSize: 18,
+          fontSize: "var(--fs-2xl)",
           color: "rgba(255,255,255,0.4)",
         }}
       >

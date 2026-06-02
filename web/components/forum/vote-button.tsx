@@ -68,7 +68,7 @@ export function VoteButton({
       <span
         style={{
           fontWeight: 700,
-          fontSize: "0.95rem",
+          fontSize: "var(--fs-lg)",
           color:
             userVote === 1
               ? "var(--color-accent)"

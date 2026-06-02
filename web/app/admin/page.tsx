@@ -124,7 +124,7 @@ export default async function AdminOverview() {
     <div className="animate-fade-in">
       <h1
         style={{
-          fontSize: "1.75rem",
+          fontSize: "var(--fs-4xl)",
           fontWeight: 800,
           color: "var(--color-text-primary)",
           letterSpacing: "-0.03em",
@@ -133,7 +133,7 @@ export default async function AdminOverview() {
       >
         Dashboard
       </h1>
-      <p style={{ color: "var(--color-text-muted)", fontSize: "0.85rem", marginBottom: 32 }}>
+      <p style={{ color: "var(--color-text-muted)", fontSize: "var(--fs-md)", marginBottom: 32 }}>
         System overview — {stats.users.total} users · {stats.forum.threads} threads
       </p>
 
@@ -155,7 +155,7 @@ export default async function AdminOverview() {
                   a.type === "error" ? "rgba(248, 113, 113, 0.08)" : "rgba(251, 191, 36, 0.08)",
                 border: `1px solid ${a.type === "error" ? "rgba(248, 113, 113, 0.2)" : "rgba(251, 191, 36, 0.2)"}`,
                 color: a.type === "error" ? "#fca5a5" : "#fde68a",
-                fontSize: "0.85rem",
+                fontSize: "var(--fs-md)",
                 fontWeight: 500,
               }}
             >
@@ -175,7 +175,7 @@ export default async function AdminOverview() {
                 )}
               </span>
               {a.text}
-              <span style={{ marginLeft: "auto", fontSize: "0.75rem", opacity: 0.6 }}>→</span>
+              <span style={{ marginLeft: "auto", fontSize: "var(--fs-sm)", opacity: 0.6 }}>→</span>
             </Link>
           ))}
         </div>
@@ -184,7 +184,7 @@ export default async function AdminOverview() {
       {/* PKG Stats */}
       <h3
         style={{
-          fontSize: "0.8rem",
+          fontSize: "var(--fs-base)",
           fontWeight: 600,
           color: "var(--color-text-muted)",
           textTransform: "uppercase",
@@ -210,7 +210,7 @@ export default async function AdminOverview() {
       {/* Source Stats */}
       <h3
         style={{
-          fontSize: "0.8rem",
+          fontSize: "var(--fs-base)",
           fontWeight: 600,
           color: "var(--color-text-muted)",
           textTransform: "uppercase",
@@ -236,7 +236,7 @@ export default async function AdminOverview() {
       {/* Quick Actions */}
       <h3
         style={{
-          fontSize: "0.8rem",
+          fontSize: "var(--fs-base)",
           fontWeight: 600,
           color: "var(--color-text-muted)",
           textTransform: "uppercase",
@@ -283,12 +283,12 @@ function StatCard({
       padding="18px 20px"
       style={{ cursor: href ? "pointer" : "default", minHeight: 80 }}
     >
-      <div style={{ fontSize: "1.75rem", fontWeight: 800, color, lineHeight: 1 }}>
+      <div style={{ fontSize: "var(--fs-4xl)", fontWeight: 800, color, lineHeight: 1 }}>
         <CountUp end={value} />
       </div>
       <div
         style={{
-          fontSize: "0.7rem",
+          fontSize: "var(--fs-xs)",
           color: "var(--color-text-muted)",
           fontWeight: 500,
           marginTop: 6,
@@ -332,11 +332,15 @@ function QuickAction({
           </span>
           <div>
             <div
-              style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--color-text-primary)" }}
+              style={{
+                fontSize: "var(--fs-lg)",
+                fontWeight: 600,
+                color: "var(--color-text-primary)",
+              }}
             >
               {label}
             </div>
-            <div style={{ fontSize: "0.75rem", color: "var(--color-text-muted)" }}>{desc}</div>
+            <div style={{ fontSize: "var(--fs-sm)", color: "var(--color-text-muted)" }}>{desc}</div>
           </div>
         </div>
       </GlassCard>

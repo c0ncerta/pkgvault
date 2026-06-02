@@ -60,7 +60,7 @@ export async function HomeTrendingTags() {
 
   return (
     <GlassCard padding="22px 24px" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-      <h3 style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--color-text-primary)" }}>
+      <h3 style={{ fontSize: "var(--fs-lg)", fontWeight: 700, color: "var(--color-text-primary)" }}>
         Browse by tag
       </h3>
 
@@ -68,7 +68,7 @@ export async function HomeTrendingTags() {
         <div>
           <div
             style={{
-              fontSize: "0.7rem",
+              fontSize: "var(--fs-xs)",
               textTransform: "uppercase",
               letterSpacing: "0.1em",
               color: "var(--color-text-muted)",
@@ -94,14 +94,14 @@ export async function HomeTrendingTags() {
                     fontSize: `${size}rem`,
                     fontWeight: 500,
                     textDecoration: "none",
-                    transition: "all 0.15s",
+                    transition: "all var(--dur-fast)",
                   }}
                 >
                   {p.platform}
                   <span
                     style={{
                       marginLeft: 6,
-                      fontSize: "0.65rem",
+                      fontSize: "var(--fs-2xs)",
                       color: "var(--color-text-muted)",
                       fontFamily: "var(--font-mono)",
                     }}
@@ -119,7 +119,7 @@ export async function HomeTrendingTags() {
         <div>
           <div
             style={{
-              fontSize: "0.7rem",
+              fontSize: "var(--fs-xs)",
               textTransform: "uppercase",
               letterSpacing: "0.1em",
               color: "var(--color-text-muted)",
@@ -140,7 +140,7 @@ export async function HomeTrendingTags() {
                   background: "rgba(139, 92, 246, 0.06)",
                   border: "1px solid rgba(139, 92, 246, 0.12)",
                   color: "var(--color-text-secondary)",
-                  fontSize: "0.75rem",
+                  fontSize: "var(--fs-sm)",
                   textDecoration: "none",
                 }}
               >

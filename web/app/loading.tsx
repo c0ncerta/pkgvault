@@ -25,14 +25,14 @@ export default function GlobalLoading() {
             alignItems: "center",
             justifyContent: "center",
             fontWeight: 800,
-            fontSize: 18,
+            fontSize: "var(--fs-2xl)",
             color: "#fff",
             animation: "pulse 1.5s ease-in-out infinite",
           }}
         >
           PV
         </GlassCard>
-        <p style={{ color: "var(--color-text-muted)", fontSize: "0.85rem" }}>Loading…</p>
+        <p style={{ color: "var(--color-text-muted)", fontSize: "var(--fs-md)" }}>Loading…</p>
       </div>
       <style>
         {

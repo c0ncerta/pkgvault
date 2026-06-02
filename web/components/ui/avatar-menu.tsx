@@ -62,7 +62,11 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
         }}
       >
         <span
-          style={{ color: "var(--color-text-secondary)", fontSize: "0.85rem", fontWeight: 500 }}
+          style={{
+            color: "var(--color-text-secondary)",
+            fontSize: "var(--fs-md)",
+            fontWeight: 500,
+          }}
         >
           {user.name}
         </span>
@@ -76,9 +80,9 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
             alignItems: "center",
             justifyContent: "center",
             fontWeight: 700,
-            fontSize: 13,
+            fontSize: "var(--fs-base)",
             color: "#fff",
-            transition: "box-shadow 0.2s",
+            transition: "box-shadow var(--dur-base)",
             boxShadow: open ? "0 0 0 3px rgba(99, 102, 241, 0.3)" : "none",
           }}
         >
@@ -110,7 +114,7 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
             WebkitBackdropFilter: "blur(40px) saturate(180%)",
             border: "1px solid rgba(255, 255, 255, 0.12)",
             boxShadow: "0 24px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)",
-            animation: "fade-in 0.15s ease-out",
+            animation: "fade-in var(--dur-fast) ease-out",
             padding: 6,
           }}
         >
@@ -135,7 +139,7 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
                 alignItems: "center",
                 justifyContent: "center",
                 fontWeight: 700,
-                fontSize: 14,
+                fontSize: "var(--fs-md)",
                 color: "#fff",
               }}
             >
@@ -143,13 +147,17 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
             </div>
             <div style={{ minWidth: 0 }}>
               <div
-                style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--color-text-primary)" }}
+                style={{
+                  fontSize: "var(--fs-lg)",
+                  fontWeight: 600,
+                  color: "var(--color-text-primary)",
+                }}
               >
                 {user.name}
               </div>
               <div
                 style={{
-                  fontSize: "0.7rem",
+                  fontSize: "var(--fs-xs)",
                   color: "var(--color-text-muted)",
                   fontFamily: "var(--font-mono)",
                 }}
@@ -159,7 +167,7 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
               <span
                 className="tag tag-accent"
                 style={{
-                  fontSize: "0.6rem",
+                  fontSize: "var(--fs-2xs)",
                   padding: "1px 8px",
                   marginTop: 4,
                   display: "inline-block",
@@ -186,8 +194,8 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
                   borderRadius: 12,
                   textDecoration: "none",
                   color: "var(--color-text-primary)",
-                  fontSize: "0.85rem",
-                  transition: "background 0.15s",
+                  fontSize: "var(--fs-md)",
+                  transition: "background var(--dur-fast)",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = "rgba(255,255,255,0.06)";
@@ -217,7 +225,7 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
                   borderRadius: 12,
                   textDecoration: "none",
                   color: "#f59e0b",
-                  fontSize: "0.85rem",
+                  fontSize: "var(--fs-md)",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = "rgba(255,255,255,0.06)";
@@ -248,7 +256,7 @@ export function AvatarMenu({ user }: AvatarMenuProps) {
               border: "none",
               background: "transparent",
               color: "var(--color-danger)",
-              fontSize: "0.85rem",
+              fontSize: "var(--fs-md)",
               cursor: "pointer",
               fontFamily: "var(--font-sans)",
               textAlign: "left",

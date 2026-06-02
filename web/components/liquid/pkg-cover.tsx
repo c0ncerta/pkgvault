@@ -13,9 +13,9 @@ interface PkgCoverProps {
 }
 
 const sizes = {
-  sm: { width: 120, fontSize: 12, platSize: 8 },
-  md: { width: "100%", fontSize: 14, platSize: 9 },
-  lg: { width: "100%", fontSize: 16, platSize: 10 },
+  sm: { width: 120, fontSize: "var(--fs-sm)", platSize: 8 },
+  md: { width: "100%", fontSize: "var(--fs-md)", platSize: 9 },
+  lg: { width: "100%", fontSize: "var(--fs-xl)", platSize: 10 },
 } as const;
 
 export function PkgCover({ name, platform, color1, color2, size = "md", onClick }: PkgCoverProps) {
