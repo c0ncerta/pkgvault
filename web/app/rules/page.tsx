@@ -23,8 +23,8 @@ export default function RulesPage() {
         By using PKGVault you agree to follow these rules.
       </p>
 
-      {/* Mission — what this place is, and what it is not */}
-      <GlassCard tint="accent" padding="20px 22px" style={{ marginBottom: "var(--space-24)" }}>
+      {/* Mission — what this place is */}
+      <GlassCard tint="accent" padding="20px 22px" style={{ marginBottom: "var(--space-16)" }}>
         <h2
           style={{
             fontSize: "var(--fs-xl)",
@@ -60,10 +60,53 @@ export default function RulesPage() {
             margin: "var(--space-12) 0 0",
           }}
         >
-          We do not endorse piracy, and we do not profit from anything here — no sales, no ads, no
-          paid tiers, ever. This is an archive run for preservation, not a storefront. If
-          you&apos;re looking to obtain current commercial releases for free, this isn&apos;t the
-          place.
+          To be clear: buying games is better, and we mean that. If a title is still for sale, buy
+          it — studios and developers have to eat, they aren&apos;t charities, and supporting them
+          is how more games get made. PKGVault is for the gap they leave behind: the games you can
+          no longer buy, re-download, or even open on the account you paid with.
+        </p>
+      </GlassCard>
+
+      {/* Where we stand — the honest middle ground */}
+      <GlassCard padding="20px 22px" style={{ marginBottom: "var(--space-24)" }}>
+        <h2
+          style={{
+            fontSize: "var(--fs-xl)",
+            fontWeight: 700,
+            color: "var(--color-text-primary)",
+            marginBottom: "var(--space-8)",
+          }}
+        >
+          Where we stand
+        </h2>
+        <p
+          style={{
+            fontSize: "var(--fs-base)",
+            color: "var(--color-text-secondary)",
+            lineHeight: 1.65,
+            margin: 0,
+          }}
+        >
+          This project is run at a loss. Nothing here is sold, there are no ads, no paid tiers, and
+          no donations tied to access — it&apos;s paid for out of pocket and everything stays free.
+          That matters: copyright protects a work&apos;s <em>commercial</em> value, and PKGVault
+          doesn&apos;t compete with sales, replace a storefront, or make a cent from anyone&apos;s
+          work.
+        </p>
+        <p
+          style={{
+            fontSize: "var(--fs-base)",
+            color: "var(--color-text-secondary)",
+            lineHeight: 1.65,
+            margin: "var(--space-12) 0 0",
+          }}
+        >
+          We&apos;re not going to pretend everyone here is a saint — some people will just come to
+          grab games, and we know it. That&apos;s not what this is for, but we&apos;re not naive
+          about it either. The line is simple: support the people who make games when you can, and
+          preserve them when the people who sold them won&apos;t. As long as publishers keep letting
+          purchased games disappear, this has a reason to exist — and honestly, it&apos;ll probably
+          still be here after they fix that.
         </p>
       </GlassCard>
 
@@ -71,23 +114,23 @@ export default function RulesPage() {
         {[
           {
             num: 1,
-            title: "Preservation, not piracy",
-            desc: "Share content for preservation: homebrew, open-source and fan-made projects, and games that are delisted, abandoned, or no longer purchasable through official channels. Don't use PKGVault to distribute current, readily-available commercial releases.",
+            title: "Preservation first",
+            desc: "Lean toward what's worth saving: homebrew, open-source and fan-made projects, and games that are delisted, abandoned, or no longer sold. Brand-new releases that are one click away in a store aren't the focus here.",
           },
           {
             num: 2,
-            title: "Strictly non-commercial",
-            desc: "No selling, paywalls, ads-for-profit, or donations tied to access — by anyone, including you. Money is never part of PKGVault. Commercial redistribution of files is prohibited.",
+            title: "Tinkering & research are welcome",
+            desc: "This is a place to actually own the hardware you bought — find bugs, study exploits, jailbreak, and run homebrew. The PS2 literally shipped with a Linux kit; nothing since did. Reclaiming that is the point, so share research, tools, and write-ups freely. Console makers and the scene aren't always at war — jailbroken consoles have even run Linux again.",
           },
           {
             num: 3,
-            title: "Respect copyright holders",
-            desc: "Only upload what you have the right to share. If you are a rights holder and want something removed, we honor takedown requests promptly — see the copyright section below.",
+            title: "Strictly non-commercial",
+            desc: "No selling, paywalls, ads-for-profit, or donations tied to access — by anyone, including you. Money is never part of PKGVault, and you may not use it to profit either.",
           },
           {
             num: 4,
-            title: "No firmware or decryption keys",
-            desc: "Don't post console firmware, activation keys, or decryption keys. Requests for current commercial titles are also not allowed.",
+            title: "Respect copyright holders",
+            desc: "Only upload what you have the right to share, and don't pass off others' work as your own. If you're a rights holder and want something removed, we honor takedown requests promptly — see the copyright section below.",
           },
           {
             num: 5,
