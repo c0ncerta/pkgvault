@@ -130,6 +130,7 @@ export default async function AdminPkgDetail({
 
       {/* Header */}
       <div
+        className="admin-detail-header"
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -150,6 +151,7 @@ export default async function AdminPkgDetail({
             {pkg.title}
           </h1>
           <div
+            className="admin-detail-meta"
             style={{
               display: "flex",
               gap: 12,
@@ -169,9 +171,12 @@ export default async function AdminPkgDetail({
         <PkgStatusControl pkgId={pkg.id} currentStatus={pkg.status} />
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: 24 }}>
+      <div
+        className="admin-pkg-layout"
+        style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 320px", gap: 20 }}
+      >
         {/* Main */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}>
           {/* Info card */}
           <GlassCard variant="content" cornerRadius={16} padding="20px 24px">
             <h3
@@ -187,6 +192,7 @@ export default async function AdminPkgDetail({
               Package Details
             </h3>
             <div
+              className="admin-details-grid"
               style={{
                 display: "grid",
                 gridTemplateColumns: "120px 1fr",
@@ -270,7 +276,10 @@ export default async function AdminPkgDetail({
         </div>
 
         {/* Sidebar */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <div
+          className="admin-sidebar-cards"
+          style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}
+        >
           {/* Status */}
           <GlassCard variant="content" cornerRadius={16} padding="20px">
             <h3

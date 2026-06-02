@@ -149,6 +149,7 @@ export function PkgSourceManager({
           }}
         >
           <div
+            className="admin-source-add-primary"
             style={{ display: "grid", gridTemplateColumns: "1fr 160px", gap: 10, marginBottom: 10 }}
           >
             <input
@@ -171,6 +172,7 @@ export function PkgSourceManager({
             </select>
           </div>
           <div
+            className="admin-source-add-secondary"
             style={{
               display: "grid",
               gridTemplateColumns: "1fr auto auto",
@@ -229,6 +231,7 @@ export function PkgSourceManager({
               statusConfig["unknown"] ?? { color: "#64748b", label: "Unknown" };
             return (
               <div
+                className="admin-pkg-source-row"
                 key={source.id}
                 style={{
                   padding: "12px 16px",

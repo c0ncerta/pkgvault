@@ -31,6 +31,7 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
 
   return (
     <aside
+      className="admin-sidebar"
       style={{
         borderRight: "1px solid rgba(255,255,255,0.06)",
         background: "rgba(10, 10, 14, 0.95)",
@@ -43,6 +44,7 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
     >
       {/* Header */}
       <div
+        className="admin-sidebar-header"
         style={{
           padding: "0 12px 20px",
           borderBottom: "1px solid rgba(255,255,255,0.06)",
@@ -76,6 +78,7 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
           <Link
             key={item.href}
             href={item.href}
+            className="admin-nav-item"
             style={{
               position: "relative",
               display: "flex",
@@ -125,6 +128,7 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
 
       {/* User info */}
       <div
+        className="admin-sidebar-user"
         style={{
           padding: "14px",
           borderRadius: 10,
@@ -173,6 +177,7 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
       {/* Back to site */}
       <Link
         href="/"
+        className="admin-sidebar-back"
         style={{
           display: "flex",
           alignItems: "center",

@@ -22,6 +22,7 @@ export default async function AdminLayout({
   return (
     <>
       <div
+        className="admin-shell"
         style={{
           display: "grid",
           gridTemplateColumns: "260px 1fr",
@@ -31,7 +32,9 @@ export default async function AdminLayout({
         }}
       >
         <AdminSidebar role={role} userName={session?.user?.name ?? "Admin"} />
-        <main style={{ padding: "32px 40px", overflow: "auto" }}>{children}</main>
+        <main className="admin-main" style={{ padding: "32px 40px", overflow: "auto" }}>
+          {children}
+        </main>
       </div>
     </>
   );

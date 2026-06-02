@@ -356,17 +356,21 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
         </LiquidButton>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          gap: 10,
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: 16,
-          flexWrap: "wrap",
-        }}
+      <GlassCard
+        variant="content"
+        cornerRadius={14}
+        padding="12px 16px"
+        style={{ marginBottom: 16 }}
       >
-        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+        <div
+          className="admin-filter-bar"
+          style={{
+            display: "flex",
+            gap: 8,
+            alignItems: "center",
+            flexWrap: "wrap",
+          }}
+        >
           {filters.map((item) => {
             const active = filter === item.value;
             return (
@@ -375,47 +379,64 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                 type="button"
                 onClick={() => setFilter(item.value)}
                 style={{
-                  padding: "7px 12px",
-                  borderRadius: 8,
-                  fontSize: "0.8rem",
-                  fontWeight: 500,
-                  color: active ? "#e8e8ed" : "#64748b",
-                  background: active ? "rgba(99, 102, 241, 0.15)" : "rgba(255,255,255,0.04)",
-                  border: `1px solid ${active ? "rgba(99, 102, 241, 0.3)" : "rgba(255,255,255,0.06)"}`,
+                  padding: "7px 14px",
+                  borderRadius: 999,
+                  fontSize: "0.75rem",
+                  fontWeight: 600,
                   cursor: "pointer",
+                  color: active ? "var(--color-text-primary)" : "var(--color-text-muted)",
+                  background: active
+                    ? "linear-gradient(180deg, rgba(99, 102, 241, 0.28), rgba(99, 102, 241, 0.10))"
+                    : "rgba(255,255,255,0.03)",
+                  border: active
+                    ? "1px solid rgba(99, 102, 241, 0.4)"
+                    : "1px solid rgba(255,255,255,0.06)",
+                  boxShadow: active
+                    ? "inset 0 1px 0 rgba(255,255,255,0.12), 0 2px 8px rgba(99, 102, 241, 0.22)"
+                    : undefined,
+                  fontFamily: "var(--font-sans)",
                 }}
               >
                 {item.label} {statusCounts[item.value]}
               </button>
             );
           })}
-        </div>
-        <label
-          style={{
-            position: "relative",
-            width: "min(100%, 280px)",
-            display: "block",
-          }}
-        >
-          <IconSearch
-            size={14}
+          <label
+            className="admin-filter-search"
             style={{
-              position: "absolute",
-              left: 12,
-              top: "50%",
-              transform: "translateY(-50%)",
-              color: "var(--color-text-muted)",
+              position: "relative",
+              minWidth: 220,
+              marginLeft: "auto",
+              display: "block",
             }}
-          />
-          <input
-            className="input"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search links..."
-            style={{ paddingLeft: 34, height: 36, fontSize: "0.8rem" }}
-          />
-        </label>
-      </div>
+          >
+            <IconSearch
+              size={14}
+              style={{
+                position: "absolute",
+                left: 12,
+                top: "50%",
+                transform: "translateY(-50%)",
+                color: "var(--color-text-muted)",
+              }}
+            />
+            <input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search title, provider, url..."
+              style={{
+                width: "100%",
+                padding: "8px 12px 8px 34px",
+                borderRadius: 10,
+                border: "1px solid rgba(255,255,255,0.08)",
+                background: "rgba(0,0,0,0.25)",
+                color: "var(--color-text-primary)",
+                fontSize: "0.8rem",
+              }}
+            />
+          </label>
+        </div>
+      </GlassCard>
 
       {error && (
         <div
@@ -442,8 +463,11 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
           const st = statusConfig[source.status];
           const isChecking = checkingIds.has(source.id);
           return (
-            <GlassCard key={source.id} variant="content" cornerRadius={14} padding="16px 20px">
-              <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            <GlassCard key={source.id} variant="content" cornerRadius={14} padding="14px 18px">
+              <div
+                className="admin-source-row"
+                style={{ display: "flex", alignItems: "center", gap: 14 }}
+              >
                 <div
                   style={{
                     width: 10,
@@ -456,7 +480,15 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                 />
 
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 8,
+                      marginBottom: 4,
+                      flexWrap: "wrap",
+                    }}
+                  >
                     <Link
                       href={`/admin/pkgs/${source.pkgId}`}
                       style={{
@@ -533,6 +565,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                 </span>
 
                 <div
+                  className="admin-source-stats"
                   style={{
                     display: "flex",
                     gap: 16,
@@ -548,7 +581,7 @@ export function LinkHealthManager({ sources }: { sources: LinkHealthSource[] }) 
                   <span>{formatCheckedAt(source.lastCheckedAt)}</span>
                 </div>
 
-                <div style={{ display: "flex", gap: 6 }}>
+                <div className="admin-source-actions" style={{ display: "flex", gap: 6 }}>
                   <button
                     type="button"
                     onClick={() => checkOne(source.id)}

@@ -1645,8 +1645,50 @@ select.input {
   border-left: 3px solid var(--color-warning);
 }
 
+/* ─── Admin responsive shell ───────────────────────────────── */
+.admin-shell,
+.admin-main,
+.admin-pkg-layout,
+.admin-editor-grid,
+.admin-source-row {
+  min-width: 0;
+}
+
+.admin-main > .animate-fade-in {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.admin-pkg-layout {
+  align-items: start;
+}
+
+.admin-sidebar-cards {
+  position: sticky;
+  top: 24px;
+}
+
 /* ─── Responsive — Tablet (≤ 1024px) ──────────────────────── */
 @media (max-width: 1024px) {
+  .admin-shell {
+    grid-template-columns: 220px minmax(0, 1fr) !important;
+  }
+  .admin-main {
+    padding: 28px 24px !important;
+    min-width: 0;
+  }
+  .admin-pkg-layout {
+    grid-template-columns: 1fr !important;
+  }
+  .admin-sidebar-cards {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    position: static;
+  }
+  .admin-editor-grid {
+    grid-template-columns: minmax(0, 1fr) 180px !important;
+  }
+
   /* Two-column grids → stack */
   .responsive-grid-2 {
     grid-template-columns: 1fr !important;
@@ -1660,6 +1702,108 @@ select.input {
 
 /* ─── Responsive — Mobile (≤ 768px) ────────────────────────── */
 @media (max-width: 768px) {
+  .admin-shell {
+    grid-template-columns: 1fr !important;
+  }
+  .admin-sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 8px !important;
+    padding: 10px 12px !important;
+    overflow-x: auto;
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .admin-sidebar-header {
+    flex: 0 0 auto;
+    margin: 0 !important;
+    padding: 0 10px 0 0 !important;
+    border-bottom: 0 !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .admin-nav-item {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+  .admin-sidebar-user,
+  .admin-sidebar-back {
+    display: none !important;
+  }
+  .admin-main {
+    padding: 20px 16px 48px !important;
+    overflow: visible !important;
+  }
+  .admin-detail-header {
+    flex-direction: column !important;
+    gap: 14px !important;
+  }
+  .admin-status-control {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .admin-status-control > button {
+    flex: 1;
+    min-width: max-content;
+  }
+  .admin-detail-meta {
+    flex-wrap: wrap;
+  }
+  .admin-details-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .admin-editor-header {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .admin-editor-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .admin-editor-fields {
+    grid-template-columns: 1fr !important;
+  }
+  .admin-cover-panel {
+    display: grid !important;
+    grid-template-columns: 120px minmax(0, 1fr);
+    align-items: center;
+  }
+  .admin-cover-preview {
+    width: 120px;
+  }
+  .admin-cover-url-row {
+    grid-template-columns: 1fr !important;
+  }
+  .admin-filter-bar {
+    align-items: stretch !important;
+  }
+  .admin-filter-search {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin-left: 0 !important;
+  }
+  .admin-source-row {
+    align-items: flex-start !important;
+    flex-wrap: wrap;
+  }
+  .admin-source-stats {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .admin-source-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  .admin-source-add-primary,
+  .admin-source-add-secondary {
+    grid-template-columns: 1fr !important;
+  }
+  .admin-pkg-source-row {
+    flex-wrap: wrap;
+    align-items: flex-start !important;
+  }
+
   /* Navbar */
   .nav-links-desktop {
     display: none !important;
@@ -1746,6 +1890,34 @@ select.input {
 
 /* ─── Responsive — Small mobile (≤ 480px) ──────────────────── */
 @media (max-width: 480px) {
+  .admin-sidebar {
+    padding: 8px !important;
+  }
+  .admin-sidebar-header span {
+    display: none;
+  }
+  .admin-nav-item {
+    padding: 9px 10px !important;
+    font-size: 0.78rem !important;
+  }
+  .admin-sidebar-cards {
+    grid-template-columns: 1fr !important;
+  }
+  .admin-cover-panel {
+    grid-template-columns: 1fr !important;
+  }
+  .admin-cover-preview {
+    width: 100%;
+    max-width: 160px;
+    margin: 0 auto;
+  }
+  .admin-source-actions {
+    justify-content: stretch;
+  }
+  .admin-source-actions > * {
+    flex: 1;
+  }
+
   .responsive-stats {
     grid-template-columns: 1fr 1fr !important;
   }

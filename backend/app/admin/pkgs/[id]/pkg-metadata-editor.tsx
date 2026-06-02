@@ -159,6 +159,7 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
     <div id="edit">
       <GlassCard variant="content" cornerRadius={16} padding="20px 24px">
         <div
+          className="admin-editor-header"
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -195,8 +196,14 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
           </LiquidButton>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 150px", gap: 16 }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+        <div
+          className="admin-editor-grid"
+          style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 210px", gap: 18 }}
+        >
+          <div
+            className="admin-editor-fields"
+            style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, minWidth: 0 }}
+          >
             <div style={{ gridColumn: "1 / -1" }}>
               <label htmlFor="edit-pkg-title" style={labelStyle}>
                 Package title
@@ -302,7 +309,10 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
               <label htmlFor="edit-cover-url" style={labelStyle}>
                 Cover URL
               </label>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 8 }}>
+              <div
+                className="admin-cover-url-row"
+                style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) auto", gap: 8 }}
+              >
                 <input
                   id="edit-cover-url"
                   value={coverUrl}
@@ -324,10 +334,14 @@ export function PkgMetadataEditor({ pkg }: { pkg: PkgMetadataEditorData }) {
             </div>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          <div
+            className="admin-cover-panel"
+            style={{ display: "flex", flexDirection: "column", gap: 10, minWidth: 0 }}
+          >
             <div
+              className="admin-cover-preview"
               style={{
-                height: 204,
+                aspectRatio: "3 / 4",
                 borderRadius: 14,
                 border: "1px solid rgba(255,255,255,0.08)",
                 background: "rgba(255,255,255,0.035)",

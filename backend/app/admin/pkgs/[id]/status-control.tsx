@@ -37,6 +37,7 @@ export function PkgStatusControl({
 
   return (
     <div
+      className="admin-status-control"
       style={{
         display: "inline-flex",
         gap: 2,
