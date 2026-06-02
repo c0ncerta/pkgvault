@@ -59,8 +59,8 @@ export function LiquidButton({
   ...rest
 }: LiquidButtonProps) {
   const commonProps = {
-    whileHover: disabled ? undefined : { y: -2, scale: 1.015 },
-    whileTap: disabled ? undefined : { y: 1, scale: 0.95 },
+    whileHover: disabled ? undefined : { scale: 1.01 },
+    whileTap: disabled ? undefined : { scale: 0.97 },
     transition: { type: "spring" as const, stiffness: 480, damping: 22, mass: 0.6 },
     className: `${VARIANT_CLASS[variant]} ${SIZE_CLASS[size]} ${className}`.trim(),
     style: {

@@ -48,9 +48,12 @@ export async function POST(_request: NextRequest, { params }: { params: Promise<
   return NextResponse.json({
     sourceId: id,
     alive: result.alive,
+    status: result.alive ? "alive" : "dead",
+    failCount: result.alive ? 0 : source.failCount + 1,
     seederCount: result.seederCount,
     leecherCount: result.leecherCount,
     reason: result.reason,
     checkedAt: now.toISOString(),
+    lastCheckedAt: now.toISOString(),
   });
 }

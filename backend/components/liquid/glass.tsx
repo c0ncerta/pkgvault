@@ -57,7 +57,7 @@ const CARD_PRESETS: Record<
     blurAmount: 0.05,
     saturation: 205,
     aberrationIntensity: 1.25,
-    elasticity: 0.08,
+    elasticity: 0,
     cornerRadius: 22,
   },
   elevated: {
@@ -65,7 +65,7 @@ const CARD_PRESETS: Record<
     blurAmount: 0.065,
     saturation: 205,
     aberrationIntensity: 1.8,
-    elasticity: 0.12,
+    elasticity: 0,
     cornerRadius: 22,
   },
 };

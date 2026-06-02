@@ -3,7 +3,7 @@
 import { GlassCard } from "@/components/liquid/glass";
 import { IconFile } from "@/components/ui/icons";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const categories = [
   { value: "general", label: "General" },
@@ -20,27 +20,37 @@ export function NewThreadForm() {
   const [body, setBody] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const draftTimer = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
+  const [draftLoaded, setDraftLoaded] = useState(false);
   const router = useRouter();
 
-  // Auto-save draft to localStorage every 10s
   useEffect(() => {
     const saved = localStorage.getItem("pkgv-thread-draft");
     if (saved) {
       try {
-        const d = JSON.parse(saved);
-        if (d.title) setTitle(d.title);
-        if (d.category) setCategory(d.category);
-        if (d.body) setBody(d.body);
+        const draft = JSON.parse(saved) as Partial<{
+          title: string;
+          category: string;
+          body: string;
+        }>;
+        if (typeof draft.title === "string") setTitle(draft.title);
+        if (typeof draft.category === "string") setCategory(draft.category);
+        if (typeof draft.body === "string") setBody(draft.body);
       } catch {
         /* ignore */
       }
     }
-    draftTimer.current = setInterval(() => {
+    setDraftLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (!draftLoaded) return;
+
+    const timer = setTimeout(() => {
       localStorage.setItem("pkgv-thread-draft", JSON.stringify({ title, category, body }));
-    }, 10000);
-    return () => clearInterval(draftTimer.current);
-  }, [title, category, body]);
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [body, category, draftLoaded, title]);
 
   const handleSubmit = async () => {
     if (!title.trim() || !body.trim()) {

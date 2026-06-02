@@ -4,6 +4,7 @@ import { games, pkgFiles, pkgSources, users } from "@/db/schema";
 import { db } from "@/lib/db";
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
+import { PkgMetadataEditor } from "./pkg-metadata-editor";
 import { PkgSourceManager } from "./source-manager";
 import { PkgStatusControl } from "./status-control";
 
@@ -35,6 +36,7 @@ export default async function AdminPkgDetail({
     sha256: string;
     sizeBytes: bigint;
     r2Key: string | null;
+    originalFilename: string | null;
     version: string | null;
     fwRequired: string | null;
     status: string;
@@ -42,7 +44,10 @@ export default async function AdminPkgDetail({
     createdAt: Date;
     uploaderName: string | null;
     gameTitle: string | null;
+    gameTitleId: string | null;
     gamePlatform: string | null;
+    gameRegion: string | null;
+    gameCoverUrl: string | null;
   } | null = null;
 
   let sources: {
@@ -68,6 +73,7 @@ export default async function AdminPkgDetail({
         sha256: pkgFiles.sha256,
         sizeBytes: pkgFiles.sizeBytes,
         r2Key: pkgFiles.r2Key,
+        originalFilename: pkgFiles.originalFilename,
         version: pkgFiles.version,
         fwRequired: pkgFiles.fwRequired,
         status: pkgFiles.status,
@@ -75,7 +81,10 @@ export default async function AdminPkgDetail({
         createdAt: pkgFiles.createdAt,
         uploaderName: users.name,
         gameTitle: games.title,
+        gameTitleId: games.titleId,
         gamePlatform: games.platform,
+        gameRegion: games.region,
+        gameCoverUrl: games.coverUrl,
       })
       .from(pkgFiles)
       .leftJoin(users, eq(pkgFiles.uploaderId, users.id))
@@ -232,6 +241,22 @@ export default async function AdminPkgDetail({
               </p>
             )}
           </GlassCard>
+
+          <PkgMetadataEditor
+            pkg={{
+              id: pkg.id,
+              title: pkg.title,
+              description: pkg.description,
+              version: pkg.version,
+              fwRequired: pkg.fwRequired,
+              originalFilename: pkg.originalFilename,
+              gameTitle: pkg.gameTitle,
+              gameTitleId: pkg.gameTitleId,
+              gamePlatform: pkg.gamePlatform,
+              gameRegion: pkg.gameRegion,
+              gameCoverUrl: pkg.gameCoverUrl,
+            }}
+          />
 
           {/* Sources */}
           <PkgSourceManager

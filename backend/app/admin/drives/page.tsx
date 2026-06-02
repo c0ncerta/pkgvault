@@ -78,7 +78,7 @@ export default async function DrivesPage() {
   const { accounts, totals } = await getDriveData();
 
   return (
-    <div>
+    <div className="animate-fade-in">
       <div style={{ marginBottom: 32 }}>
         <h1
           style={{

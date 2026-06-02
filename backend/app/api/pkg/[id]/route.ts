@@ -12,6 +12,15 @@ const updatePkgSchema = z
     description: z.string().max(5000).nullable().optional(),
     version: z.string().max(50).nullable().optional(),
     fwRequired: z.string().max(20).nullable().optional(),
+    game: z
+      .object({
+        title: z.string().min(1).max(500).optional(),
+        titleId: z.string().max(20).nullable().optional(),
+        platform: z.string().max(20).nullable().optional(),
+        region: z.string().max(10).nullable().optional(),
+        coverUrl: z.union([z.string().url().max(2000), z.literal(""), z.null()]).optional(),
+      })
+      .optional(),
   })
   .strict();
 
@@ -106,14 +115,52 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
   if (data.fwRequired !== undefined) updateData["fwRequired"] = data.fwRequired;
   updateData["updatedAt"] = new Date();
 
+  const [file] = await db
+    .select({ id: pkgFiles.id, gameId: pkgFiles.gameId })
+    .from(pkgFiles)
+    .where(eq(pkgFiles.id, id))
+    .limit(1);
+
+  if (!file) {
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
+
   const [updated] = await db
     .update(pkgFiles)
     .set(updateData)
     .where(eq(pkgFiles.id, id))
     .returning({ id: pkgFiles.id, status: pkgFiles.status });
 
-  if (!updated) {
-    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  if (data.game) {
+    const gameData: Record<string, unknown> = {};
+    if (data.game.title !== undefined) gameData["title"] = data.game.title;
+    if (data.game.titleId !== undefined) gameData["titleId"] = data.game.titleId || null;
+    if (data.game.platform !== undefined) gameData["platform"] = data.game.platform || null;
+    if (data.game.region !== undefined) gameData["region"] = data.game.region || null;
+    if (data.game.coverUrl !== undefined) gameData["coverUrl"] = data.game.coverUrl || null;
+
+    if (Object.keys(gameData).length > 0) {
+      gameData["updatedAt"] = new Date();
+
+      if (file.gameId) {
+        await db.update(games).set(gameData).where(eq(games.id, file.gameId));
+      } else if (data.game.title && data.game.platform) {
+        const [newGame] = await db
+          .insert(games)
+          .values({
+            title: data.game.title,
+            titleId: data.game.titleId || null,
+            platform: data.game.platform,
+            region: data.game.region || null,
+            coverUrl: data.game.coverUrl || null,
+          })
+          .returning({ id: games.id });
+
+        if (newGame) {
+          await db.update(pkgFiles).set({ gameId: newGame.id }).where(eq(pkgFiles.id, id));
+        }
+      }
+    }
   }
 
   return NextResponse.json({ data: updated });

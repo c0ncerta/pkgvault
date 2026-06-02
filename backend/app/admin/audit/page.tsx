@@ -5,7 +5,9 @@ import { desc, eq } from "drizzle-orm";
 
 const actionColors: Record<string, string> = {
   approve: "#34d399",
+  "pkg.approve": "#34d399",
   reject: "#f87171",
+  "pkg.reject": "#f87171",
   delete: "#f87171",
   ban: "#f87171",
   unban: "#34d399",
@@ -13,7 +15,38 @@ const actionColors: Record<string, string> = {
   demote: "#f97316",
   create: "#818cf8",
   update: "#38bdf8",
+  "pkg.update": "#38bdf8",
 };
+
+function getActionColor(action: string) {
+  const normalized = action.toLowerCase();
+  return actionColors[normalized] ?? "var(--color-text-muted)";
+}
+
+function getStatusFromAction(action: string) {
+  if (action.endsWith(".approve") || action === "approve") return "approved";
+  if (action.endsWith(".reject") || action === "reject") return "rejected";
+  return null;
+}
+
+function summarizeMetadata(action: string, metadata: unknown) {
+  if (metadata == null) return null;
+  if (typeof metadata === "string") return metadata;
+  if (typeof metadata !== "object" || Array.isArray(metadata)) return JSON.stringify(metadata);
+
+  const data = metadata as Record<string, unknown>;
+  const previousStatus = typeof data["previousStatus"] === "string" ? data["previousStatus"] : null;
+  const newStatus =
+    typeof data["newStatus"] === "string" ? data["newStatus"] : getStatusFromAction(action);
+  const reason =
+    typeof data["reason"] === "string" && data["reason"].trim() ? data["reason"] : null;
+
+  const parts: string[] = [];
+  if (previousStatus && newStatus) parts.push(`status: ${previousStatus} -> ${newStatus}`);
+  if (reason) parts.push(`reason: ${reason}`);
+
+  return parts.length > 0 ? parts.join(" · ") : JSON.stringify(metadata);
+}
 
 export default async function AdminAuditPage() {
   let entries: Array<{
@@ -72,7 +105,8 @@ export default async function AdminAuditPage() {
       ) : (
         <GlassCard padding="0" style={{ overflow: "hidden" }}>
           {entries.map((e, i) => {
-            const color = actionColors[e.action.toLowerCase()] ?? "var(--color-text-muted)";
+            const color = getActionColor(e.action);
+            const metadataSummary = summarizeMetadata(e.action, e.metadata);
             return (
               <div
                 key={e.id}
@@ -125,16 +159,15 @@ export default async function AdminAuditPage() {
                       </span>
                     )}
                   </div>
-                  {e.metadata != null && (
+                  {metadataSummary && (
                     <p
                       style={{
                         fontSize: "0.75rem",
                         color: "var(--color-text-muted)",
                         margin: "2px 0 0",
-                        fontFamily: "var(--font-mono)",
                       }}
                     >
-                      {typeof e.metadata === "string" ? e.metadata : JSON.stringify(e.metadata)}
+                      {metadataSummary}
                     </p>
                   )}
                 </div>

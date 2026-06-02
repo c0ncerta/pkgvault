@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
     action: `pkg.${action}`,
     targetType: "pkg_file",
     targetId: fileId,
-    metadata: { reason: reason ?? null, previousStatus: file.status },
+    metadata: { reason: reason ?? null, previousStatus: file.status, newStatus },
   });
 
   return NextResponse.json({
