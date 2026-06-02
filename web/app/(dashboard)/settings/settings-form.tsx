@@ -1,7 +1,6 @@
 "use client";
 
 import { GlassCard } from "@/components/liquid/glass";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { signOut } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
@@ -280,34 +279,6 @@ export function SettingsForm({ initialUser }: { initialUser: UserData }) {
                 Role
               </span>
               <span className="tag tag-accent">{initialUser.role}</span>
-            </GlassCard>
-
-            {/* Theme */}
-            <GlassCard
-              padding="16px"
-              style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
-            >
-              <div>
-                <span
-                  style={{
-                    fontSize: "var(--fs-md)",
-                    color: "var(--color-text-primary)",
-                    fontWeight: 500,
-                  }}
-                >
-                  Appearance
-                </span>
-                <p
-                  style={{
-                    fontSize: "var(--fs-sm)",
-                    color: "var(--color-text-muted)",
-                    margin: "2px 0 0",
-                  }}
-                >
-                  Choose your preferred theme
-                </p>
-              </div>
-              <ThemeToggle />
             </GlassCard>
           </>
         )}
