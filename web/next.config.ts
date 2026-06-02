@@ -1,26 +1,10 @@
 import type { NextConfig } from "next";
 
-// Content-Security-Policy.
-// NOTE: 'unsafe-inline' on script-src is a pragmatic tradeoff — Next.js App Router
-// emits inline hydration/bootstrap scripts. A stricter nonce-based policy is a
-// recommended follow-up (wire a nonce through middleware). Everything else is locked down.
-const csp = [
-  "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https:",
-  "font-src 'self' data:",
-  "connect-src 'self'",
-  "media-src 'self' https:",
-  "object-src 'none'",
-  "base-uri 'self'",
-  "form-action 'self'",
-  "frame-ancestors 'none'",
-  "upgrade-insecure-requests",
-].join("; ");
-
+// Static security headers (applied to every response).
+// The Content-Security-Policy is intentionally NOT set here: it carries a
+// per-request nonce and is generated in middleware.ts. Keeping it out of here
+// avoids emitting a second, conflicting CSP header.
 const securityHeaders = [
-  { key: "Content-Security-Policy", value: csp },
   { key: "X-Frame-Options", value: "DENY" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
