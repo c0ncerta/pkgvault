@@ -23,7 +23,7 @@ This project follows our [Code of Conduct](CODE_OF_CONDUCT.md). Please read it b
 
 ```bash
 git clone https://github.com/c0ncerta/pkgvault.git
-cd pkgvault/backend
+cd pkgvault/web
 ```
 
 ### 2. Install Dependencies

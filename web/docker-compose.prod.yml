@@ -1,0 +1,63 @@
+# Pin the Compose project name so volumes stay `backend_*` regardless of the
+# directory name (the folder was renamed from `backend/` to `web/`).
+name: backend
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: pkgvault-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: pkgvault
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set (see .env)}
+      POSTGRES_DB: pkgvault
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pkgvault"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: pkgvault-redis
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_APP_URL: https://www.pkgvault.fun
+    container_name: pkgvault-app
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3001:3000"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://pkgvault:${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set (see .env)}@postgres:5432/pkgvault
+      REDIS_URL: redis://redis:6379
+      NODE_ENV: production
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  pgdata:
+  redisdata:

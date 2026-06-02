@@ -23,7 +23,7 @@ PKGVault is a full-stack web application that serves as a **private catalog and 
 
 ```
 PKGVault/
-├── backend/                 # Next.js 15 application (full-stack)
+├── web/                     # Next.js 15 application (full-stack: frontend + API)
 │   ├── app/                 # App Router pages & API routes
 │   ├── components/          # React components (UI, layout, liquid glass)
 │   ├── db/                  # Database schema, migrations, seeds
@@ -54,7 +54,7 @@ PKGVault/
 
 ```bash
 git clone https://github.com/c0ncerta/pkgvault.git
-cd pkgvault/backend
+cd pkgvault/web
 npm install
 ```
 
