@@ -39,12 +39,15 @@ services:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: pkgvault-prowlarr
     restart: unless-stopped
+    # Route Prowlarr through the VPN too, so its direct indexer connections
+    # (not just FlareSolverr) exit via Mullvad. Reachable at gluetun:9696.
+    network_mode: "service:gluetun"
+    depends_on:
+      - gluetun
     environment:
       PUID: "1000"
       PGID: "1000"
       TZ: Etc/UTC
-    ports:
-      - "127.0.0.1:9696:9696"
     volumes:
       - prowlarrdata:/config
 
@@ -68,7 +71,8 @@ services:
       BLOCK_MALICIOUS: "on"
       TZ: Etc/UTC
     ports:
-      # FlareSolverr's port is published here (it shares gluetun's network).
+      # Prowlarr (9696) and FlareSolverr (8191) share gluetun's network.
+      - "127.0.0.1:9696:9696"
       - "127.0.0.1:8191:8191"
 
   # Solves Cloudflare challenges for indexers that need it (e.g. RuTracker).
