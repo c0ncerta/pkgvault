@@ -4,10 +4,8 @@ import {
   IconArrowLeft,
   IconCatalog,
   IconClipboard,
-  IconCloud,
   IconDashboard,
   IconHardDrive,
-  IconLink,
   IconQueue,
   IconUsers,
 } from "@/components/ui/icons";
@@ -15,15 +13,28 @@ import { Logo } from "@/components/ui/logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const navItems = [
+const navItems: Array<{
+  href: string;
+  label: string;
+  icon: typeof IconDashboard;
+  match?: string[];
+}> = [
   { href: "/admin", label: "Overview", icon: IconDashboard },
-  { href: "/admin/queue", label: "Mod Queue", icon: IconQueue },
-  { href: "/admin/pkgs", label: "PKG Manager", icon: IconCatalog },
-  { href: "/admin/sources", label: "Link Health", icon: IconLink },
-  { href: "/admin/backups", label: "GDrive Backups", icon: IconHardDrive },
-  { href: "/admin/drives", label: "Drive Accounts", icon: IconCloud },
-  { href: "/admin/users", label: "Users", icon: IconUsers },
-  { href: "/admin/audit", label: "Audit Log", icon: IconClipboard },
+  {
+    href: "/admin/pkgs",
+    label: "Catalog & Sources",
+    icon: IconCatalog,
+    match: ["/admin/pkgs", "/admin/sources"],
+  },
+  { href: "/admin/queue", label: "Moderation", icon: IconQueue, match: ["/admin/queue"] },
+  {
+    href: "/admin/backups",
+    label: "Mirrors",
+    icon: IconHardDrive,
+    match: ["/admin/backups", "/admin/drives"],
+  },
+  { href: "/admin/users", label: "Users", icon: IconUsers, match: ["/admin/users"] },
+  { href: "/admin/audit", label: "Audit Log", icon: IconClipboard, match: ["/admin/audit"] },
 ];
 
 export function AdminSidebar({ role, userName }: { role: string; userName: string }) {
@@ -77,7 +88,11 @@ export function AdminSidebar({ role, userName }: { role: string; userName: strin
       {/* Nav */}
       {navItems.map((item) => {
         const active =
-          pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href));
+          item.href === "/admin"
+            ? pathname === "/admin"
+            : (item.match ?? [item.href]).some(
+                (m) => pathname === m || pathname.startsWith(`${m}/`),
+              );
         const Icon = item.icon;
         return (
           <Link

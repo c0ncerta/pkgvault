@@ -1,3 +1,4 @@
+import { SectionTabs } from "@/components/admin/section-tabs";
 import { games, pkgFiles, pkgSources, users } from "@/db/schema";
 import { db } from "@/lib/db";
 import { desc, eq, sql } from "drizzle-orm";
@@ -69,6 +70,12 @@ export default async function PkgManagerPage() {
 
   return (
     <div className="animate-fade-in">
+      <SectionTabs
+        tabs={[
+          { label: "PKGs", href: "/admin/pkgs" },
+          { label: "Sources & Health", href: "/admin/sources" },
+        ]}
+      />
       <div
         style={{
           display: "flex",

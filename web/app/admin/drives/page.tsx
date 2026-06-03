@@ -1,3 +1,4 @@
+import { SectionTabs } from "@/components/admin/section-tabs";
 import { driveAccounts } from "@/db/schema";
 import { db } from "@/lib/db";
 import { sql } from "drizzle-orm";
@@ -79,6 +80,12 @@ export default async function DrivesPage() {
 
   return (
     <div className="animate-fade-in">
+      <SectionTabs
+        tabs={[
+          { label: "Backups", href: "/admin/backups" },
+          { label: "Accounts", href: "/admin/drives" },
+        ]}
+      />
       <div style={{ marginBottom: "var(--space-32)" }}>
         <h1
           style={{

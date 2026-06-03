@@ -1,3 +1,4 @@
+import { SectionTabs } from "@/components/admin/section-tabs";
 import { pkgFiles, pkgSources } from "@/db/schema";
 import { db } from "@/lib/db";
 import { and, eq, isNull, sql } from "drizzle-orm";
@@ -117,6 +118,12 @@ export default async function AdminBackupsPage() {
 
   return (
     <div className="animate-fade-in">
+      <SectionTabs
+        tabs={[
+          { label: "Backups", href: "/admin/backups" },
+          { label: "Accounts", href: "/admin/drives" },
+        ]}
+      />
       <h1
         style={{
           fontSize: "var(--fs-4xl)",

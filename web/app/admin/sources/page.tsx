@@ -1,3 +1,4 @@
+import { SectionTabs } from "@/components/admin/section-tabs";
 import { pkgFiles, pkgSources } from "@/db/schema";
 import { db } from "@/lib/db";
 import { desc, eq } from "drizzle-orm";
@@ -45,6 +46,12 @@ export default async function SourcesPage() {
 
   return (
     <div className="animate-fade-in">
+      <SectionTabs
+        tabs={[
+          { label: "PKGs", href: "/admin/pkgs" },
+          { label: "Sources & Health", href: "/admin/sources" },
+        ]}
+      />
       <LinkHealthManager sources={sources} />
     </div>
   );
