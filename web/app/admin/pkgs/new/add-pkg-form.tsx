@@ -83,8 +83,10 @@ export function AddPkgForm() {
       const validSources = sources.filter((s) => s.url.trim());
       const normalizedSha256 = sha256.trim().toLowerCase();
 
-      if (!sha256Pattern.test(normalizedSha256)) {
-        setError("SHA-256 must be 64 lowercase hex characters");
+      // SHA-256 is optional (index entries usually have no first-party hash);
+      // only validate the format when something was typed.
+      if (normalizedSha256 && !sha256Pattern.test(normalizedSha256)) {
+        setError("SHA-256 must be 64 lowercase hex characters, or leave it blank");
         return;
       }
 
@@ -94,8 +96,8 @@ export function AddPkgForm() {
         body: JSON.stringify({
           title: title.trim(),
           description: description.trim() || null,
-          sha256: normalizedSha256,
-          sizeBytes,
+          sha256: normalizedSha256 || undefined,
+          sizeBytes: sizeBytes || undefined,
           version: version.trim() || null,
           fwRequired: fwRequired.trim() || null,
           game: {
@@ -209,15 +211,14 @@ export function AddPkgForm() {
           </div>
           <div>
             <label htmlFor="pkg-sha256" style={labelStyle}>
-              SHA-256 Hash *
+              SHA-256 Hash <span style={{ color: "var(--color-text-faint)" }}>(optional)</span>
             </label>
             <input
               id="pkg-sha256"
-              placeholder="64 lowercase hex characters"
+              placeholder="64 hex chars — leave blank for external/index entries"
               value={sha256}
               onChange={(e) => setSha256(e.target.value.toLowerCase())}
               maxLength={64}
-              required
               style={{ ...inputStyle, fontFamily: "var(--font-mono)", fontSize: "var(--fs-sm)" }}
             />
           </div>

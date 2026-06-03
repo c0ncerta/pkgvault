@@ -9,11 +9,14 @@ import { z } from "zod";
 const createPkgSchema = z.object({
   title: z.string().min(1).max(500),
   description: z.string().max(5000).nullable().optional(),
+  // Optional: PKGVault is an index, so most entries have no first-party hash.
+  // When omitted the entry is stored as "external" (unverified).
   sha256: z
     .string()
     .length(64)
-    .regex(/^[a-f0-9]+$/),
-  sizeBytes: z.number().int().min(0),
+    .regex(/^[a-f0-9]+$/)
+    .optional(),
+  sizeBytes: z.number().int().min(0).optional(),
   version: z.string().max(50).nullable().optional(),
   fwRequired: z.string().max(20).nullable().optional(),
   game: z.object({
@@ -71,23 +74,28 @@ export async function POST(request: NextRequest) {
   }
 
   const { title, description, sha256, sizeBytes, version, fwRequired, game, sources } = parsed.data;
+  const pkgSha = sha256 ?? "external";
+  const pkgSize = sizeBytes ?? 0;
 
-  const [duplicate] = await db
-    .select({ id: pkgFiles.id, title: pkgFiles.title })
-    .from(pkgFiles)
-    .where(eq(pkgFiles.sha256, sha256))
-    .limit(1);
+  // Only dedupe when a real hash is given — "external" entries aren't unique.
+  if (sha256) {
+    const [duplicate] = await db
+      .select({ id: pkgFiles.id, title: pkgFiles.title })
+      .from(pkgFiles)
+      .where(eq(pkgFiles.sha256, sha256))
+      .limit(1);
 
-  if (duplicate) {
-    return NextResponse.json(
-      {
-        duplicate: true,
-        existingId: duplicate.id,
-        existingTitle: duplicate.title,
-        message: "This file already exists in the archive",
-      },
-      { status: 409 },
-    );
+    if (duplicate) {
+      return NextResponse.json(
+        {
+          duplicate: true,
+          existingId: duplicate.id,
+          existingTitle: duplicate.title,
+          message: "This file already exists in the archive",
+        },
+        { status: 409 },
+      );
+    }
   }
 
   // Create game (if needed) + PKG + sources atomically.
@@ -139,8 +147,8 @@ export async function POST(request: NextRequest) {
           gameId,
           title,
           description: description ?? null,
-          sha256,
-          sizeBytes: BigInt(sizeBytes),
+          sha256: pkgSha,
+          sizeBytes: BigInt(pkgSize),
           r2Key: null, // No R2 for admin-created entries
           version: version ?? null,
           fwRequired: fwRequired ?? null,
