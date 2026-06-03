@@ -35,6 +35,19 @@ services:
       timeout: 5s
       retries: 5
 
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: pkgvault-prowlarr
+    restart: unless-stopped
+    environment:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: Etc/UTC
+    ports:
+      - "127.0.0.1:9696:9696"
+    volumes:
+      - prowlarrdata:/config
+
   app:
     build:
       context: .
@@ -61,3 +74,4 @@ services:
 volumes:
   pgdata:
   redisdata:
+  prowlarrdata:
