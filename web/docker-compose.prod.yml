@@ -48,16 +48,41 @@ services:
     volumes:
       - prowlarrdata:/config
 
+  # VPN egress (Mullvad/WireGuard). FlareSolverr routes through this so its
+  # requests to geo/IP-blocked indexers (RuTracker) exit via the VPN. gluetun
+  # is kill-switch by default: if the tunnel drops, no traffic leaks.
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    container_name: pkgvault-gluetun
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      VPN_SERVICE_PROVIDER: ${VPN_SERVICE_PROVIDER:?set in .env}
+      VPN_TYPE: ${VPN_TYPE:-wireguard}
+      WIREGUARD_PRIVATE_KEY: ${WIREGUARD_PRIVATE_KEY:?set in .env}
+      WIREGUARD_ADDRESSES: ${WIREGUARD_ADDRESSES:?set in .env}
+      SERVER_COUNTRIES: ${SERVER_COUNTRIES:-Netherlands}
+      BLOCK_MALICIOUS: "on"
+      TZ: Etc/UTC
+    ports:
+      # FlareSolverr's port is published here (it shares gluetun's network).
+      - "127.0.0.1:8191:8191"
+
   # Solves Cloudflare challenges for indexers that need it (e.g. RuTracker).
+  # Routed through gluetun so its egress is the VPN, not the host IP.
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
     container_name: pkgvault-flaresolverr
     restart: unless-stopped
+    network_mode: "service:gluetun"
+    depends_on:
+      - gluetun
     environment:
       LOG_LEVEL: info
       TZ: Etc/UTC
-    ports:
-      - "127.0.0.1:8191:8191"
 
   app:
     build:
