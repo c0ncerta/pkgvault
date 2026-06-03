@@ -74,6 +74,7 @@ export default async function PkgManagerPage() {
         tabs={[
           { label: "PKGs", href: "/admin/pkgs" },
           { label: "Sources & Health", href: "/admin/sources" },
+          { label: "Find / Scrape", href: "/admin/sources/find" },
         ]}
       />
       <div

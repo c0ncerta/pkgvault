@@ -50,6 +50,7 @@ export default async function SourcesPage() {
         tabs={[
           { label: "PKGs", href: "/admin/pkgs" },
           { label: "Sources & Health", href: "/admin/sources" },
+          { label: "Find / Scrape", href: "/admin/sources/find" },
         ]}
       />
       <LinkHealthManager sources={sources} />
