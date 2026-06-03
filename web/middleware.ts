@@ -25,14 +25,20 @@ const authPages = ["/login", "/register"];
  * attributes throughout — nonces only cover <style> elements, not style attributes.
  */
 function buildCsp(nonce: string): string {
+  // webtor.io powers the in-page torrent stream/download embed. It loads its SDK
+  // (jsDelivr), runs the player in its own iframe, and talks to its own backend —
+  // so we allow just those origins for frames/connections/media, nothing broader.
+  const webtor = "https://*.webtor.io";
   return [
     "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'`,
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://cdn.jsdelivr.net ${webtor}`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: blob: https:",
     "font-src 'self' data:",
-    "connect-src 'self'",
-    "media-src 'self' https:",
+    `connect-src 'self' ${webtor} wss://*.webtor.io`,
+    `frame-src ${webtor}`,
+    "media-src 'self' blob: https:",
+    "worker-src 'self' blob:",
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",

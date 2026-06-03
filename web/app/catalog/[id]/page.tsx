@@ -106,6 +106,8 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
     label: string | null;
     status: string;
     isPrimary: boolean;
+    seederCount: number;
+    leecherCount: number;
   }[] = [];
   try {
     sources = await db
@@ -116,6 +118,8 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
         label: pkgSources.label,
         status: pkgSources.status,
         isPrimary: pkgSources.isPrimary,
+        seederCount: pkgSources.seederCount,
+        leecherCount: pkgSources.leecherCount,
       })
       .from(pkgSources)
       .where(and(eq(pkgSources.pkgId, id), sql`${pkgSources.status} != 'dead'`));
@@ -334,7 +338,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
                 <DownloadButton
                   pkgId={pkg.id}
                   size={formatBytes(pkg.sizeBytes)}
-                  rootzUrl={sources.find((s) => s.url.includes("rootz"))?.url ?? null}
+                  sources={sources}
                 />
                 {sources.length > 1 && (
                   <div
