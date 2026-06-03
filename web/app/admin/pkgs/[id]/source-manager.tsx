@@ -3,7 +3,22 @@
 import { GlassCard } from "@/components/liquid/glass";
 import { IconSearch } from "@/components/ui/icons";
 import { LiquidButton } from "@/components/ui/liquid-button";
+import { torrentFileToMagnet } from "@/lib/torrent";
 import { useState } from "react";
+
+interface TorrentResult {
+  name: string;
+  infoHash: string;
+  seeders: number;
+  leechers: number;
+  sizeBytes: number;
+  magnet: string;
+}
+
+function fmtSize(n: number): string {
+  if (!n) return "?";
+  return n >= 1e9 ? `${(n / 1e9).toFixed(1)} GB` : `${(n / 1e6).toFixed(0)} MB`;
+}
 
 const providers = [
   { value: "direct", label: "Direct URL" },
@@ -49,6 +64,64 @@ export function PkgSourceManager({
   const [newLabel, setNewLabel] = useState("");
   const [newPrimary, setNewPrimary] = useState(false);
   const [addLoading, setAddLoading] = useState(false);
+
+  // Torrent search panel
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchQ, setSearchQ] = useState("");
+  const [searchResults, setSearchResults] = useState<TorrentResult[]>([]);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [searchError, setSearchError] = useState<string | null>(null);
+  const [convertError, setConvertError] = useState<string | null>(null);
+
+  const handleSearch = async () => {
+    if (searchQ.trim().length < 2) return;
+    setSearchLoading(true);
+    setSearchError(null);
+    try {
+      const res = await fetch(`/api/admin/torrent-search?q=${encodeURIComponent(searchQ.trim())}`);
+      const data = await res.json();
+      if (!res.ok) {
+        setSearchError(data.error ?? "Search failed");
+        setSearchResults([]);
+        return;
+      }
+      setSearchResults(data.results ?? []);
+    } catch {
+      setSearchError("Network error");
+    } finally {
+      setSearchLoading(false);
+    }
+  };
+
+  const addMagnet = async (magnet: string, label: string) => {
+    try {
+      const res = await fetch("/api/admin/sources", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          pkgId,
+          provider: "torrent",
+          url: magnet,
+          label: label.slice(0, 200),
+        }),
+      });
+      if (res.ok) window.location.reload();
+    } catch {
+      // ignore
+    }
+  };
+
+  const handleConvert = async (file: File | undefined) => {
+    if (!file) return;
+    setConvertError(null);
+    try {
+      const magnet = await torrentFileToMagnet(file);
+      setNewProvider("torrent");
+      setNewUrl(magnet);
+    } catch (e) {
+      setConvertError((e as Error).message);
+    }
+  };
 
   const handleAdd = async () => {
     if (!newUrl.trim()) return;
@@ -127,15 +200,135 @@ export function PkgSourceManager({
         >
           Download Sources ({sources.length})
         </h3>
-        <LiquidButton
-          variant={showAdd ? "ghost" : "primary"}
-          size="sm"
-          onClick={() => setShowAdd(!showAdd)}
-          iconLeft={showAdd ? undefined : "+"}
-        >
-          {showAdd ? "Cancel" : "Add Source"}
-        </LiquidButton>
+        <div style={{ display: "flex", gap: "var(--space-8)" }}>
+          <LiquidButton
+            variant={showSearch ? "primary" : "secondary"}
+            size="sm"
+            onClick={() => setShowSearch(!showSearch)}
+          >
+            {showSearch ? "Close search" : "Find torrent"}
+          </LiquidButton>
+          <LiquidButton
+            variant={showAdd ? "ghost" : "primary"}
+            size="sm"
+            onClick={() => setShowAdd(!showAdd)}
+            iconLeft={showAdd ? undefined : "+"}
+          >
+            {showAdd ? "Cancel" : "Add Source"}
+          </LiquidButton>
+        </div>
       </div>
+
+      {/* Torrent search panel (apibay) */}
+      {showSearch && (
+        <div
+          style={{
+            padding: "var(--space-16)",
+            borderRadius: "var(--radius-base)",
+            marginBottom: "var(--space-16)",
+            background: "rgba(34,211,238,0.04)",
+            border: "1px solid rgba(34,211,238,0.12)",
+          }}
+        >
+          <div style={{ display: "flex", gap: "var(--space-10)", marginBottom: "var(--space-10)" }}>
+            <input
+              placeholder="Search torrents (e.g. 'God of War PS4')…"
+              value={searchQ}
+              onChange={(e) => setSearchQ(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+              style={inputStyle}
+            />
+            <LiquidButton
+              variant="primary"
+              size="sm"
+              onClick={handleSearch}
+              disabled={searchLoading || searchQ.trim().length < 2}
+            >
+              {searchLoading ? "Searching…" : "Search"}
+            </LiquidButton>
+          </div>
+          <div
+            style={{
+              fontSize: "var(--fs-2xs)",
+              color: "var(--color-text-faint)",
+              marginBottom: "var(--space-10)",
+            }}
+          >
+            Public indexer · Nintendo titles filtered out · adds as a magnet source
+          </div>
+
+          {searchError && (
+            <div
+              style={{
+                fontSize: "var(--fs-xs)",
+                color: "var(--color-danger-bright)",
+                marginBottom: "var(--space-8)",
+              }}
+            >
+              {searchError}
+            </div>
+          )}
+
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+            {searchResults.map((r) => (
+              <div
+                key={r.infoHash}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "var(--space-10)",
+                  padding: "8px 12px",
+                  borderRadius: "var(--radius-xs)",
+                  background: "rgba(255,255,255,0.02)",
+                  border: "1px solid rgba(255,255,255,0.05)",
+                }}
+              >
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div
+                    style={{
+                      fontSize: "var(--fs-sm)",
+                      color: "var(--color-text-secondary)",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {r.name}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "var(--fs-2xs)",
+                      color: "var(--color-text-faint)",
+                      fontFamily: "var(--font-mono)",
+                    }}
+                  >
+                    {fmtSize(r.sizeBytes)} · ▲{r.seeders} seed · ▼{r.leechers}
+                  </div>
+                </div>
+                <LiquidButton
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => addMagnet(r.magnet, r.name)}
+                >
+                  Add
+                </LiquidButton>
+              </div>
+            ))}
+            {!searchLoading && searchResults.length === 0 && !searchError && (
+              <div
+                style={{
+                  fontSize: "var(--fs-xs)",
+                  color: "var(--color-text-faint)",
+                  textAlign: "center",
+                  padding: "var(--space-12) 0",
+                }}
+              >
+                No results yet — try a search.
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Add form */}
       {showAdd && (
@@ -176,6 +369,39 @@ export function PkgSourceManager({
               ))}
             </select>
           </div>
+
+          {newProvider === "torrent" && (
+            <div
+              style={{
+                marginBottom: "var(--space-10)",
+                padding: "10px 12px",
+                borderRadius: "var(--radius-xs)",
+                background: "rgba(245,158,11,0.07)",
+                border: "1px solid rgba(245,158,11,0.18)",
+                fontSize: "var(--fs-xs)",
+                color: "var(--color-text-secondary)",
+                lineHeight: 1.5,
+              }}
+            >
+              <strong style={{ color: "var(--color-warning-bright)" }}>Magnets only.</strong> Paste
+              a <code style={{ fontFamily: "var(--font-mono)" }}>magnet:?xt=…</code> link — not a
+              .torrent file. Got a .torrent? Convert it here (stays in your browser):
+              <div style={{ marginTop: "var(--space-8)" }}>
+                <input
+                  type="file"
+                  accept=".torrent,application/x-bittorrent"
+                  onChange={(e) => handleConvert(e.target.files?.[0])}
+                  style={{ fontSize: "var(--fs-xs)", color: "var(--color-text-faint)" }}
+                />
+              </div>
+              {convertError && (
+                <div style={{ marginTop: "var(--space-6)", color: "var(--color-danger-bright)" }}>
+                  {convertError}
+                </div>
+              )}
+            </div>
+          )}
+
           <div
             className="admin-source-add-secondary"
             style={{
