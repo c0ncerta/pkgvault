@@ -5,31 +5,23 @@ import { type NextRequest, NextResponse } from "next/server";
  * GET /api/admin/torrent-search?q=... — Search torrents via Prowlarr (admin/mod).
  *
  * Prowlarr fronts the configured indexers (e.g. RuTracker) and returns a unified
- * release list. We normalise to a ready-to-store magnet. Metadata only — nothing
- * is downloaded. Nintendo titles are filtered out.
+ * release list. Some indexers expose a magnet/infohash directly; others (like
+ * RuTracker) only give a .torrent download link — for those we return the
+ * Prowlarr download URL and resolve it to a magnet at "Add" time. Metadata only;
+ * nothing is downloaded here. Nintendo titles are filtered out.
  */
-const PUBLIC_TRACKERS = [
-  "udp://tracker.opentrackr.org:1337/announce",
-  "udp://open.tracker.cl:1337/announce",
-  "udp://tracker.openbittorrent.com:6969/announce",
-];
-
 const NINTENDO = /nintendo|\bswitch\b|\bnsp\b|\bxci\b|\bwii\b|\b3ds\b|\bnds\b|\beshop\b/i;
 
 interface ProwlarrRelease {
   title?: string;
   infoHash?: string;
   magnetUrl?: string;
+  downloadUrl?: string;
   seeders?: number;
   leechers?: number;
   size?: number;
   protocol?: string;
   indexer?: string;
-}
-
-function buildMagnet(infoHash: string, name: string): string {
-  const trackers = PUBLIC_TRACKERS.map((t) => `&tr=${encodeURIComponent(t)}`).join("");
-  return `magnet:?xt=urn:btih:${infoHash}&dn=${encodeURIComponent(name)}${trackers}`;
 }
 
 export async function GET(request: NextRequest) {
@@ -66,28 +58,41 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  // Rewrite a Prowlarr download URL to our in-network base and strip the API key
+  // (it gets re-added server-side at resolve time).
+  const rewriteDownload = (raw: string | undefined): string => {
+    if (!raw) return "";
+    try {
+      const u = new URL(raw.replace(/^https?:\/\/[^/]+/, base));
+      u.searchParams.delete("apikey");
+      return u.toString();
+    } catch {
+      return "";
+    }
+  };
+
   const results = raw
     .filter((r) => (r.protocol ?? "torrent") === "torrent")
     .filter((r) => !NINTENDO.test(r.title ?? ""))
     .map((r) => {
       const name = r.title ?? "";
       let infoHash = (r.infoHash ?? "").toLowerCase();
-      let magnet = r.magnetUrl ?? "";
+      const magnet = r.magnetUrl ?? "";
       if (!infoHash && magnet) {
         infoHash = magnet.match(/btih:([a-z0-9]+)/i)?.[1]?.toLowerCase() ?? "";
       }
-      if (!magnet && infoHash) magnet = buildMagnet(infoHash, name);
       return {
         name,
         infoHash,
         seeders: r.seeders ?? 0,
         leechers: r.leechers ?? 0,
         sizeBytes: r.size ?? 0,
-        magnet,
+        magnet, // may be empty (e.g. RuTracker) → resolved from downloadUrl on Add
+        downloadUrl: rewriteDownload(r.downloadUrl),
         indexer: r.indexer ?? "",
       };
     })
-    .filter((r) => r.infoHash && r.magnet)
+    .filter((r) => r.magnet || r.downloadUrl)
     .sort((a, b) => b.seeders - a.seeders)
     .slice(0, 50);
 

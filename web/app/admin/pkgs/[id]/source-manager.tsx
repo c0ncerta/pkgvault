@@ -13,6 +13,7 @@ interface TorrentResult {
   leechers: number;
   sizeBytes: number;
   magnet: string;
+  downloadUrl: string;
 }
 
 function fmtSize(n: number): string {
@@ -93,8 +94,32 @@ export function PkgSourceManager({
     }
   };
 
-  const addMagnet = async (magnet: string, label: string) => {
+  const [addingKey, setAddingKey] = useState<string | null>(null);
+
+  const addResult = async (r: TorrentResult) => {
+    const key = r.infoHash || r.downloadUrl;
+    setAddingKey(key);
+    setSearchError(null);
     try {
+      let magnet = r.magnet;
+      // RuTracker & co. don't expose magnets — resolve the .torrent → magnet first.
+      if (!magnet && r.downloadUrl) {
+        const res = await fetch("/api/admin/torrent-search/resolve", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: r.downloadUrl }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          setSearchError(data.error ?? "Could not resolve torrent");
+          return;
+        }
+        magnet = data.magnet;
+      }
+      if (!magnet) {
+        setSearchError("No magnet available for this result");
+        return;
+      }
       const res = await fetch("/api/admin/sources", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -102,12 +127,15 @@ export function PkgSourceManager({
           pkgId,
           provider: "torrent",
           url: magnet,
-          label: label.slice(0, 200),
+          label: r.name.slice(0, 200),
         }),
       });
       if (res.ok) window.location.reload();
+      else setSearchError("Could not add source");
     } catch {
-      // ignore
+      setSearchError("Network error");
+    } finally {
+      setAddingKey(null);
     }
   };
 
@@ -272,7 +300,7 @@ export function PkgSourceManager({
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
             {searchResults.map((r) => (
               <div
-                key={r.infoHash}
+                key={r.infoHash || r.downloadUrl}
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -308,9 +336,10 @@ export function PkgSourceManager({
                 <LiquidButton
                   variant="secondary"
                   size="sm"
-                  onClick={() => addMagnet(r.magnet, r.name)}
+                  onClick={() => addResult(r)}
+                  disabled={addingKey === (r.infoHash || r.downloadUrl)}
                 >
-                  Add
+                  {addingKey === (r.infoHash || r.downloadUrl) ? "Adding…" : "Add"}
                 </LiquidButton>
               </div>
             ))}
