@@ -2,6 +2,7 @@ import { games, pkgFiles, pkgSources } from "@/db/schema";
 import { db } from "@/lib/db";
 import { getServerSession } from "@/lib/session";
 import { isSafeExternalReference } from "@/lib/url-safety";
+import { externalSha } from "@/lib/utils";
 import { eq } from "drizzle-orm";
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
@@ -74,7 +75,7 @@ export async function POST(request: NextRequest) {
   }
 
   const { title, description, sha256, sizeBytes, version, fwRequired, game, sources } = parsed.data;
-  const pkgSha = sha256 ?? "external";
+  const pkgSha = sha256 ?? externalSha();
   const pkgSize = sizeBytes ?? 0;
 
   // Only dedupe when a real hash is given — "external" entries aren't unique.

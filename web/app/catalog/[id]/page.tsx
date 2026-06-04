@@ -95,7 +95,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
 
   if (!pkg) return notFound();
 
-  const isExternal = pkg.sha256 === "external";
+  const isExternal = pkg.sha256.startsWith("external");
   const verified = !isExternal && pkg.sha256 !== "pending";
 
   // Fetch available download sources

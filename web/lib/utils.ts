@@ -10,6 +10,15 @@ export function generateId(): string {
 }
 
 /**
+ * Sentinel SHA-256 value for index entries with no first-party hash.
+ * Unique per entry (the sha256 column is UNIQUE) but still recognisable as
+ * "external" by prefix. Use `sha.startsWith("external")` to detect these.
+ */
+export function externalSha(): string {
+  return `external-${crypto.randomUUID().replace(/-/g, "").slice(0, 16)}`;
+}
+
+/**
  * Conditional class names (re-export for convenience).
  * Uses clsx under the hood — lighter than clsx+twMerge for server components.
  */

@@ -318,7 +318,7 @@ export function DetailTabs(props: DetailTabsProps) {
 
         {tab === "integrity" && (
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-16)" }}>
-            {props.sha256 === "external" ? (
+            {props.sha256.startsWith("external") ? (
               <div
                 style={{
                   padding: "var(--space-20)",

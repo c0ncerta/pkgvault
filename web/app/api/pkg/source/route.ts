@@ -2,7 +2,7 @@ import { games, pkgFiles, pkgSources } from "@/db/schema";
 import { db } from "@/lib/db";
 import { getServerSession } from "@/lib/session";
 import { detectProvider } from "@/lib/source-detect";
-import { generateId } from "@/lib/utils";
+import { externalSha, generateId } from "@/lib/utils";
 import { and, eq, isNull } from "drizzle-orm";
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
       gameId: resolvedGameId,
       title,
       description: description ?? null,
-      sha256: "external",
+      sha256: externalSha(),
       sizeBytes: 0n,
       r2Key: null,
       contentType: null,
