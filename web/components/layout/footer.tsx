@@ -35,6 +35,16 @@ export function Footer() {
         </div>
         <nav style={{ display: "flex", gap: "var(--space-20)", fontSize: "var(--fs-sm)" }}>
           <Link
+            href="/guide"
+            style={{
+              color: "var(--color-text-muted)",
+              textDecoration: "none",
+              transition: "color var(--dur-fast)",
+            }}
+          >
+            How to download
+          </Link>
+          <Link
             href="/rules"
             style={{
               color: "var(--color-text-muted)",

@@ -3,7 +3,9 @@
 import { GlassPanel } from "@/components/liquid/glass";
 import { IconCloud, IconDownload, IconLink, IconX } from "@/components/ui/icons";
 import { LiquidButton } from "@/components/ui/liquid-button";
+import { useToast } from "@/components/ui/toast";
 import { WebtorEmbed } from "@/components/ui/webtor-embed";
+import Link from "next/link";
 import { type ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -94,6 +96,7 @@ export function DownloadButton({ pkgId, size, sources }: DownloadButtonProps) {
   const [showWebtor, setShowWebtor] = useState(false);
   const [copied, setCopied] = useState(false);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const { toast } = useToast();
 
   // Primary first; torrents bubble up (purest mirror), then the rest.
   const ordered = [...sources].sort((a, b) => {
@@ -153,10 +156,23 @@ export function DownloadButton({ pkgId, size, sources }: DownloadButtonProps) {
       () => {
         setCopied(true);
         setTimeout(() => setCopied(false), 1500);
+        toast("Magnet copied to clipboard", "success");
       },
+      () => toast("Couldn't copy — long-press the link to copy it", "error"),
+    );
+  }, [activeSource, toast]);
+
+  // Copy the magnet, confirm with a toast, then hand it to the OS — which opens
+  // the user's default torrent client (qBittorrent, if installed/default).
+  const openInClient = useCallback(() => {
+    const url = activeSource?.url;
+    if (!url) return;
+    navigator.clipboard?.writeText(url).then(
+      () => toast("Magnet copied — opening qBittorrent…", "success"),
       () => {},
     );
-  }, [activeSource]);
+    window.location.href = url;
+  }, [activeSource, toast]);
 
   const modal =
     open &&
@@ -241,9 +257,9 @@ export function DownloadButton({ pkgId, size, sources }: DownloadButtonProps) {
             ) : (
               <div className="flex flex-col gap-3 px-5 py-4">
                 <div className="rounded-[0.9rem] border border-white/10 bg-white/[0.03] p-3.5">
-                  <div className="mb-2 flex items-center justify-between">
+                  <div className="mb-3 flex items-center justify-between">
                     <div className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-text-muted">
-                      Magnet
+                      Open with qBittorrent
                     </div>
                     {typeof activeSource?.seederCount === "number" && (
                       <span className="font-mono text-[0.6rem] font-bold text-success-bright">
@@ -251,23 +267,28 @@ export function DownloadButton({ pkgId, size, sources }: DownloadButtonProps) {
                       </span>
                     )}
                   </div>
-                  <div className="flex gap-2">
-                    <button
-                      type="button"
-                      onClick={copyMagnet}
-                      className="flex-1 rounded-[0.8rem] border border-white/10 bg-white/[0.05] px-3 py-2 text-xs font-semibold text-text-primary transition hover:bg-white/[0.08]"
-                    >
-                      {copied ? "Copied ✓" : "Copy magnet"}
-                    </button>
-                    <a
-                      href={activeSource?.url ?? "#"}
-                      className="flex-1 rounded-[0.8rem] border border-white/10 bg-white/[0.05] px-3 py-2 text-center text-xs font-semibold text-text-primary transition hover:bg-white/[0.08]"
-                    >
-                      Open in client
-                    </a>
-                  </div>
-                  <p className="mt-2 text-[0.65rem] text-text-muted">
-                    Opens in your torrent client (qBittorrent, Transmission…).
+
+                  <button
+                    type="button"
+                    onClick={openInClient}
+                    className="flex w-full items-center justify-center gap-2 rounded-[0.9rem] border border-accent/30 bg-accent/15 px-4 py-2.5 text-sm font-bold text-text-primary transition hover:bg-accent/25"
+                  >
+                    ↧ Open in qBittorrent
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={copyMagnet}
+                    className="mt-2 w-full rounded-[0.8rem] border border-white/10 bg-white/[0.04] px-3 py-2 text-xs font-semibold text-text-secondary transition hover:bg-white/[0.08] hover:text-text-primary"
+                  >
+                    {copied ? "Magnet copied ✓" : "Copy magnet link"}
+                  </button>
+
+                  <p className="mt-2.5 text-[0.65rem] leading-relaxed text-text-muted">
+                    Your browser hands the magnet to your default torrent app. New to this?{" "}
+                    <Link href="/guide" className="text-accent-hover hover:underline">
+                      2-minute setup guide →
+                    </Link>
                   </p>
                 </div>
 
