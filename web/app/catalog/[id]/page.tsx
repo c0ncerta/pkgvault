@@ -60,6 +60,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
         gameRegion: string | null;
         gameTitle: string | null;
         gameTitleId: string | null;
+        gameCoverUrl: string | null;
       }
     | undefined;
 
@@ -81,6 +82,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
         gameRegion: games.region,
         gameTitle: games.title,
         gameTitleId: games.titleId,
+        gameCoverUrl: games.coverUrl,
       })
       .from(pkgFiles)
       .leftJoin(users, eq(pkgFiles.uploaderId, users.id))
@@ -201,6 +203,7 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
                 width: 160,
                 height: 200,
                 borderRadius: "var(--radius-md)",
+                overflow: "hidden",
                 background: `linear-gradient(135deg, hsl(${hue}, 70%, 55%), hsl(${(hue + 50) % 360}, 65%, 30%))`,
                 boxShadow: "0 16px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1) inset",
                 display: "flex",
@@ -213,7 +216,15 @@ export default async function PkgDetailPage({ params }: DetailPageProps) {
                 textShadow: "0 4px 14px rgba(0,0,0,0.35)",
               }}
             >
-              {(pkg.gameTitle ?? pkg.title).slice(0, 2).toUpperCase()}
+              {pkg.gameCoverUrl ? (
+                <img
+                  src={pkg.gameCoverUrl}
+                  alt={pkg.gameTitle ?? pkg.title}
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              ) : (
+                (pkg.gameTitle ?? pkg.title).slice(0, 2).toUpperCase()
+              )}
             </div>
             <div>
               <div

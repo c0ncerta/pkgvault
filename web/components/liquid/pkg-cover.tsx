@@ -8,6 +8,7 @@ interface PkgCoverProps {
   platform: string;
   color1: string;
   color2: string;
+  coverUrl?: string | null;
   size?: "sm" | "md" | "lg";
   onClick?: () => void;
 }
@@ -18,7 +19,15 @@ const sizes = {
   lg: { width: "100%", fontSize: "var(--fs-xl)", platSize: 10 },
 } as const;
 
-export function PkgCover({ name, platform, color1, color2, size = "md", onClick }: PkgCoverProps) {
+export function PkgCover({
+  name,
+  platform,
+  color1,
+  color2,
+  coverUrl,
+  size = "md",
+  onClick,
+}: PkgCoverProps) {
   const s = sizes[size];
 
   return (
@@ -38,24 +47,52 @@ export function PkgCover({ name, platform, color1, color2, size = "md", onClick 
         cursor: onClick ? "pointer" : "default",
       }}
     >
-      {/* Highlight */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.35), transparent 60%)",
-        }}
-      />
-      {/* Scan lines */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage:
-            "repeating-linear-gradient(45deg, transparent 0 12px, rgba(255,255,255,0.05) 12px 13px)",
-        }}
-      />
+      {coverUrl ? (
+        <>
+          {/* Real cover art (gradient shows through if it fails to load) */}
+          <img
+            src={coverUrl}
+            alt={name}
+            loading="lazy"
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          />
+          {/* Bottom scrim so the title stays legible */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(180deg, transparent 45%, rgba(0,0,0,0.75) 100%)",
+            }}
+          />
+        </>
+      ) : (
+        <>
+          {/* Highlight */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.35), transparent 60%)",
+            }}
+          />
+          {/* Scan lines */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              backgroundImage:
+                "repeating-linear-gradient(45deg, transparent 0 12px, rgba(255,255,255,0.05) 12px 13px)",
+            }}
+          />
+        </>
+      )}
       {/* Platform badge */}
       <div
         style={{

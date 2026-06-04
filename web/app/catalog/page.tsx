@@ -48,6 +48,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
     gameTitle: string | null;
     gamePlatform: string | null;
     gameRegion: string | null;
+    gameCoverUrl: string | null;
   }> = [];
   let total = 0;
   let statsData = { totalPkgs: 0, platforms: 0, totalSize: "0", verified: 0, pending: 0 };
@@ -89,6 +90,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
           gameTitle: games.title,
           gamePlatform: games.platform,
           gameRegion: games.region,
+          gameCoverUrl: games.coverUrl,
         })
         .from(pkgFiles)
         .leftJoin(games, eq(pkgFiles.gameId, games.id))
@@ -302,19 +304,36 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                           justifyContent: "center",
                         }}
                       >
-                        <span
-                          style={{
-                            position: "relative",
-                            zIndex: 1,
-                            fontSize: "var(--fs-5xl)",
-                            fontWeight: 900,
-                            color: "rgba(255,255,255,0.85)",
-                            letterSpacing: "-0.04em",
-                            textShadow: "0 2px 14px rgba(0,0,0,0.25)",
-                          }}
-                        >
-                          {(item.gameTitle ?? item.title).slice(0, 2).toUpperCase()}
-                        </span>
+                        {item.gameCoverUrl && (
+                          <img
+                            src={item.gameCoverUrl}
+                            alt=""
+                            loading="lazy"
+                            style={{
+                              position: "absolute",
+                              inset: 0,
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                              zIndex: 0,
+                            }}
+                          />
+                        )}
+                        {!item.gameCoverUrl && (
+                          <span
+                            style={{
+                              position: "relative",
+                              zIndex: 1,
+                              fontSize: "var(--fs-5xl)",
+                              fontWeight: 900,
+                              color: "rgba(255,255,255,0.85)",
+                              letterSpacing: "-0.04em",
+                              textShadow: "0 2px 14px rgba(0,0,0,0.25)",
+                            }}
+                          >
+                            {(item.gameTitle ?? item.title).slice(0, 2).toUpperCase()}
+                          </span>
+                        )}
                         {item.downloadCount > 50 && (
                           <span
                             style={{

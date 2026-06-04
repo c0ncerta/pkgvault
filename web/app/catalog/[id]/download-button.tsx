@@ -89,8 +89,9 @@ function ProviderButton({
 
 export function DownloadButton({ pkgId, size, sources }: DownloadButtonProps) {
   const [open, setOpen] = useState(false);
-  const [view, setView] = useState<"list" | "webtor">("list");
-  const [activeMagnet, setActiveMagnet] = useState<string | null>(null);
+  const [view, setView] = useState<"list" | "magnet">("list");
+  const [activeSource, setActiveSource] = useState<Source | null>(null);
+  const [showWebtor, setShowWebtor] = useState(false);
   const [copied, setCopied] = useState(false);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -119,7 +120,8 @@ export function DownloadButton({ pkgId, size, sources }: DownloadButtonProps) {
   const close = useCallback(() => {
     setOpen(false);
     setView("list");
-    setActiveMagnet(null);
+    setActiveSource(null);
+    setShowWebtor(false);
     setCopied(false);
   }, []);
 
@@ -131,8 +133,9 @@ export function DownloadButton({ pkgId, size, sources }: DownloadButtonProps) {
   const handleSource = useCallback(
     (source: Source) => {
       if (source.provider === "torrent") {
-        setActiveMagnet(source.url);
-        setView("webtor");
+        setActiveSource(source);
+        setView("magnet");
+        setShowWebtor(false);
         bumpCounter();
         return;
       }
@@ -144,15 +147,16 @@ export function DownloadButton({ pkgId, size, sources }: DownloadButtonProps) {
   );
 
   const copyMagnet = useCallback(() => {
-    if (!activeMagnet) return;
-    navigator.clipboard?.writeText(activeMagnet).then(
+    const url = activeSource?.url;
+    if (!url) return;
+    navigator.clipboard?.writeText(url).then(
       () => {
         setCopied(true);
         setTimeout(() => setCopied(false), 1500);
       },
       () => {},
     );
-  }, [activeMagnet]);
+  }, [activeSource]);
 
   const modal =
     open &&
@@ -186,16 +190,16 @@ export function DownloadButton({ pkgId, size, sources }: DownloadButtonProps) {
               <div className="min-w-0">
                 <div className="mb-1 flex items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-text-muted">
                   <IconDownload size={13} />
-                  {view === "webtor" ? "Torrent" : "Download"}
+                  {view === "magnet" ? "Torrent" : "Download"}
                 </div>
                 <h2
                   id="download-modal-title"
                   className="truncate text-base font-bold tracking-[-0.02em] text-text-primary"
                 >
-                  {view === "webtor" ? "Streaming in your browser" : "Choose source"}
+                  {view === "magnet" ? "Magnet link" : "Choose source"}
                 </h2>
                 <p className="mt-1 text-xs text-text-muted">
-                  {view === "webtor" ? "Served by webtor — nothing is hosted here" : `${size}`}
+                  {view === "magnet" ? "Opens in your torrent client" : `${size}`}
                 </p>
               </div>
               <button
@@ -236,11 +240,16 @@ export function DownloadButton({ pkgId, size, sources }: DownloadButtonProps) {
               </div>
             ) : (
               <div className="flex flex-col gap-3 px-5 py-4">
-                {activeMagnet && <WebtorEmbed magnet={activeMagnet} />}
-
-                <div className="rounded-[0.9rem] border border-white/10 bg-white/[0.03] p-3">
-                  <div className="mb-2 text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-text-muted">
-                    Prefer your own client?
+                <div className="rounded-[0.9rem] border border-white/10 bg-white/[0.03] p-3.5">
+                  <div className="mb-2 flex items-center justify-between">
+                    <div className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-text-muted">
+                      Magnet
+                    </div>
+                    {typeof activeSource?.seederCount === "number" && (
+                      <span className="font-mono text-[0.6rem] font-bold text-success-bright">
+                        {activeSource.seederCount} seeders
+                      </span>
+                    )}
                   </div>
                   <div className="flex gap-2">
                     <button
@@ -251,13 +260,27 @@ export function DownloadButton({ pkgId, size, sources }: DownloadButtonProps) {
                       {copied ? "Copied ✓" : "Copy magnet"}
                     </button>
                     <a
-                      href={activeMagnet ?? "#"}
+                      href={activeSource?.url ?? "#"}
                       className="flex-1 rounded-[0.8rem] border border-white/10 bg-white/[0.05] px-3 py-2 text-center text-xs font-semibold text-text-primary transition hover:bg-white/[0.08]"
                     >
                       Open in client
                     </a>
                   </div>
+                  <p className="mt-2 text-[0.65rem] text-text-muted">
+                    Opens in your torrent client (qBittorrent, Transmission…).
+                  </p>
                 </div>
+
+                <button
+                  type="button"
+                  onClick={() => setShowWebtor((v) => !v)}
+                  className="text-center text-[0.7rem] text-text-faint transition hover:text-text-muted"
+                >
+                  {showWebtor
+                    ? "Hide in-browser player"
+                    : "Try in browser (experimental — may be blocked)"}
+                </button>
+                {showWebtor && activeSource && <WebtorEmbed magnet={activeSource.url} />}
 
                 <button
                   type="button"

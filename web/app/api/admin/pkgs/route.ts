@@ -25,6 +25,7 @@ const createPkgSchema = z.object({
     titleId: z.string().max(20).nullable().optional(),
     platform: z.string().max(20),
     region: z.string().max(10).optional(),
+    coverUrl: z.union([z.string().url().max(2000), z.literal(""), z.null()]).optional(),
   }),
   sources: z
     .array(
@@ -122,6 +123,7 @@ export async function POST(request: NextRequest) {
               titleId: game.titleId ?? null,
               platform: game.platform,
               region: game.region ?? null,
+              coverUrl: game.coverUrl || null,
             })
             .returning({ id: games.id });
           if (!newGame) throw new Error("Failed to create game");
@@ -134,6 +136,7 @@ export async function POST(request: NextRequest) {
             title: game.title,
             platform: game.platform,
             region: game.region ?? null,
+            coverUrl: game.coverUrl || null,
           })
           .returning({ id: games.id });
         if (!newGame) throw new Error("Failed to create game");

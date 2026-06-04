@@ -14,6 +14,7 @@ interface TorrentResult {
   magnet: string;
   downloadUrl: string;
   indexer?: string;
+  infoUrl: string;
 }
 
 interface Selected {
@@ -21,6 +22,7 @@ interface Selected {
   title: string;
   platform: string;
   region: string;
+  coverUrl: string;
 }
 
 const PLATFORMS = ["PS4", "PS5", "PS3", "PSP", "Vita"];
@@ -58,6 +60,7 @@ export function Finder() {
   const [error, setError] = useState<string | null>(null);
   const [selected, setSelected] = useState<Selected | null>(null);
   const [creating, setCreating] = useState(false);
+  const [coverLoading, setCoverLoading] = useState(false);
   const [created, setCreated] = useState<{ id: string; title: string } | null>(null);
 
   const inputStyle: React.CSSProperties = {
@@ -92,6 +95,25 @@ export function Finder() {
     }
   };
 
+  const enrichCover = async (infoUrl: string) => {
+    setCoverLoading(true);
+    try {
+      const res = await fetch("/api/admin/torrent-search/enrich", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ infoUrl }),
+      });
+      const d = await res.json();
+      if (res.ok && d.coverUrl) {
+        setSelected((s) => (s ? { ...s, coverUrl: d.coverUrl } : s));
+      }
+    } catch {
+      // cover is optional — ignore failures
+    } finally {
+      setCoverLoading(false);
+    }
+  };
+
   const pick = (r: TorrentResult) => {
     setCreated(null);
     setError(null);
@@ -100,7 +122,9 @@ export function Finder() {
       title: cleanTitle(r.name),
       platform: detectPlatform(r.name),
       region: "US",
+      coverUrl: "",
     });
+    if (r.infoUrl) void enrichCover(r.infoUrl);
   };
 
   const create = async () => {
@@ -131,10 +155,12 @@ export function Finder() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title: selected.title.trim(),
+          sizeBytes: selected.source.sizeBytes || undefined,
           game: {
             title: selected.title.trim(),
             platform: selected.platform,
             region: selected.region.trim() || undefined,
+            coverUrl: selected.coverUrl || undefined,
           },
           sources: [{ provider: "torrent", url: magnet, isPrimary: true }],
         }),
@@ -260,49 +286,94 @@ export function Finder() {
             New catalog entry from:{" "}
             <span style={{ fontFamily: "var(--font-mono)" }}>{selected.source.name}</span>
           </div>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 140px 120px auto",
-              gap: "var(--space-10)",
-              alignItems: "center",
-            }}
-          >
-            <input
-              value={selected.title}
-              onChange={(e) => setSelected({ ...selected, title: e.target.value })}
-              placeholder="Game title"
-              style={inputStyle}
-            />
-            <select
-              value={selected.platform}
-              onChange={(e) => setSelected({ ...selected, platform: e.target.value })}
-              style={{ ...inputStyle, cursor: "pointer" }}
+          <div style={{ display: "flex", gap: "var(--space-12)", alignItems: "flex-start" }}>
+            {/* Cover preview (auto-pulled from the topic page) */}
+            <div
+              style={{
+                width: 64,
+                height: 86,
+                flexShrink: 0,
+                borderRadius: "var(--radius-xs)",
+                overflow: "hidden",
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "var(--fs-2xs)",
+                color: "var(--color-text-faint)",
+                textAlign: "center",
+              }}
             >
-              {PLATFORMS.map((p) => (
-                <option key={p} value={p}>
-                  {p}
-                </option>
-              ))}
-            </select>
-            <input
-              value={selected.region}
-              onChange={(e) => setSelected({ ...selected, region: e.target.value })}
-              placeholder="Region"
-              style={inputStyle}
-            />
-            <div style={{ display: "flex", gap: "var(--space-8)" }}>
-              <LiquidButton variant="ghost" size="sm" onClick={() => setSelected(null)}>
-                Cancel
-              </LiquidButton>
-              <LiquidButton
-                variant="primary"
-                size="sm"
-                onClick={create}
-                disabled={creating || !selected.title.trim()}
+              {selected.coverUrl ? (
+                <img
+                  src={selected.coverUrl}
+                  alt="cover"
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              ) : coverLoading ? (
+                "loading…"
+              ) : (
+                "no cover"
+              )}
+            </div>
+
+            {/* Fields */}
+            <div
+              style={{ flex: 1, display: "flex", flexDirection: "column", gap: "var(--space-10)" }}
+            >
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 130px 110px",
+                  gap: "var(--space-10)",
+                }}
               >
-                {creating ? "Creating…" : "Create PKG"}
-              </LiquidButton>
+                <input
+                  value={selected.title}
+                  onChange={(e) => setSelected({ ...selected, title: e.target.value })}
+                  placeholder="Game title"
+                  style={inputStyle}
+                />
+                <select
+                  value={selected.platform}
+                  onChange={(e) => setSelected({ ...selected, platform: e.target.value })}
+                  style={{ ...inputStyle, cursor: "pointer" }}
+                >
+                  {PLATFORMS.map((p) => (
+                    <option key={p} value={p}>
+                      {p}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  value={selected.region}
+                  onChange={(e) => setSelected({ ...selected, region: e.target.value })}
+                  placeholder="Region"
+                  style={inputStyle}
+                />
+              </div>
+              <input
+                value={selected.coverUrl}
+                onChange={(e) => setSelected({ ...selected, coverUrl: e.target.value })}
+                placeholder={
+                  coverLoading ? "Fetching cover from topic…" : "Cover image URL (optional)"
+                }
+                style={{ ...inputStyle, fontSize: "var(--fs-xs)" }}
+              />
+              <div style={{ display: "flex", gap: "var(--space-8)", justifyContent: "flex-end" }}>
+                <LiquidButton variant="ghost" size="sm" onClick={() => setSelected(null)}>
+                  Cancel
+                </LiquidButton>
+                <LiquidButton
+                  variant="primary"
+                  size="sm"
+                  onClick={create}
+                  disabled={creating || !selected.title.trim()}
+                >
+                  {creating ? "Creating…" : "Create PKG"}
+                </LiquidButton>
+              </div>
             </div>
           </div>
         </GlassCard>

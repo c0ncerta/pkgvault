@@ -22,6 +22,8 @@ interface ProwlarrRelease {
   size?: number;
   protocol?: string;
   indexer?: string;
+  infoUrl?: string;
+  guid?: string;
 }
 
 export async function GET(request: NextRequest) {
@@ -90,6 +92,7 @@ export async function GET(request: NextRequest) {
         magnet, // may be empty (e.g. RuTracker) → resolved from downloadUrl on Add
         downloadUrl: rewriteDownload(r.downloadUrl),
         indexer: r.indexer ?? "",
+        infoUrl: r.infoUrl ?? r.guid ?? "",
       };
     })
     .filter((r) => r.magnet || r.downloadUrl)
